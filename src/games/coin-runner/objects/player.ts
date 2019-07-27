@@ -5,10 +5,10 @@
  * @license      Digitsensitive
  */
 
-export class Player extends Phaser.GameObjects.Image {
+export class Player extends Phaser.GameObjects.Sprite {
   // private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   target: Phaser.Math.Vector2;
-  
+  speed = 1000;
 
   constructor(params) {
     super(params.scene, params.x, params.y, params.key);
@@ -22,8 +22,8 @@ export class Player extends Phaser.GameObjects.Image {
 
   private initVariables(): void {
     this.target = new Phaser.Math.Vector2();
-    this.body.maxVelocity.x = 300;
-    this.body.maxVelocity.y = 300;
+    this.body.maxVelocity.x = this.speed;
+    this.body.maxVelocity.y = this.speed;
   }
 
   private initImage(): void {
@@ -46,7 +46,7 @@ export class Player extends Phaser.GameObjects.Image {
 
       if (this.body.speed > 0)
       {
-        if (distance < 4)
+        if (distance < 32)
         {
           this.body.reset(this.target.x, this.target.y);
         }
@@ -58,20 +58,6 @@ export class Player extends Phaser.GameObjects.Image {
     this.target.y = pointer.y;
     
     // Move at 200 px/s:
-    this.scene.physics.moveToObject(this, this.target, 300);
+    this.scene.physics.moveToObject(this, this.target, this.speed);
   }
-
-  // private handleInput(): void {
-  //   if (this.cursors.right.isDown) {
-  //     this.x += this.walkingSpeed;
-  //     this.setFlipX(false);
-  //   } else if (this.cursors.left.isDown) {
-  //     this.x -= this.walkingSpeed;
-  //     this.setFlipX(true);
-  //   } else if (this.cursors.up.isDown) {
-  //     this.y -= this.walkingSpeed;
-  //   } else if (this.cursors.down.isDown) {
-  //     this.y += this.walkingSpeed;
-  //   }
-  // }
 }

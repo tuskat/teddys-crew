@@ -26,7 +26,7 @@ export class GameScene extends Phaser.Scene {
       "background",
       "./src/games/coin-runner/assets/background.png"
     );
-    this.load.image("player", "./src/games/coin-runner/assets/player.png");
+    this.load.image("player", "./src/games/coin-runner/assets/bear.png");
     this.load.image("coin", "./src/games/coin-runner/assets/coin.png");
   }
 
