@@ -14,11 +14,20 @@ const config: Phaser.Types.Core.GameConfig = {
   version: "1.1.1",
   width: 768,
   height: 576,
-  type: Phaser.AUTO,
+  // width: window.innerWidth * window.devicePixelRatio,
+  // height:  window.innerHeight * window.devicePixelRatio,
+  type: Phaser.CANVAS,
   parent: "game",
   scene: [GameScene],
   input: {
     keyboard: true
+  },
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { y: 0 },
+      debug: false
+    }
   },
   backgroundColor: "#3A99D9",
   render: { pixelArt: false, antialias: false }
