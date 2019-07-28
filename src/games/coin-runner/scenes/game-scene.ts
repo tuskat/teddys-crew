@@ -1,19 +1,16 @@
-/**
- * @author       Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright    2018 - 2019 digitsensitive
- * @description  Coin Runner: Game Scene
- * @license      Digitsensitive
- */
-
-import { Coin } from "../objects/coin";
+// import { Coin } from "../objects/coin";
+import { CurrentState } from '../helpers/currentstates' 
+import { MeleeEnemy } from "../objects/melee-enemy";
 import { Player } from "../objects/player";
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
-  private coin: Coin;
-  private coinsCollectedText: Phaser.GameObjects.Text;
+  // private coin: Coin;
+  private scoreText: Phaser.GameObjects.Text;
+  private monster: MeleeEnemy;
   private collectedCoins: number;
   private player: Player;
+  private playerLifeBar: Phaser.GameObjects.Graphics;
 
   constructor() {
     super({
@@ -27,7 +24,8 @@ export class GameScene extends Phaser.Scene {
       "./src/games/coin-runner/assets/background.png"
     );
     this.load.image("player", "./src/games/coin-runner/assets/bear.png");
-    this.load.image("coin", "./src/games/coin-runner/assets/coin.png");
+    this.load.image("monster", "./src/games/coin-runner/assets/monster.png");
+    // this.load.image("coin", "./src/games/coin-runner/assets/coin.png");
   }
 
   init(): void {
@@ -40,21 +38,22 @@ export class GameScene extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     // create objects
-    this.coin = new Coin({
-      scene: this,
-      x: Phaser.Math.RND.integerInRange(100, 700),
-      y: Phaser.Math.RND.integerInRange(100, 500),
-      key: "coin"
-    });
+
     this.player = new Player({
       scene: this,
       x: this.sys.canvas.width / 2,
       y: this.sys.canvas.height / 2,
       key: "player"
     });
-
+    this.monster = new MeleeEnemy({
+      scene: this,
+      x: Phaser.Math.RND.integerInRange(100, 700),
+      y: Phaser.Math.RND.integerInRange(100, 500),
+      key: "monster",
+      player: this.player
+    });
     // create texts
-    this.coinsCollectedText = this.add.text(
+    this.scoreText = this.add.text(
       this.sys.canvas.width / 2,
       this.sys.canvas.height - 50,
       this.collectedCoins + "",
@@ -66,27 +65,43 @@ export class GameScene extends Phaser.Scene {
         fill: "#000000"
       }
     );
+
+    this.playerLifeBar = this.add.graphics();
   }
 
   update(): void {
     // update objects
     this.player.update();
-    this.coin.update();
-
+    // this.coin.update();
+    this.monster.update();
     // do the collision check
-    if (
-      Phaser.Geom.Intersects.RectangleToRectangle(
-        this.player.getBounds(),
-        this.coin.getBounds()
-      )
-    ) {
-      this.updateCoinStatus();
+    this.playerLifeBar.clear();
+    this.playerLifeBar.fillStyle(0xffffff, 1);
+    this.playerLifeBar.fillRect(10, 10, 20 * this.player.life, 30);
+
+    if (this.objectsTouch(this.player, this.monster)) {
+      this.updatePlayerLife();
     }
   }
 
-  private updateCoinStatus(): void {
-    this.collectedCoins++;
-    this.coinsCollectedText.setText(this.collectedCoins + "");
-    this.coin.changePosition();
+  private objectsTouch(objectA, objectB): boolean {
+    return Phaser.Geom.Intersects.RectangleToRectangle(
+      objectA.getBounds(),
+      objectB.getBounds()
+    )
+  }
+
+  // private updateCoinStatus(): void {
+  //   this.collectedCoins++;
+  //   this.coinsCollectedText.setText(this.collectedCoins + "");
+  //   this.coin.changePosition();
+  // }
+
+  private updatePlayerLife(): void {
+    if (this.player.state !== CurrentState.Dashing) {
+      this.player.getHurt();
+    } else {
+      this.monster.getHurt();
+    }
   }
 }
