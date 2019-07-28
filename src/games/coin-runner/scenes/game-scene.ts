@@ -8,7 +8,7 @@ export class GameScene extends Phaser.Scene {
   // private coin: Coin;
   private scoreText: Phaser.GameObjects.Text;
   private monster: MeleeEnemy;
-  private collectedCoins: number;
+  private kills: number;
   private player: Player;
   private playerLifeBar: Phaser.GameObjects.Graphics;
 
@@ -29,7 +29,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   init(): void {
-    this.collectedCoins = 0;
+    this.kills = 0;
   }
 
   create(): void {
@@ -56,7 +56,7 @@ export class GameScene extends Phaser.Scene {
     this.scoreText = this.add.text(
       this.sys.canvas.width / 2,
       this.sys.canvas.height - 50,
-      this.collectedCoins + "",
+      this.kills + "",
       {
         fontFamily: "Connection",
         fontSize: 38,
@@ -80,7 +80,7 @@ export class GameScene extends Phaser.Scene {
     this.playerLifeBar.fillRect(10, 10, 20 * this.player.life, 30);
 
     if (this.objectsTouch(this.player, this.monster)) {
-      this.updatePlayerLife();
+      this.objectClashing();
     }
   }
 
@@ -91,17 +91,22 @@ export class GameScene extends Phaser.Scene {
     )
   }
 
-  // private updateCoinStatus(): void {
-  //   this.collectedCoins++;
-  //   this.coinsCollectedText.setText(this.collectedCoins + "");
-  //   this.coin.changePosition();
-  // }
+  private updateScore(): void {
+    this.kills++;
+    this.scoreText.setText(this.kills + "");
+    // this.coin.changePosition();
+  }
 
-  private updatePlayerLife(): void {
-    if (this.player.state !== CurrentState.Dashing) {
+  private objectClashing(): void {
+    if ((this.monster.state === CurrentState.Dashing) &&
+      (this.player.state === CurrentState.Moving)) {
       this.player.getHurt();
-    } else {
-      this.monster.getHurt();
+    } 
+    if  (this.player.state === CurrentState.Dashing) {
+      var died = this.monster.getHurt();
+      if (died) {
+        this.updateScore();
+      }
     }
   }
 }

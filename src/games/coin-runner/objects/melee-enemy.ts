@@ -33,20 +33,24 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
     if (this.state === CurrentState.Dead) {
       return;
     }
-    this.updatePosition();
-    if (this.life <= 0 ) {
+    else if (this.life <= 0 ) {
       this.die();
     }
+    this.updatePosition();
   }
 
   
   private die(): void {
     this.alpha = 0;
+    this.state = CurrentState.Dead;
     this.scene.time.delayedCall(1000, function () {
       this.x = this.scene.sys.canvas.width / 2;
       this.y = this.scene.sys.canvas.height / 2;
       this.alpha = 1;
-      this.life = 10;
+      this.scene.time.delayedCall(100, function () {
+        this.life = 1;
+        this.state = CurrentState.Moving;
+      }, [], this);
     }, [], this);
   }
 
@@ -88,8 +92,9 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
     return false;
   }
 
-  public getHurt(): void {
+  public getHurt(): boolean {
     this.life--;
+    return (this.life === 0);
     // this.state = CurrentState.Hurting;
     // this.setTint(0xFF6347);
     // this.scene.time.delayedCall(1000, this.endHurting, [], this);

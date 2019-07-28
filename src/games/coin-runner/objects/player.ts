@@ -110,12 +110,10 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   public getHurt(): void {
-    if (this.state === CurrentState.Moving) {
-      this.life--;
-      this.state = CurrentState.Hurting;
-      this.setTint(0xFF6347);
-      this.scene.time.delayedCall(1000, this.endHurting, [], this);
-    }
+    this.life--;
+    this.state = CurrentState.Hurting;
+    this.setTint(0xFF6347);
+    this.scene.time.delayedCall(1000, this.endHurting, [], this);
   }
 
   private endHurting(): void {
