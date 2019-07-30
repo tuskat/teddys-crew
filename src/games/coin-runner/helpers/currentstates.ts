@@ -3,5 +3,6 @@ export enum CurrentState {
     Dashing,
     Blocking,
     Hurting,
+    WindingUp,
     Dead
 }

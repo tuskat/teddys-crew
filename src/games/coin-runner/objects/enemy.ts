@@ -6,7 +6,7 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
   life = 1;
   state = CurrentState.Moving;
   speed = 100;
-  distanceToStop = 32;
+  distanceToStop = 100;
   player : Player;
   target: Phaser.Math.Vector2;
 
@@ -28,15 +28,19 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
   }
 
+  private blockingState(): boolean {
+    return (this.state === CurrentState.Dead ||
+            this.state === CurrentState.Dashing || 
+            this.state === CurrentState.WindingUp);
+  }
 
   update(): void {
-    if (this.state === CurrentState.Dead) {
+    if (this.blockingState()) {
       return;
     }
-    else if (this.life <= 0 ) {
-      this.die();
+    else {
+      this.updatePosition();
     }
-    this.updatePosition();
   }
 
   
@@ -47,8 +51,8 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
       this.x = this.scene.sys.canvas.width / 2;
       this.y = this.scene.sys.canvas.height / 2;
       this.alpha = 1;
+      this.life = 1;
       this.scene.time.delayedCall(100, function () {
-        this.life = 1;
         this.state = CurrentState.Moving;
       }, [], this);
     }, [], this);
@@ -63,19 +67,25 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
         this.scene.physics.moveToObject(this, this.target, this.speed);
       } else {
         // this.body.reset(this.x, this.y);
-        this.attackPlayer();
+        this.attack();
       }
     }
   }
 
-  private attackPlayer(): void {
-    if (this.state !== CurrentState.Dashing) {
-      this.state = CurrentState.Dashing;
-      this.scene.physics.moveToObject(this, this.target, (this.speed * 3));
-      this.scene.time.delayedCall(200, this.endDash, [], this);
-    }
+  private attack(): void {
+    this.body.reset(this.x, this.y);
+    this.state = CurrentState.WindingUp;
+    this.scene.time.delayedCall(500, this.dash, [], this);  
   }
 
+  private dash(): void {
+    if (this.state === CurrentState.Dead) {
+      return;
+    }
+    this.state = CurrentState.Dashing;
+    this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
+    this.scene.time.delayedCall(400, this.endDash, [], this);
+  }
   private endDash(): void {
     this.body.reset(this.x, this.y);
     this.state = CurrentState.Moving;
@@ -94,6 +104,12 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
 
   public getHurt(): boolean {
     this.life--;
+    if (this.life === 0 ) {
+      this.die();
+    }
+    if (this.life < 0) {
+      this.life = 0;
+    }
     return (this.life === 0);
     // this.state = CurrentState.Hurting;
     // this.setTint(0xFF6347);

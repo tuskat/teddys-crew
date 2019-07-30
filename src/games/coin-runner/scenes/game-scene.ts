@@ -1,7 +1,8 @@
 // import { Coin } from "../objects/coin";
 import { CurrentState } from '../helpers/currentstates' 
-import { MeleeEnemy } from "../objects/melee-enemy";
+import { MeleeEnemy } from "../objects/enemy";
 import { Player } from "../objects/player";
+import { Controller } from '../helpers/controller';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
@@ -30,6 +31,7 @@ export class GameScene extends Phaser.Scene {
 
   init(): void {
     this.kills = 0;
+    
   }
 
   create(): void {
@@ -38,9 +40,10 @@ export class GameScene extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     // create objects
-
+    var player1input = new Controller(this.scene);
     this.player = new Player({
       scene: this,
+      controller: player1input,
       x: this.sys.canvas.width / 2,
       y: this.sys.canvas.height / 2,
       key: "player"
@@ -103,9 +106,11 @@ export class GameScene extends Phaser.Scene {
       this.player.getHurt();
     } 
     if  (this.player.state === CurrentState.Dashing) {
-      var died = this.monster.getHurt();
-      if (died) {
-        this.updateScore();
+      if (this.monster.state !== CurrentState.Dead) {
+        var died = this.monster.getHurt();
+        if (died) {
+          this.updateScore();
+        }
       }
     }
   }

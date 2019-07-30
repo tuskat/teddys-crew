@@ -3,6 +3,7 @@ import { CurrentState } from '../helpers/currentstates'
 export class Player extends Phaser.GameObjects.Sprite {
   // private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   target: Phaser.Math.Vector2;
+  inputEvent: Phaser.Events.EventEmitter;
   speed = 300;
   maxSpeedY = 750;
   maxSpeedX = 1500;
@@ -16,7 +17,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
     this.initVariables();
     this.initImage();
-    this.initInput();
+    this.initInput(params.controller.getEmitter());
     this.scene.add.existing(this);
   }
 
@@ -30,10 +31,12 @@ export class Player extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
   }
 
-  private initInput(): void {
+  private initInput(emitter): void {
     // this.cursors = this.scene.input.keyboard.createCursorKeys();
-    this.scene.input.on('pointerup', this.dashToClick, this);
-    this.scene.input.on('pointermove', this.handlePointer, this);
+    this.inputEvent = emitter;
+    this.inputEvent.on('dbuttonpressed', this.dashToClick, this);
+    this.inputEvent.on('bbuttonpressed', this.blockClick, this);
+    this.inputEvent.on('cursormoved', this.handlePointer, this);
   }
 
   update(): void {
@@ -104,6 +107,9 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
+  private blockClick(pointer): void {
+
+  }
   private endDash(): void {
     this.body.reset(this.x, this.y);
     this.state = CurrentState.Moving;

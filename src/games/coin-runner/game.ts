@@ -14,6 +14,7 @@ const config: Phaser.Types.Core.GameConfig = {
   version: "1.1.1",
   width: 768,
   height: 576,
+  disableContextMenu: true,
   // width: window.innerWidth * window.devicePixelRatio,
   // height:  window.innerHeight * window.devicePixelRatio,
   type: Phaser.CANVAS,

@@ -52,7 +52,6 @@ Enemies  are at the beginning divided in 4 types :
 
 ##MVP
 
-- Enemies wind up before attacking
 - Sound/Music are present
 - Basic sprite implementation
 - Start Screen, Hub Screen and Fight Screen
