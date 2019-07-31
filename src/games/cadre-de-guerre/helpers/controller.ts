@@ -1,4 +1,4 @@
-import { BaseController } from './basecontroller';
+import { BaseController } from './baseController';
 
 export class Controller extends BaseController {
     scene: Phaser.Scene;

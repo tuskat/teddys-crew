@@ -1,17 +1,9 @@
-/**
- * @author       Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright    2018 - 2019 digitsensitive
- * @description  Coin Runner
- * @license      Digitsensitive
- */
-
 import "phaser";
-import { GameScene } from "./scenes/game-scene";
+import { GameScene } from "./scenes/gameScene";
 
 const config: Phaser.Types.Core.GameConfig = {
-  title: "Coin Runner",
-  url: "https://github.com/digitsensitive/phaser3-typescript",
-  version: "1.1.1",
+  title: "Cadre de Guerre",
+  version: "0.1",
   width: 768,
   height: 576,
   disableContextMenu: true,

@@ -1,4 +1,4 @@
-import { CurrentState } from '../helpers/currentstates' 
+import { CurrentState } from '../../helpers/currentStates';
 
 export class Player extends Phaser.GameObjects.Sprite {
   // private cursors: Phaser.Types.Input.Keyboard.CursorKeys;

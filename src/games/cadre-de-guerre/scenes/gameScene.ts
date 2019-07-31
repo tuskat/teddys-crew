@@ -1,8 +1,9 @@
 // import { Coin } from "../objects/coin";
-import { CurrentState } from '../helpers/currentstates' 
-import { MeleeEnemy } from "../objects/enemy";
-import { Player } from "../objects/player";
+import { CurrentState } from '../helpers/currentStates'
+import { MeleeEnemy } from "../objects/entities/enemy";
+import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
+import { AssetsLoader } from '../helpers/assetsLoader';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
@@ -12,26 +13,21 @@ export class GameScene extends Phaser.Scene {
   private kills: number;
   private player: Player;
   private playerLifeBar: Phaser.GameObjects.Graphics;
+  private assetsLoader : AssetsLoader;
 
   constructor() {
     super({
       key: "GameScene"
     });
+    this.assetsLoader = new AssetsLoader({ scene: this });
   }
 
   preload(): void {
-    this.load.image(
-      "background",
-      "./src/games/coin-runner/assets/background.png"
-    );
-    this.load.image("player", "./src/games/coin-runner/assets/bear.png");
-    this.load.image("monster", "./src/games/coin-runner/assets/monster.png");
-    // this.load.image("coin", "./src/games/coin-runner/assets/coin.png");
+    this.assetsLoader.preloadAssets(['bear', 'monster', 'background']);
   }
 
   init(): void {
     this.kills = 0;
-    
   }
 
   create(): void {
@@ -46,7 +42,7 @@ export class GameScene extends Phaser.Scene {
       controller: player1input,
       x: this.sys.canvas.width / 2,
       y: this.sys.canvas.height / 2,
-      key: "player"
+      key: "bear"
     });
     this.monster = new MeleeEnemy({
       scene: this,
@@ -104,7 +100,7 @@ export class GameScene extends Phaser.Scene {
     if ((this.monster.state === CurrentState.Dashing) &&
       (this.player.state === CurrentState.Moving)) {
       this.player.getHurt();
-    } 
+    }
     if  (this.player.state === CurrentState.Dashing) {
       if (this.monster.state !== CurrentState.Dead) {
         var died = this.monster.getHurt();

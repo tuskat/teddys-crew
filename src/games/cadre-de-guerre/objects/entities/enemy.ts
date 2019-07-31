@@ -1,5 +1,5 @@
 import { Player } from "./player";
-import { CurrentState } from '../helpers/currentstates'
+import { CurrentState } from '../../helpers/currentStates'
 
 
 export class MeleeEnemy extends Phaser.GameObjects.Sprite {
@@ -30,7 +30,7 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
 
   private blockingState(): boolean {
     return (this.state === CurrentState.Dead ||
-            this.state === CurrentState.Dashing || 
+            this.state === CurrentState.Dashing ||
             this.state === CurrentState.WindingUp);
   }
 
@@ -43,7 +43,6 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
     }
   }
 
-  
   private die(): void {
     this.alpha = 0;
     this.state = CurrentState.Dead;
