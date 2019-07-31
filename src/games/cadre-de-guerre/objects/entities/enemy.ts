@@ -74,7 +74,7 @@ export class MeleeEnemy extends Phaser.GameObjects.Sprite {
   private attack(): void {
     this.body.reset(this.x, this.y);
     this.state = CurrentState.WindingUp;
-    this.scene.time.delayedCall(500, this.dash, [], this);  
+    this.scene.time.delayedCall(500, this.dash, [], this);
   }
 
   private dash(): void {
