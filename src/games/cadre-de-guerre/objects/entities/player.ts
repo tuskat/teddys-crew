@@ -52,14 +52,15 @@ export class Player extends Phaser.GameObjects.Sprite {
 
   private die(): void {
     this.alpha = 0;
-    this.scene.time.delayedCall(1000, function () {
-      this.x = this.scene.sys.canvas.width / 2;
-      this.y = this.scene.sys.canvas.height / 2;
-      this.alpha = 1;
-      this.life = 10;
-    }, [], this);
+    this.scene.time.delayedCall(1000, this.respawn, [], this);
   }
 
+  private respawn(): void {
+    this.x = this.scene.sys.canvas.width / 2;
+    this.y = this.scene.sys.canvas.height / 2;
+    this.alpha = 1;
+    this.life = 10;
+  }
   private updatePosition(): void {
     if (this.target) {
       var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);

@@ -38,6 +38,18 @@ export class MenuScene extends Phaser.Scene {
         70
       )
     );
+    this.make.text({
+      x: this.sys.canvas.width / 2,
+      y: this.sys.canvas.height - 50,
+      text: '',
+      style:  {
+        fontFamily: "Connection",
+        fontSize: 30,
+        stroke: "#fff",
+        strokeThickness: 6,
+        fill: "#000000"
+      }
+    });
   }
 
   update(): void {
