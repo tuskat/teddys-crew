@@ -9,10 +9,13 @@ export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   // private coin: Coin;
   private scoreText: Phaser.GameObjects.Text;
+  private lifeText: Phaser.GameObjects.Text;
+  private playerLifeBar: Phaser.GameObjects.Graphics;
+  private playerLifeBarBg: Phaser.GameObjects.Graphics;
   private monster: MeleeEnemy;
   private kills: number;
   private player: Player;
-  private playerLifeBar: Phaser.GameObjects.Graphics;
+
   private assetsLoader : AssetsLoader;
 
   constructor() {
@@ -52,6 +55,57 @@ export class GameScene extends Phaser.Scene {
       player: this.player
     });
     // create texts
+    this.initGUI();
+  }
+
+  update(): void {
+    // update objects
+    this.player.update();
+    // this.coin.update();
+    this.monster.update();
+    // do the collision check
+    if (this.objectsTouch(this.player, this.monster)) {
+      this.objectClashing();
+    }
+  }
+
+  private objectsTouch(objectA, objectB): boolean {
+    return Phaser.Geom.Intersects.RectangleToRectangle(
+      objectA.getBounds(),
+      objectB.getBounds()
+    )
+  }
+  private objectClashing(): void {
+    if ((this.monster.state === CurrentState.Dashing) &&
+      (this.player.state === CurrentState.Moving)) {
+      this.player.getHurt();
+      this.updateLifeBar();
+    }
+    if  (this.player.state === CurrentState.Dashing) {
+      if (this.monster.state !== CurrentState.Dead) {
+        var died = this.monster.getHurt();
+        if (died) {
+          this.updateScore();
+        }
+      }
+    }
+  }
+
+  // GUI to be moved in its own class
+  private updateScore(): void {
+    this.kills++;
+    this.scoreText.setText(this.kills + "");
+    // this.coin.changePosition();
+  }
+
+  private updateLifeBar(): void {
+    this.playerLifeBar.clear();
+    this.playerLifeBar.fillStyle(0xffffff, 1);
+    this.playerLifeBar.fillRect(10, 10, 20 * this.player.life, 30);
+    this.lifeText.setText(this.player.life + "/ 10"); // Max Life to Set
+  }
+
+  private initGUI(): void {
     this.scoreText = this.add.text(
       this.sys.canvas.width / 2,
       this.sys.canvas.height - 50,
@@ -64,50 +118,22 @@ export class GameScene extends Phaser.Scene {
         fill: "#000000"
       }
     );
-
+    this.playerLifeBarBg = this.add.graphics();
+    this.playerLifeBarBg.fillStyle(0x000000, 1);
+    this.playerLifeBarBg.fillRect(15, 15, 200, 30);
     this.playerLifeBar = this.add.graphics();
-  }
-
-  update(): void {
-    // update objects
-    this.player.update();
-    // this.coin.update();
-    this.monster.update();
-    // do the collision check
-    this.playerLifeBar.clear();
-    this.playerLifeBar.fillStyle(0xffffff, 1);
-    this.playerLifeBar.fillRect(10, 10, 20 * this.player.life, 30);
-
-    if (this.objectsTouch(this.player, this.monster)) {
-      this.objectClashing();
-    }
-  }
-
-  private objectsTouch(objectA, objectB): boolean {
-    return Phaser.Geom.Intersects.RectangleToRectangle(
-      objectA.getBounds(),
-      objectB.getBounds()
-    )
-  }
-
-  private updateScore(): void {
-    this.kills++;
-    this.scoreText.setText(this.kills + "");
-    // this.coin.changePosition();
-  }
-
-  private objectClashing(): void {
-    if ((this.monster.state === CurrentState.Dashing) &&
-      (this.player.state === CurrentState.Moving)) {
-      this.player.getHurt();
-    }
-    if  (this.player.state === CurrentState.Dashing) {
-      if (this.monster.state !== CurrentState.Dead) {
-        var died = this.monster.getHurt();
-        if (died) {
-          this.updateScore();
-        }
+    this.lifeText = this.add.text(
+      50,
+      4,
+      this.player.life + "/ 10",
+      {
+        fontFamily: "Connection",
+        fontSize: 30,
+        stroke: "#fff",
+        strokeThickness: 6,
+        fill: "#000000"
       }
-    }
+    );
+    this.updateLifeBar();
   }
 }

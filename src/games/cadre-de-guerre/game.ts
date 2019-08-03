@@ -1,5 +1,7 @@
 import "phaser";
+import { BootScene } from "./scenes/bootScene";
 import { GameScene } from "./scenes/gameScene";
+import { MenuScene } from "./scenes/menuScene";
 
 const config: Phaser.Types.Core.GameConfig = {
   title: "Cadre de Guerre",
@@ -9,11 +11,11 @@ const config: Phaser.Types.Core.GameConfig = {
   disableContextMenu: true,
   // width: window.innerWidth * window.devicePixelRatio,
   // height:  window.innerHeight * window.devicePixelRatio,
-  type: Phaser.CANVAS,
+  type: Phaser.AUTO,
   parent: "game",
-  scene: [GameScene],
+  scene: [BootScene, MenuScene, GameScene],
   input: {
-    keyboard: true
+    mouse: true
   },
   physics: {
     default: "arcade",
@@ -23,7 +25,7 @@ const config: Phaser.Types.Core.GameConfig = {
     }
   },
   backgroundColor: "#3A99D9",
-  render: { pixelArt: false, antialias: false }
+  render: { pixelArt: false, antialias: true }
 };
 
 export class Game extends Phaser.Game {
