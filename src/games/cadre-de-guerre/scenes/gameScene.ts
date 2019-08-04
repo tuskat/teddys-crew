@@ -1,5 +1,7 @@
+import * as DasherConfig from '../configs/dasher';
+import * as PlayerConfig from '../configs/player';
 // import { Coin } from "../objects/coin";
-import { CurrentState } from '../helpers/currentStates'
+import { CurrentState } from '../helpers/currentStates';
 import { MeleeEnemy } from "../objects/entities/enemy";
 import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
@@ -43,14 +45,16 @@ export class GameScene extends Phaser.Scene {
       controller: player1input,
       x: this.sys.canvas.width / 2,
       y: this.sys.canvas.height / 2,
-      key: "bear"
+      key: "bear",
+      config: PlayerConfig.default
     });
     this.monster = new MeleeEnemy({
       scene: this,
       x: Phaser.Math.RND.integerInRange(100, 700),
       y: Phaser.Math.RND.integerInRange(100, 500),
       key: "monster",
-      player: this.player
+      player: this.player,
+      config: DasherConfig.default
     });
     // create texts
     this.gameUI = new GameUI({scene : this});
