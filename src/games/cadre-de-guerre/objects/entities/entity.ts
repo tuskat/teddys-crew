@@ -7,7 +7,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
   state = CurrentState.Moving;
   speed = 100;
   distanceToStop = 100;
+  maxSpeedX;
+  maxSpeedY;
+  delayToAction;
   target: Phaser.Math.Vector2;
+  shouldRespawn = true;
   config: any;
 
   constructor(params) {
@@ -43,16 +47,22 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.updatePosition();
     }
   }
+  
+  protected doneRespawning(): void {
+    this.state = CurrentState.Moving;
+  }
+
   protected respawn(): void {
-    console.log(typeof this);
-    this.x = this.scene.sys.canvas.width / 2;
-    this.y = this.scene.sys.canvas.height / 2;
+    if (this.shouldRespawn === false) {
+        return;
+    }
+    this.x = Phaser.Math.RND.integerInRange(100, 700);
+    this.y =  Phaser.Math.RND.integerInRange(100, 500);
     this.alpha = 1;
     this.life = this.config.life;
-    this.scene.time.delayedCall(100, function () {
-      this.state = CurrentState.Moving;
-    }, [], this);
+    this.scene.time.delayedCall(this.delayToAction, this.doneRespawning, [], this);
   }
+
   protected die(): void {
     this.alpha = 0;
     this.state = CurrentState.Dead;
@@ -67,7 +77,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected updatePosition(): void {
 
     if (this.target) {
-      if (!this.closeToPlayer()) {
+      if (!this.closeToTarget()) {
         this.scene.physics.moveToObject(this, this.target, this.speed);
       } else {
         // this.body.reset(this.x, this.y);
@@ -96,7 +106,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.state = CurrentState.Moving;
   }
 
-  protected closeToPlayer(): boolean {
+  protected closeToTarget(): boolean {
     if (this.target) {
     var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
       if (distance < this.distanceToStop)

@@ -1,20 +1,20 @@
-import * as DasherConfig from '../configs/dasher';
 import * as PlayerConfig from '../configs/player';
 // import { Coin } from "../objects/coin";
-import { CurrentState } from '../helpers/currentStates';
-import { MeleeEnemy } from "../objects/entities/enemy";
+
 import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
 import { AssetsLoader } from '../helpers/assetsLoader';
 import { GameUI } from '../helpers/gameUI';
+import { BaseMode } from '../managers/baseMode';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   // private coin: Coin;
-  private gameUI : GameUI;
+  public gameUI : GameUI;
+  private gameManager : BaseMode;
   private assetsLoader : AssetsLoader;
 
-  public monster: MeleeEnemy;
+  // public monster: MeleeEnemy;
   public kills: number;
   public player: Player;
 
@@ -48,49 +48,20 @@ export class GameScene extends Phaser.Scene {
       key: "bear",
       config: PlayerConfig.default
     });
-    this.monster = new MeleeEnemy({
-      scene: this,
-      x: Phaser.Math.RND.integerInRange(100, 700),
-      y: Phaser.Math.RND.integerInRange(100, 500),
-      key: "monster",
-      player: this.player,
-      config: DasherConfig.default
-    });
+
     // create texts
-    this.gameUI = new GameUI({scene : this});
+    this.gameManager = new BaseMode({ scene: this });
+    this.gameUI = new GameUI({scene : this, playerEvent : this.player.getPlayerEvent()});
+    this.gameManager.create();
   }
 
-  update(): void {
+  update(time, delta): void {
     // update objects
     this.player.update();
-    // this.coin.update();
-    this.monster.update();
-    // do the collision check
-    if (this.objectsTouch(this.player, this.monster)) {
-      this.objectClashing();
-    }
+    this.gameManager.update(time, delta);
   }
 
-  private objectsTouch(objectA, objectB): boolean {
-    return Phaser.Geom.Intersects.RectangleToRectangle(
-      objectA.getBounds(),
-      objectB.getBounds()
-    )
+  getTimeLeft(): number {
+    return this.gameManager.getTimeLeft() || 0;
   }
-  private objectClashing(): void {
-    if ((this.monster.state === CurrentState.Dashing) &&
-      (this.player.state === CurrentState.Moving)) {
-      this.player.getHurt();
-      this.gameUI.updateLifeBar();
-    }
-    if  (this.player.state === CurrentState.Dashing) {
-      if (this.monster.state !== CurrentState.Dead) {
-        var died = this.monster.getHurt();
-        if (died) {
-          this.gameUI.updateScore();
-        }
-      }
-    }
-  }
-
 }

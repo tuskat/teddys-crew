@@ -3,6 +3,7 @@ import { GameScene } from "../scenes/gameScene";
 export class GameUI {
     private scoreText: Phaser.GameObjects.Text;
     private lifeText: Phaser.GameObjects.Text;
+    private timeText: Phaser.GameObjects.Text;
     private style: any = {
         fontFamily: "Connection",
         fontSize: 38,
@@ -12,10 +13,12 @@ export class GameUI {
       };
     private playerLifeBar: Phaser.GameObjects.Graphics;
     private playerLifeBarBg: Phaser.GameObjects.Graphics;
+    private playerEvent: Phaser.Events.EventEmitter;
     private scene: GameScene;
   
     constructor(params) {
       this.scene = params.scene;
+      this.playerEvent = params.playerEvent;
       this.initGUI();
       this.updateLifeBar();
     }
@@ -24,6 +27,10 @@ export class GameUI {
     this.scene.kills++;
     this.scoreText.setText(this.scene.kills + "");
     // this.coin.changePosition();
+  }
+
+  public updateTime(): void {
+    this.timeText.setText(this.scene.getTimeLeft() + "");
   }
 
   public updateLifeBar(): void {
@@ -38,6 +45,13 @@ export class GameUI {
       x: this.scene.sys.canvas.width / 2,
       y: this.scene.sys.canvas.height - 50,
       text: this.scene.kills + "",
+      style: this.style
+    }
+    );
+    this.timeText = this.scene.make.text({
+      x: this.scene.sys.canvas.width - 50,
+      y: this.scene.sys.canvas.height - 50,
+      text: this.scene.getTimeLeft() + "",
       style: this.style
     }
     );
@@ -57,5 +71,6 @@ export class GameUI {
         fill: "#000000"
       }
     );
+    this.playerEvent.on('playerRespawned', this.updateLifeBar, this);
   }
 }
