@@ -6,6 +6,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   life = 1;
   state = CurrentState.Moving;
   speed = 100;
+  skills = [];
   distanceToStop = 100;
   maxSpeedX;
   maxSpeedY;
@@ -40,14 +41,14 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   update(): void {
-    if (this.blockingState()) {
+    if (!this.target || this.blockingState()) {
       return;
     }
     else {
       this.updatePosition();
     }
   }
-  
+
   protected doneRespawning(): void {
     this.state = CurrentState.Moving;
   }
@@ -75,17 +76,14 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected updatePosition(): void {
-
-    if (this.target) {
-      if (!this.closeToTarget()) {
-        this.scene.physics.moveToObject(this, this.target, this.speed);
-      } else {
-        // this.body.reset(this.x, this.y);
-        this.attack();
-      }
+    if (this.closeToTarget()) {
+      this.attack();
+    } else {
+      this.scene.physics.moveToObject(this, this.target, this.speed);
     }
   }
 
+  //  Only non-player wind-up before dashing
   protected attack(): void {
     this.body.reset(this.x, this.y);
     this.state = CurrentState.WindingUp;
@@ -135,7 +133,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected endHurting(): void {
     this.clearTint();
     if (this.state !== CurrentState.Dead) {
-      this.state = CurrentState.Moving;      
+      this.state = CurrentState.Moving;
     }
   }
 }
