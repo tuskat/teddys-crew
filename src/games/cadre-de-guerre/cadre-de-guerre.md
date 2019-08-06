@@ -1,16 +1,32 @@
-# Cadre de Guerre
+# Teddy's Crew (TBD)
 
 ## Synopsis
 
-"Cadre de Guerre" is a cute parody of [Redacted], it stars some bears like creatures with insect masks fighting some obscure-like (deep-sea inspired) creatures.
-The goal is to fight off waves of enemies. It is a reversed dungeon : each wave will completely change the room.
-You will have a say on which room you raid (at a later date)
+it's a cute parody of [Redacted], it stars some bears like creatures with insect masks fighting some obscure-like (deep-sea inspired) creatures.
+The goal is to fight off waves of enemies.
+It is a reversed dungeon : each wave will completely change the room.
+
+You are fighting the demons under the bed.
+
+## Character
+Bears with insects masks. Starters will be :
+- Stag Beetle : Offensive slashing dash. 10hp
+- Rhino Beetle : Bumping dash. 15hp?
+- Rosalia Longhorn : Dash leave trail of fire. 7hp?
 
 ## Controls
 
 - Click somewhere to dash. Dash is an attack
 - Click on character to use defensive skill (will vary later)
 - Right click to use long range attack (will vary later)
+
+## Gameplay
+
+- Each run you start level 1 (levelling system to add to entity class)
+- You unlock skills by picking up boons. Right click are projectiles with cooldown
+- Character Click are "Ultimates"
+
+Upon dying, you'll be stripped naked of skills. You can assign right click, but  ultimates have to be found again (Make player get one around Level 5)
 
 ## Genre
 
@@ -21,11 +37,8 @@ skills and passives will be completely different (at a later date)
 
 ## To do
 
-- Separate controls from player logic to allow coop (coop does not have to exist yet)
 - click on character skill
 - right click skill
-- enemies wind up before attacking
-- room manager
 
 ### Room Manager
 
@@ -45,14 +58,14 @@ Later room manager will be able to :
 ### Enemies
 
 Enemies  are at the beginning divided in 4 types :
-- shoot but doesn't move
-- move in sequence, always hurt (unless dash)
-- chase the player, hurt only on dashes
-- chest kind enemies, flee user
+- shoot but doesn't move (weak to short range)
+- move in sequence, switch between hurt and idle (weak to long range)
+- chase the player, hurt only on dashes (done) (extremly weak)
+- chest kind enemies, flee user (can take some dmg)
 
 ##MVP
 
 - Sound/Music are present
 - Basic sprite implementation
-- Start Screen, Hub Screen and Fight Screen
+- Hub Screen
 - Room manager
