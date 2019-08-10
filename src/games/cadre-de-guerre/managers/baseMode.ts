@@ -6,7 +6,7 @@ import * as DasherConfig from '../configs/dasher';
 export class BaseMode {
     scene: GameScene;
     maxEnemies = 10;
-    startTime = 10;
+    startTime = 60;
     enemies = [];
     timeLeft = this.startTime;
     timedEvent: Phaser.Time.TimerEvent;
@@ -24,8 +24,12 @@ export class BaseMode {
     }
 
     update(time, delta): void {
-        this.toEachEnemy(this.updateEnemy);
-        this.toEachEnemy(this.checkCollision);
+        if (this.timeLeft > 0) {
+            this.toEachEnemy(this.updateEnemy);
+            this.toEachEnemy(this.checkCollision);
+        } else {
+            this.toEachEnemy(this.killEnemy);
+        }
     }
 
     toEachEnemy(action): void {
@@ -39,9 +43,11 @@ export class BaseMode {
     }
     
     protected updateEnemy(enemy): void {
-        if (this.timeLeft > 0) {
-            enemy.update();
-        }        
+        enemy.update();       
+    }
+
+    protected killEnemy(enemy): void {
+        enemy.die();       
     }
 
     protected unsetRespawn(enemy): void {
