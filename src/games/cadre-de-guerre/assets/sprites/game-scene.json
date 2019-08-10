@@ -1,0 +1,230 @@
+{
+	"textures": [
+		{
+			"image": "game-scene.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 770,
+				"h": 946
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "background.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 768,
+						"h": 576
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 768,
+						"h": 576
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 768,
+						"h": 576
+					}
+				},
+				{
+					"filename": "ricochet_0004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 274,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 6,
+						"w": 273,
+						"h": 179
+					},
+					"frame": {
+						"x": 1,
+						"y": 579,
+						"w": 273,
+						"h": 179
+					}
+				},
+				{
+					"filename": "ricochet_0003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 274,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 0,
+						"w": 267,
+						"h": 185
+					},
+					"frame": {
+						"x": 276,
+						"y": 579,
+						"w": 267,
+						"h": 185
+					}
+				},
+				{
+					"filename": "ricochet_0002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 274,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 0,
+						"w": 236,
+						"h": 185
+					},
+					"frame": {
+						"x": 1,
+						"y": 760,
+						"w": 236,
+						"h": 185
+					}
+				},
+				{
+					"filename": "ricochet_0006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 274,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 144,
+						"y": 111,
+						"w": 10,
+						"h": 11
+					},
+					"frame": {
+						"x": 239,
+						"y": 760,
+						"w": 10,
+						"h": 11
+					}
+				},
+				{
+					"filename": "ricochet_0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 274,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 40,
+						"y": 28,
+						"w": 182,
+						"h": 148
+					},
+					"frame": {
+						"x": 545,
+						"y": 579,
+						"w": 182,
+						"h": 148
+					}
+				},
+				{
+					"filename": "ricochet_0005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 274,
+						"h": 185
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 63,
+						"w": 158,
+						"h": 61
+					},
+					"frame": {
+						"x": 545,
+						"y": 729,
+						"w": 158,
+						"h": 61
+					}
+				},
+				{
+					"filename": "bear.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 50
+					},
+					"frame": {
+						"x": 251,
+						"y": 766,
+						"w": 58,
+						"h": 50
+					}
+				},
+				{
+					"filename": "coin.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 56,
+						"h": 56
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 56,
+						"h": 56
+					},
+					"frame": {
+						"x": 311,
+						"y": 766,
+						"w": 56,
+						"h": 56
+					}
+				},
+				{
+					"filename": "monster.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 50
+					},
+					"frame": {
+						"x": 239,
+						"y": 818,
+						"w": 58,
+						"h": 50
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:e04ed808e62a2938aeefec52e3f5ce43:398d31aa53a536ac852ba266c173ab8c:dc7b5edd0e40ba0230d2635193b8305a$"
+	}
+}

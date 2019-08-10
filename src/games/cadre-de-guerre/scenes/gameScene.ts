@@ -26,7 +26,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.assetsLoader.preloadAssets(['bear', 'monster', 'background']);
+    this.assetsLoader.preloadAssets();
   }
 
   init(): void {
@@ -35,7 +35,7 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     // create background
-    this.background = this.add.image(0, 0, "background");
+    this.background = this.add.sprite(0, 0,'cadre-de-guerre', "background.png");
     this.background.setOrigin(0, 0);
 
     // create objects

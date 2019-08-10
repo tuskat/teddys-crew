@@ -3,13 +3,18 @@ export class AssetsLoader {
   private scene: Phaser.Scene;
 
   constructor(params) {
-    this.defaultUrl = './src/games/cadre-de-guerre/assets/';
+    this.defaultUrl = '/src/games/cadre-de-guerre/assets/sprites';
     this.scene = params.scene;
   }
 
-  preloadAssets(list) {
-    list.forEach(element => {
-      this.scene.load.image(element, this.defaultUrl + element + '.png');
-    });
+  preloadAssets() {
+    this.scene.load.multiatlas('cadre-de-guerre', this.defaultUrl + '/game-scene.json', this.defaultUrl);
   }
+
+  // preloadAnimations(list) {
+  //   list.forEach(element => {
+  //     this.scene.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
+  //     this.scene.load.json('gemData', 'assets/animations/gems.json');
+  //   });
+  // }
 }

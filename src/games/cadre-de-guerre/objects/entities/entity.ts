@@ -16,7 +16,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   config: any;
 
   constructor(params) {
-    super(params.scene, params.x, params.y, params.key);
+    super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key +'.png');
     this.scene.physics.world.enable(this);
     this.body.setCollideWorldBounds(true);
     this.initVariables(params.config);
