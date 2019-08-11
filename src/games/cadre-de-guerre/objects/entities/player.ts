@@ -1,9 +1,10 @@
 import { CurrentState } from '../../helpers/currentStates';
 import { Entity } from './entity';
+import { GameScene } from '../../scenes/gameScene';
 
 export class Player extends Entity {
   inputEvent: Phaser.Events.EventEmitter;
-  playerEvent: Phaser.Events.EventEmitter;
+  scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
 
@@ -11,7 +12,6 @@ export class Player extends Entity {
     super(params);
     this.initBody();
     this.initInput(params.controller.getEmitter());
-    this.playerEvent = new Phaser.Events.EventEmitter();
   }
 
   protected initBody(): void {
@@ -78,12 +78,8 @@ export class Player extends Entity {
 
   }
 
-  public getPlayerEvent(): Phaser.Events.EventEmitter {
-    return this.playerEvent;
-  }
-
   protected doneRespawning(): void {
-    this.playerEvent.emit('playerRespawned', null);
+    this.scene.gameEvent.emit('playerRespawned', null);
     this.state = CurrentState.Moving;
   }
 }

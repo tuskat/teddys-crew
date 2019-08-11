@@ -11,9 +11,9 @@ export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   // private coin: Coin;
   public gameUI : GameUI;
-  private gameManager : BaseMode;
+  private gameManager;
   private assetsLoader : AssetsLoader;
-
+  public gameEvent: Phaser.Events.EventEmitter;
   // public monster: MeleeEnemy;
   public kills: number;
   public player: Player;
@@ -23,6 +23,7 @@ export class GameScene extends Phaser.Scene {
       key: "GameScene"
     });
     this.assetsLoader = new AssetsLoader({ scene: this });
+    this.gameEvent = new Phaser.Events.EventEmitter();
   }
 
   preload(): void {
@@ -51,8 +52,9 @@ export class GameScene extends Phaser.Scene {
 
     // create texts
     this.gameManager = new BaseMode({ scene: this });
-    this.gameUI = new GameUI({scene : this, playerEvent : this.player.getPlayerEvent()});
+    this.gameUI = new GameUI({scene : this, gameEvent : this.gameEvent});
     this.gameManager.create();
+    this.gameEvent.on('roundEnded', this.restartRound, this);
   }
 
   update(time, delta): void {
@@ -63,5 +65,14 @@ export class GameScene extends Phaser.Scene {
 
   getTimeLeft(): number {
     return this.gameManager.getTimeLeft() || 0;
+  }
+
+  restartRound(): void {
+    this.gameEvent.emit('startCountdown', null);
+    this.time.delayedCall(5000, this.restart, [], this);
+  }
+  restart(): void {
+    this.gameEvent.emit('restartRound', null);
+    console.log('restart');
   }
 }

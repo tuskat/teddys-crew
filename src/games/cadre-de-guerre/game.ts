@@ -2,11 +2,11 @@ import "phaser";
 import { BootScene } from "./scenes/bootScene";
 import { GameScene } from "./scenes/gameScene";
 import { MenuScene } from "./scenes/menuScene";
+// import * as Sentry from '@sentry/browser';
 
-// const Sentry = require('@sentry/node');
-// console.log(Sentry);
 // Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
 
+// Sentry.captureException(new Error("Something broke"));
 const config: Phaser.Types.Core.GameConfig = {
   title: "Cadre de Guerre",
   version: "0.1",

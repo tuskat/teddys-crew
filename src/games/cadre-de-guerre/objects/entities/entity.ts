@@ -11,6 +11,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
   maxSpeedX;
   maxSpeedY;
   delayToAction;
+  isInvicible;
+  invicibleFrame = 0;
   target: Phaser.Math.Vector2;
   shouldRespawn = true;
   config: any;
@@ -117,12 +119,14 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public getHurt(): boolean {
     this.life--;
+    
     if (this.life === 0 ) {
       this.die();
-    } else {
+    } else if (this.life > 0) {
       this.state = CurrentState.Hurting;
+      this.isInvicible = true;
       this.setTint(0xFF6347);
-      this.scene.time.delayedCall(1000, this.endHurting, [], this);
+      this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
     }
     if (this.life < 0) {
       this.life = 0;
@@ -132,6 +136,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected endHurting(): void {
     this.clearTint();
+    this.isInvicible = false;
     if (this.state !== CurrentState.Dead) {
       this.state = CurrentState.Moving;
     }
