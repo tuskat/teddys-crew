@@ -52,6 +52,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected doneRespawning(): void {
+    if (!this.shouldRespawn) {
+      this.alpha = 0;
+      return;
+    }
     this.isInvicible = false;
     this.state = CurrentState.Moving;
   }
