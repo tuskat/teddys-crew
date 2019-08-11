@@ -52,6 +52,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected doneRespawning(): void {
+    this.isInvicible = false;
     this.state = CurrentState.Moving;
   }
 
@@ -61,9 +62,18 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
     this.x = Phaser.Math.RND.integerInRange(100, 700);
     this.y =  Phaser.Math.RND.integerInRange(100, 500);
-    this.alpha = 1;
+    this.isInvicible = true;
     this.life = this.config.life;
-    this.scene.time.delayedCall(this.delayToAction, this.doneRespawning, [], this);
+    this.scene.add.tween({
+      targets: [this],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 0,
+        getEnd: () => 1
+      },
+      duration: this.delayToAction,
+      onComplete: this.doneRespawning.bind(this)
+    });
   }
 
   protected die(): void {

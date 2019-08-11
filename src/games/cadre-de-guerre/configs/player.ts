@@ -4,7 +4,7 @@ const config = {
     distanceToStop : 4,
     maxSpeedX : 1500,
     maxSpeedY : 750,
-    delayToAction : 0,
+    delayToAction : 200,
     invicibleFrame: 1000
 }
 

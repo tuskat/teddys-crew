@@ -52,6 +52,7 @@ export class GameScene extends Phaser.Scene {
     this.gameUI = new GameUI({scene : this, gameEvent : this.gameEvent});
     this.gameManager.create();
     this.gameEvent.on('roundEnded', this.restartRound, this);
+    this.restartRound();
   }
 
   update(time, delta): void {
@@ -69,6 +70,6 @@ export class GameScene extends Phaser.Scene {
     this.time.delayedCall(5000, this.restart, [], this);
   }
   restart(): void {
-    this.gameEvent.emit('restartRound', null);
+    this.gameEvent.emit('startRound', null);
   }
 }

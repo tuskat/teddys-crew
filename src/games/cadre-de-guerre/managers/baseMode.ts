@@ -10,7 +10,7 @@ export class BaseMode {
     onGoing = false;
     round = 0;
     enemies = [];
-    timeLeft = this.startTime;
+    timeLeft = 0;
     timedEvent: Phaser.Time.TimerEvent;
 
 
@@ -20,11 +20,7 @@ export class BaseMode {
     }
 
     create(): void {
-        for (let i = 0; i != this.maxEnemies; i++) {
-            this.enemies.push(this.spawnEnemy());
-        }
-        this.roundStarted();
-        this.scene.gameEvent.on('restartRound', this.roundStarted, this);
+        this.scene.gameEvent.on('startRound', this.roundStarted, this);
     }
 
     update(time, delta): void {
@@ -59,7 +55,14 @@ export class BaseMode {
         enemy.shouldRespawn = true;
     }
 
+    protected spawnInitialEnemies(): void {
+        for (let i = 0; i != this.maxEnemies; i++) {
+            this.enemies.push(this.spawnEnemy());
+        }
+    }
+
     protected roundEnded(): void {
+        this.round++;
         this.toEachEnemy(this.unsetRespawn);
         this.toEachEnemy(this.killEnemy);
         this.onGoing = false;
@@ -67,6 +70,11 @@ export class BaseMode {
     }
 
     protected roundStarted(): void {
+        if (this.round === 0) {
+            for (let i = 0; i != this.maxEnemies; i++) {
+                this.enemies.push(this.spawnEnemy());
+            }
+        }
         this.timeLeft = this.startTime;
         this.toEachEnemy(this.setRespawn);
         this.toEachEnemy(this.killEnemy);

@@ -42,13 +42,11 @@ export class GameUI {
 
   
   private updateRound(): void {
-    if (this.text['round']) {
-      this.text['round'].setText("Round Ended! :3c");
-    } else {
+    if (!this.text['round']) {
       this.text['round'] = this.scene.make.text({
-        x: this.scene.sys.canvas.width / 2,
-        y: this.scene.sys.canvas.height / 2,
-        text: "Round Ended! :3c",
+        x: (this.scene.sys.canvas.width / 3) - 50,
+        y: (this.scene.sys.canvas.height / 2) -  50,
+        text: "Round Ended!",
         style: this.style[0],
         alpha: 0
       });
@@ -71,7 +69,7 @@ export class GameUI {
       this.text['countdown'] = this.scene.make.text({
         x: this.scene.sys.canvas.width / 3,
         y: this.scene.sys.canvas.height / 2,
-        text: "5",
+        text: "Next round in " + this.countDown,
         style: this.style[0]
       });
     }
@@ -79,7 +77,11 @@ export class GameUI {
   }
 
   private count(): void {
-    this.text['countdown'].setText(this.countDown + "");
+    if (this.countDown > 0) {
+      this.text['countdown'].setText("Next round in " + this.countDown);
+    } else {
+      this.text['countdown'].setText("Go!");
+    }
     this.scene.add.tween({
       targets: [this.text['countdown']],
       ease: 'Sine.easeInOut',
@@ -93,7 +95,7 @@ export class GameUI {
   }
 
   private countDownHandler(): void {
-    if (this.countDown === 0) {
+    if (this.countDown <= 0) {
       return;
     }
     this.countDown--;
