@@ -5,7 +5,7 @@ import * as DasherConfig from '../configs/dasher';
 
 export class BaseMode {
     scene: GameScene;
-    maxEnemies = 10;
+    maxEnemies = 5;
     startTime = 15;
     onGoing = false;
     round = 0;

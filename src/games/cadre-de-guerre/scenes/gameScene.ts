@@ -1,5 +1,4 @@
 import * as PlayerConfig from '../configs/player';
-// import { Coin } from "../objects/coin";
 
 import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
@@ -9,12 +8,10 @@ import { BaseMode } from '../managers/baseMode';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
-  // private coin: Coin;
   public gameUI : GameUI;
   private gameManager;
   private assetsLoader : AssetsLoader;
   public gameEvent: Phaser.Events.EventEmitter;
-  // public monster: MeleeEnemy;
   public kills: number;
   public player: Player;
 
@@ -73,6 +70,5 @@ export class GameScene extends Phaser.Scene {
   }
   restart(): void {
     this.gameEvent.emit('restartRound', null);
-    console.log('restart');
   }
 }
