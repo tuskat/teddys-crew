@@ -102,7 +102,7 @@ export class BaseMode {
         if ((monster.state === CurrentState.Dashing) &&
           (!this.scene.player.isInvicible)) {
           this.scene.player.getHurt();
-          this.scene.gameEvent.emit('lifeUpdate');
+          this.scene.gameEvent.emit('lifeUpdate', { sound: 'Damage02'});
         }
         if  (this.scene.player.state === CurrentState.Dashing) {
           if (monster.state !== CurrentState.Dead) {

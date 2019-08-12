@@ -4,12 +4,14 @@ import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
 import { AssetsLoader } from '../helpers/assetsLoader';
 import { GameUI } from '../helpers/gameUI';
+import { SfxManager } from '../helpers/sfxManager';
 import { BaseMode } from '../managers/baseMode';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
-  public gameUI : GameUI;
-  private gameManager;
+  public UI : GameUI;
+  private sfxs : SfxManager;
+  private waveManager;
   private assetsLoader : AssetsLoader;
   public gameEvent: Phaser.Events.EventEmitter;
   public kills: number;
@@ -21,10 +23,12 @@ export class GameScene extends Phaser.Scene {
     });
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.gameEvent = new Phaser.Events.EventEmitter();
+    this.sfxs = new SfxManager({ scene: this });
   }
 
   preload(): void {
     this.assetsLoader.preloadAssets();
+    this.sfxs.preloadSound();
   }
 
   init(): void {
@@ -48,9 +52,10 @@ export class GameScene extends Phaser.Scene {
     });
 
     // create texts
-    this.gameManager = new BaseMode({ scene: this });
-    this.gameUI = new GameUI({scene : this, gameEvent : this.gameEvent});
-    this.gameManager.create();
+    this.waveManager = new BaseMode({ scene: this });
+    this.UI = new GameUI({scene : this, gameEvent : this.gameEvent});
+    this.sfxs.initSound();
+    this.waveManager.create();
     this.gameEvent.on('roundEnded', this.restartRound, this);
     this.restartRound();
   }
@@ -58,11 +63,11 @@ export class GameScene extends Phaser.Scene {
   update(time, delta): void {
     // update objects
     this.player.update();
-    this.gameManager.update(time, delta);
+    this.waveManager.update(time, delta);
   }
 
   getTimeLeft(): number {
-    return this.gameManager.getTimeLeft() || 0;
+    return this.waveManager.getTimeLeft() || 0;
   }
 
   restartRound(): void {

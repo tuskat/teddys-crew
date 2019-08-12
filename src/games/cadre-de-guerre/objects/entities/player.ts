@@ -79,7 +79,7 @@ export class Player extends Entity {
   }
 
   protected doneRespawning(): void {
-    this.scene.gameEvent.emit('playerRespawned', null);
+    this.scene.gameEvent.emit('playerRespawned', { sound: 'PowerUp02'});
     this.state = CurrentState.Moving;
   }
 }
