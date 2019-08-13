@@ -53,7 +53,6 @@ Room manager should be able to first :
 Later room manager will be able to :
 - have varied waves/rooms objectives (survival, extermination, sabotage, defense, etc)
 - have non-fighting rooms (shop, npc rooms, shrines, etc...)
-- have player choices in where they go
 
 ### Enemies
 
@@ -65,7 +64,13 @@ Enemies  are at the beginning divided in 4 types :
 
 ##MVP
 
-- Sound/Music are present
+- Sound/Music are present (in progress)
 - Basic sprite implementation
 - Hub Screen
-- Room manager
+- Basic Game Settings
+
+##Useful ressources
+
+http://sbcgames.io/build-maintainable-games-with-phaser-3-2-adding-external-config/
+
+http://sbcgames.io/build-maintainable-games-with-phaser-3-3-user-settings/
