@@ -74,3 +74,7 @@ Enemies  are at the beginning divided in 4 types :
 http://sbcgames.io/build-maintainable-games-with-phaser-3-2-adding-external-config/
 
 http://sbcgames.io/build-maintainable-games-with-phaser-3-3-user-settings/
+
+##Artstyle to copy...hmm inspire from
+
+https://www.spriters-resource.com/snes/kirbydream3/
