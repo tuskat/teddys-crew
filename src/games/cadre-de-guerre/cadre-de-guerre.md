@@ -78,3 +78,4 @@ http://sbcgames.io/build-maintainable-games-with-phaser-3-3-user-settings/
 ##Artstyle to copy...hmm inspire from
 
 https://www.spriters-resource.com/snes/kirbydream3/
+https://www.spriters-resource.com/ds_dsi/kirbycanvascurse/sheet/2781/
