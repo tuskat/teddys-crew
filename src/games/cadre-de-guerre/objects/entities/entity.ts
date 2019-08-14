@@ -16,14 +16,17 @@ export class Entity extends Phaser.GameObjects.Sprite {
   target: Phaser.Math.Vector2;
   shouldRespawn = true;
   config: any;
+  spriteFolder = null;
+  previousState = null;
 
   constructor(params) {
-    super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key +'.png');
+    super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
     this.scene.physics.world.enable(this);
     this.body.setCollideWorldBounds(true);
     this.initVariables(params.config);
     this.initImage();
     this.scene.add.existing(this);
+    this.spriteFolder = params.folder;
   }
 
   protected initVariables(config): void {
@@ -36,19 +39,24 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
   }
 
+  protected doNothing(): void {
+
+  }
+
   protected blockingState(): boolean {
     return (this.state === CurrentState.Dead ||
-            this.state === CurrentState.Dashing ||
-            this.state === CurrentState.WindingUp);
+      this.state === CurrentState.Dashing ||
+      this.state === CurrentState.WindingUp);
   }
 
   update(): void {
     if (!this.target || this.blockingState()) {
-      return;
+      this.doNothing();
     }
     else {
       this.updatePosition();
     }
+    this.updateFrame();
   }
 
   protected doneRespawning(): void {
@@ -62,10 +70,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected respawn(): void {
     if (this.shouldRespawn === false) {
-        return;
+      return;
     }
     this.x = Phaser.Math.RND.integerInRange(100, 700);
-    this.y =  Phaser.Math.RND.integerInRange(100, 500);
+    this.y = Phaser.Math.RND.integerInRange(100, 500);
     this.isInvicible = true;
     this.life = this.config.life;
     this.scene.add.tween({
@@ -122,9 +130,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected closeToTarget(): boolean {
     if (this.target) {
-    var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
-      if (distance < this.distanceToStop)
-      {
+      var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+      if (distance < this.distanceToStop) {
         return true;
       }
     }
@@ -133,8 +140,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public getHurt(): boolean {
     this.life--;
-    
-    if (this.life === 0 ) {
+
+    if (this.life === 0) {
       this.die();
     } else if (this.life > 0) {
       this.state = CurrentState.Hurting;
@@ -154,5 +161,40 @@ export class Entity extends Phaser.GameObjects.Sprite {
     if (this.state !== CurrentState.Dead) {
       this.state = CurrentState.Moving;
     }
+  }
+
+  protected updateFrame(): void {
+    let extension = '.png';
+    if (this.target.x <  this.x) {
+      this.setFlipX(true);
+    } else {
+      this.setFlipX(false);
+    }
+    if (this.previousState === this.state) {
+      return;
+    }
+    switch (this.state) {
+      case CurrentState.Dead: {
+        this.setFrame(this.spriteFolder + '/Hurt' + extension);
+        break;
+      }
+      case CurrentState.Hurting: {
+        this.setFrame(this.spriteFolder + '/Hurt' + extension);
+        break;
+      }
+      case CurrentState.WindingUp: {
+        this.setFrame(this.spriteFolder + '/WindingUp' + extension);
+        break;
+      }
+      case CurrentState.Dashing: {
+        this.setFrame(this.spriteFolder + '/Dash' + extension);
+        break;
+      }
+      case CurrentState.Moving: {
+        this.setFrame(this.spriteFolder + '/Idle' + extension);
+        break;
+      }
+    }
+    this.previousState = this.state;
   }
 }

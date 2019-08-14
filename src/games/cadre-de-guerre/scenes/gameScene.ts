@@ -37,7 +37,7 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     // create background
-    this.background = this.add.sprite(0, 0,'cadre-de-guerre', "background.png");
+    this.background = this.add.sprite(0, 0,'cadre-de-guerre', "map.png");
     this.background.setOrigin(0, 0);
 
     // create objects
@@ -47,8 +47,9 @@ export class GameScene extends Phaser.Scene {
       controller: player1input,
       x: this.sys.canvas.width / 2,
       y: this.sys.canvas.height / 2,
-      key: "bear",
-      config: PlayerConfig.default
+      key: "Hero/Idle",
+      config: PlayerConfig.default,
+      folder: "Hero"
     });
 
     // create texts

@@ -123,9 +123,10 @@ export class BaseMode {
             scene: this.scene,
             x: Phaser.Math.RND.integerInRange(100, 700),
             y: Phaser.Math.RND.integerInRange(100, 500),
-            key: "monster",
+            key: "Enemy/Idle",
             player: this.scene.player,
-            config: DasherConfig.default
+            config: DasherConfig.default,
+            folder: "Enemy"
             });
         return enemy;
     }

@@ -1,7 +1,6 @@
 import { Player } from "./player";
 import { Entity } from "./entity";
 
-
 export class MeleeEnemy extends Entity {
   player : Player;
 
@@ -12,7 +11,7 @@ export class MeleeEnemy extends Entity {
 
   update(): void {
     if (this.blockingState()) {
-      return;
+      this.doNothing();
     }
     else {
       if (this.player) {
@@ -20,5 +19,6 @@ export class MeleeEnemy extends Entity {
         this.updatePosition();
       }
     }
+    this.updateFrame();
   }
 }

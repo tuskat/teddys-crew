@@ -52,25 +52,26 @@ export class Player extends Entity {
   }
 
   protected handlePointer(pointer): void {
+    if (this.blockingState()) {
+      return;
+    }
     this.target.x = pointer.x;
     this.target.y = pointer.y;
-    if (this.state !== CurrentState.Dashing) {
       // Move at 200 px/s:
-      if (!this.closeToCurser()) {
-        this.scene.physics.moveToObject(this, this.target, this.speed);
-      } else{
-        this.body.reset(this.target.x, this.target.y);
-      }
+    if (!this.closeToCurser()) {
+      this.scene.physics.moveToObject(this, this.target, this.speed);
+    } else{
+      this.body.reset(this.target.x, this.target.y);
     }
   }
 
   protected dashToClick(pointer): void {
-    if (this.state !== CurrentState.Dashing) {
+    if (!this.blockingState()) {
       this.target.x = pointer.x;
       this.target.y = pointer.y;
       this.state = CurrentState.Dashing;
       this.scene.physics.moveToObject(this, this.target, this.dashSpeed);
-      this.scene.time.delayedCall(200, this.endDash, [], this);
+      this.scene.time.delayedCall(300, this.endDash, [], this);
     }
   }
 

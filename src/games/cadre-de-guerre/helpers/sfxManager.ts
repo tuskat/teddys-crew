@@ -40,7 +40,6 @@ export class SfxManager {
         });
     }
     playSound(obj) {
-        console.log(this);
         if (obj) {
             this.sounds[obj.sound].play();
         } else {

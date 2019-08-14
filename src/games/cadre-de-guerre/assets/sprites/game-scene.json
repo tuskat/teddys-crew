@@ -4,219 +4,209 @@
 			"image": "game-scene.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 770,
-				"h": 946
+				"w": 1052,
+				"h": 904
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "background.png",
+					"filename": "map.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 768,
-						"h": 576
+						"w": 1050,
+						"h": 770
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 768,
-						"h": 576
+						"w": 1050,
+						"h": 770
 					},
 					"frame": {
 						"x": 1,
 						"y": 1,
-						"w": 768,
-						"h": 576
+						"w": 1050,
+						"h": 770
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
 					}
 				},
 				{
-					"filename": "ricochet_0004.png",
+					"filename": "Hero/Hurt.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 274,
-						"h": 185
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 1,
-						"y": 6,
-						"w": 273,
-						"h": 179
-					},
-					"frame": {
-						"x": 1,
-						"y": 579,
-						"w": 273,
-						"h": 179
-					}
-				},
-				{
-					"filename": "ricochet_0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 274,
-						"h": 185
-					},
-					"spriteSourceSize": {
-						"x": 4,
+						"x": 0,
 						"y": 0,
-						"w": 267,
-						"h": 185
-					},
-					"frame": {
-						"x": 276,
-						"y": 579,
-						"w": 267,
-						"h": 185
-					}
-				},
-				{
-					"filename": "ricochet_0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 274,
-						"h": 185
-					},
-					"spriteSourceSize": {
-						"x": 20,
-						"y": 0,
-						"w": 236,
-						"h": 185
+						"w": 154,
+						"h": 130
 					},
 					"frame": {
 						"x": 1,
-						"y": 760,
-						"w": 236,
-						"h": 185
+						"y": 773,
+						"w": 154,
+						"h": 130
+					},
+					"anchor": {
+						"x": 0.46103896,
+						"y": 0.6870229
 					}
 				},
 				{
-					"filename": "ricochet_0006.png",
+					"filename": "Hero/Idle.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 274,
-						"h": 185
-					},
-					"spriteSourceSize": {
-						"x": 144,
-						"y": 111,
-						"w": 10,
-						"h": 11
-					},
-					"frame": {
-						"x": 239,
-						"y": 760,
-						"w": 10,
-						"h": 11
-					}
-				},
-				{
-					"filename": "ricochet_0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 274,
-						"h": 185
-					},
-					"spriteSourceSize": {
-						"x": 40,
-						"y": 28,
-						"w": 182,
-						"h": 148
-					},
-					"frame": {
-						"x": 545,
-						"y": 579,
-						"w": 182,
-						"h": 148
-					}
-				},
-				{
-					"filename": "ricochet_0005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 274,
-						"h": 185
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 63,
-						"w": 158,
-						"h": 61
-					},
-					"frame": {
-						"x": 545,
-						"y": 729,
-						"w": 158,
-						"h": 61
-					}
-				},
-				{
-					"filename": "bear.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 58,
-						"h": 50
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 58,
-						"h": 50
+						"w": 154,
+						"h": 130
 					},
 					"frame": {
-						"x": 251,
-						"y": 766,
-						"w": 58,
-						"h": 50
+						"x": 157,
+						"y": 773,
+						"w": 154,
+						"h": 130
+					},
+					"anchor": {
+						"x": 0.51298701,
+						"y": 0.69465649
 					}
 				},
 				{
-					"filename": "coin.png",
+					"filename": "Hero/Dash.png",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 56,
-						"h": 56
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 0,
+						"x": 1,
 						"y": 0,
-						"w": 56,
-						"h": 56
+						"w": 152,
+						"h": 130
 					},
 					"frame": {
-						"x": 311,
-						"y": 766,
-						"w": 56,
-						"h": 56
+						"x": 313,
+						"y": 773,
+						"w": 152,
+						"h": 130
+					},
+					"anchor": {
+						"x": 0.63636364,
+						"y": 0.72519084
 					}
 				},
 				{
-					"filename": "monster.png",
+					"filename": "Enemy/Dash.png",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 58,
-						"h": 50
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 0,
+						"x": 7,
 						"y": 0,
-						"w": 58,
-						"h": 50
+						"w": 137,
+						"h": 130
 					},
 					"frame": {
-						"x": 239,
-						"y": 818,
-						"w": 58,
-						"h": 50
+						"x": 467,
+						"y": 773,
+						"w": 137,
+						"h": 130
+					},
+					"anchor": {
+						"x": 0.61688312,
+						"y": 0.3740458
+					}
+				},
+				{
+					"filename": "Enemy/Hurt.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 2,
+						"w": 122,
+						"h": 129
+					},
+					"frame": {
+						"x": 606,
+						"y": 773,
+						"w": 122,
+						"h": 129
+					},
+					"anchor": {
+						"x": 0.46103896,
+						"y": 0.59541985
+					}
+				},
+				{
+					"filename": "Enemy/WindingUp.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 3,
+						"w": 142,
+						"h": 128
+					},
+					"frame": {
+						"x": 730,
+						"y": 773,
+						"w": 142,
+						"h": 128
+					},
+					"anchor": {
+						"x": 0.53246753,
+						"y": 0.65648855
+					}
+				},
+				{
+					"filename": "Enemy/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 7,
+						"w": 135,
+						"h": 124
+					},
+					"frame": {
+						"x": 874,
+						"y": 773,
+						"w": 135,
+						"h": 124
+					},
+					"anchor": {
+						"x": 0.52597403,
+						"y": 0.64122137
 					}
 				}
 			]
@@ -225,6 +215,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:e04ed808e62a2938aeefec52e3f5ce43:398d31aa53a536ac852ba266c173ab8c:dc7b5edd0e40ba0230d2635193b8305a$"
+		"smartupdate": "$TexturePacker:SmartUpdate:dbb032701417a742202d0bee290dae95:e702fcb347dbfdafec7353360bd85a10:dc7b5edd0e40ba0230d2635193b8305a$"
 	}
 }
