@@ -140,7 +140,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public getHurt(): boolean {
     this.life--;
-
+    if (this.life < 0) {
+      this.life = 0;
+    }
     if (this.life === 0) {
       this.die();
     } else if (this.life > 0) {
@@ -149,9 +151,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.setTint(0xFF6347);
       this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
     }
-    if (this.life < 0) {
-      this.life = 0;
-    }
+
     return (this.life === 0);
   }
 
