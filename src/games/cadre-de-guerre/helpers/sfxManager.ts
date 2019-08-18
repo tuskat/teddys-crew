@@ -9,6 +9,8 @@ export class SfxManager {
         'Damage01',
         'Damage02',
         'Fire01',
+        'Slash01',
+        'Slash05',
         'PowerUp01',
         'PowerUp02',
         'UI04',
@@ -18,6 +20,7 @@ export class SfxManager {
         'playerRespawned',
         'lifeUpdate',
         'entityDamaged',
+        'entityDashing',
         'entityDied',
         'countDown',
         'roundEnded'

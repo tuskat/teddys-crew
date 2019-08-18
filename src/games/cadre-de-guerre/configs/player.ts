@@ -6,7 +6,12 @@ const config = {
     maxSpeedY : 750,
     delayToAction : 200,
     invicibleFrame: 1000,
-    timeToRespawn: 1000
+    timeToRespawn: 1000,
+    dashDuration: 300,
+    events : {
+        'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
+        'dash': {name: 'entityDashing', sound: 'Slash01'},
+    }
 }
 
 export default config

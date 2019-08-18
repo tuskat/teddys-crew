@@ -18,7 +18,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
   target: Phaser.Math.Vector2;
   shouldRespawn = true;
   timeToRespawn = 1000;
-  damageEvent = {name: 'lifeUpdate', sound: 'Damage02'}
+  dashDuration = 300;
+  events = {
+    'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
+    'dash': {name: 'entityDashing', sound: 'Slash01'},
+  };
   config: any;
   spriteFolder = null;
   previousState = null;
@@ -118,9 +122,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   //  Only non-player wind-up before dashing
   protected attack(): void {
-    this.body.reset(this.x, this.y);
-    this.state = CurrentState.WindingUp;
-    this.scene.time.delayedCall(500, this.dash, [], this);
+    if (!this.blockingState()) {
+      this.body.reset(this.x, this.y);
+      this.state = CurrentState.WindingUp;
+      this.scene.time.delayedCall(500, this.dash, [], this);
+    }
   }
 
   protected dash(): void {
@@ -128,8 +134,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
       return;
     }
     this.state = CurrentState.Dashing;
+    this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound});
     this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
-    this.scene.time.delayedCall(400, this.endDash, [], this);
+    this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
   }
 
   protected endDash(): void {
@@ -148,7 +155,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   public getHurt(): boolean {
+    if (this.state === CurrentState.Dead) {
+      return false;
+    }
     this.life--;
+    this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound});
     if (this.life < 0) {
       this.life = 0;
     }
@@ -158,7 +169,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.state = CurrentState.Hurting;
       this.isInvicible = true;
       this.setTint(0xFF6347);
-      this.scene.gameEvent.emit(this.damageEvent.name, { sound: this.damageEvent.sound});
       this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
     }
 

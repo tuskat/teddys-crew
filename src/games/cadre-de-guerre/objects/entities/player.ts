@@ -69,9 +69,7 @@ export class Player extends Entity {
     if (!this.blockingState()) {
       this.target.x = pointer.x;
       this.target.y = pointer.y;
-      this.state = CurrentState.Dashing;
-      this.scene.physics.moveToObject(this, this.target, this.dashSpeed);
-      this.scene.time.delayedCall(300, this.endDash, [], this);
+      this.dash();
     }
   }
 

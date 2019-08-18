@@ -51,7 +51,7 @@ export class GameUI {
   private updateRound(): void {
     if (!this.text['round']) {
       this.text['round'] = this.scene.make.text({
-        x: (this.scene.sys.canvas.width / 3),
+        x: (this.scene.sys.canvas.width / 3 - 60),
         y: (this.scene.sys.canvas.height / 2) -  75,
         text: "Round Ended!",
         style: this.style[2],

@@ -31,7 +31,7 @@ export class MenuScene extends Phaser.Scene {
 
     this.bitmapTexts.push(
       this.add.bitmapText(
-        100,
+        220,
         this.sys.canvas.height / 2 - 100,
         "font",
         "Cadre de Guerre",
