@@ -72,7 +72,10 @@ export class GameScene extends Phaser.Scene {
   }
 
   restartRound(): void {
-    this.gameEvent.emit('startCountdown', null);
+    this.time.delayedCall(1000, () => {
+      this.gameEvent.emit('startCountdown', null);
+    }, [], this);
+
     this.time.delayedCall(5000, this.restart, [], this);
   }
   restart(): void {

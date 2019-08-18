@@ -10,12 +10,18 @@ import { MenuScene } from "./scenes/menuScene";
 const config: Phaser.Types.Core.GameConfig = {
   title: "Cadre de Guerre",
   version: "0.1",
-  width: 1000,
-  height: 820,
+  width: 1024,
+  height: 720,
   disableContextMenu: true,
   // width: window.innerWidth * window.devicePixelRatio,
   // height:  window.innerHeight * window.devicePixelRatio,
   type: Phaser.AUTO,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: 'game',
+    width: 1024,
+    height: 720
+},
   parent: "game",
   scene: [BootScene, MenuScene, GameScene],
   input: {
@@ -25,7 +31,7 @@ const config: Phaser.Types.Core.GameConfig = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: false
+      debug: true
     }
   },
   backgroundColor: "#3A99D9",

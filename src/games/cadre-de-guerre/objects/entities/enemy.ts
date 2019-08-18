@@ -7,6 +7,7 @@ export class MeleeEnemy extends Entity {
   constructor(params) {
     super(params);
     this.player = params.player;
+    this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
   }
 
   update(): void {

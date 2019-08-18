@@ -1,8 +1,10 @@
 import { CurrentState } from '../../helpers/currentStates'
 import _ = require('lodash');
+import { GameScene } from '../../scenes/gameScene';
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
+  scene: GameScene;
   life = 1;
   state = CurrentState.Moving;
   speed = 100;
@@ -15,6 +17,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
   invicibleFrame = 0;
   target: Phaser.Math.Vector2;
   shouldRespawn = true;
+  timeToRespawn = 1000;
+  damageEvent = {name: 'lifeUpdate', sound: 'Damage02'}
   config: any;
   spriteFolder = null;
   previousState = null;
@@ -36,7 +40,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected initImage(): void {
+    this.scale = 0.5 ;
     this.setOrigin(0.5, 0.5);
+    this.setSize(40, 40);
   }
 
   protected doNothing(): void {
@@ -88,10 +94,13 @@ export class Entity extends Phaser.GameObjects.Sprite {
     });
   }
 
-  protected die(): void {
+  protected die(sound = true): void {
+    if (sound) {
+      this.scene.gameEvent.emit('entityDied', {sound: 'Damage01'});
+    }
     this.alpha = 0;
     this.state = CurrentState.Dead;
-    this.scene.time.delayedCall(1000, this.respawn, [], this);
+    this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
   }
 
   protected updateTargetPosition(newPosition): void {
@@ -149,6 +158,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.state = CurrentState.Hurting;
       this.isInvicible = true;
       this.setTint(0xFF6347);
+      this.scene.gameEvent.emit(this.damageEvent.name, { sound: this.damageEvent.sound});
       this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
     }
 

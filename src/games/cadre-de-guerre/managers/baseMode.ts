@@ -48,6 +48,10 @@ export class BaseMode {
         enemy.die();       
     }
 
+    protected killSilentlyEnemy(enemy): void {
+        enemy.die(false);       
+    }
+
     protected unsetRespawn(enemy): void {
         enemy.shouldRespawn = false;
     }
@@ -66,18 +70,16 @@ export class BaseMode {
         this.toEachEnemy(this.unsetRespawn);
         this.toEachEnemy(this.killEnemy);
         this.onGoing = false;
-        this.scene.gameEvent.emit('roundEnded', null);
+        this.scene.gameEvent.emit('roundEnded', {sound: 'PowerUp01'});
     }
 
     protected roundStarted(): void {
         if (this.round === 0) {
-            for (let i = 0; i != this.maxEnemies; i++) {
-                this.enemies.push(this.spawnEnemy());
-            }
+            this.spawnInitialEnemies();
         }
         this.timeLeft = this.startTime;
         this.toEachEnemy(this.setRespawn);
-        this.toEachEnemy(this.killEnemy);
+        this.toEachEnemy(this.killSilentlyEnemy);
         this.onGoing = true;
         this.scene.gameEvent.emit('roundStarted', null);
     }
@@ -102,7 +104,6 @@ export class BaseMode {
         if ((monster.state === CurrentState.Dashing) &&
           (!this.scene.player.isInvicible)) {
           this.scene.player.getHurt();
-          this.scene.gameEvent.emit('lifeUpdate', { sound: 'Damage02'});
         }
         if  (this.scene.player.state === CurrentState.Dashing) {
           if (monster.state !== CurrentState.Dead) {

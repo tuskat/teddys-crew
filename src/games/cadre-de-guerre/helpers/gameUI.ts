@@ -15,6 +15,13 @@ export class GameUI {
         stroke: "#fff",
         strokeThickness: 6,
         fill: "#000000"
+      },
+      {
+        fontFamily: "Connection",
+        fontSize: 60,
+        stroke: "#fff",
+        strokeThickness: 6,
+        fill: "#000000"
       }
     ];
     private countDown = 0;
@@ -44,10 +51,10 @@ export class GameUI {
   private updateRound(): void {
     if (!this.text['round']) {
       this.text['round'] = this.scene.make.text({
-        x: (this.scene.sys.canvas.width / 3) - 50,
-        y: (this.scene.sys.canvas.height / 2) -  50,
+        x: (this.scene.sys.canvas.width / 3),
+        y: (this.scene.sys.canvas.height / 2) -  75,
         text: "Round Ended!",
-        style: this.style[0],
+        style: this.style[2],
         alpha: 0
       });
     }
@@ -92,6 +99,7 @@ export class GameUI {
       duration: 1000,
       onComplete: this.countDownHandler.bind(this)
     });
+    this.scene.gameEvent.emit('countDown', {sound: 'UI04'});
   }
 
   private countDownHandler(): void {

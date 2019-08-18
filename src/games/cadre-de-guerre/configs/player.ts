@@ -5,7 +5,8 @@ const config = {
     maxSpeedX : 1500,
     maxSpeedY : 750,
     delayToAction : 200,
-    invicibleFrame: 1000
+    invicibleFrame: 1000,
+    timeToRespawn: 1000
 }
 
 export default config

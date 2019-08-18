@@ -1,5 +1,7 @@
 import { GameScene } from "../scenes/gameScene";
 
+// Usage :
+// this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SfxManager {
     private defaultUrl: string;
     private soundList = [
@@ -7,13 +9,18 @@ export class SfxManager {
         'Damage01',
         'Damage02',
         'Fire01',
+        'PowerUp01',
         'PowerUp02',
-        'UI04'
+        'UI04',
     ];
     // To Do, Name sounds after events
     private eventList = [
         'playerRespawned',
         'lifeUpdate',
+        'entityDamaged',
+        'entityDied',
+        'countDown',
+        'roundEnded'
     ];
     private sounds = []
     scene: GameScene;
