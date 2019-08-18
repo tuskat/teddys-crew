@@ -29,8 +29,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
     this.initVariables(params.config);
     this.initImage();
-    this.scene.add.existing(this);
     this.spriteFolder = params.folder;
+    this.scene.add.existing(this);
   }
 
   protected initVariables(config): void {
@@ -40,9 +40,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected initImage(): void {
+    this.body.setSize(80, 80);
     this.scale = 0.5 ;
     this.setOrigin(0.5, 0.5);
-    this.setSize(40, 40);
   }
 
   protected doNothing(): void {
@@ -205,6 +205,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         break;
       }
     }
+
     this.previousState = this.state;
   }
 }

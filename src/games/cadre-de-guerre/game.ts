@@ -10,8 +10,6 @@ import { MenuScene } from "./scenes/menuScene";
 const config: Phaser.Types.Core.GameConfig = {
   title: "Cadre de Guerre",
   version: "0.1",
-  width: 1024,
-  height: 720,
   disableContextMenu: true,
   // width: window.innerWidth * window.devicePixelRatio,
   // height:  window.innerHeight * window.devicePixelRatio,

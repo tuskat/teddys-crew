@@ -68,7 +68,7 @@ export class BaseMode {
     protected roundEnded(): void {
         this.round++;
         this.toEachEnemy(this.unsetRespawn);
-        this.toEachEnemy(this.killEnemy);
+        this.toEachEnemy(this.killSilentlyEnemy);
         this.onGoing = false;
         this.scene.gameEvent.emit('roundEnded', {sound: 'PowerUp01'});
     }
@@ -95,10 +95,18 @@ export class BaseMode {
     }
 
     protected objectsTouch(objectA, objectB): boolean {
+        if (objectA.body && objectB.body) {
+        let rect1 = new Phaser.Geom.Rectangle();
+        let rect2 = new Phaser.Geom.Rectangle();
+        rect1 = objectA.body.getBounds(rect1);
+        rect2 = objectB.body.getBounds(rect2);
         return Phaser.Geom.Intersects.RectangleToRectangle(
-          objectA.getBounds(),
-          objectB.getBounds()
+            rect1,
+            rect2
         )
+        } else {
+            return false;
+        }
       }
     protected objectClashing(monster): void {
         if ((monster.state === CurrentState.Dashing) &&
