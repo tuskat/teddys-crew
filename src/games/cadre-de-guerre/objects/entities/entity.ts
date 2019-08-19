@@ -139,6 +139,27 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
   }
 
+  // protected shoot(): void {
+  //   if (this.state === CurrentState.Dead) {
+  //     return;
+  //   }
+  //   this.state = CurrentState.Shooting;
+  //   this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound});
+  //   if (time > lastFired)
+  //   {
+  //       var bullet = this.bullets.get();
+
+  //       if (bullet)
+  //       {
+  //           bullet.fire(this.x, this.y);
+
+  //           lastFired = time + 50;
+  //       }
+  //   }
+  //   // this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
+  //   this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
+  // }
+
   protected endDash(): void {
     this.body.reset(this.x, this.y);
     this.state = CurrentState.Moving;

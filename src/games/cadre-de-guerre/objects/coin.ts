@@ -1,10 +1,3 @@
-/**
- * @author       Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright    2018 - 2019 digitsensitive
- * @description  Coin Runner: Coin
- * @license      Digitsensitive
- */
-
 export class Coin extends Phaser.GameObjects.Image {
   private centerOfScreen: number;
   private changePositionTimer: Phaser.Time.TimerEvent;
