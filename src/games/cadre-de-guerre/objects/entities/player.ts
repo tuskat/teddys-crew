@@ -23,7 +23,7 @@ export class Player extends Entity {
   protected initInput(emitter): void {
     this.inputEvent = emitter;
     this.inputEvent.on('dbuttonpressed', this.dashToClick, this);
-    this.inputEvent.on('bbuttonpressed', this.blockClick, this);
+    this.inputEvent.on('bbuttonpressed', this.shootToClick, this);
     this.inputEvent.on('cursormoved', this.handlePointer, this);
   }
 
@@ -70,6 +70,14 @@ export class Player extends Entity {
       this.target.x = pointer.x;
       this.target.y = pointer.y;
       this.dash();
+    }
+  }
+
+  protected shootToClick(pointer): void {
+    if (!this.blockingState()) {
+      this.target.x = pointer.x;
+      this.target.y = pointer.y;
+      this.shoot();
     }
   }
 

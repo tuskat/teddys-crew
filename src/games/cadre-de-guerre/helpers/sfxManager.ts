@@ -27,12 +27,12 @@ export class SfxManager {
     ];
     private sounds = []
     scene: GameScene;
-  
+
     constructor(params) {
       this.defaultUrl = '/src/games/cadre-de-guerre/assets/sounds/';
       this.scene = params.scene;
-    }  
-  
+    }
+
     preloadSound() {
       this.soundList.forEach(element => {
         this.scene.load.audio(element, [
@@ -57,4 +57,3 @@ export class SfxManager {
         }
     }
   }
-  

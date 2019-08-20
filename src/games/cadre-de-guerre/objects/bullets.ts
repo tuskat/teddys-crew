@@ -1,59 +1,30 @@
-export class Bullet extends Phaser.GameObjects.Sprite {
-    speed;
-    incX;
-    incY;
-    lifespan;
-    entity;
+export class Bullet extends Phaser.GameObjects.Image {
+    private bulletSpeed: number;
 
     constructor(params) {
       super(params.scene, params.x, params.y, params.key);
-    
-      this.initVariables();
+
+      this.rotation = params.rotation;
       this.initImage();
-      this.initEvents();
-  
       this.scene.add.existing(this);
     }
-  
-    private initVariables(): void {
-        this.speed = Phaser.Math.GetSpeed(400, 1);
-    }
 
-    private initEvents(): void {
-
-    }
-  
     private initImage(): void {
+      // variables
+      this.bulletSpeed = 1000;
+
+      // image
       this.setOrigin(0.5, 0.5);
-    }
-  
-    fire(x, y): void {
-        this.setActive(true);
-        this.setVisible(true);
+      this.setDepth(2);
 
-        //  Bullets fire from the middle of the screen to the given x/y
-        this.setPosition(this.entity.x, this.entity.y);
-
-        var angle = Phaser.Math.Angle.Between(x, y, this.entity.x, this.entity.y);
-
-        this.setRotation(angle);
-
-        this.incX = Math.cos(angle);
-        this.incY = Math.sin(angle);
-
-        this.lifespan = 1000;
+      // physics
+      this.scene.physics.world.enable(this);
+      this.scene.physics.velocityFromRotation(
+        this.rotation - Math.PI / 2,
+        this.bulletSpeed,
+        this.body.velocity
+      );
     }
 
-    update(time, delta): void  {
-        this.lifespan -= delta;
-
-        this.x -= this.incX * (this.speed * delta);
-        this.y -= this.incY * (this.speed * delta);
-
-        if (this.lifespan <= 0)
-        {
-            this.setActive(false);
-            this.setVisible(false);
-        }
-    }
-}
+    update(): void {}
+  }

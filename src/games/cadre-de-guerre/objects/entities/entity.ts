@@ -1,11 +1,14 @@
 import { CurrentState } from '../../helpers/currentStates'
 import _ = require('lodash');
 import { GameScene } from '../../scenes/gameScene';
+import { Bullet } from '../bullets';
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
   scene: GameScene;
   life = 1;
+  level = 1;
+  power = 1;
   state = CurrentState.Moving;
   speed = 100;
   skills = [];
@@ -16,16 +19,19 @@ export class Entity extends Phaser.GameObjects.Sprite {
   isInvicible;
   invicibleFrame = 0;
   target: Phaser.Math.Vector2;
+  rangedSkill: any;
   shouldRespawn = true;
   timeToRespawn = 1000;
   dashDuration = 300;
   events = {
     'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
     'dash': {name: 'entityDashing', sound: 'Slash01'},
+    'shoot': {name: 'entityShooting', sound: 'Fire01'},
   };
   config: any;
   spriteFolder = null;
   previousState = null;
+  lastShoot: number;
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
@@ -35,6 +41,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.initImage();
     this.spriteFolder = params.folder;
     this.scene.add.existing(this);
+    this.rangedSkill = this.scene.add.group({
+      classType: Bullet,
+      maxSize: 2,
+      runChildUpdate: true
+  });
   }
 
   protected initVariables(config): void {
@@ -139,26 +150,34 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
   }
 
-  // protected shoot(): void {
-  //   if (this.state === CurrentState.Dead) {
-  //     return;
-  //   }
-  //   this.state = CurrentState.Shooting;
-  //   this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound});
-  //   if (time > lastFired)
-  //   {
-  //       var bullet = this.bullets.get();
+  protected shoot(): void {
+    if (this.state === CurrentState.Dead) {
+      return;
+    }
+    this.state = CurrentState.Shooting;
+    this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound});
+    this.handleShooting();
+    this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
+  }
 
-  //       if (bullet)
-  //       {
-  //           bullet.fire(this.x, this.y);
+  protected handleShooting(): void {
+    if (this.scene.time.now > this.lastShoot) {
+      if (this.rangedSkill.getLength() < 2) {
+        this.rangedSkill.add(
+          new Bullet({
+            scene: this.scene,
+            x: this.x,
+            y: this.y,
+            key: "uzi/uzi_0003.png",
+            texture: 'cadre-de-guerre',
+            rotation: this.rotation
+          })
+        );
 
-  //           lastFired = time + 50;
-  //       }
-  //   }
-  //   // this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
-  //   this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
-  // }
+        this.lastShoot = this.scene.time.now + 400;
+      }
+    }
+  }
 
   protected endDash(): void {
     this.body.reset(this.x, this.y);

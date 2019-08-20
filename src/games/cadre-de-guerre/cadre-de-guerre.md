@@ -37,17 +37,22 @@ skills and passives will be completely different (at a later date)
 
 ## To do
 
-- click on character skill
-- right click skill
+- make a custom cursor : https://www.cursor.cc/
+- click on character skill (interactive/block)
+- right click skill (shoot toward target)
+
+- add particle on move, dash, hit and kill
+- add camera shake on kill
+
+## UI
+
+- add skill boxes.
+- add skill cooldown.
+- add combo.
 
 ### Room Manager
 
-The room manager will decide many things. As a random dungeon,
-it'd probably be much more interesting if not all of the rooms happen to be "Kill X".
-
-Room manager should be able to first :
-- have wave rules
-- be capable to switch layout on waves end
+- switch layout on waves end
 - contain some interesting stuff for the user (extra currency and life pickups (more tbd))
 
 Later room manager will be able to :
@@ -59,13 +64,11 @@ Later room manager will be able to :
 Enemies  are at the beginning divided in 4 types :
 - shoot but doesn't move (weak to short range)
 - move in sequence, switch between hurt and idle (weak to long range)
-- chase the player, hurt only on dashes (done) (extremly weak)
 - chest kind enemies, flee user (can take some dmg)
 
 ##MVP
 
-- Sound/Music are present (in progress)
-- Basic sprite implementation
+- Musics are present (Punch Deck?)
 - Hub Screen
 - Basic Game Settings
 
@@ -74,6 +77,8 @@ Enemies  are at the beginning divided in 4 types :
 http://sbcgames.io/build-maintainable-games-with-phaser-3-2-adding-external-config/
 
 http://sbcgames.io/build-maintainable-games-with-phaser-3-3-user-settings/
+
+https://www.codeandweb.com/physicseditor/tutorials/how-to-create-physics-shapes-for-phaser-3-and-matterjs
 
 ##Artstyle to copy...hmm inspire from
 
