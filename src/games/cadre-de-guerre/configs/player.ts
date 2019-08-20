@@ -5,6 +5,7 @@ const config = {
     distanceToStop : 4,
     maxSpeedX : 1500,
     maxSpeedY : 750,
+    bulletSpeed : 1000,
     delayToAction : 200,
     invicibleFrame: 1000,
     timeToRespawn: 1000,

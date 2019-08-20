@@ -3,8 +3,9 @@ const config = {
     power: 1,
     speed : 100,
     signatureSkill : 'shoot',
-    distanceToStop : 100,
+    distanceToStop : 300,
     delayToAction : 500,
+    bulletSpeed : 300,
     events : {
         'hurt': {name: 'entityDamaged', sound: 'Damage01'},
         'dash': {name: 'entityDashing', sound: 'Slash05'},

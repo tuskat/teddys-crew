@@ -11,6 +11,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   power = 1;
   state = CurrentState.Moving;
   speed = 100;
+  bulletSpeed = 0;
   skills = [];
   signatureSkill = 'doNothing';
   distanceToStop = 100;
@@ -175,7 +176,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
             x: this.x,
             y: this.y,
             key: "VFX/EnergyBall",
-            rotation: rotation
+            rotation: rotation,
+            speed: this.bulletSpeed
           })
         );
         this.lastShoot = this.scene.time.now + 400;
@@ -202,7 +204,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   public getHurt(): boolean {
-    if (this.state === CurrentState.Dead) {
+    if (this.state === CurrentState.Dead ||
+        this.state === CurrentState.Hurting) {
       return false;
     }
     this.life--;

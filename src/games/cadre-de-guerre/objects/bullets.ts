@@ -1,10 +1,10 @@
 export class Bullet extends Phaser.GameObjects.Image {
-    private bulletSpeed: number;
+    private bulletSpeed: number = 1000;
     private lifespan: number;
 
     constructor(params) {
       super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
-
+      this.bulletSpeed = params.speed;
       this.rotation = params.rotation;
       this.initImage();
       this.scene.add.existing(this);
@@ -12,7 +12,7 @@ export class Bullet extends Phaser.GameObjects.Image {
 
     private initImage(): void {
       // variables
-      this.bulletSpeed = 1000;
+
       this.lifespan = 1000;
       // image
       this.scale = 0.5;
