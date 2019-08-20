@@ -1,4 +1,4 @@
-import { CurrentState } from '../../helpers/currentStates'
+import { CurrentState } from '../../configs/currentStates'
 import _ = require('lodash');
 import { GameScene } from '../../scenes/gameScene';
 import { Bullet } from '../bullets';

@@ -3,14 +3,14 @@ import * as PlayerConfig from '../configs/player';
 import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
 import { AssetsLoader } from '../helpers/assetsLoader';
-import { GameUI } from '../helpers/gameUI';
-import { SfxManager } from '../helpers/sfxManager';
-import { BaseMode } from '../managers/baseMode';
+import { GameUI } from '../managers/gameUI';
+import { SoundEffects } from '../managers/SoundEffects';
+import { BaseMode } from '../managers/gameModes/baseMode';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   public UI : GameUI;
-  private sfxs : SfxManager;
+  private sfxs : SoundEffects;
   private waveManager;
   private assetsLoader : AssetsLoader;
   public gameEvent: Phaser.Events.EventEmitter;
@@ -23,7 +23,7 @@ export class GameScene extends Phaser.Scene {
     });
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.gameEvent = new Phaser.Events.EventEmitter();
-    this.sfxs = new SfxManager({ scene: this });
+    this.sfxs = new SoundEffects({ scene: this });
   }
 
   preload(): void {

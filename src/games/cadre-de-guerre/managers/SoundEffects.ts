@@ -2,7 +2,7 @@ import { GameScene } from "../scenes/gameScene";
 
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
-export class SfxManager {
+export class SoundEffects {
     private defaultUrl: string;
     private soundList = [
         'Alarm',

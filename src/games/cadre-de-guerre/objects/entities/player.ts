@@ -1,4 +1,4 @@
-import { CurrentState } from '../../helpers/currentStates';
+import { CurrentState } from '../../configs/currentStates';
 import { Entity } from './entity';
 import { GameScene } from '../../scenes/gameScene';
 

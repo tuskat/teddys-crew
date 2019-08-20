@@ -1,7 +1,7 @@
-import { GameScene } from "../scenes/gameScene";
-import { MeleeEnemy } from "../objects/entities/enemy";
-import { CurrentState } from '../helpers/currentStates';
-import * as DasherConfig from '../configs/dasher';
+import { GameScene } from "../../scenes/gameScene";
+import { MeleeEnemy } from "../../objects/entities/enemy";
+import { CurrentState } from '../../configs/currentStates';
+import * as DasherConfig from '../../configs/dasher';
 
 export class BaseMode {
     scene: GameScene;
