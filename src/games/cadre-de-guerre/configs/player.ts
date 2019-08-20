@@ -1,5 +1,6 @@
 const config = {
     life : 10,
+    power: 1,
     speed : 200,
     distanceToStop : 4,
     maxSpeedX : 1500,
@@ -11,6 +12,7 @@ const config = {
     events : {
         'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
         'dash': {name: 'entityDashing', sound: 'Slash01'},
+        'shoot': {name: 'entityShooting', sound: 'Fire01'},
     }
 }
 

@@ -1,8 +1,8 @@
 import { GameScene } from "../../scenes/gameScene";
-import { MeleeEnemy } from "../../objects/entities/enemy";
+import { Enemy } from "../../objects/entities/enemy";
 import { CurrentState } from '../../configs/currentStates';
 import * as DasherConfig from '../../configs/dasher';
-
+import * as ShooterConfig from '../../configs/shooter';
 export class BaseMode {
     scene: GameScene;
     maxEnemies = 5;
@@ -61,8 +61,25 @@ export class BaseMode {
 
     protected spawnInitialEnemies(): void {
         for (let i = 0; i != this.maxEnemies; i++) {
-            this.enemies.push(this.spawnEnemy());
+            let enemyType = Math.random() < 0.5 ? 'Enemy' : 'Shooter';
+            this.enemies.push(this.spawnEnemy(enemyType));
         }
+
+        this.toEachEnemy((enemy: Enemy) => {
+            this.scene.physics.add.overlap(
+              this.scene.player.getBullets(),
+              enemy,
+              this.bulletHitEntity,
+              null,
+              this
+            );
+            this.scene.physics.add.overlap(
+              enemy.getBullets(),
+              this.scene.player,
+              this.bulletHitEntity,
+              null
+            );
+        });
     }
 
     protected roundEnded(): void {
@@ -127,19 +144,35 @@ export class BaseMode {
         return this.enemies;
     }
 
-    protected spawnEnemy(): any {
-        let enemy = new MeleeEnemy({
+    protected spawnEnemy(folder): any {
+        let config = (folder === 'Shooter') ? ShooterConfig : DasherConfig;
+        let enemy = new Enemy({
             scene: this.scene,
             x: Phaser.Math.RND.integerInRange(100, 700),
             y: Phaser.Math.RND.integerInRange(100, 500),
-            key: "Enemy/Idle",
+            key: folder + "/Idle",
             player: this.scene.player,
-            config: DasherConfig.default,
-            folder: "Enemy"
+            config: config.default,
+            folder: folder
             });
         return enemy;
     }
     public getTimeLeft(): number {
         return this.timeLeft;
+    }
+    
+    protected bulletHitLayer(bullet): void {
+        bullet.destroy();
+    }
+
+    protected bulletHitObstacles(bullet, obstacle): void {
+        bullet.destroy();
+    }
+
+    protected bulletHitEntity(bullet, entity): void {
+        if (entity.state !== CurrentState.Dead) {
+            bullet.destroy();
+            entity.getHurt();
+        }
     }
 }

@@ -12,6 +12,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   state = CurrentState.Moving;
   speed = 100;
   skills = [];
+  signatureSkill = 'doNothing';
   distanceToStop = 100;
   maxSpeedX;
   maxSpeedY;
@@ -23,15 +24,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
   shouldRespawn = true;
   timeToRespawn = 1000;
   dashDuration = 300;
-  events = {
-    'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
-    'dash': {name: 'entityDashing', sound: 'Slash01'},
-    'shoot': {name: 'entityShooting', sound: 'Fire01'},
-  };
+  events = {};
   config: any;
   spriteFolder = null;
   previousState = null;
-  lastShoot: number;
+  lastShoot: number = 0;
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
@@ -45,7 +42,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       classType: Bullet,
       maxSize: 2,
       runChildUpdate: true
-  });
+    });
   }
 
   protected initVariables(config): void {
@@ -56,7 +53,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected initImage(): void {
     this.body.setSize(80, 80);
-    this.scale = 0.5 ;
+    this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
   }
 
@@ -87,6 +84,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
     this.isInvicible = false;
     this.state = CurrentState.Moving;
+    this.redrawLifebar();
   }
 
   protected respawn(): void {
@@ -111,8 +109,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected die(sound = true): void {
     if (sound) {
-      this.scene.gameEvent.emit('entityDied', {sound: 'Damage01'});
+      this.scene.gameEvent.emit('entityDied', { sound: 'Damage01' });
     }
+    this.hideLifebar();
     this.alpha = 0;
     this.state = CurrentState.Dead;
     this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
@@ -132,11 +131,15 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   //  Only non-player wind-up before dashing
+  protected attackSkill(): void {
+   this[this.signatureSkill](); 
+  }
+  
   protected attack(): void {
     if (!this.blockingState()) {
       this.body.reset(this.x, this.y);
       this.state = CurrentState.WindingUp;
-      this.scene.time.delayedCall(500, this.dash, [], this);
+      this.scene.time.delayedCall(500, this.attackSkill, [], this);
     }
   }
 
@@ -145,41 +148,45 @@ export class Entity extends Phaser.GameObjects.Sprite {
       return;
     }
     this.state = CurrentState.Dashing;
-    this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound});
+    this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
     this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
-    this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
+    this.scene.time.delayedCall(this.dashDuration, this.endAction, [], this);
   }
 
   protected shoot(): void {
     if (this.state === CurrentState.Dead) {
       return;
     }
-    this.state = CurrentState.Shooting;
-    this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound});
     this.handleShooting();
-    this.scene.time.delayedCall(this.dashDuration, this.endDash, [], this);
   }
 
   protected handleShooting(): void {
     if (this.scene.time.now > this.lastShoot) {
+      var rotation = Phaser.Math.Angle.Between(
+        this.x,
+        this.y,
+        this.target.x,
+        this.target.y
+      );
       if (this.rangedSkill.getLength() < 2) {
         this.rangedSkill.add(
           new Bullet({
             scene: this.scene,
             x: this.x,
             y: this.y,
-            key: "uzi/uzi_0003.png",
-            texture: 'cadre-de-guerre',
-            rotation: this.rotation
+            key: "VFX/EnergyBall",
+            rotation: rotation
           })
         );
-
         this.lastShoot = this.scene.time.now + 400;
+        this.state = CurrentState.Shooting;
+        this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound });
+        this.scene.time.delayedCall(this.dashDuration, this.endAction, [], this);
       }
     }
   }
 
-  protected endDash(): void {
+  protected endAction(): void {
     this.body.reset(this.x, this.y);
     this.state = CurrentState.Moving;
   }
@@ -199,10 +206,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
       return false;
     }
     this.life--;
-    this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound});
+    this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
     if (this.life < 0) {
       this.life = 0;
     }
+    this.redrawLifebar();
     if (this.life === 0) {
       this.die();
     } else if (this.life > 0) {
@@ -211,7 +219,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.setTint(0xFF6347);
       this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
     }
-
     return (this.life === 0);
   }
 
@@ -225,7 +232,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected updateFrame(): void {
     let extension = '.png';
-    if (this.target.x <  this.x) {
+    if (this.target.x < this.x) {
       this.setFlipX(true);
     } else {
       this.setFlipX(false);
@@ -250,6 +257,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.setFrame(this.spriteFolder + '/Dash' + extension);
         break;
       }
+      case CurrentState.Shooting: {
+        this.setFrame(this.spriteFolder + '/Attack' + extension);
+        break;
+      }
       case CurrentState.Moving: {
         this.setFrame(this.spriteFolder + '/Idle' + extension);
         break;
@@ -258,4 +269,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
     this.previousState = this.state;
   }
+
+  public getBullets(): Phaser.GameObjects.Group {
+    return this.rangedSkill;
+  }
+
+  redrawLifebar(): void {}
+  hideLifebar(): void {}
 }

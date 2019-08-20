@@ -1,6 +1,6 @@
 import { GameScene } from "../scenes/gameScene";
 
-export class GameUI {
+export class UserInterface {
     private text: Phaser.GameObjects.Text[] = [];
     private style: any[] = [{
         fontFamily: "Connection",

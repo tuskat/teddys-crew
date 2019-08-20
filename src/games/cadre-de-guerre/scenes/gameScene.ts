@@ -3,13 +3,13 @@ import * as PlayerConfig from '../configs/player';
 import { Player } from "../objects/entities/player";
 import { Controller } from '../helpers/controller';
 import { AssetsLoader } from '../helpers/assetsLoader';
-import { GameUI } from '../managers/gameUI';
-import { SoundEffects } from '../managers/SoundEffects';
+import { UserInterface } from '../managers/userInterface';
+import { SoundEffects } from '../managers/soundEffects';
 import { BaseMode } from '../managers/gameModes/baseMode';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
-  public UI : GameUI;
+  public UI : UserInterface;
   private sfxs : SoundEffects;
   private waveManager;
   private assetsLoader : AssetsLoader;
@@ -54,7 +54,7 @@ export class GameScene extends Phaser.Scene {
 
     // create texts
     this.waveManager = new BaseMode({ scene: this });
-    this.UI = new GameUI({scene : this, gameEvent : this.gameEvent});
+    this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
     this.sfxs.initSound();
     this.waveManager.create();
     this.gameEvent.on('roundEnded', this.restartRound, this);

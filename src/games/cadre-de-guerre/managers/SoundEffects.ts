@@ -21,6 +21,7 @@ export class SoundEffects {
         'lifeUpdate',
         'entityDamaged',
         'entityDashing',
+        'entityShooting',
         'entityDied',
         'countDown',
         'roundEnded'
