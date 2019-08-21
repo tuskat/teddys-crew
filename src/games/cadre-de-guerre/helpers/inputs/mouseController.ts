@@ -1,6 +1,6 @@
 import { BaseController } from './baseController';
 
-export class Controller extends BaseController {
+export class MouseController extends BaseController {
     constructor(params) {
         super(params);
     }

@@ -1,7 +1,7 @@
 import * as PlayerConfig from '../configs/player';
 
 import { Player } from "../objects/entities/player";
-import { Controller } from '../helpers/controller';
+import { MouseController } from '../helpers/inputs/mouseController';
 import { AssetsLoader } from '../helpers/assetsLoader';
 import { UserInterface } from '../managers/userInterface';
 import { SoundEffects } from '../managers/soundEffects';
@@ -41,7 +41,7 @@ export class GameScene extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     // create objects
-    var player1input = new Controller(this.scene);
+    var player1input = new MouseController(this.scene);
     this.player = new Player({
       scene: this,
       controller: player1input,
