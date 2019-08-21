@@ -5,16 +5,15 @@ import { CurrentState } from '../../configs/currentStates'
 export class Enemy extends Entity {
   player: Player;
   private lifeBar: Phaser.GameObjects.Graphics;
-  private gameEvent: Phaser.Events.EventEmitter;
 
   constructor(params) {
     super(params);
     this.player = params.player;
-    this.gameEvent = params.scene.gameEvent;
     this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
     this.lifeBar = this.scene.add.graphics();
     this.redrawLifebar();
   }
+
   protected blockingState(): boolean {
     return (this.state === CurrentState.Dead ||
       this.state === CurrentState.Dashing ||
@@ -23,9 +22,6 @@ export class Enemy extends Entity {
       this.state === CurrentState.WindingUp);
   }
 
-  create(): void {
-    this.gameEvent.on('entityDamaged', this.redrawLifebar, this);
-  }
   update(): void {
     if (this.blockingState()) {
       this.doNothing();
@@ -40,7 +36,6 @@ export class Enemy extends Entity {
     this.lifeBar.y = this.y;
     this.updateFrame();
   }
-
 
   redrawLifebar(): void {
     if (this.lifeBar.alpha === 0 && this.life > 0) {

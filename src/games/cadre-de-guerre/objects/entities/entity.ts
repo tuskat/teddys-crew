@@ -133,9 +133,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   //  Only non-player wind-up before dashing
   protected attackSkill(): void {
-   this[this.signatureSkill](); 
+   this[this.signatureSkill]();
   }
-  
+
   protected attack(): void {
     if (!this.blockingState()) {
       this.body.reset(this.x, this.y);

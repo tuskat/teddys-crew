@@ -39,17 +39,17 @@ export class BaseMode {
             this.objectClashing(enemy);
         }
     }
-    
+
     protected updateEnemy(enemy): void {
-        enemy.update();       
+        enemy.update();
     }
 
     protected killEnemy(enemy): void {
-        enemy.die();       
+        enemy.die();
     }
 
     protected killSilentlyEnemy(enemy): void {
-        enemy.die(false);       
+        enemy.die(false);
     }
 
     protected unsetRespawn(enemy): void {
@@ -160,7 +160,7 @@ export class BaseMode {
     public getTimeLeft(): number {
         return this.timeLeft;
     }
-    
+
     protected bulletHitLayer(bullet): void {
         bullet.destroy();
     }
@@ -170,7 +170,8 @@ export class BaseMode {
     }
 
     protected bulletHitEntity(bullet, entity): void {
-        if (entity.state !== CurrentState.Dead) {
+        if (entity.state !== CurrentState.Dead ||
+            entity.state !== CurrentState.Dashing) {
             bullet.destroy();
             entity.getHurt();
         }

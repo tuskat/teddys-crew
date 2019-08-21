@@ -15,7 +15,6 @@ export class Player extends Entity {
   }
 
   protected initBody(): void {
-    this.target = new Phaser.Math.Vector2();
     this.body.maxVelocity.x = this.maxSpeedX;
     this.body.maxVelocity.y = this.maxSpeedY;
   }
@@ -65,23 +64,22 @@ export class Player extends Entity {
     }
   }
 
-  protected dashToClick(pointer): void {
+  protected useSkill(pointer, action): void {
     if (!this.blockingState()) {
       this.target.x = pointer.x;
       this.target.y = pointer.y;
-      this.dash();
+      this[action]();
     }
+  }
+  protected dashToClick(pointer): void {
+    this.useSkill(pointer, 'dash');
   }
 
   protected shootToClick(pointer): void {
-    if (!this.blockingState()) {
-      this.target.x = pointer.x;
-      this.target.y = pointer.y;
-      this.shoot();
-    }
+    this.useSkill(pointer, 'shoot');
   }
 
-  protected blockClick(pointer): void {
+  protected blockToClick(pointer): void {
 
   }
 
