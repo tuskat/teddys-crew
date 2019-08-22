@@ -74,13 +74,21 @@ Enemies  are at the beginning divided in 4 types :
 
 ##Useful ressources
 
+https://phaser.io/examples/v3/view/camera/world-view
+
 http://sbcgames.io/build-maintainable-games-with-phaser-3-2-adding-external-config/
 
 http://sbcgames.io/build-maintainable-games-with-phaser-3-3-user-settings/
 
 https://www.codeandweb.com/physicseditor/tutorials/how-to-create-physics-shapes-for-phaser-3-and-matterjs
 
+https://docs.google.com/document/d/1Y0ynp9BIRjBtwiIHImebTuL1fj6d1wHPau61gTWcmcA/edit
+
 ##Artstyle to copy...hmm inspire from
 
 https://www.spriters-resource.com/snes/kirbydream3/
 https://www.spriters-resource.com/ds_dsi/kirbycanvascurse/sheet/2781/
+
+##Royalty free garbage
+https://drive.google.com/drive/folders/0ByU7awpZcluQMjlDOWFGV24yT1E
+
