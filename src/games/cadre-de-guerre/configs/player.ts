@@ -9,7 +9,7 @@ const config = {
     delayToAction : 200,
     invicibleFrame: 1000,
     timeToRespawn: 1000,
-    dashDuration: 300,
+    actionDuration: 300,
     events : {
         'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
         'dash': {name: 'entityDashing', sound: 'Slash01'},

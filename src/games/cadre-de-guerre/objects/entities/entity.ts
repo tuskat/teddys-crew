@@ -19,12 +19,13 @@ export class Entity extends Phaser.GameObjects.Sprite {
   maxSpeedY;
   delayToAction;
   isInvicible;
-  invicibleFrame = 0;
+  invicibleFrame = 300;
   target: Phaser.Math.Vector2;
   rangedSkill: any;
   shouldRespawn = true;
   timeToRespawn = 1000;
-  dashDuration = 300;
+  actionDuration = 500;
+  actionPending = null;
   events = {};
   config: any;
   spriteFolder = null;
@@ -121,6 +122,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
   }
 
+  protected delayedRespawn(): void {
+    this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
+  }
+
   protected updateTargetPosition(newPosition): void {
     this.target.x = newPosition.x;
     this.target.y = newPosition.y;
@@ -143,7 +148,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     if (!this.blockingState()) {
       this.body.reset(this.x, this.y);
       this.state = CurrentState.WindingUp;
-      this.scene.time.delayedCall(500, this.attackSkill, [], this);
+      this.actionPending = this.scene.time.delayedCall(this.actionDuration * 1.25, this.attackSkill, [], this);
     }
   }
 
@@ -154,7 +159,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.state = CurrentState.Dashing;
     this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
     this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
-    this.scene.time.delayedCall(this.dashDuration, this.endAction, [], this);
+    this.scene.time.delayedCall(this.actionDuration, this.endAction, [], this);
   }
 
   protected shoot(): void {
@@ -186,7 +191,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.lastShoot = this.scene.time.now + 400;
         this.state = CurrentState.Shooting;
         this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound });
-        this.scene.time.delayedCall(this.dashDuration, this.endAction, [], this);
+        this.scene.time.delayedCall(this.actionDuration, this.endAction, [], this);
       }
     }
   }
@@ -224,6 +229,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
   public getHurt(): number {
     if (this.isVulnerable()) {
+      if (this.actionPending) {
+        this.actionPending.remove(false);
+      }
       this.life--;
       this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
       if (this.life < 0) {

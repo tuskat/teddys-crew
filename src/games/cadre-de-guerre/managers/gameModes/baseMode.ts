@@ -52,6 +52,10 @@ export class BaseMode {
         enemy.die(false);
     }
 
+    protected respawnEnemy(enemy): void {
+        enemy.delayedRespawn();
+    }
+
     protected unsetRespawn(enemy): void {
         enemy.shouldRespawn = false;
     }
@@ -91,13 +95,15 @@ export class BaseMode {
     }
 
     protected roundStarted(): void {
-        if (this.round === 0) {
-            this.spawnInitialEnemies();
-        }
         this.timeLeft = this.startTime;
         this.toEachEnemy(this.setRespawn);
-        this.toEachEnemy(this.killSilentlyEnemy);
         this.onGoing = true;
+        if (this.round === 0) {
+            this.spawnInitialEnemies();
+            this.toEachEnemy(this.killSilentlyEnemy);
+        } else {
+            this.toEachEnemy(this.respawnEnemy);
+        }
         this.scene.gameEvent.emit('roundStarted', null);
     }
     protected updateClock(): void {

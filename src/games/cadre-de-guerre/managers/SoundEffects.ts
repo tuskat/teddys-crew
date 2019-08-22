@@ -44,6 +44,7 @@ export class SoundEffects {
     initSound() {
         this.soundList.forEach(element => {
             this.sounds[element] = this.scene.sound.add(element);
+            this.sounds[element].volume = 0.3;
         });
 
         this.eventList.forEach(element => {

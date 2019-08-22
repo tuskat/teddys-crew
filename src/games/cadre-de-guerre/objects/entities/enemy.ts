@@ -44,13 +44,13 @@ export class Enemy extends Entity {
     this.lifeBar.clear();
     this.lifeBar.fillStyle(0xe66a28, 1);
     this.lifeBar.fillRect(
-      -this.width / 2,
-      this.height / 2,
-      this.width * (this.life / this.config.life),
-      15
+      -this.width /4,
+      this.height / 3,
+      (this.width / 2  ) * (this.life / this.config.life),
+      10
     );
     this.lifeBar.lineStyle(2, 0xffffff);
-    this.lifeBar.strokeRect(-this.width / 2, this.height / 2, this.width, 15);
+    this.lifeBar.strokeRect(-this.width / 4, this.height / 3, (this.width / 2), 10);
     this.lifeBar.setDepth(1);
   }
 
