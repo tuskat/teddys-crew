@@ -126,17 +126,11 @@ export class BaseMode {
         }
       }
     protected objectClashing(monster): void {
-        if ((monster.state === CurrentState.Dashing) &&
-          (!this.scene.player.isInvicible)) {
+        if (monster.state === CurrentState.Dashing) {
           this.scene.player.getHurt();
         }
-        if  (this.scene.player.state === CurrentState.Dashing) {
-          if (monster.state !== CurrentState.Dead) {
-            var died = monster.getHurt();
-            if (died) {
-              this.scene.gameEvent.emit('scoreUpdate');
-            }
-          }
+        if (this.scene.player.state === CurrentState.Dashing) {
+          monster.getHurt();
         }
       }
 
@@ -170,10 +164,9 @@ export class BaseMode {
     }
 
     protected bulletHitEntity(bullet, entity): void {
-        if (entity.state !== CurrentState.Dead ||
-            entity.state !== CurrentState.Dashing) {
+        let bulletConnected = entity.getHurt();
+        if (bulletConnected !== -1) {
             bullet.destroy();
-            entity.getHurt();
         }
     }
 }

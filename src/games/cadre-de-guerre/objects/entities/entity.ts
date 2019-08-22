@@ -69,7 +69,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   update(): void {
-    if (!this.target || this.blockingState()) {
+    if (this.blockingState()) {
       this.doNothing();
     }
     else {
@@ -109,13 +109,16 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected die(sound = true): void {
-    if (sound) {
-      this.scene.gameEvent.emit('entityDied', { sound: 'Damage01' });
+    if (!this.isDead()) {
+      if (sound) {
+        this.scene.gameEvent.emit('entityDied', { sound: 'Damage01' });
+      }
+      this.scene.gameEvent.emit('scoreUpdate');
+      this.hideLifebar();
+      this.alpha = 0;
+      this.state = CurrentState.Dead;
+      this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
     }
-    this.hideLifebar();
-    this.alpha = 0;
-    this.state = CurrentState.Dead;
-    this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
   }
 
   protected updateTargetPosition(newPosition): void {
@@ -189,8 +192,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected endAction(): void {
-    this.body.reset(this.x, this.y);
-    this.state = CurrentState.Moving;
+    if (!this.isDead()) {
+      this.body.reset(this.x, this.y);
+      this.state = CurrentState.Moving;
+    }
   }
 
   protected closeToTarget(): boolean {
@@ -203,26 +208,39 @@ export class Entity extends Phaser.GameObjects.Sprite {
     return false;
   }
 
-  public getHurt(): boolean {
+  protected isVulnerable(): boolean {
     if (this.state === CurrentState.Dead ||
-        this.state === CurrentState.Hurting) {
-      return false;
+      this.state === CurrentState.Hurting) {
+    return false;
     }
-    this.life--;
-    this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
-    if (this.life < 0) {
-      this.life = 0;
+    return true;
+  }
+
+  protected isDead(): boolean {
+    if (this.state === CurrentState.Dead) {
+      return true;
     }
-    this.redrawLifebar();
-    if (this.life === 0) {
-      this.die();
-    } else if (this.life > 0) {
-      this.state = CurrentState.Hurting;
-      this.isInvicible = true;
-      this.setTint(0xFF6347);
-      this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
+    return false;
+  }
+  public getHurt(): number {
+    if (this.isVulnerable()) {
+      this.life--;
+      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
+      if (this.life < 0) {
+        this.life = 0;
+      }
+      this.redrawLifebar();
+      if (this.life === 0) {
+        this.die();
+      } else if (this.life > 0) {
+        this.state = CurrentState.Hurting;
+        this.isInvicible = true;
+        this.setTint(0xFF6347);
+        this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
+      }
+      return this.life;
     }
-    return (this.life === 0);
+    return -1;
   }
 
   protected endHurting(): void {

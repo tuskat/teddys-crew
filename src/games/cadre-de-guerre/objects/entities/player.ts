@@ -38,6 +38,17 @@ export class Player extends Entity {
       }
     }
   }
+  protected isVulnerable(): boolean {
+    if (this.isInvicible) {
+      return false;
+    }
+    if (this.state === CurrentState.Dead ||
+      this.state === CurrentState.Hurting ||
+      this.state === CurrentState.Dashing) {
+    return false;
+    }
+    return true;
+  }
 
   protected closeToCurser(): boolean {
     if (this.target) {
