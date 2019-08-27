@@ -36,6 +36,14 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
+    // Pause when out of foccin focus
+    this.game.events.on('blur',function(){
+      this.game.scene.pause('GameScene');
+    },this);
+    this.game.events.on('focus',function(){
+      this.game.scene.resume('GameScene');
+    },this);
+
     // create background
     this.background = this.add.sprite(0, 0,'cadre-de-guerre', "map.png");
     this.background.setOrigin(0, 0);
