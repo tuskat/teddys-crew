@@ -53,11 +53,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.config = config;
   }
 
+  
   protected initImage(): void {
-    this.body.setSize(80, 80);
     this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
   }
+
 
   protected doNothing(): void {
 

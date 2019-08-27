@@ -19,6 +19,15 @@ export class Player extends Entity {
     this.body.maxVelocity.y = this.maxSpeedY;
   }
 
+  
+  protected initImage(): void {
+    this.body.setSize(80, 80);
+    this.scale = 0.5;
+    this.setOrigin(0.5, 0.5);
+    this.body.setOffset(this.width / 4, this.height / 3);
+  }
+
+
   protected initInput(emitter): void {
     this.inputEvent = emitter;
     this.inputEvent.on('dbuttonpressed', this.dashToClick, this);
