@@ -1,9 +1,11 @@
+import { Config } from "../config";
+
 export class AssetsLoader {
   private defaultUrl: string;
   private scene: Phaser.Scene;
 
   constructor(params) {
-    this.defaultUrl = '/src/games/cadre-de-guerre/assets/sprites';
+    this.defaultUrl = Config.FOLDER + '/sprites';
     this.scene = params.scene;
   }
 
