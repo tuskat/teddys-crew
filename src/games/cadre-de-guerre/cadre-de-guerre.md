@@ -84,6 +84,8 @@ https://www.codeandweb.com/physicseditor/tutorials/how-to-create-physics-shapes-
 
 https://docs.google.com/document/d/1Y0ynp9BIRjBtwiIHImebTuL1fj6d1wHPau61gTWcmcA/edit
 
+https://www.emanueleferonato.com/2018/09/19/html5-level-select-screen-featuring-swipe-control-stars-progress-saved-on-local-storage-smooth-scrolling-pagination-and-more-powered-by-phaser-3/
+
 ##Artstyle to copy...hmm inspire from
 
 https://www.spriters-resource.com/snes/kirbydream3/
@@ -91,4 +93,4 @@ https://www.spriters-resource.com/ds_dsi/kirbycanvascurse/sheet/2781/
 
 ##Royalty free garbage
 https://drive.google.com/drive/folders/0ByU7awpZcluQMjlDOWFGV24yT1E
-
+https://www.reddit.com/r/rareinsults/
