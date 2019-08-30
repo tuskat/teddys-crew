@@ -79,6 +79,10 @@ export class GameScene extends Phaser.Scene {
     return this.waveManager.getTimeLeft() || 0;
   }
 
+  getGameEvent(): Phaser.Events.EventEmitter {
+    return this.gameEvent;
+  }
+
   restartRound(): void {
     this.time.delayedCall(1000, () => {
       this.gameEvent.emit('startCountdown', null);

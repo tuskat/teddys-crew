@@ -1,8 +1,8 @@
-# Cadre de Guerre
+# Teddy's Crews
 
 ## Synopsis
 
-"Cadre de Guerre" is a cute parody of [Redacted], it stars some bears like creatures with insect masks fighting some obscure-like (deep-sea inspired) creatures.
+"Teddy's Crews" is a cute parody of [Redacted], it stars some bears like creatures with insect masks fighting some obscure-like (deep-sea inspired) creatures.
 The goal is to fight off waves of enemies. It is a reversed dungeon : each wave will completely change the room.
 You will have a say on which room you raid (at a later date)
 
@@ -15,8 +15,8 @@ You will have a say on which room you raid (at a later date)
 ## Genre
 
 It's a roguelite. As such, you get currency while fighting.
-Once you die you can use that currency to improve your Cadre de Guerre.
-Dying mean you'll be randomly attributed a different Cadre de Guerre and as such,
+Once you die you can use that currency to improve your Teddy's Crews.
+Dying mean you'll be randomly attributed a different Teddy's Crews and as such,
 skills and passives will be completely different (at a later date)
 
 ## To do

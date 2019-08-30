@@ -1,5 +1,7 @@
 import { GameScene } from "../scenes/gameScene";
 
+const BARWIDTH = 200;
+
 export class UserInterface {
     private text: Phaser.GameObjects.Text[] = [];
     private style: any[] = [{
@@ -22,11 +24,20 @@ export class UserInterface {
         stroke: "#fff",
         strokeThickness: 6,
         fill: "#000000"
+      },
+      {
+        fontFamily: "Connection",
+        fontSize: 20,
+        stroke: "#fff",
+        strokeThickness: 4,
+        fill: "#000000"
       }
     ];
     private countDown = 0;
     private playerLifeBar: Phaser.GameObjects.Graphics;
     private playerLifeBarBg: Phaser.GameObjects.Graphics;
+    private playerXpBar: Phaser.GameObjects.Graphics;
+    private playerXpBarBg: Phaser.GameObjects.Graphics;
     private gameEvent: Phaser.Events.EventEmitter;
     private scene: GameScene;
   
@@ -40,7 +51,7 @@ export class UserInterface {
   private updateScore(): void {
     this.scene.kills++;
     this.text['score'].setText(this.scene.kills + "");
-    // this.coin.changePosition();
+    this.updateXPBar();
   }
 
   private updateTime(): void {
@@ -83,6 +94,29 @@ export class UserInterface {
     this.count();
   }
 
+  private levelUp(): void {
+    if (!this.text['levelUp']) {
+      this.text['levelUp'] = this.scene.make.text({
+        x: this.scene.player.x,
+        y: this.scene.player.y,
+        text: "Level Up!!!",
+        style: this.style[3]
+      });
+    } else {
+      this.text['levelUp'].setPosition(this.scene.player.x, this.scene.player.y);
+    }
+    this.scene.add.tween({
+      targets: [this.text['levelUp']],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 1,
+        getEnd: () => 0
+      },
+      duration: 1000,
+      onComplete: null
+    });
+  }
+
   private count(): void {
     if (this.countDown > 0) {
       this.text['countdown'].setText("Next round in " + this.countDown);
@@ -109,31 +143,28 @@ export class UserInterface {
     this.countDown--;
     this.count();
   }
-  private updateLifeBar(): void {
-    this.playerLifeBar.clear();
-    this.playerLifeBar.fillStyle(0xffffff, 1);
-    this.playerLifeBar.fillRect(10, 10, 20 * this.scene.player.life, 30);
-    this.text['life'].setText(this.scene.player.life + "/ 10"); // Max Life to Set
-  }
 
-  public initGUI(): void {
+  private initText(): void {
     this.text['score'] = this.scene.make.text({
-      x: this.scene.sys.canvas.width / 2,
-      y: this.scene.sys.canvas.height - 50,
+      x: this.scene.sys.canvas.width - 50,
+      y: 10,
       text: this.scene.kills + "",
       style: this.style[0]
     }
     );
     this.text['time'] = this.scene.make.text({
-      x: this.scene.sys.canvas.width - 50,
-      y: this.scene.sys.canvas.height - 50,
+      x: this.scene.sys.canvas.width / 2,
+      y: 10,
       text: this.scene.getTimeLeft() + "",
       style: this.style[0]
     }
     );
+  }
+
+  private initLifebar(): void {
     this.playerLifeBarBg = this.scene.add.graphics();
-    this.playerLifeBarBg.fillStyle(0x000000, 1);
-    this.playerLifeBarBg.fillRect(15, 15, 200, 30);
+    this.playerLifeBarBg.fillStyle(0x000000, 0.75);
+    this.playerLifeBarBg.fillRect(15, 15, BARWIDTH, 30);
     this.playerLifeBar = this.scene.add.graphics();
     this.text['life'] = this.scene.add.text(
       50,
@@ -141,11 +172,49 @@ export class UserInterface {
       '',
       this.style[1]
     );
+  }
+
+  private initXpbar(): void {
+    this.playerXpBarBg = this.scene.add.graphics();
+    this.playerXpBarBg.fillStyle(0x000000, 0.75);
+    this.playerXpBarBg.fillRect(15, 60, BARWIDTH, 10);
+    this.playerXpBar = this.scene.add.graphics();
+    this.text['experience'] = this.scene.add.text(
+      50,
+      45,
+      '',
+      this.style[3]
+    );
+  }
+  
+
+  private updateLifeBar(): void {
+    this.playerLifeBar.clear();
+    this.playerLifeBar.fillStyle(0xffffff, 1);
+    this.playerLifeBar.fillRect(10, 10, (this.scene.player.life / this.scene.player.maxLife) * BARWIDTH, 30);
+    this.text['life'].setText(this.scene.player.life + "/ " + this.scene.player.maxLife); // Max Life to Set
+  }
+
+  private updateXPBar(): void {
+    this.playerXpBar.clear();
+    this.playerXpBar.fillStyle(0x87BC5E, 0.75);
+    this.playerXpBar.fillRect(15, 60, ((this.scene.player.experience / this.scene.player.experienceToLevelUp) * BARWIDTH), 10);
+    this.text['experience'].setText('Level: ' + this.scene.player.level); // Max Life to Set
+  }
+
+  public initGUI(): void {
+    // texts
+    this.initText();
+    // bars
+    this.initLifebar();
+    this.initXpbar();
+    // events
     this.gameEvent.on('scoreUpdate', this.updateScore, this);
     this.gameEvent.on('timeUpdate', this.updateTime, this);
     this.gameEvent.on('lifeUpdate', this.updateLifeBar, this);
     this.gameEvent.on('playerRespawned', this.updateLifeBar, this);
     this.gameEvent.on('roundEnded', this.updateRound, this);
     this.gameEvent.on('startCountdown', this.startCountDown, this);
+    this.gameEvent.on('levelUp', this.levelUp, this);
   }
 }

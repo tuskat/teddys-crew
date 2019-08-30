@@ -31,8 +31,8 @@ Upon dying, you'll be stripped naked of skills. You can assign right click, but 
 ## Genre
 
 It's a roguelite. As such, you get currency while fighting.
-Once you die you can use that currency to improve your Cadre de Guerre.
-Dying mean you'll be randomly attributed a different Cadre de Guerre and as such,
+Once you die you can use that currency to improve your Teddy's Crews.
+Dying mean you'll be randomly attributed a different Teddy's Crews and as such,
 skills and passives will be completely different (at a later date)
 
 ## To do

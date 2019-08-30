@@ -7,7 +7,10 @@ import { Bullet } from '../bullets';
 export class Entity extends Phaser.GameObjects.Sprite {
   scene: GameScene;
   life = 1;
+  maxLife = this.life;
   level = 1;
+  experience = 0;
+  experienceToLevelUp = 20;
   power = 1;
   state = CurrentState.Moving;
   speed = 100;
@@ -62,6 +65,37 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected doNothing(): void {
 
+  }
+
+  protected levelUp(): void {
+    this.scene.gameEvent.emit('levelUp',  { sound: 'PowerUp03' });
+    this.level++;
+    this.experience = this.experience - this.experienceToLevelUp;
+    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
+    // to be decided separately later       
+    switch (this.level % 3) {
+      case 0: {
+        this.power++;
+        break;
+      }
+      case 1: {
+        this.speed = this.speed + (this.speed * 0.075);
+        break;
+      }
+      case 2: {
+        this.life += 2;
+        this.maxLife += 2;
+        this.scene.gameEvent.emit('lifeUpdate', null);
+        break;
+      }
+    }
+  }
+
+  protected experienceGained(enemy): void {
+    this.experience += 5;
+    if (this.experience >= this.experienceToLevelUp) {
+      this.levelUp();
+    }
   }
 
   protected blockingState(): boolean {
@@ -228,12 +262,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
     return false;
   }
-  public getHurt(): number {
+  public getHurt(entity = { power: 1 }): number {
     if (this.isVulnerable()) {
       if (this.actionPending) {
         this.actionPending.remove(false);
       }
-      this.life--;
+      this.life = this.life - entity.power;
       this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
       if (this.life < 0) {
         this.life = 0;

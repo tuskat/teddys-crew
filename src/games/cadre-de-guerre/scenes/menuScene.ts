@@ -34,7 +34,7 @@ export class MenuScene extends Phaser.Scene {
         220,
         this.sys.canvas.height / 2 - 100,
         "font",
-        "Cadre de Guerre",
+        "Teddy's Crews",
         70
       )
     );

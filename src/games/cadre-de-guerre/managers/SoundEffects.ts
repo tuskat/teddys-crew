@@ -13,6 +13,7 @@ export class SoundEffects {
         'Slash05',
         'PowerUp01',
         'PowerUp02',
+        'PowerUp03',
         'UI04',
     ];
     // To Do, Name sounds after events
@@ -24,7 +25,8 @@ export class SoundEffects {
         'entityShooting',
         'entityDied',
         'countDown',
-        'roundEnded'
+        'roundEnded',
+        'levelUp'
     ];
     private sounds = []
     scene: GameScene;
