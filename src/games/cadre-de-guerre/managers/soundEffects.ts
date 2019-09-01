@@ -8,6 +8,7 @@ export class SoundEffects {
         'Alarm',
         'Damage01',
         'Damage02',
+        'Explosion1',
         'Fire01',
         'Slash01',
         'Slash05',

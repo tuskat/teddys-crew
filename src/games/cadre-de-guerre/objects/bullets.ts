@@ -3,7 +3,7 @@ export class Bullet extends Phaser.GameObjects.Image {
     private lifespan: number;
 
     constructor(params) {
-      super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
+      super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
       this.bulletSpeed = params.speed;
       this.rotation = params.rotation;
       this.initImage();

@@ -36,7 +36,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   lastShoot: number = 0;
 
   constructor(params) {
-    super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
+    super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
     this.scene.physics.world.enable(this);
     this.body.setCollideWorldBounds(true);
     this.initVariables(params.config);
@@ -48,6 +48,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       maxSize: 2,
       runChildUpdate: true
     });
+    this.on('animationcomplete', this.animComplete, this);
   }
 
   protected initVariables(config): void {
@@ -60,10 +61,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected initImage(): void {
     this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
-  }
-
-  protected create(): void {
-    this.on('animationcomplete', this.animComplete, this);
   }
 
   protected doNothing(): void {
@@ -150,14 +147,13 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected die(sound = true): void {
     if (!this.isDead()) {
       if (sound) {
-        this.scene.gameEvent.emit('entityDied', { sound: 'Damage01' });
-        // this.anims.play('explode');
+        this.scene.gameEvent.emit('entityDied', { sound: 'Explosion1' });
+        this.anims.play('explode');
+      } else {
+        this.alpha = 0;
       }
-      this.scene.gameEvent.emit('scoreUpdate');
-      this.hideLifebar();
-
-      this.alpha = 0;
       this.state = CurrentState.Dead;
+      this.hideLifebar();
       this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
     }
   }
@@ -344,8 +340,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   // Anim complete
-  protected animComplete() {
-    this.alpha = 0;
+  protected animComplete(anim) {
+    if (anim.key === 'explode') {
+      this.alpha = 0;
+      this.scene.gameEvent.emit('scoreUpdate');
+      this.setFrame(this.spriteFolder + '/Idle' + '.png');
+    }
   }
 
   redrawLifebar(): void {}

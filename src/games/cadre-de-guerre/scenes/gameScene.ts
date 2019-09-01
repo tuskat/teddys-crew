@@ -10,9 +10,9 @@ import { BaseMode } from '../managers/gameModes/baseMode';
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   public UI : UserInterface;
-  private soundEffectsManager : SoundEffects;
+  private assetsLoader : AssetsLoader = null;
+  private soundEffectsManager : SoundEffects = null;
   private waveManager;
-  private assetsLoader : AssetsLoader;
   public gameEvent: Phaser.Events.EventEmitter;
   public kills: number;
   public player: Player;
@@ -33,10 +33,12 @@ export class GameScene extends Phaser.Scene {
 
   init(): void {
     this.kills = 0;
+
   }
 
   create(): void {
     // Pause when out of foccin focus
+    this.assetsLoader.loadAnimation();
     this.game.events.on('blur',function(){
       this.game.scene.pause('GameScene');
     },this);
@@ -45,7 +47,7 @@ export class GameScene extends Phaser.Scene {
     },this);
 
     // create background
-    this.background = this.add.sprite(0, 0,'cadre-de-guerre', "map.png");
+    this.background = this.add.sprite(0, 0,'game-atlas', "map.png");
     this.background.setOrigin(0, 0);
 
     // create objects

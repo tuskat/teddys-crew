@@ -10,17 +10,15 @@ export class AssetsLoader {
   }
 
   preloadAssets() {
-    this.scene.load.multiatlas('cadre-de-guerre', this.defaultUrl + '/game-scene.json', this.defaultUrl);
-    this.loadAnimation();
+    this.scene.load.multiatlas('game-atlas', this.defaultUrl + '/game-scene.json', this.defaultUrl);
   }
 
   loadAnimation() {
-    var frameNames = this.scene.anims.generateFrameNames('game-scene', {
+    var frameNames = this.scene.anims.generateFrameNames('game-atlas', {
       start: 1, end: 19, zeroPad: 4,
-      prefix: 'burn_effect/burn_effect_', suffix: '.png'
+      prefix: 'burn_effect/', suffix: '.png'
     });
-    console.log(frameNames);
-    this.scene.anims.create({key: 'explode', frames: frameNames, frameRate: 10 })
+    this.scene.anims.create({key: 'explode', frames: frameNames, frameRate: 60 })
   }
   
   // preloadAnimations(list) {
