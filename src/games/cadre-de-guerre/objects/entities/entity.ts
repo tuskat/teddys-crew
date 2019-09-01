@@ -62,6 +62,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
   }
 
+  protected create(): void {
+    this.on('animationcomplete', this.animComplete, this);
+  }
 
   protected doNothing(): void {
 
@@ -148,9 +151,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
     if (!this.isDead()) {
       if (sound) {
         this.scene.gameEvent.emit('entityDied', { sound: 'Damage01' });
+        // this.anims.play('explode');
       }
       this.scene.gameEvent.emit('scoreUpdate');
       this.hideLifebar();
+
       this.alpha = 0;
       this.state = CurrentState.Dead;
       this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
@@ -336,6 +341,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public getBullets(): Phaser.GameObjects.Group {
     return this.rangedSkill;
+  }
+
+  // Anim complete
+  protected animComplete() {
+    this.alpha = 0;
   }
 
   redrawLifebar(): void {}

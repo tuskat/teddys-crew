@@ -10,7 +10,7 @@ import { BaseMode } from '../managers/gameModes/baseMode';
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   public UI : UserInterface;
-  private sfxs : SoundEffects;
+  private soundEffectsManager : SoundEffects;
   private waveManager;
   private assetsLoader : AssetsLoader;
   public gameEvent: Phaser.Events.EventEmitter;
@@ -23,12 +23,12 @@ export class GameScene extends Phaser.Scene {
     });
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.gameEvent = new Phaser.Events.EventEmitter();
-    this.sfxs = new SoundEffects({ scene: this });
+    this.soundEffectsManager = new SoundEffects({ scene: this });
   }
 
   preload(): void {
     this.assetsLoader.preloadAssets();
-    this.sfxs.preloadSound();
+    this.soundEffectsManager.preloadSound();
   }
 
   init(): void {
@@ -63,7 +63,7 @@ export class GameScene extends Phaser.Scene {
     // create texts
     this.waveManager = new BaseMode({ scene: this });
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
-    this.sfxs.initSound();
+    this.soundEffectsManager.initSound();
     this.waveManager.create();
     this.gameEvent.on('roundEnded', this.restartRound, this);
     this.restartRound();
