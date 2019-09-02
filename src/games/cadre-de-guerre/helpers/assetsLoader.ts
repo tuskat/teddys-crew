@@ -11,14 +11,19 @@ export class AssetsLoader {
 
   preloadAssets() {
     this.scene.load.multiatlas('game-atlas', this.defaultUrl + '/game-scene.json', this.defaultUrl);
+    this.scene.load.multiatlas('game-sfx', this.defaultUrl + '/game-sfx.json', this.defaultUrl);
   }
 
-  loadAnimation() {
-    var frameNames = this.scene.anims.generateFrameNames('game-atlas', {
-      start: 1, end: 19, zeroPad: 4,
-      prefix: 'burn_effect/', suffix: '.png'
+  loadAllAnimation() {
+    this.loadAnimation('Air_14_', 'dash', 5, 16);
+    this.loadAnimation('Mix_04_', 'explode', 22);
+  }
+  loadAnimation(prefix, gfxName, end, framerate = 50) {
+    var frameNames = this.scene.anims.generateFrameNames('game-sfx', {
+      start: 1, end: end, zeroPad: 5,
+      prefix: prefix, suffix: '.png'
     });
-    this.scene.anims.create({key: 'explode', frames: frameNames, frameRate: 60 })
+    this.scene.anims.create({key: gfxName, frames: frameNames, frameRate: framerate })
   }
   
   // preloadAnimations(list) {
