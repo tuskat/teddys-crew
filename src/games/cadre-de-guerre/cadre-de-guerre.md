@@ -93,6 +93,8 @@ https://github.com/nodegui/nodegui
 https://www.spriters-resource.com/snes/kirbydream3/
 https://www.spriters-resource.com/ds_dsi/kirbycanvascurse/sheet/2781/
 
+https://www.schemecolor.com/pastel-color-tones.php
+
 ##Royalty free garbage
 https://drive.google.com/drive/folders/0ByU7awpZcluQMjlDOWFGV24yT1E
 https://www.reddit.com/r/rareinsults/
