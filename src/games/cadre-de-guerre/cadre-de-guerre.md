@@ -86,6 +86,8 @@ https://docs.google.com/document/d/1Y0ynp9BIRjBtwiIHImebTuL1fj6d1wHPau61gTWcmcA/
 
 https://www.emanueleferonato.com/2018/09/19/html5-level-select-screen-featuring-swipe-control-stars-progress-saved-on-local-storage-smooth-scrolling-pagination-and-more-powered-by-phaser-3/
 
+https://github.com/nodegui/nodegui
+
 ##Artstyle to copy...hmm inspire from
 
 https://www.spriters-resource.com/snes/kirbydream3/
