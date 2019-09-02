@@ -10,9 +10,9 @@ import { BaseMode } from '../managers/gameModes/baseMode';
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   public UI : UserInterface;
-  private sfxs : SoundEffects;
+  private assetsLoader : AssetsLoader = null;
+  private soundEffectsManager : SoundEffects = null;
   private waveManager;
-  private assetsLoader : AssetsLoader;
   public gameEvent: Phaser.Events.EventEmitter;
   public kills: number;
   public player: Player;
@@ -23,20 +23,22 @@ export class GameScene extends Phaser.Scene {
     });
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.gameEvent = new Phaser.Events.EventEmitter();
-    this.sfxs = new SoundEffects({ scene: this });
+    this.soundEffectsManager = new SoundEffects({ scene: this });
   }
 
   preload(): void {
     this.assetsLoader.preloadAssets();
-    this.sfxs.preloadSound();
+    this.soundEffectsManager.preloadSound();
   }
 
   init(): void {
     this.kills = 0;
+
   }
 
   create(): void {
     // Pause when out of foccin focus
+    this.assetsLoader.loadAnimation();
     this.game.events.on('blur',function(){
       this.game.scene.pause('GameScene');
     },this);
@@ -45,7 +47,7 @@ export class GameScene extends Phaser.Scene {
     },this);
 
     // create background
-    this.background = this.add.sprite(0, 0,'cadre-de-guerre', "map.png");
+    this.background = this.add.sprite(0, 0,'game-atlas', "map.png");
     this.background.setOrigin(0, 0);
 
     // create objects
@@ -63,7 +65,7 @@ export class GameScene extends Phaser.Scene {
     // create texts
     this.waveManager = new BaseMode({ scene: this });
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
-    this.sfxs.initSound();
+    this.soundEffectsManager.initSound();
     this.waveManager.create();
     this.gameEvent.on('roundEnded', this.restartRound, this);
     this.restartRound();
@@ -77,6 +79,10 @@ export class GameScene extends Phaser.Scene {
 
   getTimeLeft(): number {
     return this.waveManager.getTimeLeft() || 0;
+  }
+
+  getGameEvent(): Phaser.Events.EventEmitter {
+    return this.gameEvent;
   }
 
   restartRound(): void {

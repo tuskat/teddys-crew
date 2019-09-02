@@ -1,5 +1,6 @@
 const config = {
     life : 10,
+    maxLife : 10,
     power: 1,
     speed : 200,
     distanceToStop : 4,

@@ -133,10 +133,10 @@ export class BaseMode {
       }
     protected objectClashing(monster): void {
         if (monster.state === CurrentState.Dashing) {
-          this.scene.player.getHurt();
+          this.scene.player.getHurt(monster);
         }
         if (this.scene.player.state === CurrentState.Dashing) {
-          monster.getHurt();
+          monster.getHurt(this.scene.player);
         }
       }
 

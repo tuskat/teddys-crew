@@ -7,7 +7,10 @@ import { Bullet } from '../bullets';
 export class Entity extends Phaser.GameObjects.Sprite {
   scene: GameScene;
   life = 1;
+  maxLife = this.life;
   level = 1;
+  experience = 0;
+  experienceToLevelUp = 20;
   power = 1;
   state = CurrentState.Moving;
   speed = 100;
@@ -33,7 +36,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   lastShoot: number = 0;
 
   constructor(params) {
-    super(params.scene, params.x, params.y, 'cadre-de-guerre', params.key + '.png');
+    super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
     this.scene.physics.world.enable(this);
     this.body.setCollideWorldBounds(true);
     this.initVariables(params.config);
@@ -45,6 +48,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       maxSize: 2,
       runChildUpdate: true
     });
+    this.on('animationcomplete', this.animComplete, this);
   }
 
   protected initVariables(config): void {
@@ -59,9 +63,39 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
   }
 
-
   protected doNothing(): void {
 
+  }
+
+  protected levelUp(): void {
+    this.scene.gameEvent.emit('levelUp',  { sound: 'PowerUp03' });
+    this.level++;
+    this.experience = this.experience - this.experienceToLevelUp;
+    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
+    // to be decided separately later       
+    switch (this.level % 3) {
+      case 0: {
+        this.power++;
+        break;
+      }
+      case 1: {
+        this.speed = this.speed + (this.speed * 0.075);
+        break;
+      }
+      case 2: {
+        this.life += 2;
+        this.maxLife += 2;
+        this.scene.gameEvent.emit('lifeUpdate', null);
+        break;
+      }
+    }
+  }
+
+  protected experienceGained(enemy): void {
+    this.experience += 5;
+    if (this.experience >= this.experienceToLevelUp) {
+      this.levelUp();
+    }
   }
 
   protected blockingState(): boolean {
@@ -113,12 +147,13 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected die(sound = true): void {
     if (!this.isDead()) {
       if (sound) {
-        this.scene.gameEvent.emit('entityDied', { sound: 'Damage01' });
+        this.scene.gameEvent.emit('entityDied', { sound: 'Explosion1' });
+        this.anims.play('explode');
+      } else {
+        this.alpha = 0;
       }
-      this.scene.gameEvent.emit('scoreUpdate');
-      this.hideLifebar();
-      this.alpha = 0;
       this.state = CurrentState.Dead;
+      this.hideLifebar();
       this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
     }
   }
@@ -228,12 +263,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
     return false;
   }
-  public getHurt(): number {
+  public getHurt(entity = { power: 1 }): number {
     if (this.isVulnerable()) {
       if (this.actionPending) {
         this.actionPending.remove(false);
       }
-      this.life--;
+      this.life = this.life - entity.power;
       this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
       if (this.life < 0) {
         this.life = 0;
@@ -302,6 +337,15 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public getBullets(): Phaser.GameObjects.Group {
     return this.rangedSkill;
+  }
+
+  // Anim complete
+  protected animComplete(anim) {
+    if (anim.key === 'explode') {
+      this.alpha = 0;
+      this.scene.gameEvent.emit('scoreUpdate');
+      this.setFrame(this.spriteFolder + '/Idle' + '.png');
+    }
   }
 
   redrawLifebar(): void {}

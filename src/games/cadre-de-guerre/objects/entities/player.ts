@@ -4,6 +4,7 @@ import { GameScene } from '../../scenes/gameScene';
 
 export class Player extends Entity {
   inputEvent: Phaser.Events.EventEmitter;
+  gameEvent:  Phaser.Events.EventEmitter;
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
@@ -11,6 +12,7 @@ export class Player extends Entity {
   constructor(params) {
     super(params);
     this.initBody();
+    this.initLevel();
     this.initInput(params.controller.getEmitter());
   }
 
@@ -19,7 +21,10 @@ export class Player extends Entity {
     this.body.maxVelocity.y = this.maxSpeedY;
   }
 
-  
+  protected initLevel(): void {
+    this.gameEvent = this.scene.getGameEvent();
+    this.gameEvent.on('entityDied', this.experienceGained, this);
+  }
   protected initImage(): void {
     this.body.setSize(80, 80);
     this.scale = 0.5;
