@@ -33,6 +33,8 @@ https://github.com/nodegui/nodegui
 
 https://github.com/Colbydude/phaser-3-palette-swapping-example
 
+https://phaser.discourse.group/t/how-to-add-time-scale-that-affects-tweens-animations-and-so-on-solved/1357/2
+
 ##Artstyle to copy...hmm inspire from
 
 https://www.spriters-resource.com/snes/kirbydream3/
