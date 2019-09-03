@@ -56,9 +56,6 @@ async function launch(): Promise<void> {
         debug: true
       }
     },
-    audio: {
-      disableWebAudio: true
-    },
     backgroundColor: "#3A99D9",
     render: { pixelArt: false, antialias: true }
   };

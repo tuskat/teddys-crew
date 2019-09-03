@@ -3,6 +3,7 @@ import { Enemy } from "../../objects/entities/enemy";
 import { CurrentState } from '../../configs/enums/currentStates';
 import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
+
 export class BaseMode {
     scene: GameScene;
     maxEnemies = 5;
@@ -12,7 +13,6 @@ export class BaseMode {
     enemies = [];
     timeLeft = 0;
     timedEvent: Phaser.Time.TimerEvent;
-
 
     constructor(params) {
         this.scene = params.scene;
@@ -30,6 +30,21 @@ export class BaseMode {
         }
     }
 
+    protected updateEnemy(enemy): void {
+        enemy.update();
+    }
+
+    protected updateClock(): void {
+        if (this.timeLeft === 0) {
+            if (this.onGoing) {
+                this.roundEnded();
+            }
+            return;
+        }
+        this.timeLeft--;
+        this.scene.gameEvent.emit('timeUpdate', null);
+    }
+
     toEachEnemy(action): void {
         this.enemies.forEach(action, this);
     }
@@ -38,10 +53,6 @@ export class BaseMode {
         if (this.objectsTouch(this.scene.player, enemy)) {
             this.objectClashing(enemy);
         }
-    }
-
-    protected updateEnemy(enemy): void {
-        enemy.update();
     }
 
     protected killEnemy(enemy): void {
@@ -61,6 +72,20 @@ export class BaseMode {
     }
     protected setRespawn(enemy): void {
         enemy.shouldRespawn = true;
+    }
+    
+    protected spawnEnemy(folder): any {
+        let config = (folder === 'Shooter') ? ShooterConfig : DasherConfig;
+        let enemy = new Enemy({
+            scene: this.scene,
+            x: Phaser.Math.RND.integerInRange(100, 700),
+            y: Phaser.Math.RND.integerInRange(100, 500),
+            key: folder + "/Idle",
+            player: this.scene.player,
+            config: config.default,
+            folder: folder
+            });
+        return enemy;
     }
 
     protected spawnInitialEnemies(): void {
@@ -106,16 +131,6 @@ export class BaseMode {
         }
         this.scene.gameEvent.emit('roundStarted', null);
     }
-    protected updateClock(): void {
-        if (this.timeLeft === 0) {
-            if (this.onGoing) {
-                this.roundEnded();
-            }
-            return;
-        }
-        this.timeLeft--;
-        this.scene.gameEvent.emit('timeUpdate', null);
-    }
 
     protected objectsTouch(objectA, objectB): boolean {
         if (objectA.body && objectB.body) {
@@ -130,7 +145,8 @@ export class BaseMode {
         } else {
             return false;
         }
-      }
+    }
+
     protected objectClashing(monster): void {
         if (monster.state === CurrentState.Dashing) {
           this.scene.player.hurt(monster);
@@ -140,25 +156,12 @@ export class BaseMode {
         }
       }
 
-    getEnemyGroup(): Array<any> {
-        return this.enemies;
-    }
-
-    protected spawnEnemy(folder): any {
-        let config = (folder === 'Shooter') ? ShooterConfig : DasherConfig;
-        let enemy = new Enemy({
-            scene: this.scene,
-            x: Phaser.Math.RND.integerInRange(100, 700),
-            y: Phaser.Math.RND.integerInRange(100, 500),
-            key: folder + "/Idle",
-            player: this.scene.player,
-            config: config.default,
-            folder: folder
-            });
-        return enemy;
-    }
     public getTimeLeft(): number {
         return this.timeLeft;
+    }
+
+    public getEnemyGroup(): Array<any> {
+        return this.enemies;
     }
 
     protected bulletHitLayer(bullet): void {

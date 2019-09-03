@@ -3,6 +3,13 @@ import { Config } from "../config";
 export class AssetsLoader {
   private assetsFolder: string;
   private scene: Phaser.Scene;
+  private effectList = [
+    { prefix: 'Air_14_', name: 'dash', frame : 5, framerate: 16 },
+    { prefix: 'Mix_04_', name: 'explode', frame : 22, framerate: 50 },
+    { prefix: 'Fire_13_', name: 'fire', frame : 11, framerate: 16, repeat: -1 },
+    { prefix: 'sparks_04_', name: 'hit', frame : 4, framerate: 50 },
+    { prefix: 'water_05_', name: 'water', frame : 8, framerate: 16 },
+  ];
 
   constructor(params) {
     this.assetsFolder = Config.FOLDER + '/sprites';
@@ -15,21 +22,16 @@ export class AssetsLoader {
   }
 
   loadAllAnimation() {
-    this.loadAnimation('Air_14_', 'dash', 5, 16);
-    this.loadAnimation('Mix_04_', 'explode', 22);
+    for (let i = 0; i !== this.effectList.length; i++) {
+      this.loadAnimation(this.effectList[i]);
+    }
   }
-  loadAnimation(prefix, gfxName, end, framerate = 50) {
+
+  loadAnimation(animConfig) {
     var frameNames = this.scene.anims.generateFrameNames('game-sfx', {
-      start: 1, end: end, zeroPad: 5,
-      prefix: prefix, suffix: '.png'
+      start: 1, end: animConfig.frame, zeroPad: 5,
+      prefix: animConfig.prefix, suffix: '.png'
     });
-    this.scene.anims.create({key: gfxName, frames: frameNames, frameRate: framerate })
+    this.scene.anims.create({key: animConfig.name, frames: frameNames, frameRate: animConfig.framerate, repeat: animConfig.repeat || 0 })
   }
-  
-  // preloadAnimations(list) {
-  //   list.forEach(element => {
-  //     this.scene.load.atlas('gems', 'assets/tests/columns/gems.png', 'assets/tests/columns/gems.json');
-  //     this.scene.load.json('gemData', 'assets/animations/gems.json');
-  //   });
-  // }
 }

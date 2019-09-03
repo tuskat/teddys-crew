@@ -1,12 +1,4 @@
-/**
- * @author       Digitsensitive <digit.sensitivee@gmail.com>
- * @copyright    2019 Digitsensitive
- * @description  Tank: Menu Scene
- * @license      Digitsensitive
- */
-
 export class MenuScene extends Phaser.Scene {
-  private bitmapTexts: Phaser.GameObjects.BitmapText[] = [];
 
   constructor() {
     super({
@@ -19,35 +11,28 @@ export class MenuScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.bitmapTexts.push(
-      this.add.bitmapText(
-        this.sys.canvas.width / 2 - 120,
-        this.sys.canvas.height / 2,
-        "font",
-        "CLICK TO PLAY",
-        30
-      )
-    );
-
-    this.bitmapTexts.push(
-      this.add.bitmapText(
-        220,
-        this.sys.canvas.height / 2 - 100,
-        "font",
-        "Teddy's Crews",
-        70
-      )
-    );
     this.make.text({
-      x: this.sys.canvas.width / 2,
-      y: this.sys.canvas.height - 50,
-      text: '',
+      x: this.sys.canvas.width * 0.70 ,
+      y: this.sys.canvas.height - 65,
+      text: 'Click to Start',
       style:  {
         fontFamily: "Connection",
-        fontSize: 30,
-        stroke: "#fff",
-        strokeThickness: 6,
-        fill: "#000000"
+        fontSize: 35,
+        stroke: "#000",
+        strokeThickness: 10,
+        fill: "#FFF"
+      }
+    });
+    this.make.text({
+      x: this.sys.canvas.width * 0.40 ,
+      y: this.sys.canvas.height - 150,
+      text: 'Teddy\'s Crews',
+      style:  {
+        fontFamily: "Connection",
+        fontSize: 75,
+        stroke: "#000",
+        strokeThickness: 10,
+        fill: "#FFF"
       }
     });
   }
