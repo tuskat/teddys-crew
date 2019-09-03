@@ -1,17 +1,17 @@
 import { Config } from "../config";
 
 export class AssetsLoader {
-  private defaultUrl: string;
+  private assetsFolder: string;
   private scene: Phaser.Scene;
 
   constructor(params) {
-    this.defaultUrl = Config.FOLDER + '/sprites';
+    this.assetsFolder = Config.FOLDER + '/sprites';
     this.scene = params.scene;
   }
 
   preloadAssets() {
-    this.scene.load.multiatlas('game-atlas', this.defaultUrl + '/game-scene.json', this.defaultUrl);
-    this.scene.load.multiatlas('game-sfx', this.defaultUrl + '/game-sfx.json', this.defaultUrl);
+    this.scene.load.multiatlas('game-atlas', this.assetsFolder + '/game-scene.json', this.assetsFolder);
+    this.scene.load.multiatlas('game-sfx', this.assetsFolder + '/game-sfx.json', this.assetsFolder);
   }
 
   loadAllAnimation() {

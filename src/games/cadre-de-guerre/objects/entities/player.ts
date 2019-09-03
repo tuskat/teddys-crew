@@ -1,4 +1,4 @@
-import { CurrentState } from '../../configs/currentStates';
+import { CurrentState } from '../../configs/enums/currentStates';
 import { Entity } from './entity';
 import { GameScene } from '../../scenes/gameScene';
 
@@ -19,19 +19,14 @@ export class Player extends Entity {
   protected initBody(): void {
     this.body.maxVelocity.x = this.maxSpeedX;
     this.body.maxVelocity.y = this.maxSpeedY;
+    this.body.setSize(80, 80);
+    this.body.setOffset(this.width / 4, this.height / 3);
   }
 
   protected initLevel(): void {
     this.gameEvent = this.scene.getGameEvent();
     this.gameEvent.on('entityDied', this.experienceGained, this);
   }
-  protected initImage(): void {
-    this.body.setSize(80, 80);
-    this.scale = 0.5;
-    this.setOrigin(0.5, 0.5);
-    this.body.setOffset(this.width / 4, this.height / 3);
-  }
-
 
   protected initInput(emitter): void {
     this.inputEvent = emitter;
@@ -52,6 +47,7 @@ export class Player extends Entity {
       }
     }
   }
+  // Override
   protected isVulnerable(): boolean {
     if (this.isInvicible) {
       return false;

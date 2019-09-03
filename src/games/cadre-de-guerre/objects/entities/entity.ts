@@ -1,4 +1,4 @@
-import { CurrentState } from '../../configs/currentStates'
+import { CurrentState } from '../../configs/enums/currentStates'
 import _ = require('lodash');
 import { GameScene } from '../../scenes/gameScene';
 import { Bullet } from '../bullets';
@@ -51,7 +51,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       runChildUpdate: true
     });
   }
-
+  // init methods
   protected initVariables(config): void {
     this.target = new Phaser.Math.Vector2(0, 0);
     _.each(config, (val, key) => this[key] = val);
@@ -64,45 +64,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
     });
   }
 
-  
   protected initImage(): void {
     this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
-  }
-
-  protected doNothing(): void {
-
-  }
-
-  protected levelUp(): void {
-    this.scene.gameEvent.emit('levelUp',  { sound: 'PowerUp03' });
-    this.level++;
-    this.experience = this.experience - this.experienceToLevelUp;
-    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
-    // to be decided separately later       
-    switch (this.level % 3) {
-      case 0: {
-        this.power++;
-        break;
-      }
-      case 1: {
-        this.speed = this.speed + (this.speed * 0.075);
-        break;
-      }
-      case 2: {
-        this.life += 2;
-        this.maxLife += 2;
-        this.scene.gameEvent.emit('lifeUpdate', null);
-        break;
-      }
-    }
-  }
-
-  protected experienceGained(enemy): void {
-    this.experience += 5;
-    if (this.experience >= this.experienceToLevelUp) {
-      this.levelUp();
-    }
   }
 
   protected blockingState(): boolean {
@@ -110,7 +74,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.state === CurrentState.Dashing ||
       this.state === CurrentState.WindingUp);
   }
-
+  // update methods
   update(): void {
     if (this.blockingState()) {
       this.doNothing();
@@ -119,68 +83,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.updatePosition();
     }
     this.updateFrame();
-  }
-
-  protected doneRespawning(): void {
-    if (!this.shouldRespawn) {
-      this.alpha = 0;
-      return;
-    }
-    this.isInvicible = false;
-    this.state = CurrentState.Moving;
-    this.redrawLifebar();
-  }
-
-  protected respawn(): void {
-    if (this.shouldRespawn === false) {
-      return;
-    }
-    this.x = Phaser.Math.RND.integerInRange(100, 700);
-    this.y = Phaser.Math.RND.integerInRange(100, 500);
-    this.isInvicible = true;
-    this.life = this.config.life;
-    this.scene.add.tween({
-      targets: [this],
-      ease: 'Sine.easeInOut',
-      alpha: {
-        getStart: () => 0,
-        getEnd: () => 1
-      },
-      duration: this.delayToAction,
-      onComplete: this.doneRespawning.bind(this)
-    });
-  }
-
-  protected createGraphicEffect(animation = 'explode'): void {
-    if (this.graphicEffects.getLength() < 5) {
-      this.graphicEffects.add(
-        new GraphicEffects({
-          scene: this.scene,
-          x: this.x,
-          y: this.y,
-          key: 'Air_14_00000',
-          gfxName: animation,
-          flipX: this.flipX })
-      );
-    }
-  }
-  protected die(sound = true): void {
-    if (!this.isDead()) {
-      if (sound) {
-        this.scene.gameEvent.emit('entityDied', { sound: 'Explosion1' });
-        this.createGraphicEffect('explode');
-        this.scene.gameEvent.emit('scoreUpdate');
-        this.setFrame(this.spriteFolder + '/Idle' + '.png');
-      }
-      this.alpha = 0;
-      this.state = CurrentState.Dead;
-      this.hideLifebar();
-      this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
-    }
-  }
-
-  protected delayedRespawn(): void {
-    this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
   }
 
   protected updateTargetPosition(newPosition): void {
@@ -193,127 +95,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.attack();
     } else {
       this.scene.physics.moveToObject(this, this.target, this.speed);
-    }
-  }
-
-  //  Only non-player wind-up before dashing
-  protected attackSkill(): void {
-   this[this.signatureSkill]();
-  }
-
-  protected attack(): void {
-    if (!this.blockingState()) {
-      this.body.reset(this.x, this.y);
-      this.state = CurrentState.WindingUp;
-      this.actionPending = this.scene.time.delayedCall(this.actionDuration * 1.25, this.attackSkill, [], this);
-    }
-  }
-
-  protected dash(): void {
-    if (this.state === CurrentState.Dead) {
-      return;
-    }
-    this.state = CurrentState.Dashing;
-    this.createGraphicEffect('dash');
-    this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
-    this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
-    this.scene.time.delayedCall(this.actionDuration, this.endAction, [], this);
-  }
-
-  protected shoot(): void {
-    if (this.state === CurrentState.Dead) {
-      return;
-    }
-    this.handleShooting();
-  }
-
-  protected handleShooting(): void {
-    if (this.scene.time.now > this.lastShoot) {
-      var rotation = Phaser.Math.Angle.Between(
-        this.x,
-        this.y,
-        this.target.x,
-        this.target.y
-      );
-      if (this.rangedSkill.getLength() < 2) {
-        this.rangedSkill.add(
-          new Bullet({
-            scene: this.scene,
-            x: this.x,
-            y: this.y,
-            key: "VFX/EnergyBall",
-            rotation: rotation,
-            speed: this.bulletSpeed
-          })
-        );
-        this.lastShoot = this.scene.time.now + 400;
-        this.state = CurrentState.Shooting;
-        this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound });
-        this.scene.time.delayedCall(this.actionDuration, this.endAction, [], this);
-      }
-    }
-  }
-
-  protected endAction(): void {
-    if (!this.isDead()) {
-      this.body.reset(this.x, this.y);
-      this.state = CurrentState.Moving;
-    }
-  }
-
-  protected closeToTarget(): boolean {
-    if (this.target) {
-      var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
-      if (distance < this.distanceToStop) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  protected isVulnerable(): boolean {
-    if (this.state === CurrentState.Dead ||
-      this.state === CurrentState.Hurting) {
-    return false;
-    }
-    return true;
-  }
-
-  protected isDead(): boolean {
-    if (this.state === CurrentState.Dead) {
-      return true;
-    }
-    return false;
-  }
-  public getHurt(entity = { power: 1 }): number {
-    if (this.isVulnerable()) {
-      if (this.actionPending) {
-        this.actionPending.remove(false);
-      }
-      this.life = this.life - entity.power;
-      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
-      if (this.life < 0) {
-        this.life = 0;
-      }
-      this.redrawLifebar();
-      if (this.life === 0) {
-        this.die();
-      } else if (this.life > 0) {
-        this.state = CurrentState.Hurting;
-        this.isInvicible = true;
-        this.setTint(0xFF6347);
-        this.scene.time.delayedCall(this.invicibleFrame, this.endHurting, [], this);
-      }
-      return this.life;
-    }
-    return -1;
-  }
-
-  protected endHurting(): void {
-    this.clearTint();
-    this.isInvicible = false;
-    if (this.state !== CurrentState.Dead) {
-      this.state = CurrentState.Moving;
     }
   }
 
@@ -353,16 +134,244 @@ export class Entity extends Phaser.GameObjects.Sprite {
         break;
       }
     }
-
     this.previousState = this.state;
   }
+// Respawn
+  protected respawn(): void {
+    if (this.shouldRespawn === false) {
+      return;
+    }
+    this.x = Phaser.Math.RND.integerInRange(100, 700);
+    this.y = Phaser.Math.RND.integerInRange(100, 500);
+    this.isInvicible = true;
+    this.life = this.config.life;
+    this.scene.add.tween({
+      targets: [this],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 0,
+        getEnd: () => 1
+      },
+      duration: this.delayToAction,
+      onComplete: this.doneRespawning.bind(this)
+    });
+  }
+
+  protected doneRespawning(): void {
+    if (!this.shouldRespawn) {
+      this.alpha = 0;
+      return;
+    }
+    this.isInvicible = false;
+    this.state = CurrentState.Moving;
+    this.redrawLifebar();
+  }
+
+  protected delayedRespawn(): void {
+    this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
+  }
+// Create children
+  protected createGraphicEffect(animation = 'explode'): void {
+    if (this.graphicEffects.getLength() < 5) {
+      this.graphicEffects.add(
+        new GraphicEffects({
+          scene: this.scene,
+          x: this.x,
+          y: this.y,
+          key: 'Air_14_00000',
+          gfxName: animation,
+          flipX: this.flipX })
+      );
+    }
+  }
+
+  protected createBullet(rotation): void {
+    this.rangedSkill.add(
+      new Bullet({
+        scene: this.scene,
+        x: this.x,
+        y: this.y,
+        key: "VFX/EnergyBall",
+        rotation: rotation,
+        speed: this.bulletSpeed
+      })
+    );
+  }
+  // actions
+
+  protected doNothing(): void {
+
+  }
+
+  protected levelUp(): void {
+    this.scene.gameEvent.emit('levelUp',  { sound: 'PowerUp03' });
+    this.level++;
+    this.experience = this.experience - this.experienceToLevelUp;
+    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
+    // to be decided separately later
+    switch (this.level % 3) {
+      case 0: {
+        this.power++;
+        break;
+      }
+      case 1: {
+        this.speed = this.speed + (this.speed * 0.075);
+        break;
+      }
+      case 2: {
+        this.life += 2;
+        this.maxLife += 2;
+        this.scene.gameEvent.emit('lifeUpdate', null);
+        break;
+      }
+    }
+  }
+  // make generic
+  protected experienceGained(enemy): void {
+    this.experience += 5;
+    if (this.experience >= this.experienceToLevelUp) {
+      this.levelUp();
+    }
+  }
+  protected die(sound = true): void {
+    if (!this.isDead()) {
+      if (sound) {
+        this.scene.gameEvent.emit('entityDied', { sound: 'Explosion1' , experience: this.getExperience()});
+        this.createGraphicEffect('explode');
+        this.scene.gameEvent.emit('scoreUpdate');
+        this.setFrame(this.spriteFolder + '/Idle' + '.png');
+      }
+      this.alpha = 0;
+      this.state = CurrentState.Dead;
+      this.hideLifebar();
+      this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
+    }
+  }
+
+  //  Only non-player wind-up before dashing
+  protected attackSkill(): void {
+   this[this.signatureSkill]();
+  }
+
+  protected attack(): void {
+    if (!this.blockingState()) {
+      this.body.reset(this.x, this.y);
+      this.state = CurrentState.WindingUp;
+      this.actionPending = this.scene.time.delayedCall(this.actionDuration * 1.25, this.attackSkill, [], this);
+    }
+  }
+
+  protected dash(): void {
+    if (this.state === CurrentState.Dead) {
+      return;
+    }
+    this.state = CurrentState.Dashing;
+    this.createGraphicEffect('dash');
+    this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
+    this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
+    this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
+  }
+
+  protected shoot(): void {
+    if (this.state === CurrentState.Dead) {
+      return;
+    }
+    this.handleShooting();
+  }
+
+  protected handleShooting(): void {
+    if (this.scene.time.now > this.lastShoot) {
+      var rotation = Phaser.Math.Angle.Between(
+        this.x,
+        this.y,
+        this.target.x,
+        this.target.y
+      );
+      if (this.rangedSkill.getLength() < 2) {
+        this.createBullet(rotation);
+        this.lastShoot = this.scene.time.now + 400;
+        this.state = CurrentState.Shooting;
+        this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound });
+        this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
+      }
+    }
+  }
+
+  protected endActionCallback(): void {
+    if (!this.isDead()) {
+      this.body.reset(this.x, this.y);
+      this.state = CurrentState.Moving;
+    }
+  }
+
+  protected closeToTarget(): boolean {
+    if (this.target) {
+      var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+      if (distance < this.distanceToStop) {
+        return true;
+      }
+    }
+    return false;
+  }
+  // status
+  protected isVulnerable(): boolean {
+    if (this.state === CurrentState.Dead ||
+      this.state === CurrentState.Hurting) {
+    return false;
+    }
+    return true;
+  }
+
+  protected isDead(): boolean {
+    if (this.state === CurrentState.Dead) {
+      return true;
+    }
+    return false;
+  }
+
+  public hurt(entity = { power: 1 }): number {
+    if (this.isVulnerable()) {
+      if (this.actionPending) {
+        this.actionPending.remove(false);
+      }
+      this.life = this.life - entity.power;
+      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
+      if (this.life < 0) {
+        this.life = 0;
+      }
+      this.redrawLifebar();
+      if (this.life === 0) {
+        this.die();
+      } else if (this.life > 0) {
+        this.state = CurrentState.Hurting;
+        this.isInvicible = true;
+        this.setTint(0xFF6347);
+        this.scene.time.delayedCall(this.invicibleFrame, this.endHurtingCallback, [], this);
+      }
+      return this.life;
+    }
+    return -1;
+  }
+
+  protected endHurtingCallback(): void {
+    this.clearTint();
+    this.isInvicible = false;
+    if (this.state !== CurrentState.Dead) {
+      this.state = CurrentState.Moving;
+    }
+  }
+
 
   public getBullets(): Phaser.GameObjects.Group {
     return this.rangedSkill;
   }
 
+  public getExperience(): number {
+    return (5 * (this.level * this.life));
+  }
+
   // Anim complete
-  // protected animComplete(anim) {
+  // protected animCompleteCallback(anim) {
   //   if (anim.key === 'explode') {
   //     this.alpha = 0;
   //     this.scene.gameEvent.emit('scoreUpdate');

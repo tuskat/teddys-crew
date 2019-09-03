@@ -1,9 +1,10 @@
 import { GameScene } from "../scenes/gameScene";
+import { Config } from "../config";
 
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SoundEffects {
-    private defaultUrl: string = '/src/games/cadre-de-guerre/assets/sounds/';
+    private assetsFolder: string = Config.FOLDER + '/sounds/';
     private soundList = [
         'Alarm',
         'Damage01',
@@ -38,7 +39,7 @@ export class SoundEffects {
 
     preloadSound() {
       this.soundList.forEach(element => {
-        this.scene.load.audio(element, this.defaultUrl + element + '.mp3', { instances: 1});
+        this.scene.load.audio(element, this.assetsFolder + element + '.mp3', { instances: 1});
       });
     }
     initSound() {

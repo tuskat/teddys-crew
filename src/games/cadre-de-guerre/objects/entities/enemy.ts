@@ -1,6 +1,6 @@
 import { Player } from "./player";
 import { Entity } from "./entity";
-import { CurrentState } from '../../configs/currentStates'
+import { CurrentState } from '../../configs/enums/currentStates'
 
 export class Enemy extends Entity {
   player: Player;

@@ -1,6 +1,6 @@
 import { GameScene } from "../../scenes/gameScene";
 import { Enemy } from "../../objects/entities/enemy";
-import { CurrentState } from '../../configs/currentStates';
+import { CurrentState } from '../../configs/enums/currentStates';
 import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
 export class BaseMode {
@@ -133,10 +133,10 @@ export class BaseMode {
       }
     protected objectClashing(monster): void {
         if (monster.state === CurrentState.Dashing) {
-          this.scene.player.getHurt(monster);
+          this.scene.player.hurt(monster);
         }
         if (this.scene.player.state === CurrentState.Dashing) {
-          monster.getHurt(this.scene.player);
+          monster.hurt(this.scene.player);
         }
       }
 
@@ -170,7 +170,7 @@ export class BaseMode {
     }
 
     protected bulletHitEntity(bullet, entity): void {
-        let bulletConnected = entity.getHurt();
+        let bulletConnected = entity.hurt();
         if (bulletConnected !== -1) {
             bullet.destroy();
         }
