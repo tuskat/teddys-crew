@@ -9,38 +9,39 @@ You will have a say on which room you raid (at a later date)
 ## Controls
 
 - Click somewhere to dash. Dash is an attack
-- Click on character to use defensive skill (will vary later)
-- Right click to use long range attack (will vary later)
+- Click on character to use zoning skill (To Do)
+- Right click to use long range skill
 
 ## Genre
 
-It's a roguelite. As such, you get currency while fighting.
-Once you die you can use that currency to improve your Teddy's Crews.
-Dying mean you'll be randomly attributed a different Teddy's Crews and as such,
-skills and passives will be completely different (at a later date)
+Alpha :
+Action Survival :
+- you have to live and level up as long as possible.
+- Die 5 times and it's game over.
+- Every minute enemies level up.
+- An enemy can level up by killing you.
+- Enemies wind up time and projectiles speed are affected by level.
 
 ## To do
 
 - Separate controls from player logic to allow coop (coop does not have to exist yet)
-- click on character skill
-- right click skill
-- enemies wind up before attacking
+- character zoning skill : hurt a lot, big cooldown.
+- replace bullet shoot by character skill. short cooldown.
+- passives skills by picking up item (see Hades section)
 - room manager
+- Basic Boss entity
 
 ### Room Manager
 
-The room manager will decide many things. As a random dungeon,
-it'd probably be much more interesting if not all of the rooms happen to be "Kill X".
-
 Room manager should be able to first :
-- have wave rules
 - be capable to switch layout on waves end
-- contain some interesting stuff for the user (extra currency and life pickups (more tbd))
+- contain some interesting stuff for the user (extra boons and life pickups (more tbd))
 
-Later room manager will be able to :
-- have varied waves/rooms objectives (survival, extermination, sabotage, defense, etc)
-- have non-fighting rooms (shop, npc rooms, shrines, etc...)
-- have player choices in where they go
+## UI
+
+- add skill boxes.
+- add skill cooldown.
+- add combo.
 
 ### Enemies
 
@@ -49,10 +50,16 @@ Enemies  are at the beginning divided in 4 types :
 - move in sequence, always hurt (unless dash)
 - chase the player, hurt only on dashes
 - chest kind enemies, flee user
++ chase the player and explode? Research if fun
 
-##MVP
+## MVP
 
-- Sound/Music are present
-- Basic sprite implementation
-- Start Screen, Hub Screen and Fight Screen
+- Music are present
+- Start Screen
+- Hub Screen (contain scoreboard and character selection)
+- Basic Game Settings
+- Fight Screen (v)
+- 3 characters
+- 1 boss
+- 4 enemies
 - Room manager
