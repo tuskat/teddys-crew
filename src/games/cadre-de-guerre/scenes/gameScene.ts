@@ -38,7 +38,7 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     // Pause when out of foccin focus
-    this.assetsLoader.loadAnimation();
+    this.assetsLoader.loadAllAnimation();
     this.game.events.on('blur',function(){
       this.game.scene.pause('GameScene');
     },this);

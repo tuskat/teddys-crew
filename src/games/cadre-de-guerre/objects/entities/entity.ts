@@ -2,6 +2,7 @@ import { CurrentState } from '../../configs/currentStates'
 import _ = require('lodash');
 import { GameScene } from '../../scenes/gameScene';
 import { Bullet } from '../bullets';
+import { GraphicEffects } from '../graphicEffects';
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
@@ -34,6 +35,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   spriteFolder = null;
   previousState = null;
   lastShoot: number = 0;
+  graphicEffects: Phaser.GameObjects.Group;
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
@@ -48,13 +50,18 @@ export class Entity extends Phaser.GameObjects.Sprite {
       maxSize: 2,
       runChildUpdate: true
     });
-    this.on('animationcomplete', this.animComplete, this);
   }
 
   protected initVariables(config): void {
     this.target = new Phaser.Math.Vector2(0, 0);
     _.each(config, (val, key) => this[key] = val);
     this.config = config;
+
+    this.graphicEffects = this.scene.add.group({
+      active: true,
+      maxSize: 5,
+      runChildUpdate: true
+    });
   }
 
   
@@ -144,14 +151,28 @@ export class Entity extends Phaser.GameObjects.Sprite {
     });
   }
 
+  protected createGraphicEffect(animation = 'explode'): void {
+    if (this.graphicEffects.getLength() < 5) {
+      this.graphicEffects.add(
+        new GraphicEffects({
+          scene: this.scene,
+          x: this.x,
+          y: this.y,
+          key: 'Air_14_00000',
+          gfxName: animation,
+          flipX: this.flipX })
+      );
+    }
+  }
   protected die(sound = true): void {
     if (!this.isDead()) {
       if (sound) {
         this.scene.gameEvent.emit('entityDied', { sound: 'Explosion1' });
-        this.anims.play('explode');
-      } else {
-        this.alpha = 0;
+        this.createGraphicEffect('explode');
+        this.scene.gameEvent.emit('scoreUpdate');
+        this.setFrame(this.spriteFolder + '/Idle' + '.png');
       }
+      this.alpha = 0;
       this.state = CurrentState.Dead;
       this.hideLifebar();
       this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
@@ -193,6 +214,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       return;
     }
     this.state = CurrentState.Dashing;
+    this.createGraphicEffect('dash');
     this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
     this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
     this.scene.time.delayedCall(this.actionDuration, this.endAction, [], this);
@@ -340,13 +362,13 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   // Anim complete
-  protected animComplete(anim) {
-    if (anim.key === 'explode') {
-      this.alpha = 0;
-      this.scene.gameEvent.emit('scoreUpdate');
-      this.setFrame(this.spriteFolder + '/Idle' + '.png');
-    }
-  }
+  // protected animComplete(anim) {
+  //   if (anim.key === 'explode') {
+  //     this.alpha = 0;
+  //     this.scene.gameEvent.emit('scoreUpdate');
+  //     this.setFrame(this.spriteFolder + '/Idle' + '.png');
+  //   }
+  // }
 
   redrawLifebar(): void {}
   hideLifebar(): void {}

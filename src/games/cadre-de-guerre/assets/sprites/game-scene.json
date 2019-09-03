@@ -4,8 +4,8 @@
 			"image": "game-scene.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1652,
-				"h": 1318
+				"w": 1026,
+				"h": 981
 			},
 			"scale": 1,
 			"frames": [
@@ -31,234 +31,45 @@
 					}
 				},
 				{
-					"filename": "burn_effect/0006.png",
+					"filename": "Shooter/Attack.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 401,
-						"h": 552
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 13,
-						"y": 149,
-						"w": 322,
-						"h": 356
+						"x": 8,
+						"y": 0,
+						"w": 128,
+						"h": 131
 					},
 					"frame": {
 						"x": 1,
 						"y": 723,
-						"w": 322,
-						"h": 356
+						"w": 128,
+						"h": 131
 					}
 				},
 				{
-					"filename": "burn_effect/0007.png",
+					"filename": "Enemy/Idle.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 401,
-						"h": 552
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 30,
-						"y": 145,
-						"w": 319,
-						"h": 356
-					},
-					"frame": {
-						"x": 1027,
-						"y": 1,
-						"w": 319,
-						"h": 356
-					}
-				},
-				{
-					"filename": "burn_effect/0008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 42,
-						"y": 142,
-						"w": 334,
-						"h": 330
-					},
-					"frame": {
-						"x": 325,
-						"y": 723,
-						"w": 334,
-						"h": 330
-					}
-				},
-				{
-					"filename": "burn_effect/0013.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 57,
-						"y": 18,
-						"w": 268,
-						"h": 331
-					},
-					"frame": {
-						"x": 1027,
-						"y": 359,
-						"w": 268,
-						"h": 331
-					}
-				},
-				{
-					"filename": "burn_effect/0009.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 59,
-						"y": 139,
-						"w": 299,
-						"h": 297
-					},
-					"frame": {
-						"x": 1348,
-						"y": 1,
-						"w": 299,
-						"h": 297
-					}
-				},
-				{
-					"filename": "burn_effect/0012.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 35,
-						"y": 71,
-						"w": 284,
-						"h": 311
-					},
-					"frame": {
-						"x": 661,
-						"y": 723,
-						"w": 284,
-						"h": 311
-					}
-				},
-				{
-					"filename": "burn_effect/0010.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 45,
-						"y": 153,
-						"w": 292,
-						"h": 231
+						"x": 2,
+						"y": 7,
+						"w": 135,
+						"h": 124
 					},
 					"frame": {
 						"x": 1,
-						"y": 1081,
-						"w": 292,
-						"h": 231
-					}
-				},
-				{
-					"filename": "burn_effect/0014.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 67,
-						"y": 19,
-						"w": 259,
-						"h": 319
-					},
-					"frame": {
-						"x": 947,
-						"y": 723,
-						"w": 259,
-						"h": 319
-					}
-				},
-				{
-					"filename": "burn_effect/0011.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 19,
-						"y": 117,
-						"w": 302,
-						"h": 273
-					},
-					"frame": {
-						"x": 1348,
-						"y": 300,
-						"w": 302,
-						"h": 273
-					}
-				},
-				{
-					"filename": "burn_effect/0005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 52,
-						"y": 226,
-						"w": 269,
-						"h": 292
-					},
-					"frame": {
-						"x": 1208,
-						"y": 692,
-						"w": 269,
-						"h": 292
-					}
-				},
-				{
-					"filename": "burn_effect/0015.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 17,
-						"w": 172,
-						"h": 269
-					},
-					"frame": {
-						"x": 1479,
-						"y": 575,
-						"w": 172,
-						"h": 269
+						"y": 856,
+						"w": 135,
+						"h": 124
 					}
 				},
 				{
@@ -276,220 +87,10 @@
 						"h": 130
 					},
 					"frame": {
-						"x": 1479,
-						"y": 846,
+						"x": 131,
+						"y": 723,
 						"w": 154,
 						"h": 130
-					}
-				},
-				{
-					"filename": "burn_effect/0004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 82,
-						"y": 304,
-						"w": 227,
-						"h": 222
-					},
-					"frame": {
-						"x": 1208,
-						"y": 986,
-						"w": 227,
-						"h": 222
-					}
-				},
-				{
-					"filename": "burn_effect/0003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 103,
-						"y": 353,
-						"w": 119,
-						"h": 174
-					},
-					"frame": {
-						"x": 1437,
-						"y": 986,
-						"w": 119,
-						"h": 174
-					}
-				},
-				{
-					"filename": "burn_effect/0002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 116,
-						"y": 419,
-						"w": 99,
-						"h": 107
-					},
-					"frame": {
-						"x": 295,
-						"y": 1210,
-						"w": 99,
-						"h": 107
-					}
-				},
-				{
-					"filename": "Hero/Attack.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 3,
-						"y": 0,
-						"w": 148,
-						"h": 127
-					},
-					"frame": {
-						"x": 295,
-						"y": 1081,
-						"w": 148,
-						"h": 127
-					}
-				},
-				{
-					"filename": "burn_effect/0016.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 104,
-						"y": 17,
-						"w": 137,
-						"h": 163
-					},
-					"frame": {
-						"x": 445,
-						"y": 1055,
-						"w": 137,
-						"h": 163
-					}
-				},
-				{
-					"filename": "Shooter/Attack.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 8,
-						"y": 0,
-						"w": 128,
-						"h": 131
-					},
-					"frame": {
-						"x": 584,
-						"y": 1055,
-						"w": 128,
-						"h": 131
-					}
-				},
-				{
-					"filename": "Enemy/Hurt.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 15,
-						"y": 2,
-						"w": 122,
-						"h": 129
-					},
-					"frame": {
-						"x": 584,
-						"y": 1188,
-						"w": 122,
-						"h": 129
-					}
-				},
-				{
-					"filename": "Hero/Idle.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 154,
-						"h": 130
-					},
-					"frame": {
-						"x": 714,
-						"y": 1036,
-						"w": 154,
-						"h": 130
-					}
-				},
-				{
-					"filename": "Hero/Dash.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 0,
-						"w": 152,
-						"h": 130
-					},
-					"frame": {
-						"x": 870,
-						"y": 1044,
-						"w": 152,
-						"h": 130
-					}
-				},
-				{
-					"filename": "Enemy/WindingUp.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 3,
-						"w": 142,
-						"h": 128
-					},
-					"frame": {
-						"x": 1024,
-						"y": 1044,
-						"w": 142,
-						"h": 128
 					}
 				},
 				{
@@ -507,14 +108,14 @@
 						"h": 111
 					},
 					"frame": {
-						"x": 1297,
-						"y": 575,
+						"x": 138,
+						"y": 855,
 						"w": 136,
 						"h": 111
 					}
 				},
 				{
-					"filename": "Enemy/Dash.png",
+					"filename": "Shooter/Hurt.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -522,15 +123,78 @@
 						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 7,
+						"x": 2,
+						"y": 16,
+						"w": 118,
+						"h": 111
+					},
+					"frame": {
+						"x": 276,
+						"y": 855,
+						"w": 118,
+						"h": 111
+					}
+				},
+				{
+					"filename": "Hero/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 0,
 						"y": 0,
-						"w": 137,
+						"w": 154,
 						"h": 130
 					},
 					"frame": {
-						"x": 1437,
-						"y": 1162,
-						"w": 137,
+						"x": 287,
+						"y": 723,
+						"w": 154,
+						"h": 130
+					}
+				},
+				{
+					"filename": "Shooter/WindingUp.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 18,
+						"w": 136,
+						"h": 110
+					},
+					"frame": {
+						"x": 396,
+						"y": 855,
+						"w": 136,
+						"h": 110
+					}
+				},
+				{
+					"filename": "Hero/Dash.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 152,
+						"h": 130
+					},
+					"frame": {
+						"x": 443,
+						"y": 723,
+						"w": 152,
 						"h": 130
 					}
 				},
@@ -549,35 +213,77 @@
 						"h": 80
 					},
 					"frame": {
-						"x": 396,
-						"y": 1220,
+						"x": 534,
+						"y": 855,
 						"w": 131,
 						"h": 80
 					}
 				},
 				{
-					"filename": "burn_effect/0017.png",
+					"filename": "Enemy/Dash.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 401,
-						"h": 552
+						"w": 154,
+						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 125,
-						"y": 77,
-						"w": 86,
-						"h": 92
+						"x": 7,
+						"y": 0,
+						"w": 137,
+						"h": 130
 					},
 					"frame": {
-						"x": 1558,
-						"y": 978,
-						"w": 86,
-						"h": 92
+						"x": 597,
+						"y": 723,
+						"w": 137,
+						"h": 130
 					}
 				},
 				{
-					"filename": "Shooter/WindingUp.png",
+					"filename": "Enemy/Hurt.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 2,
+						"w": 122,
+						"h": 129
+					},
+					"frame": {
+						"x": 736,
+						"y": 723,
+						"w": 122,
+						"h": 129
+					}
+				},
+				{
+					"filename": "Hero/Attack.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 148,
+						"h": 127
+					},
+					"frame": {
+						"x": 860,
+						"y": 723,
+						"w": 148,
+						"h": 127
+					}
+				},
+				{
+					"filename": "Enemy/WindingUp.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -586,120 +292,15 @@
 					},
 					"spriteSourceSize": {
 						"x": 2,
-						"y": 18,
-						"w": 136,
-						"h": 110
+						"y": 3,
+						"w": 142,
+						"h": 128
 					},
 					"frame": {
-						"x": 714,
-						"y": 1168,
-						"w": 136,
-						"h": 110
-					}
-				},
-				{
-					"filename": "Enemy/Idle.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 7,
-						"w": 135,
-						"h": 124
-					},
-					"frame": {
-						"x": 852,
-						"y": 1176,
-						"w": 135,
-						"h": 124
-					}
-				},
-				{
-					"filename": "Shooter/Hurt.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 16,
-						"w": 118,
-						"h": 111
-					},
-					"frame": {
-						"x": 989,
-						"y": 1176,
-						"w": 118,
-						"h": 111
-					}
-				},
-				{
-					"filename": "burn_effect/0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 133,
-						"y": 452,
-						"w": 67,
-						"h": 76
-					},
-					"frame": {
-						"x": 1558,
-						"y": 1072,
-						"w": 67,
-						"h": 76
-					}
-				},
-				{
-					"filename": "burn_effect/0019.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 112,
-						"y": 78,
-						"w": 114,
-						"h": 84
-					},
-					"frame": {
-						"x": 1109,
-						"y": 1210,
-						"w": 114,
-						"h": 84
-					}
-				},
-				{
-					"filename": "burn_effect/0018.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 401,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 117,
-						"y": 74,
-						"w": 101,
-						"h": 88
-					},
-					"frame": {
-						"x": 1225,
-						"y": 1210,
-						"w": 101,
-						"h": 88
+						"x": 860,
+						"y": 852,
+						"w": 142,
+						"h": 128
 					}
 				}
 			]
@@ -708,6 +309,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:6bfa14972fbd2f74ce92e43c07b69fa2:4e54959326774f33b2c7b0fe74a54e39:dc7b5edd0e40ba0230d2635193b8305a$"
+		"smartupdate": "$TexturePacker:SmartUpdate:3290b7095ea2cb17a6517e4bbb0a7b50:fdbfd1b209266b0ce54760e501b90e6f:dc7b5edd0e40ba0230d2635193b8305a$"
 	}
 }
