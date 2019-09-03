@@ -93,8 +93,21 @@ https://github.com/nodegui/nodegui
 https://www.spriters-resource.com/snes/kirbydream3/
 https://www.spriters-resource.com/ds_dsi/kirbycanvascurse/sheet/2781/
 
-https://www.schemecolor.com/pastel-color-tones.php
+##Royalty free
 
-##Royalty free garbage
 https://drive.google.com/drive/folders/0ByU7awpZcluQMjlDOWFGV24yT1E
 https://www.reddit.com/r/rareinsults/
+
+https://www.schemecolor.com/pastel-color-tones.php
+https://archive.org/details/Collected_Songs-4947/Henry_Homesweet_-_01_-_Simple_Pleasures.mp3
+
+
+# Hades status (as a reference)
+
+Weak :	For at least 3 Seconds, victim deals at least 50% less damage.	Aphrodite
+Ruptured :	For 3 Seconds, victim takes rapid damage while moving.	Poseidon
+Poison	:For 4 Seconds, victim takes damage every 0.5 seconds. Effect can stack up to 5 times by default.	Dionysus
+Marked :	For 2.5 Seconds, victim has a higher chance of taking Critical damage from any attack.	Artemis
+Jolted :	Victim's next attack self-inflicts lightning damage that harms itself and nearby foes.	Zeus
+Exposed :	For 5 Seconds, victim takes more damage when struck from behind.	Athena
+Doom	After at least 1 Second, victim takes a burst of damage.	Ares
