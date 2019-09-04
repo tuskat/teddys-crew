@@ -17,6 +17,8 @@ Bears with insects masks. Starters will be :
 
 ##Useful ressources
 
+https://alligator.io/js/class-composition/
+
 https://phaser.io/examples/v3/view/camera/world-view
 
 http://sbcgames.io/build-maintainable-games-with-phaser-3-2-adding-external-config/

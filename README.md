@@ -19,7 +19,7 @@ Action Survival :
 - you have to live and level up as long as possible.
 - Die 5 times and it's game over.
 - Every minute enemies level up.
-- An enemy can level up by killing you.
+- An enemy can level up by killing you. (fix that)
 - Enemies wind up time and projectiles speed are affected by level.
 
 ## To do
