@@ -3,10 +3,12 @@ import _ = require('lodash');
 import { GameScene } from '../../scenes/gameScene';
 import { Bullet } from '../bullets';
 import { GraphicEffects } from '../graphicEffects';
+import { eventList } from '../../configs/enums/eventList';
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
   scene: GameScene;
+  gameEvent:  Phaser.Events.EventEmitter;
   life = 1;
   maxLife = this.life;
   level = 1;
@@ -30,6 +32,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   timeToRespawn = 1000;
   actionDuration = 500;
   actionPending = null;
+  faction = '';
   events = {};
   config: any;
   spriteFolder = null;
@@ -43,6 +46,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
     this.initVariables(params.config);
     this.initImage();
+    this.initLevel();
     this.spriteFolder = params.folder;
     this.scene.add.existing(this);
     this.rangedSkill = this.scene.add.group({
@@ -62,11 +66,17 @@ export class Entity extends Phaser.GameObjects.Sprite {
       maxSize: 5,
       runChildUpdate: true
     });
+    this.maxLife = this.life;
   }
 
   protected initImage(): void {
     this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
+  }
+
+  protected initLevel(): void {
+    this.gameEvent = this.scene.getGameEvent();
+    this.gameEvent.on(eventList.Dying, this.experienceGained, this);
   }
 
   protected blockingState(): boolean {
@@ -144,7 +154,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.x = Phaser.Math.RND.integerInRange(100, 700);
     this.y = Phaser.Math.RND.integerInRange(100, 500);
     this.isInvicible = true;
-    this.life = this.config.life;
+    this.life = this.maxLife;
     this.createGraphicEffect('water');
     this.scene.add.tween({
       targets: [this],
@@ -206,7 +216,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected levelUp(): void {
-    this.scene.gameEvent.emit('levelUp',  { sound: 'PowerUp03' });
+    let buff = '';
     this.level++;
     this.experience = this.experience - this.experienceToLevelUp;
     this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
@@ -214,33 +224,42 @@ export class Entity extends Phaser.GameObjects.Sprite {
     switch (this.level % 3) {
       case 0: {
         this.power++;
+        buff = 'Power Up';
         break;
       }
       case 1: {
         this.speed = this.speed + (this.speed * 0.075);
+        buff = 'Speed Up';
         break;
       }
       case 2: {
         this.life += 2;
         this.maxLife += 2;
-        this.scene.gameEvent.emit('lifeUpdate', null);
+        buff = 'Hp Up';
+        // enum to set "Allies =1, Foes, Neutrals"
+        if (this.faction === 'allies') {
+          this.scene.gameEvent.emit(eventList.LifeUpdate, null);
+        }
         break;
       }
     }
+    this.scene.gameEvent.emit(eventList.LevelUp,  { sound: 'PowerUp03', entity: this, buff: buff });
   }
   // make generic
   protected experienceGained(event): void {
-    this.experience += event.experience;
-    if (this.experience >= this.experienceToLevelUp) {
-      this.levelUp();
+    if (event.faction !== this.faction) {
+      this.experience += event.experience;
+      if (this.experience >= this.experienceToLevelUp) {
+        this.levelUp();
     }
+  }
   }
   protected die(sound = true): void {
     if (!this.isDead()) {
       if (sound) {
-        this.scene.gameEvent.emit('entityDied', { sound: 'Explosion1' , experience: this.getExperience()});
+        this.scene.gameEvent.emit(eventList.Dying, { sound: 'Explosion1' , experience: this.getExperience(), faction: this.faction});
         this.createGraphicEffect('explode');
-        this.scene.gameEvent.emit('scoreUpdate');
+        this.scene.gameEvent.emit(eventList.ScoreUpdate);
         this.setFrame(this.spriteFolder + '/Idle' + '.png');
       }
       this.alpha = 0;
@@ -384,4 +403,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   redrawLifebar(): void {}
   hideLifebar(): void {}
+
+  flush(): void {
+    this.setActive(false);
+    this.setVisible(false);
+    this.destroy();
+  }
 }

@@ -1,4 +1,5 @@
 const config = {
+    faction: 'allies',
     life : 10,
     maxLife : 10,
     power: 1,

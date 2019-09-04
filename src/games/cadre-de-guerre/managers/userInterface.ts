@@ -64,6 +64,7 @@ export class UserInterface {
     this.gameEvent.on(eventList.RoundEnded, this.updateRound, this);
     this.gameEvent.on(eventList.CountDownStarted, this.startCountDown, this);
     this.gameEvent.on(eventList.LevelUp, this.levelUp, this);
+    this.gameEvent.on(eventList.GameOver, this.gameOver, this);
   }
 
   private initText(): void {
@@ -157,19 +158,20 @@ export class UserInterface {
   }
 
   // Level Up
-  private levelUp(): void {
-    if (!this.text['levelUp']) {
-      this.text['levelUp'] = this.scene.make.text({
-        x: this.scene.player.x,
-        y: this.scene.player.y,
-        text: "Level Up!!!",
+  private levelUp(item): void {
+    var index = 'levelUp' + item.entity.faction;
+    if (!this.text[index]) {
+      this.text[index] = this.scene.make.text({
+        x: item.entity.x,
+        y: item.entity.y,
+        text: "Level Up!!!\n" + item.buff,
         style: this.style[3]
       });
     } else {
-      this.text['levelUp'].setPosition(this.scene.player.x, this.scene.player.y);
+      this.text[index].setPosition(item.entity.x, item.entity.y);
     }
     this.scene.add.tween({
-      targets: [this.text['levelUp']],
+      targets: [this.text[index]],
       ease: 'Sine.easeInOut',
       alpha: {
         getStart: () => 1,
@@ -178,6 +180,18 @@ export class UserInterface {
       duration: 1000,
       onComplete: null
     });
+  }
+
+  private gameOver(): void {
+    let index = 'gameOver';
+    if (!this.text[index]) {
+      this.text[index] = this.scene.make.text({
+        x: this.scene.sys.canvas.width / 3,
+        y: this.scene.sys.canvas.height / 2,
+        text: "Game Over",
+        style: this.style[2]
+      });
+    }
   }
 
   // Countdown
@@ -219,5 +233,16 @@ export class UserInterface {
       });
     }
     this.count();
+  }
+
+  public flush(): void {
+    this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
+    this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
+    this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);
+    this.gameEvent.off(eventList.Respawn, this.updateLifeBar, this);
+    this.gameEvent.off(eventList.RoundEnded, this.updateRound, this);
+    this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
+    this.gameEvent.off(eventList.LevelUp, this.levelUp, this);
+    this.gameEvent.off(eventList.GameOver, this.gameOver, this);
   }
 }

@@ -18,6 +18,7 @@ export class SoundEffects {
         'PowerUp02',
         'PowerUp03',
         'UI04',
+        'Misc03'
     ];
     // To Do, Name sounds after events
     private eventList = [];
@@ -34,6 +35,7 @@ export class SoundEffects {
         this.scene.load.audio(element, this.assetsFolder + element + '.mp3', { instances: 1});
       });
     }
+
     initSound() {
         this.soundList.forEach(element => {
             this.sounds[element] = this.scene.sound.add(element);
@@ -44,12 +46,17 @@ export class SoundEffects {
             this.scene.gameEvent.on(element, this.playSound, this);
         });
     }
+
     playSound(obj) {
         if (obj) {
             this.sounds[obj.sound].play();
-        } else {
-            console.log('no object sent');
         }
+    }
+
+    flush() {
+        this.eventList.forEach(element => {
+            this.scene.gameEvent.off(element, this.playSound, this);
+        });
     }
     enumToArray(enumList) {
         let stringList: string[] = [];

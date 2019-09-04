@@ -41,6 +41,10 @@ export class MenuScene extends Phaser.Scene {
   }
 
   startGame(): void {
+    let children = this.children.getAll();
+    children.forEach((child) => {
+      child.destroy();
+    });
     this.scene.start("GameScene");
   }
 }

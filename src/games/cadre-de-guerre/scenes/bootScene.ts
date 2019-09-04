@@ -46,8 +46,6 @@ export class BootScene extends Phaser.Scene {
       this
     );
 
-    // load our package
-    this.load.pack("preload", "./src/games/tank/assets/pack.json", "preload");
   }
 
   update(): void {
@@ -64,5 +62,14 @@ export class BootScene extends Phaser.Scene {
       20
     );
     this.progressBar = this.add.graphics();
+    this.make.text({
+      x: 0,
+      y: 0,
+      text: '',
+      style:  {
+        fontFamily: "Connection",
+        fontSize: 1
+      }
+    });
   }
 }

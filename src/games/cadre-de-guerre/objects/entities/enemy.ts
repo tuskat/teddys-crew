@@ -4,7 +4,7 @@ import { CurrentState } from '../../configs/enums/currentStates'
 
 export class Enemy extends Entity {
   player: Player;
-  private lifeBar: Phaser.GameObjects.Graphics;
+  private lifeBar: Phaser.GameObjects.Graphics = null;
 
   constructor(params) {
     super(params);
@@ -46,7 +46,7 @@ export class Enemy extends Entity {
     this.lifeBar.fillRect(
       -this.width /4,
       this.height / 3,
-      (this.width / 2  ) * (this.life / this.config.life),
+      (this.width / 2  ) * (this.life / this.maxLife),
       10
     );
     this.lifeBar.lineStyle(2, 0xffffff);
@@ -56,5 +56,13 @@ export class Enemy extends Entity {
 
   hideLifebar(): void {
     this.lifeBar.alpha = 0;
+  }
+
+  flush(): void {
+    this.lifeBar.clear();
+    this.lifeBar.destroy();
+    this.setActive(false);
+    this.setVisible(false);
+    this.destroy();
   }
 }

@@ -1,4 +1,5 @@
 const config = {
+    faction: 'foes',
     life : 1,
     power: 1,
     speed : 100,

@@ -18,10 +18,11 @@ export class BaseMode {
     constructor(params) {
         this.scene = params.scene;
         this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true});
+        this.scene.gameEvent.on(eventList.RoundStarted, this.roundStarted, this);
+        this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
     }
 
     create(): void {
-        this.scene.gameEvent.on(eventList.RoundStarted, this.roundStarted, this);
     }
 
     update(): void {
@@ -39,6 +40,7 @@ export class BaseMode {
         if (this.timeLeft === 0) {
             if (this.onGoing) {
                 this.roundEnded();
+                this.timedEvent.destroy();
             }
             return;
         }
@@ -47,8 +49,15 @@ export class BaseMode {
     }
 
     // Spawn/Kill
+    protected playerDied(entity): void {
+    }
+
     protected killEnemy(enemy): void {
         enemy.die();
+    }
+
+    protected flushEnemy(enemy): void {
+        enemy.flush();
     }
 
     protected killSilentlyEnemy(enemy): void {
@@ -82,7 +91,7 @@ export class BaseMode {
 
     protected spawnInitialEnemies(): void {
         for (let i = 0; i != this.maxEnemies; i++) {
-            let enemyType = Math.random() < 0.5 ? 'Enemy' : 'Shooter';
+            let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
             this.enemies.push(this.spawnEnemy(enemyType));
         }
 
@@ -103,13 +112,16 @@ export class BaseMode {
         });
     }
 
+    protected levelUpEnemy(enemy): void {
+        enemy.levelUp();
+    }
     // Round related
     protected roundEnded(): void {
         this.round++;
         this.toEachEnemy(this.unsetRespawn);
         this.toEachEnemy(this.killSilentlyEnemy);
         this.onGoing = false;
-        this.scene.gameEvent.emit('roundEnded', {sound: 'PowerUp01'});
+        this.scene.gameEvent.emit(eventList.RoundEnded, {sound: 'PowerUp01'});
     }
 
     protected roundStarted(): void {
@@ -122,7 +134,7 @@ export class BaseMode {
         } else {
             this.toEachEnemy(this.respawnEnemy);
         }
-        this.scene.gameEvent.emit('roundStarted', null);
+        this.scene.gameEvent.emit(eventList.RoundStarted, null);
     }
 
     // Collision
@@ -184,5 +196,13 @@ export class BaseMode {
     // Misc
     toEachEnemy(action): void {
         this.enemies.forEach(action, this);
+    }
+
+    public flush(): void {
+        this.toEachEnemy(this.flushEnemy);
+        this.enemies = null;
+        this.scene.gameEvent.off(eventList.RoundStarted, this.roundStarted, this);
+        this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
+        this.timedEvent.remove(false);
     }
 }

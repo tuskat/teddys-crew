@@ -1,11 +1,9 @@
 import { CurrentState } from '../../configs/enums/currentStates';
 import { Entity } from './entity';
 import { GameScene } from '../../scenes/gameScene';
-import { eventList } from '../../configs/enums/eventList';
 
 export class Player extends Entity {
   inputEvent: Phaser.Events.EventEmitter;
-  gameEvent:  Phaser.Events.EventEmitter;
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
@@ -13,7 +11,6 @@ export class Player extends Entity {
   constructor(params) {
     super(params);
     this.initBody();
-    this.initLevel();
     this.initInput(params.controller.getEmitter());
   }
 
@@ -22,11 +19,6 @@ export class Player extends Entity {
     this.body.maxVelocity.y = this.maxSpeedY;
     this.body.setSize(80, 80);
     this.body.setOffset(this.width / 4, this.height / 3);
-  }
-
-  protected initLevel(): void {
-    this.gameEvent = this.scene.getGameEvent();
-    this.gameEvent.on(eventList.Dying, this.experienceGained, this);
   }
 
   protected initInput(emitter): void {
