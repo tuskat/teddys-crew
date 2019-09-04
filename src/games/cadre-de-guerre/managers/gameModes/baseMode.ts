@@ -3,6 +3,7 @@ import { Enemy } from "../../objects/entities/enemy";
 import { CurrentState } from '../../configs/enums/currentStates';
 import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
+import { eventList } from "../../configs/enums/eventList";
 
 export class BaseMode {
     scene: GameScene;
@@ -20,10 +21,10 @@ export class BaseMode {
     }
 
     create(): void {
-        this.scene.gameEvent.on('startRound', this.roundStarted, this);
+        this.scene.gameEvent.on(eventList.RoundStarted, this.roundStarted, this);
     }
 
-    update(time, delta): void {
+    update(): void {
         if (this.onGoing) {
             this.toEachEnemy(this.updateEnemy);
             this.toEachEnemy(this.checkCollision);
@@ -42,19 +43,10 @@ export class BaseMode {
             return;
         }
         this.timeLeft--;
-        this.scene.gameEvent.emit('timeUpdate', null);
+        this.scene.gameEvent.emit(eventList.TimeUpdate, null);
     }
 
-    toEachEnemy(action): void {
-        this.enemies.forEach(action, this);
-    }
-
-    checkCollision(enemy): void {
-        if (this.objectsTouch(this.scene.player, enemy)) {
-            this.objectClashing(enemy);
-        }
-    }
-
+    // Spawn/Kill
     protected killEnemy(enemy): void {
         enemy.die();
     }
@@ -73,7 +65,7 @@ export class BaseMode {
     protected setRespawn(enemy): void {
         enemy.shouldRespawn = true;
     }
-    
+
     protected spawnEnemy(folder): any {
         let config = (folder === 'Shooter') ? ShooterConfig : DasherConfig;
         let enemy = new Enemy({
@@ -111,6 +103,7 @@ export class BaseMode {
         });
     }
 
+    // Round related
     protected roundEnded(): void {
         this.round++;
         this.toEachEnemy(this.unsetRespawn);
@@ -130,6 +123,13 @@ export class BaseMode {
             this.toEachEnemy(this.respawnEnemy);
         }
         this.scene.gameEvent.emit('roundStarted', null);
+    }
+
+    // Collision
+    checkCollision(enemy): void {
+        if (this.objectsTouch(this.scene.player, enemy)) {
+            this.objectClashing(enemy);
+        }
     }
 
     protected objectsTouch(objectA, objectB): boolean {
@@ -154,16 +154,9 @@ export class BaseMode {
         if (this.scene.player.state === CurrentState.Dashing) {
           monster.hurt(this.scene.player);
         }
-      }
-
-    public getTimeLeft(): number {
-        return this.timeLeft;
     }
 
-    public getEnemyGroup(): Array<any> {
-        return this.enemies;
-    }
-
+    // Bullet logic
     protected bulletHitLayer(bullet): void {
         bullet.destroy();
     }
@@ -177,5 +170,19 @@ export class BaseMode {
         if (bulletConnected !== -1) {
             bullet.destroy();
         }
+    }
+
+    // Getter
+    public getTimeLeft(): number {
+        return this.timeLeft;
+    }
+
+    public getEnemyGroup(): Array<any> {
+        return this.enemies;
+    }
+
+    // Misc
+    toEachEnemy(action): void {
+        this.enemies.forEach(action, this);
     }
 }

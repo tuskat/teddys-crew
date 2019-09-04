@@ -6,6 +6,7 @@ import { AssetsLoader } from '../helpers/assetsLoader';
 import { UserInterface } from '../managers/userInterface';
 import { SoundEffects } from '../managers/soundEffects';
 import { BaseMode } from '../managers/gameModes/baseMode';
+import { eventList } from '../configs/enums/eventList';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
@@ -67,7 +68,7 @@ export class GameScene extends Phaser.Scene {
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
     this.soundEffectsManager.initSound();
     this.waveManager.create();
-    this.gameEvent.on('roundEnded', this.restartRound, this);
+    this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.restartRound();
   }
 

@@ -1,5 +1,6 @@
 import { GameScene } from "../scenes/gameScene";
 import { Config } from "../config";
+import { eventList } from "../configs/enums/eventList";
 
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
@@ -19,22 +20,13 @@ export class SoundEffects {
         'UI04',
     ];
     // To Do, Name sounds after events
-    private eventList = [
-        'playerRespawned',
-        'lifeUpdate',
-        'entityDamaged',
-        'entityDashing',
-        'entityShooting',
-        'entityDied',
-        'countDown',
-        'roundEnded',
-        'levelUp'
-    ];
+    private eventList = [];
     private sounds = []
     scene: GameScene;
 
     constructor(params) {
       this.scene = params.scene;
+      this.eventList = this.enumToArray(eventList);
     }
 
     preloadSound() {
@@ -58,5 +50,15 @@ export class SoundEffects {
         } else {
             console.log('no object sent');
         }
+    }
+    enumToArray(enumList) {
+        let stringList: string[] = [];
+
+        for(var n in enumList) {
+            if (typeof enumList[n] === 'string') {
+                stringList.push(enumList[n]);
+            }
+        }
+        return stringList;
     }
   }

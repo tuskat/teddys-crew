@@ -1,6 +1,7 @@
 import { CurrentState } from '../../configs/enums/currentStates';
 import { Entity } from './entity';
 import { GameScene } from '../../scenes/gameScene';
+import { eventList } from '../../configs/enums/eventList';
 
 export class Player extends Entity {
   inputEvent: Phaser.Events.EventEmitter;
@@ -25,7 +26,7 @@ export class Player extends Entity {
 
   protected initLevel(): void {
     this.gameEvent = this.scene.getGameEvent();
-    this.gameEvent.on('entityDied', this.experienceGained, this);
+    this.gameEvent.on(eventList.Dying, this.experienceGained, this);
   }
 
   protected initInput(emitter): void {

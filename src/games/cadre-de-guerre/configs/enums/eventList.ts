@@ -1,11 +1,15 @@
 export enum eventList {
   Respawn = 'playerRespawned',
-  LifeUpdate = 'lifeUpdate',
   Damaged = 'entityDamaged',
   Dashing = 'entityDashing',
   Shooting = 'entityShooting',
   Dying = 'entityDied',
-  CountDown ='countDown',
+  CountDown = 'countDown',
+  CountDownStarted = 'startCountdown',
   RoundEnded = 'roundEnded',
-  LevelUp = 'levelUp'
+  RoundStarted = 'startRound',
+  LevelUp = 'levelUp',
+  LifeUpdate = 'lifeUpdate',
+  ScoreUpdate = 'ScoreeUpdate',
+  TimeUpdate = 'timeUpdate'
 };
