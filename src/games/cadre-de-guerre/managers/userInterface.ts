@@ -159,6 +159,38 @@ export class UserInterface {
 
   // Level Up
   private levelUp(item): void {
+    if (item.entity.faction === 'allies') {
+      this.playerLevelUp(item);
+    } else {
+      this.enemiesLevelUp(item);
+    }
+  }
+  
+  private enemiesLevelUp(item): void {
+    let index = 'levelUp' + item.entity.faction;
+    if (!this.text[index]) {
+      this.text[index] = this.scene.make.text({
+        x: this.scene.sys.canvas.width * 0.12,
+        y: this.scene.sys.canvas.height / 2,
+        text:  "Enemies Level Up...\n" + item.buff,
+        style: this.style[2]
+      });
+    } else {
+      this.text[index].setText("Enemies Level Up...\n" + item.buff);
+    }
+    this.scene.add.tween({
+      targets: [this.text[index]],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 1,
+        getEnd: () => 0
+      },
+      duration: 2000,
+      onComplete: null
+    });
+  }
+
+  private playerLevelUp(item): void {
     var index = 'levelUp' + item.entity.faction;
     if (!this.text[index]) {
       this.text[index] = this.scene.make.text({
@@ -168,6 +200,7 @@ export class UserInterface {
         style: this.style[3]
       });
     } else {
+      this.text[index].setText("Level Up!!!\n" + item.buff);
       this.text[index].setPosition(item.entity.x, item.entity.y);
     }
     this.scene.add.tween({
@@ -177,11 +210,10 @@ export class UserInterface {
         getStart: () => 1,
         getEnd: () => 0
       },
-      duration: 1000,
+      duration: 3000,
       onComplete: null
     });
   }
-
   private gameOver(): void {
     let index = 'gameOver';
     if (!this.text[index]) {

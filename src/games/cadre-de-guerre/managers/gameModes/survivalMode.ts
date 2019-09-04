@@ -2,13 +2,14 @@ import { BaseMode } from "./baseMode";
 import { eventList } from "../../configs/enums/eventList";
 
 export class SurvivalMode extends BaseMode {
+    timeToNextBuff: number = 15000;
     playerLives: number = 1;
     timeSurvived: number = 0;
     buffEvent: Phaser.Time.TimerEvent;
 
     constructor(params) {
         super(params);
-        this.buffEvent = this.scene.time.addEvent({ delay: 30000, callback: this.IntensityUp, callbackScope: this, loop: true});
+        this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true});
     }
 
     protected roundStarted(): void {
