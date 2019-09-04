@@ -44,8 +44,8 @@ export class SoundEffects {
     }
     initSound() {
         this.soundList.forEach(element => {
-            this.sounds[element] = this.scene.sound.add(element.toString());
-            this.sounds[element].volume = 0.3;
+            this.sounds[element] = this.scene.sound.add(element);
+            this.sounds[element].volume = 0.25;
         });
 
         this.eventList.forEach(element => {
@@ -54,7 +54,7 @@ export class SoundEffects {
     }
     playSound(obj) {
         if (obj) {
-            this.scene.sound.play(obj.sound);
+            this.sounds[obj.sound].play();
         } else {
             console.log('no object sent');
         }

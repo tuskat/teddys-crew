@@ -145,6 +145,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.y = Phaser.Math.RND.integerInRange(100, 500);
     this.isInvicible = true;
     this.life = this.config.life;
+    this.createGraphicEffect('water');
     this.scene.add.tween({
       targets: [this],
       ease: 'Sine.easeInOut',
@@ -185,14 +186,15 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
   }
 
-  protected createBullet(rotation): void {
+  protected createBullet(rotation, animation = 'fire'): void {
     this.rangedSkill.add(
       new Bullet({
         scene: this.scene,
         x: this.x,
         y: this.y,
-        key: "VFX/EnergyBall",
+        key: "Fire_13_00000",
         rotation: rotation,
+        gfxName: animation,
         speed: this.bulletSpeed
       })
     );
@@ -227,8 +229,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
   }
   // make generic
-  protected experienceGained(enemy): void {
-    this.experience += 5;
+  protected experienceGained(event): void {
+    this.experience += event.experience;
     if (this.experience >= this.experienceToLevelUp) {
       this.levelUp();
     }
@@ -335,6 +337,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.actionPending.remove(false);
       }
       this.life = this.life - entity.power;
+      this.createGraphicEffect('hit');
       this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
       if (this.life < 0) {
         this.life = 0;
@@ -367,7 +370,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   public getExperience(): number {
-    return (5 * (this.level * this.life));
+    return (5 * (this.level * this.config.life));
   }
 
   // Anim complete
