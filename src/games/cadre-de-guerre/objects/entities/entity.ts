@@ -1,5 +1,5 @@
 import { CurrentState } from '../../configs/enums/currentStates'
-import _ = require('lodash');
+import _ = require('lodash/core');
 import { GameScene } from '../../scenes/gameScene';
 import { Bullet } from '../bullets';
 import { GraphicEffects } from '../graphicEffects';
