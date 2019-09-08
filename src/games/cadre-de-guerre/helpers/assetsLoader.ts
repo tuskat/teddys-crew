@@ -8,7 +8,10 @@ export class AssetsLoader {
     { prefix: 'Mix_04_', name: 'explode', frame : 22, framerate: 50 },
     { prefix: 'Fire_13_', name: 'fire', frame : 11, framerate: 16, repeat: -1 },
     { prefix: 'sparks_04_', name: 'hit', frame : 4, framerate: 50 },
-    { prefix: 'water_05_', name: 'water', frame : 8, framerate: 16 },
+    { prefix: 'water_05_', name: 'waterSpawn', frame : 8, framerate: 16 },
+    { prefix: 'water_03_', name: 'waterBullet', frame : 4, framerate: 32, repeat: -1 },
+    { prefix: 'water_03_', name: 'waterBulletHit', frame : 11, framerate: 16, start: 5 },
+    { prefix: 'water_09_', name: 'waterExplode', frame : 9, framerate: 25 },
   ];
 
   constructor(params) {
@@ -29,7 +32,7 @@ export class AssetsLoader {
 
   loadAnimation(animConfig) {
     var frameNames = this.scene.anims.generateFrameNames('game-sfx', {
-      start: 1, end: animConfig.frame, zeroPad: 5,
+      start: animConfig.start || 0, end: animConfig.frame, zeroPad: 5,
       prefix: animConfig.prefix, suffix: '.png'
     });
     this.scene.anims.create({key: animConfig.name, frames: frameNames, frameRate: animConfig.framerate, repeat: animConfig.repeat || 0 })

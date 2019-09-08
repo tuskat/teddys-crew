@@ -17,7 +17,7 @@ export class SurvivalMode extends BaseMode {
         this.onGoing = true;
         this.spawnInitialEnemies();
         this.toEachEnemy(this.killSilentlyEnemy);
-        this.scene.gameEvent.emit('roundStarted', null);
+        this.scene.gameEvent.emit(eventList.RoundStarted, null);
     }
 
     protected updateClock(): void {
@@ -46,9 +46,11 @@ export class SurvivalMode extends BaseMode {
 
     protected IntensityUp(): void {
         this.maxEnemies++;
+        this.enemiesLevel++;
+
+        this.toEachEnemy(this.levelUpEnemy);
         let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
         this.enemies.push(this.spawnEnemy(enemyType));
-        this.toEachEnemy(this.levelUpEnemy);
     }
 
     protected playerDied(entity): void {
@@ -56,5 +58,4 @@ export class SurvivalMode extends BaseMode {
             this.playerLives--;
         }
     }
-
 }

@@ -1,8 +1,9 @@
 import { CurrentState } from '../../configs/enums/currentStates';
-import { Entity } from './entity';
+import { MovingEntity } from "./base/movingEntity";
 import { GameScene } from '../../scenes/gameScene';
+import { eventList } from '../../configs/enums/eventList';
 
-export class Player extends Entity {
+export class Player extends MovingEntity {
   inputEvent: Phaser.Events.EventEmitter;
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
@@ -98,7 +99,7 @@ export class Player extends Entity {
   }
 
   protected doneRespawning(): void {
-    this.scene.gameEvent.emit('playerRespawned', { sound: 'PowerUp02'});
+    this.scene.gameEvent.emit(eventList.Respawn, { sound: 'PowerUp02'});
     this.state = CurrentState.Moving;
     this.isInvicible = false;
   }

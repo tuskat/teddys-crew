@@ -1,90 +1,20 @@
-import { CurrentState } from '../../configs/enums/currentStates'
-import _ = require('lodash');
-import { GameScene } from '../../scenes/gameScene';
-import { Bullet } from '../bullets';
-import { GraphicEffects } from '../graphicEffects';
-import { eventList } from '../../configs/enums/eventList';
+import { Entity } from "./entity";
+import { CurrentState } from '../../../configs/enums/currentStates'
+import { eventList } from "../../../configs/enums/eventList";
 
-
-export class Entity extends Phaser.GameObjects.Sprite {
-  scene: GameScene;
-  gameEvent:  Phaser.Events.EventEmitter;
-  life = 1;
-  maxLife = this.life;
-  level = 1;
-  experience = 0;
-  experienceToLevelUp = 20;
-  power = 1;
-  state = CurrentState.Moving;
-  speed = 100;
-  bulletSpeed = 0;
-  skills = [];
-  signatureSkill = 'doNothing';
-  distanceToStop = 100;
-  maxSpeedX;
-  maxSpeedY;
-  delayToAction;
-  isInvicible;
-  invicibleFrame = 300;
-  target: Phaser.Math.Vector2;
-  rangedSkill: any;
-  shouldRespawn = true;
-  timeToRespawn = 1000;
-  actionDuration = 500;
-  actionPending = null;
-  faction = '';
-  events = {};
-  config: any;
-  spriteFolder = null;
-  previousState = null;
-  lastShoot: number = 0;
-  graphicEffects: Phaser.GameObjects.Group;
+export class MovingEntity extends Entity {
 
   constructor(params) {
-    super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
-    this.scene.physics.world.enable(this);
-    this.body.setCollideWorldBounds(true);
-    this.initVariables(params.config);
-    this.initImage();
-    this.initLevel();
-    this.spriteFolder = params.folder;
-    this.scene.add.existing(this);
-    this.rangedSkill = this.scene.add.group({
-      classType: Bullet,
-      maxSize: 2,
-      runChildUpdate: true
-    });
+    super(params);
   }
-  // init methods
-  protected initVariables(config): void {
-    this.target = new Phaser.Math.Vector2(0, 0);
-    _.each(config, (val, key) => this[key] = val);
-    this.config = config;
-
-    this.graphicEffects = this.scene.add.group({
-      active: true,
-      maxSize: 5,
-      runChildUpdate: true
-    });
-    this.maxLife = this.life;
-  }
-
-  protected initImage(): void {
-    this.scale = 0.5;
-    this.setOrigin(0.5, 0.5);
-  }
-
-  protected initLevel(): void {
-    this.gameEvent = this.scene.getGameEvent();
-    this.gameEvent.on(eventList.Dying, this.experienceGained, this);
-  }
-
+  
   protected blockingState(): boolean {
     return (this.state === CurrentState.Dead ||
       this.state === CurrentState.Dashing ||
       this.state === CurrentState.WindingUp);
   }
-  // update methods
+  
+    // update methods
   update(): void {
     if (this.blockingState()) {
       this.doNothing();
@@ -146,7 +76,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
     this.previousState = this.state;
   }
-// Respawn
+
+  // Respawn
   protected respawn(): void {
     if (this.shouldRespawn === false) {
       return;
@@ -155,7 +86,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.y = Phaser.Math.RND.integerInRange(100, 500);
     this.isInvicible = true;
     this.life = this.maxLife;
-    this.createGraphicEffect('water');
+    this.createGraphicEffect(this.animationPreset.spawn);
     this.scene.add.tween({
       targets: [this],
       ease: 'Sine.easeInOut',
@@ -181,84 +112,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected delayedRespawn(): void {
     this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
   }
-// Create children
-  protected createGraphicEffect(animation = 'explode'): void {
-    if (this.graphicEffects.getLength() < 5) {
-      this.graphicEffects.add(
-        new GraphicEffects({
-          scene: this.scene,
-          x: this.x,
-          y: this.y,
-          key: 'Air_14_00000',
-          gfxName: animation,
-          flipX: this.flipX })
-      );
-    }
-  }
 
-  protected createBullet(rotation, animation = 'fire'): void {
-    this.rangedSkill.add(
-      new Bullet({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: "Fire_13_00000",
-        rotation: rotation,
-        gfxName: animation,
-        speed: this.bulletSpeed
-      })
-    );
-  }
-  // actions
-
-  protected doNothing(): void {
-
-  }
-
-  protected levelUp(): void {
-    let buff = '';
-    this.level++;
-    this.experience = this.experience - this.experienceToLevelUp;
-    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
-    // to be decided separately later
-    switch (this.level % 3) {
-      case 0: {
-        this.power++;
-        buff = 'Power Up';
-        break;
-      }
-      case 1: {
-        this.speed = this.speed + (this.speed * 0.075);
-        buff = 'Speed Up';
-        break;
-      }
-      case 2: {
-        this.life += 2;
-        this.maxLife += 2;
-        buff = 'Hp Up';
-        // enum to set "Allies =1, Foes, Neutrals"
-        if (this.faction === 'allies') {
-          this.scene.gameEvent.emit(eventList.LifeUpdate, null);
-        }
-        break;
-      }
-    }
-    this.scene.gameEvent.emit(eventList.LevelUp,  { sound: 'PowerUp03', entity: this, buff: buff });
-  }
-  // make generic
-  protected experienceGained(event): void {
-    if (event.faction !== this.faction) {
-      this.experience += event.experience;
-      if (this.experience >= this.experienceToLevelUp) {
-        this.levelUp();
-    }
-  }
-  }
   protected die(sound = true): void {
     if (!this.isDead()) {
       if (sound) {
-        this.scene.gameEvent.emit(eventList.Dying, { sound: 'Explosion1' , experience: this.getExperience(), faction: this.faction});
-        this.createGraphicEffect('explode');
+        this.scene.gameEvent.emit(eventList.Dying, { sound: 'Explosion7' , experience: this.getExperience(), faction: this.faction});
+        this.createGraphicEffect(this.animationPreset.explode);
         this.scene.gameEvent.emit(eventList.ScoreUpdate);
         this.setFrame(this.spriteFolder + '/Idle' + '.png');
       }
@@ -381,32 +240,5 @@ export class Entity extends Phaser.GameObjects.Sprite {
     if (this.state !== CurrentState.Dead) {
       this.state = CurrentState.Moving;
     }
-  }
-
-
-  public getBullets(): Phaser.GameObjects.Group {
-    return this.rangedSkill;
-  }
-
-  public getExperience(): number {
-    return (5 * (this.level * this.config.life));
-  }
-
-  // Anim complete
-  // protected animCompleteCallback(anim) {
-  //   if (anim.key === 'explode') {
-  //     this.alpha = 0;
-  //     this.scene.gameEvent.emit('scoreUpdate');
-  //     this.setFrame(this.spriteFolder + '/Idle' + '.png');
-  //   }
-  // }
-
-  redrawLifebar(): void {}
-  hideLifebar(): void {}
-
-  flush(): void {
-    this.setActive(false);
-    this.setVisible(false);
-    this.destroy();
   }
 }

@@ -8,6 +8,7 @@ import { eventList } from "../../configs/enums/eventList";
 export class BaseMode {
     scene: GameScene;
     maxEnemies = 5;
+    enemiesLevel = 1;
     startTime = 15;
     onGoing = false;
     round = 0;
@@ -18,7 +19,7 @@ export class BaseMode {
     constructor(params) {
         this.scene = params.scene;
         this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true});
-        this.scene.gameEvent.on(eventList.RoundStarted, this.roundStarted, this);
+        this.scene.gameEvent.on(eventList.StartRound, this.startRound, this);
         this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
     }
 
@@ -84,8 +85,10 @@ export class BaseMode {
             key: folder + "/Idle",
             player: this.scene.player,
             config: config.default,
-            folder: folder
-            });
+            folder: folder,
+            level: this.enemiesLevel
+        });
+        this.setBulletCollision(enemy);
         return enemy;
     }
 
@@ -96,22 +99,25 @@ export class BaseMode {
         }
 
         this.toEachEnemy((enemy: Enemy) => {
-            this.scene.physics.add.overlap(
-              this.scene.player.getBullets(),
-              enemy,
-              this.bulletHitEntity,
-              null,
-              this
-            );
-            this.scene.physics.add.overlap(
-              enemy.getBullets(),
-              this.scene.player,
-              this.bulletHitEntity,
-              null
-            );
+            this.setBulletCollision(enemy);
         });
     }
 
+    protected setBulletCollision(enemy): void {
+        this.scene.physics.add.overlap(
+            this.scene.player.getBullets(),
+            enemy,
+            this.bulletHitEntity,
+            null,
+            this
+          );
+        this.scene.physics.add.overlap(
+            enemy.getBullets(),
+            this.scene.player,
+            this.bulletHitEntity,
+            null
+          );
+    }
     protected levelUpEnemy(enemy): void {
         enemy.levelUp();
     }
@@ -124,7 +130,7 @@ export class BaseMode {
         this.scene.gameEvent.emit(eventList.RoundEnded, {sound: 'PowerUp01'});
     }
 
-    protected roundStarted(): void {
+    protected startRound(): void {
         this.timeLeft = this.startTime;
         this.toEachEnemy(this.setRespawn);
         this.onGoing = true;
@@ -201,7 +207,7 @@ export class BaseMode {
     public flush(): void {
         this.toEachEnemy(this.flushEnemy);
         this.enemies = null;
-        this.scene.gameEvent.off(eventList.RoundStarted, this.roundStarted, this);
+        this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);
         this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
         this.timedEvent.remove(false);
     }

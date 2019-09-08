@@ -4,116 +4,11 @@
 			"image": "game-sfx.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 512,
-				"h": 1310
+				"w": 1758,
+				"h": 507
 			},
 			"scale": 0.125,
 			"frames": [
-				{
-					"filename": "water_05_00008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 21,
-						"y": 76,
-						"w": 193,
-						"h": 48
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 193,
-						"h": 48
-					}
-				},
-				{
-					"filename": "water_05_00007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 28,
-						"y": 65,
-						"w": 187,
-						"h": 60
-					},
-					"frame": {
-						"x": 196,
-						"y": 1,
-						"w": 187,
-						"h": 60
-					}
-				},
-				{
-					"filename": "Mix_04_00014.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 58,
-						"y": 12,
-						"w": 124,
-						"h": 112
-					},
-					"frame": {
-						"x": 385,
-						"y": 1,
-						"w": 124,
-						"h": 112
-					}
-				},
-				{
-					"filename": "water_05_00006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 31,
-						"y": 56,
-						"w": 178,
-						"h": 67
-					},
-					"frame": {
-						"x": 1,
-						"y": 51,
-						"w": 178,
-						"h": 67
-					}
-				},
-				{
-					"filename": "Mix_04_00022.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 3,
-						"h": 3
-					},
-					"frame": {
-						"x": 181,
-						"y": 51,
-						"w": 3,
-						"h": 3
-					}
-				},
 				{
 					"filename": "Mix_04_00001.png",
 					"rotated": false,
@@ -129,52 +24,10 @@
 						"h": 135
 					},
 					"frame": {
-						"x": 181,
-						"y": 63,
+						"x": 1,
+						"y": 1,
 						"w": 166,
 						"h": 135
-					}
-				},
-				{
-					"filename": "Mix_04_00006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 41,
-						"y": 2,
-						"w": 161,
-						"h": 133
-					},
-					"frame": {
-						"x": 349,
-						"y": 115,
-						"w": 161,
-						"h": 133
-					}
-				},
-				{
-					"filename": "Mix_04_00000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 106,
-						"y": 60,
-						"w": 25,
-						"h": 28
-					},
-					"frame": {
-						"x": 349,
-						"y": 63,
-						"w": 25,
-						"h": 28
 					}
 				},
 				{
@@ -193,7 +46,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 120,
+						"y": 138,
 						"w": 166,
 						"h": 135
 					}
@@ -214,7 +67,7 @@
 					},
 					"frame": {
 						"x": 169,
-						"y": 200,
+						"y": 1,
 						"w": 166,
 						"h": 135
 					}
@@ -235,9 +88,30 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 257,
+						"y": 275,
 						"w": 166,
 						"h": 135
+					}
+				},
+				{
+					"filename": "water_05_00002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 60,
+						"y": 20,
+						"w": 119,
+						"h": 94
+					},
+					"frame": {
+						"x": 1,
+						"y": 412,
+						"w": 119,
+						"h": 94
 					}
 				},
 				{
@@ -255,10 +129,262 @@
 						"h": 134
 					},
 					"frame": {
-						"x": 337,
-						"y": 250,
+						"x": 169,
+						"y": 138,
 						"w": 163,
 						"h": 134
+					}
+				},
+				{
+					"filename": "Mix_04_00006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 41,
+						"y": 2,
+						"w": 161,
+						"h": 133
+					},
+					"frame": {
+						"x": 337,
+						"y": 1,
+						"w": 161,
+						"h": 133
+					}
+				},
+				{
+					"filename": "water_03_00009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 47,
+						"y": 8,
+						"w": 142,
+						"h": 126
+					},
+					"frame": {
+						"x": 169,
+						"y": 274,
+						"w": 142,
+						"h": 126
+					}
+				},
+				{
+					"filename": "sparks_04_00004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 46,
+						"y": 1,
+						"w": 135,
+						"h": 131
+					},
+					"frame": {
+						"x": 500,
+						"y": 1,
+						"w": 135,
+						"h": 131
+					}
+				},
+				{
+					"filename": "water_03_00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 8,
+						"w": 141,
+						"h": 125
+					},
+					"frame": {
+						"x": 637,
+						"y": 1,
+						"w": 141,
+						"h": 125
+					}
+				},
+				{
+					"filename": "water_03_00010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 47,
+						"y": 8,
+						"w": 140,
+						"h": 124
+					},
+					"frame": {
+						"x": 780,
+						"y": 1,
+						"w": 140,
+						"h": 124
+					}
+				},
+				{
+					"filename": "water_03_00007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 10,
+						"w": 140,
+						"h": 122
+					},
+					"frame": {
+						"x": 922,
+						"y": 1,
+						"w": 140,
+						"h": 122
+					}
+				},
+				{
+					"filename": "water_03_00006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 14,
+						"w": 135,
+						"h": 114
+					},
+					"frame": {
+						"x": 1064,
+						"y": 1,
+						"w": 135,
+						"h": 114
+					}
+				},
+				{
+					"filename": "water_05_00007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 28,
+						"y": 65,
+						"w": 187,
+						"h": 60
+					},
+					"frame": {
+						"x": 1201,
+						"y": 1,
+						"w": 187,
+						"h": 60
+					}
+				},
+				{
+					"filename": "water_05_00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 76,
+						"w": 193,
+						"h": 48
+					},
+					"frame": {
+						"x": 1390,
+						"y": 1,
+						"w": 193,
+						"h": 48
+					}
+				},
+				{
+					"filename": "water_03_00004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 72,
+						"y": 23,
+						"w": 98,
+						"h": 94
+					},
+					"frame": {
+						"x": 122,
+						"y": 412,
+						"w": 98,
+						"h": 94
+					}
+				},
+				{
+					"filename": "Mix_04_00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 62,
+						"y": 18,
+						"w": 111,
+						"h": 104
+					},
+					"frame": {
+						"x": 222,
+						"y": 402,
+						"w": 111,
+						"h": 104
+					}
+				},
+				{
+					"filename": "water_05_00006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 56,
+						"w": 178,
+						"h": 67
+					},
+					"frame": {
+						"x": 1201,
+						"y": 63,
+						"w": 178,
+						"h": 67
 					}
 				},
 				{
@@ -276,8 +402,8 @@
 						"h": 85
 					},
 					"frame": {
-						"x": 169,
-						"y": 337,
+						"x": 1585,
+						"y": 1,
 						"w": 154,
 						"h": 85
 					}
@@ -297,10 +423,31 @@
 						"h": 75
 					},
 					"frame": {
-						"x": 1,
-						"y": 394,
+						"x": 1390,
+						"y": 51,
 						"w": 152,
 						"h": 75
+					}
+				},
+				{
+					"filename": "Fire_13_00011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 27,
+						"w": 135,
+						"h": 77
+					},
+					"frame": {
+						"x": 1064,
+						"y": 117,
+						"w": 135,
+						"h": 77
 					}
 				},
 				{
@@ -318,14 +465,14 @@
 						"h": 75
 					},
 					"frame": {
-						"x": 325,
-						"y": 386,
+						"x": 1201,
+						"y": 132,
 						"w": 151,
 						"h": 75
 					}
 				},
 				{
-					"filename": "sparks_04_00000.png",
+					"filename": "Fire_13_00000.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -333,16 +480,16 @@
 						"h": 135
 					},
 					"spriteSourceSize": {
-						"x": 109,
-						"y": 57,
-						"w": 20,
-						"h": 22
+						"x": 49,
+						"y": 26,
+						"w": 140,
+						"h": 79
 					},
 					"frame": {
-						"x": 478,
-						"y": 386,
-						"w": 20,
-						"h": 22
+						"x": 922,
+						"y": 125,
+						"w": 140,
+						"h": 79
 					}
 				},
 				{
@@ -360,31 +507,10 @@
 						"h": 77
 					},
 					"frame": {
-						"x": 155,
-						"y": 424,
+						"x": 337,
+						"y": 136,
 						"w": 150,
 						"h": 77
-					}
-				},
-				{
-					"filename": "Fire_13_00008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 43,
-						"y": 27,
-						"w": 146,
-						"h": 78
-					},
-					"frame": {
-						"x": 1,
-						"y": 471,
-						"w": 146,
-						"h": 78
 					}
 				},
 				{
@@ -402,14 +528,14 @@
 						"h": 77
 					},
 					"frame": {
-						"x": 307,
-						"y": 463,
+						"x": 334,
+						"y": 215,
 						"w": 146,
 						"h": 77
 					}
 				},
 				{
-					"filename": "Air_14_00000.png",
+					"filename": "water_05_00004.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -417,16 +543,100 @@
 						"h": 135
 					},
 					"spriteSourceSize": {
-						"x": 67,
-						"y": 86,
-						"w": 52,
-						"h": 18
+						"x": 52,
+						"y": 19,
+						"w": 136,
+						"h": 100
 					},
 					"frame": {
-						"x": 455,
-						"y": 463,
-						"w": 52,
-						"h": 18
+						"x": 313,
+						"y": 294,
+						"w": 136,
+						"h": 100
+					}
+				},
+				{
+					"filename": "Mix_04_00012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 59,
+						"y": 14,
+						"w": 121,
+						"h": 110
+					},
+					"frame": {
+						"x": 335,
+						"y": 396,
+						"w": 121,
+						"h": 110
+					}
+				},
+				{
+					"filename": "Fire_13_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 46,
+						"y": 26,
+						"w": 143,
+						"h": 78
+					},
+					"frame": {
+						"x": 637,
+						"y": 128,
+						"w": 143,
+						"h": 78
+					}
+				},
+				{
+					"filename": "water_03_00005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 18,
+						"w": 128,
+						"h": 107
+					},
+					"frame": {
+						"x": 782,
+						"y": 127,
+						"w": 128,
+						"h": 107
+					}
+				},
+				{
+					"filename": "Fire_13_00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 43,
+						"y": 27,
+						"w": 146,
+						"h": 78
+					},
+					"frame": {
+						"x": 912,
+						"y": 206,
+						"w": 146,
+						"h": 78
 					}
 				},
 				{
@@ -444,8 +654,8 @@
 						"h": 77
 					},
 					"frame": {
-						"x": 149,
-						"y": 503,
+						"x": 489,
+						"y": 136,
 						"w": 146,
 						"h": 77
 					}
@@ -465,52 +675,10 @@
 						"h": 78
 					},
 					"frame": {
-						"x": 1,
-						"y": 551,
+						"x": 482,
+						"y": 215,
 						"w": 145,
 						"h": 78
-					}
-				},
-				{
-					"filename": "Fire_13_00001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 46,
-						"y": 26,
-						"w": 143,
-						"h": 78
-					},
-					"frame": {
-						"x": 297,
-						"y": 542,
-						"w": 143,
-						"h": 78
-					}
-				},
-				{
-					"filename": "water_05_00000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 85,
-						"y": 66,
-						"w": 68,
-						"h": 44
-					},
-					"frame": {
-						"x": 442,
-						"y": 542,
-						"w": 68,
-						"h": 44
 					}
 				},
 				{
@@ -528,178 +696,10 @@
 						"h": 79
 					},
 					"frame": {
-						"x": 148,
-						"y": 582,
+						"x": 451,
+						"y": 295,
 						"w": 142,
 						"h": 79
-					}
-				},
-				{
-					"filename": "Fire_13_00010.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 48,
-						"y": 28,
-						"w": 141,
-						"h": 76
-					},
-					"frame": {
-						"x": 1,
-						"y": 631,
-						"w": 141,
-						"h": 76
-					}
-				},
-				{
-					"filename": "Fire_13_00000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 49,
-						"y": 26,
-						"w": 140,
-						"h": 79
-					},
-					"frame": {
-						"x": 292,
-						"y": 622,
-						"w": 140,
-						"h": 79
-					}
-				},
-				{
-					"filename": "sparks_04_00001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 77,
-						"y": 31,
-						"w": 74,
-						"h": 60
-					},
-					"frame": {
-						"x": 434,
-						"y": 622,
-						"w": 74,
-						"h": 60
-					}
-				},
-				{
-					"filename": "water_05_00004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 52,
-						"y": 19,
-						"w": 136,
-						"h": 100
-					},
-					"frame": {
-						"x": 144,
-						"y": 663,
-						"w": 136,
-						"h": 100
-					}
-				},
-				{
-					"filename": "sparks_04_00004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 46,
-						"y": 1,
-						"w": 135,
-						"h": 131
-					},
-					"frame": {
-						"x": 1,
-						"y": 709,
-						"w": 135,
-						"h": 131
-					}
-				},
-				{
-					"filename": "Fire_13_00011.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 54,
-						"y": 27,
-						"w": 135,
-						"h": 77
-					},
-					"frame": {
-						"x": 282,
-						"y": 703,
-						"w": 135,
-						"h": 77
-					}
-				},
-				{
-					"filename": "Air_14_00005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 109,
-						"y": 48,
-						"w": 92,
-						"h": 46
-					},
-					"frame": {
-						"x": 419,
-						"y": 703,
-						"w": 92,
-						"h": 46
-					}
-				},
-				{
-					"filename": "water_05_00003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 55,
-						"y": 16,
-						"w": 128,
-						"h": 101
-					},
-					"frame": {
-						"x": 138,
-						"y": 765,
-						"w": 128,
-						"h": 101
 					}
 				},
 				{
@@ -717,8 +717,8 @@
 						"h": 119
 					},
 					"frame": {
-						"x": 1,
-						"y": 842,
+						"x": 458,
+						"y": 376,
 						"w": 121,
 						"h": 119
 					}
@@ -738,14 +738,14 @@
 						"h": 119
 					},
 					"frame": {
-						"x": 1,
-						"y": 842,
+						"x": 458,
+						"y": 376,
 						"w": 121,
 						"h": 119
 					}
 				},
 				{
-					"filename": "Mix_04_00012.png",
+					"filename": "Fire_13_00010.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -753,16 +753,100 @@
 						"h": 135
 					},
 					"spriteSourceSize": {
-						"x": 59,
-						"y": 14,
-						"w": 121,
-						"h": 110
+						"x": 48,
+						"y": 28,
+						"w": 141,
+						"h": 76
 					},
 					"frame": {
-						"x": 268,
-						"y": 782,
-						"w": 121,
-						"h": 110
+						"x": 637,
+						"y": 208,
+						"w": 141,
+						"h": 76
+					}
+				},
+				{
+					"filename": "water_05_00003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 55,
+						"y": 16,
+						"w": 128,
+						"h": 101
+					},
+					"frame": {
+						"x": 780,
+						"y": 236,
+						"w": 128,
+						"h": 101
+					}
+				},
+				{
+					"filename": "Mix_04_00014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 58,
+						"y": 12,
+						"w": 124,
+						"h": 112
+					},
+					"frame": {
+						"x": 910,
+						"y": 286,
+						"w": 124,
+						"h": 112
+					}
+				},
+				{
+					"filename": "Mix_04_00016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 10,
+						"w": 115,
+						"h": 115
+					},
+					"frame": {
+						"x": 1036,
+						"y": 286,
+						"w": 115,
+						"h": 115
+					}
+				},
+				{
+					"filename": "water_09_00008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 31,
+						"w": 89,
+						"h": 75
+					},
+					"frame": {
+						"x": 1060,
+						"y": 209,
+						"w": 89,
+						"h": 75
 					}
 				},
 				{
@@ -780,14 +864,14 @@
 						"h": 118
 					},
 					"frame": {
-						"x": 391,
-						"y": 782,
+						"x": 581,
+						"y": 376,
 						"w": 120,
 						"h": 118
 					}
 				},
 				{
-					"filename": "Mix_04_00013.png",
+					"filename": "water_09_00002.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -795,16 +879,37 @@
 						"h": 135
 					},
 					"spriteSourceSize": {
-						"x": 59,
-						"y": 14,
-						"w": 121,
-						"h": 109
+						"x": 80,
+						"y": 29,
+						"w": 81,
+						"h": 79
 					},
 					"frame": {
-						"x": 124,
-						"y": 868,
-						"w": 121,
-						"h": 109
+						"x": 595,
+						"y": 295,
+						"w": 81,
+						"h": 79
+					}
+				},
+				{
+					"filename": "water_09_00005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 26,
+						"w": 89,
+						"h": 86
+					},
+					"frame": {
+						"x": 678,
+						"y": 286,
+						"w": 89,
+						"h": 86
 					}
 				},
 				{
@@ -822,8 +927,8 @@
 						"h": 117
 					},
 					"frame": {
-						"x": 1,
-						"y": 963,
+						"x": 703,
+						"y": 374,
 						"w": 120,
 						"h": 117
 					}
@@ -843,8 +948,8 @@
 						"h": 117
 					},
 					"frame": {
-						"x": 1,
-						"y": 963,
+						"x": 703,
+						"y": 374,
 						"w": 120,
 						"h": 117
 					}
@@ -864,73 +969,10 @@
 						"h": 51
 					},
 					"frame": {
-						"x": 247,
-						"y": 894,
+						"x": 1151,
+						"y": 209,
 						"w": 120,
 						"h": 51
-					}
-				},
-				{
-					"filename": "water_05_00002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 60,
-						"y": 20,
-						"w": 119,
-						"h": 94
-					},
-					"frame": {
-						"x": 369,
-						"y": 902,
-						"w": 119,
-						"h": 94
-					}
-				},
-				{
-					"filename": "Mix_04_00011.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 59,
-						"y": 15,
-						"w": 117,
-						"h": 108
-					},
-					"frame": {
-						"x": 247,
-						"y": 947,
-						"w": 117,
-						"h": 108
-					}
-				},
-				{
-					"filename": "Mix_04_00016.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 69,
-						"y": 10,
-						"w": 115,
-						"h": 115
-					},
-					"frame": {
-						"x": 123,
-						"y": 979,
-						"w": 115,
-						"h": 115
 					}
 				},
 				{
@@ -948,35 +990,14 @@
 						"h": 115
 					},
 					"frame": {
-						"x": 1,
-						"y": 1082,
+						"x": 1153,
+						"y": 262,
 						"w": 115,
 						"h": 115
 					}
 				},
 				{
-					"filename": "Mix_04_00009.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 60,
-						"y": 15,
-						"w": 114,
-						"h": 109
-					},
-					"frame": {
-						"x": 1,
-						"y": 1199,
-						"w": 114,
-						"h": 109
-					}
-				},
-				{
-					"filename": "sparks_04_00002.png",
+					"filename": "Mix_04_00010.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -985,15 +1006,15 @@
 					},
 					"spriteSourceSize": {
 						"x": 61,
-						"y": 10,
-						"w": 104,
-						"h": 108
+						"y": 16,
+						"w": 115,
+						"h": 107
 					},
 					"frame": {
-						"x": 117,
-						"y": 1199,
-						"w": 104,
-						"h": 108
+						"x": 1153,
+						"y": 379,
+						"w": 115,
+						"h": 107
 					}
 				},
 				{
@@ -1011,8 +1032,8 @@
 						"h": 100
 					},
 					"frame": {
-						"x": 118,
-						"y": 1096,
+						"x": 1273,
+						"y": 209,
 						"w": 106,
 						"h": 100
 					}
@@ -1032,14 +1053,14 @@
 						"h": 111
 					},
 					"frame": {
-						"x": 223,
-						"y": 1198,
+						"x": 1270,
+						"y": 311,
 						"w": 112,
 						"h": 111
 					}
 				},
 				{
-					"filename": "water_05_00001.png",
+					"filename": "water_09_00003.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -1047,20 +1068,20 @@
 						"h": 135
 					},
 					"spriteSourceSize": {
-						"x": 72,
-						"y": 35,
-						"w": 93,
-						"h": 76
+						"x": 79,
+						"y": 28,
+						"w": 84,
+						"h": 82
 					},
 					"frame": {
-						"x": 226,
-						"y": 1096,
-						"w": 93,
-						"h": 76
+						"x": 1270,
+						"y": 424,
+						"w": 84,
+						"h": 82
 					}
 				},
 				{
-					"filename": "Air_14_00001.png",
+					"filename": "Mix_04_00013.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -1068,79 +1089,16 @@
 						"h": 135
 					},
 					"spriteSourceSize": {
-						"x": 69,
-						"y": 67,
-						"w": 101,
-						"h": 37
+						"x": 59,
+						"y": 14,
+						"w": 121,
+						"h": 109
 					},
 					"frame": {
-						"x": 240,
-						"y": 1057,
-						"w": 101,
-						"h": 37
-					}
-				},
-				{
-					"filename": "Mix_04_00010.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 61,
-						"y": 16,
-						"w": 115,
-						"h": 107
-					},
-					"frame": {
-						"x": 366,
-						"y": 998,
-						"w": 115,
-						"h": 107
-					}
-				},
-				{
-					"filename": "Air_14_00004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 104,
-						"y": 50,
-						"w": 94,
-						"h": 48
-					},
-					"frame": {
-						"x": 321,
-						"y": 1107,
-						"w": 94,
-						"h": 48
-					}
-				},
-				{
-					"filename": "Mix_04_00008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 240,
-						"h": 135
-					},
-					"spriteSourceSize": {
-						"x": 62,
-						"y": 18,
-						"w": 111,
-						"h": 104
-					},
-					"frame": {
-						"x": 337,
-						"y": 1157,
-						"w": 111,
-						"h": 104
+						"x": 1381,
+						"y": 128,
+						"w": 121,
+						"h": 109
 					}
 				},
 				{
@@ -1158,10 +1116,514 @@
 						"h": 46
 					},
 					"frame": {
-						"x": 337,
-						"y": 1263,
+						"x": 1381,
+						"y": 239,
 						"w": 110,
 						"h": 46
+					}
+				},
+				{
+					"filename": "Mix_04_00009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 60,
+						"y": 15,
+						"w": 114,
+						"h": 109
+					},
+					"frame": {
+						"x": 1384,
+						"y": 287,
+						"w": 114,
+						"h": 109
+					}
+				},
+				{
+					"filename": "Mix_04_00011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 59,
+						"y": 15,
+						"w": 117,
+						"h": 108
+					},
+					"frame": {
+						"x": 1384,
+						"y": 398,
+						"w": 117,
+						"h": 108
+					}
+				},
+				{
+					"filename": "water_03_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 80,
+						"y": 26,
+						"w": 84,
+						"h": 109
+					},
+					"frame": {
+						"x": 1504,
+						"y": 128,
+						"w": 84,
+						"h": 109
+					}
+				},
+				{
+					"filename": "sparks_04_00002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 61,
+						"y": 10,
+						"w": 104,
+						"h": 108
+					},
+					"frame": {
+						"x": 1590,
+						"y": 88,
+						"w": 104,
+						"h": 108
+					}
+				},
+				{
+					"filename": "Air_14_00005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 48,
+						"w": 92,
+						"h": 46
+					},
+					"frame": {
+						"x": 1493,
+						"y": 239,
+						"w": 92,
+						"h": 46
+					}
+				},
+				{
+					"filename": "water_03_00002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 79,
+						"y": 25,
+						"w": 86,
+						"h": 91
+					},
+					"frame": {
+						"x": 1500,
+						"y": 287,
+						"w": 86,
+						"h": 91
+					}
+				},
+				{
+					"filename": "water_03_00003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 25,
+						"w": 91,
+						"h": 91
+					},
+					"frame": {
+						"x": 1503,
+						"y": 380,
+						"w": 91,
+						"h": 91
+					}
+				},
+				{
+					"filename": "Air_14_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 69,
+						"y": 67,
+						"w": 101,
+						"h": 37
+					},
+					"frame": {
+						"x": 1590,
+						"y": 198,
+						"w": 101,
+						"h": 37
+					}
+				},
+				{
+					"filename": "water_09_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 32,
+						"w": 75,
+						"h": 74
+					},
+					"frame": {
+						"x": 825,
+						"y": 339,
+						"w": 75,
+						"h": 74
+					}
+				},
+				{
+					"filename": "water_03_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 80,
+						"y": 29,
+						"w": 84,
+						"h": 84
+					},
+					"frame": {
+						"x": 825,
+						"y": 415,
+						"w": 84,
+						"h": 84
+					}
+				},
+				{
+					"filename": "water_09_00006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 24,
+						"w": 91,
+						"h": 89
+					},
+					"frame": {
+						"x": 911,
+						"y": 400,
+						"w": 91,
+						"h": 89
+					}
+				},
+				{
+					"filename": "water_09_00007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 24,
+						"w": 89,
+						"h": 89
+					},
+					"frame": {
+						"x": 1004,
+						"y": 403,
+						"w": 89,
+						"h": 89
+					}
+				},
+				{
+					"filename": "Air_14_00004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 104,
+						"y": 50,
+						"w": 94,
+						"h": 48
+					},
+					"frame": {
+						"x": 1590,
+						"y": 237,
+						"w": 94,
+						"h": 48
+					}
+				},
+				{
+					"filename": "water_05_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 72,
+						"y": 35,
+						"w": 93,
+						"h": 76
+					},
+					"frame": {
+						"x": 1588,
+						"y": 287,
+						"w": 93,
+						"h": 76
+					}
+				},
+				{
+					"filename": "water_09_00004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 27,
+						"w": 85,
+						"h": 84
+					},
+					"frame": {
+						"x": 1596,
+						"y": 365,
+						"w": 85,
+						"h": 84
+					}
+				},
+				{
+					"filename": "water_05_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 66,
+						"w": 68,
+						"h": 44
+					},
+					"frame": {
+						"x": 1596,
+						"y": 451,
+						"w": 68,
+						"h": 44
+					}
+				},
+				{
+					"filename": "Mix_04_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 106,
+						"y": 60,
+						"w": 25,
+						"h": 28
+					},
+					"frame": {
+						"x": 1354,
+						"y": 132,
+						"w": 25,
+						"h": 28
+					}
+				},
+				{
+					"filename": "Air_14_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 67,
+						"y": 86,
+						"w": 52,
+						"h": 18
+					},
+					"frame": {
+						"x": 1095,
+						"y": 403,
+						"w": 52,
+						"h": 18
+					}
+				},
+				{
+					"filename": "water_09_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 88,
+						"y": 37,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 1683,
+						"y": 287,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "sparks_04_00001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 31,
+						"w": 74,
+						"h": 60
+					},
+					"frame": {
+						"x": 1683,
+						"y": 353,
+						"w": 74,
+						"h": 60
+					}
+				},
+				{
+					"filename": "sparks_04_00000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 57,
+						"w": 20,
+						"h": 22
+					},
+					"frame": {
+						"x": 1356,
+						"y": 424,
+						"w": 20,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mix_04_00022.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 169,
+						"y": 402,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "water_03_00011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 169,
+						"y": 402,
+						"w": 3,
+						"h": 3
+					}
+				},
+				{
+					"filename": "water_09_00009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 240,
+						"h": 135
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3,
+						"h": 3
+					},
+					"frame": {
+						"x": 169,
+						"y": 402,
+						"w": 3,
+						"h": 3
 					}
 				}
 			]
@@ -1170,6 +1632,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:ac6bba36d1fe95267a1a5373c60f40ab:42c6fdbcf806727f90ba7e7f8a0f5b78:c0f486212afa3389231bd91021c2346c$"
+		"smartupdate": "$TexturePacker:SmartUpdate:cb86711f50513a60c08967872a49f6fa:0559b067b8bd6bf4d481c56c328624b0:c0f486212afa3389231bd91021c2346c$"
 	}
 }

@@ -1,39 +1,11 @@
 import { GameScene } from "../scenes/gameScene";
 import { eventList } from "../configs/enums/eventList";
+import fontStyles from "../configs/enums/fontStyles";
 
 const BARWIDTH = 200;
 
 export class UserInterface {
   private text: Phaser.GameObjects.Text[] = [];
-  private style: any[] = [{
-      fontFamily: "Connection",
-      fontSize: 38,
-      stroke: "#fff",
-      strokeThickness: 6,
-      fill: "#000000"
-    },
-    {
-      fontFamily: "Connection",
-      fontSize: 30,
-      stroke: "#fff",
-      strokeThickness: 6,
-      fill: "#000000"
-    },
-    {
-      fontFamily: "Connection",
-      fontSize: 60,
-      stroke: "#fff",
-      strokeThickness: 6,
-      fill: "#000000"
-    },
-    {
-      fontFamily: "Connection",
-      fontSize: 20,
-      stroke: "#fff",
-      strokeThickness: 4,
-      fill: "#000000"
-    }
-  ];
   private countDown = 0;
   private playerLifeBar: Phaser.GameObjects.Graphics;
   private playerLifeBarBg: Phaser.GameObjects.Graphics;
@@ -72,14 +44,14 @@ export class UserInterface {
       x: this.scene.sys.canvas.width - 50,
       y: 10,
       text: this.scene.kills + "",
-      style: this.style[0]
+      style: fontStyles.Default
     }
     );
     this.text['time'] = this.scene.make.text({
       x: this.scene.sys.canvas.width / 2,
       y: 10,
       text: this.scene.getTimeLeft() + "",
-      style: this.style[0]
+      style: fontStyles.Default
     }
     );
   }
@@ -93,7 +65,7 @@ export class UserInterface {
       50,
       4,
       '',
-      this.style[1]
+      fontStyles.Smaller
     );
   }
 
@@ -106,7 +78,7 @@ export class UserInterface {
       50,
       45,
       '',
-      this.style[3]
+      fontStyles.Smallest
     );
   }
 
@@ -141,7 +113,7 @@ export class UserInterface {
         x: (this.scene.sys.canvas.width / 3 - 60),
         y: (this.scene.sys.canvas.height / 2) -  75,
         text: "Round Ended!",
-        style: this.style[2],
+        style: fontStyles.Title,
         alpha: 0
       });
     }
@@ -173,7 +145,7 @@ export class UserInterface {
         x: this.scene.sys.canvas.width * 0.12,
         y: this.scene.sys.canvas.height / 2,
         text:  "Enemies Level Up...\n" + item.buff,
-        style: this.style[2]
+        style: fontStyles.Title
       });
     } else {
       this.text[index].setText("Enemies Level Up...\n" + item.buff);
@@ -197,7 +169,7 @@ export class UserInterface {
         x: item.entity.x,
         y: item.entity.y,
         text: "Level Up!!!\n" + item.buff,
-        style: this.style[3]
+        style: fontStyles.Smallest
       });
     } else {
       this.text[index].setText("Level Up!!!\n" + item.buff);
@@ -221,7 +193,7 @@ export class UserInterface {
         x: this.scene.sys.canvas.width / 3,
         y: this.scene.sys.canvas.height / 2,
         text: "Game Over",
-        style: this.style[2]
+        style: fontStyles.Title
       });
     }
   }
@@ -243,7 +215,7 @@ export class UserInterface {
       duration: 1000,
       onComplete: this.countDownCallback.bind(this)
     });
-    this.scene.gameEvent.emit('countDown', {sound: 'UI04'});
+    this.scene.gameEvent.emit(eventList.CountDown, {sound: 'UI04'});
   }
 
   private countDownCallback(): void {
@@ -261,7 +233,7 @@ export class UserInterface {
         x: this.scene.sys.canvas.width / 3,
         y: this.scene.sys.canvas.height / 2,
         text: "Next round in " + this.countDown,
-        style: this.style[0]
+        style: fontStyles.Default
       });
     }
     this.count();

@@ -27,8 +27,8 @@ export class Bullet extends Phaser.GameObjects.Sprite {
         this.bulletSpeed,
         this.body.velocity
       );
-      this.body.setOffset(this.width / 1.25, this.height / 1.25);
-      this.setOrigin(0.25, 0.25); 
+      this.body.setOffset(this.width / 2, this.height / 2);
+      this.setOrigin(0.5, 0.5); 
       this.setDepth(2);
     }
 

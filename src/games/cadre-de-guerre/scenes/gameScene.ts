@@ -5,7 +5,6 @@ import { MouseController } from '../helpers/inputs/mouseController';
 import { AssetsLoader } from '../helpers/assetsLoader';
 import { UserInterface } from '../managers/userInterface';
 import { SoundEffects } from '../managers/soundEffects';
-// import { BaseMode } from '../managers/gameModes/baseMode';
 import { eventList } from '../configs/enums/eventList';
 import { SurvivalMode } from '../managers/gameModes/survivalMode';
 
@@ -91,7 +90,7 @@ export class GameScene extends Phaser.Scene {
 
   restartRound(): void {
     this.time.delayedCall(1000, () => {
-      this.gameEvent.emit('startCountdown', null);
+      this.gameEvent.emit(eventList.CountDownStarted, null);
     }, [], this);
 
     this.time.delayedCall(5000, this.restart, [], this);
@@ -117,6 +116,6 @@ export class GameScene extends Phaser.Scene {
     });
   }
   restart(): void {
-    this.gameEvent.emit('startRound', null);
+    this.gameEvent.emit(eventList.StartRound, null);
   }
 }

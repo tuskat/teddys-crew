@@ -1,8 +1,13 @@
 import { Player } from "./player";
-import { Entity } from "./entity";
+import { MovingEntity } from "./base/movingEntity";
 import { CurrentState } from '../../configs/enums/currentStates'
 
-export class Enemy extends Entity {
+export class Enemy extends MovingEntity {
+  animationPreset = {
+    spawn: 'waterSpawn',
+    explode: 'waterExplode',
+    bullet: 'waterBullet'
+  }
   player: Player;
   private lifeBar: Phaser.GameObjects.Graphics = null;
 
