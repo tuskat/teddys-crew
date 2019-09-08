@@ -196,8 +196,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   redrawLifebar(): void {}
   hideLifebar(): void {}
-
   flush(): void {
+    this.basicFlush();
+  }
+  basicFlush(): void {
     this.gameEvent.off(eventList.Dying, this.experienceGained, this);
     this.setActive(false);
     this.setVisible(false);

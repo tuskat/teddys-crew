@@ -65,11 +65,8 @@ export class Enemy extends MovingEntity {
   }
 
   flush(): void {
-    this.gameEvent.off(eventList.Dying, this.experienceGained, this);
+    this.basicFlush();
     this.lifeBar.clear();
     this.lifeBar.destroy();
-    this.setActive(false);
-    this.setVisible(false);
-    this.destroy();
   }
 }
