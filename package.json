@@ -1,21 +1,16 @@
 {
-  "name": "phaser3-typescript",
-  "version": "1.3.0",
-  "description": "Boilerplate, Game Examples, Cheat Sheets and Tutorials for Phaser 3 in TypeScript",
+  "name": "teddys-crews",
+  "version": "0.1.0",
+  "description": "Phaser game made in typescript, using Digisensitive Boilerplate",
   "keywords": [
     "Phaser",
     "Phaser 3",
     "Phaser3",
     "Html5-game",
-    "Phaser-boilerplate",
     "TypeScript",
     "Webpack",
-    "Tutorials",
-    "Phaser-tutorial",
-    "Game Examples",
     "Phaser-game",
-    "Phaser-framework",
-    "Phaser3-example"
+    "Phaser-framework"
   ],
   "devDependencies": {
     "@types/lodash": "^4.14.136",
@@ -40,10 +35,10 @@
     "url": "git+https://github.com/digitsensitive/phaser3-typescript.git"
   },
   "author": {
-    "name": "digitsensitive",
-    "email": "digit.sensitivee@gmail.com"
+    "name": "tuskat",
+    "email": "cedric.marcelling@gmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/digitsensitive/phaser3-typescript/issues"
   },
