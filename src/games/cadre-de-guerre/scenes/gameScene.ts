@@ -14,7 +14,7 @@ export class GameScene extends Phaser.Scene {
   private assetsLoader : AssetsLoader = null;
   private soundEffectsManager : SoundEffects = null;
   private waveManager;
-  public gameEvent: Phaser.Events.EventEmitter;
+  public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number;
   public player: Player;
 
@@ -23,10 +23,11 @@ export class GameScene extends Phaser.Scene {
       key: "GameScene"
     });
 
+    if (this.gameEvent === null) {
+      this.gameEvent = new Phaser.Events.EventEmitter();
+    }
     this.assetsLoader = new AssetsLoader({ scene: this });
-    this.gameEvent = new Phaser.Events.EventEmitter();
     this.soundEffectsManager = new SoundEffects({ scene: this });
-
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.gameEvent.on(eventList.GameOver, this.restartGame, this);
   }

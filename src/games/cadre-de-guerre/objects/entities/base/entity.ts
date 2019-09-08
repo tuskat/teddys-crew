@@ -13,7 +13,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     bullet: 'fire'
   }
   scene: GameScene;
-  gameEvent:  Phaser.Events.EventEmitter;
+  gameEvent:  Phaser.Events.EventEmitter = null;
   life = 1;
   maxLife = this.life;
   level = 1;
@@ -84,7 +84,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   protected initLevel(): void {
     this.gameEvent = this.scene.getGameEvent();
-    this.gameEvent.on(eventList.Dying, this.experienceGained, this);
+    if (this.gameEvent) {
+      this.gameEvent.on(eventList.Dying, this.experienceGained, this);
+    }
   }
 
 
@@ -196,6 +198,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   hideLifebar(): void {}
 
   flush(): void {
+    this.gameEvent.off(eventList.Dying, this.experienceGained, this);
     this.setActive(false);
     this.setVisible(false);
     this.destroy();

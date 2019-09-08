@@ -1,6 +1,7 @@
 import { Player } from "./player";
 import { MovingEntity } from "./base/movingEntity";
 import { CurrentState } from '../../configs/enums/currentStates'
+import { eventList } from "../../configs/enums/eventList";
 
 export class Enemy extends MovingEntity {
   animationPreset = {
@@ -64,6 +65,7 @@ export class Enemy extends MovingEntity {
   }
 
   flush(): void {
+    this.gameEvent.off(eventList.Dying, this.experienceGained, this);
     this.lifeBar.clear();
     this.lifeBar.destroy();
     this.setActive(false);
