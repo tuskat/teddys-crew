@@ -216,7 +216,7 @@ export class MovingEntity extends Entity {
       }
       this.life = this.life - entity.power;
       this.createGraphicEffect('hit');
-      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
+      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound, faction: this.faction });
       if (this.life < 0) {
         this.life = 0;
       }

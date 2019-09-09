@@ -1,6 +1,6 @@
-import { GameScene } from "../scenes/gameScene";
-import { Config } from "../config";
-import { eventList } from "../configs/enums/eventList";
+import { GameScene } from "../../scenes/gameScene";
+import { Config } from "../../config";
+import { eventList } from "../../configs/enums/eventList";
 
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});

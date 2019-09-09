@@ -1,6 +1,6 @@
-import { GameScene } from "../scenes/gameScene";
-import { eventList } from "../configs/enums/eventList";
-import fontStyles from "../configs/enums/fontStyles";
+import { GameScene } from "../../scenes/gameScene";
+import { eventList } from "../../configs/enums/eventList";
+import fontStyles from "../../configs/enums/fontStyles";
 
 const BARWIDTH = 200;
 

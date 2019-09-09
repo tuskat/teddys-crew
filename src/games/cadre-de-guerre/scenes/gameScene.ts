@@ -3,14 +3,16 @@ import * as PlayerConfig from '../configs/player';
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
 import { AssetsLoader } from '../helpers/assetsLoader';
-import { UserInterface } from '../managers/userInterface';
-import { SoundEffects } from '../managers/soundEffects';
+import { UserInterface } from '../managers/userExperience/userInterface';
+import { SoundEffects } from '../managers/userExperience/soundEffects';
 import { eventList } from '../configs/enums/eventList';
 import { SurvivalMode } from '../managers/gameModes/survivalMode';
+import { ComboManager } from '../managers/userExperience/comboManager';
 
 export class GameScene extends Phaser.Scene {
   private background: Phaser.GameObjects.Image;
   public UI : UserInterface;
+  public comboWidget: ComboManager;
   private assetsLoader : AssetsLoader = null;
   private soundEffectsManager : SoundEffects = null;
   private waveManager;
@@ -71,6 +73,7 @@ export class GameScene extends Phaser.Scene {
     // create texts
     this.waveManager = new SurvivalMode({ scene: this });
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
+    this.comboWidget = new ComboManager({scene : this, gameEvent : this.gameEvent});
     this.soundEffectsManager.initSound();
     this.restartRound();
   }
@@ -79,6 +82,7 @@ export class GameScene extends Phaser.Scene {
     // update objects
     this.player.update();
     this.waveManager.update(time, delta);
+    this.comboWidget.update(time, delta);
   }
 
   getTimeLeft(): number {
@@ -109,6 +113,7 @@ export class GameScene extends Phaser.Scene {
     this.waveManager.flush();
     this.soundEffectsManager.flush();
     this.UI.flush();
+    this.comboWidget.flush();
     this.time.clearPendingEvents();
     this.time.removeAllEvents();
     this.game.events.removeAllListeners();

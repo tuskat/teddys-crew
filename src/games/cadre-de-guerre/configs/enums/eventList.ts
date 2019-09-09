@@ -11,7 +11,7 @@ export enum eventList {
   RoundStarted = 'roundStarted',
   LevelUp = 'levelUp',
   LifeUpdate = 'lifeUpdate',
-  ScoreUpdate = 'ScoreeUpdate',
+  ScoreUpdate = 'ScoreUpdate',
   TimeUpdate = 'timeUpdate',
   GameOver = 'GameOver'
 };
