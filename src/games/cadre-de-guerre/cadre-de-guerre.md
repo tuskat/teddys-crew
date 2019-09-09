@@ -52,6 +52,7 @@ https://www.reddit.com/r/rareinsults/
 https://www.schemecolor.com/pastel-color-tones.php
 https://archive.org/details/Collected_Songs-4947/Henry_Homesweet_-_01_-_Simple_Pleasures.mp3
 
+https://www.gamedev.net/articles/game-design/game-design-and-theory/enemy-design-in-retro-games-build-a-bad-guy-work-shop-r4738/
 
 # Hades status (as a reference)
 
