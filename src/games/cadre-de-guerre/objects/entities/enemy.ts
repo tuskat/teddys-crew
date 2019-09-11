@@ -1,9 +1,9 @@
 import { Player } from "./player";
 import { MovingEntity } from "./base/movingEntity";
 import { CurrentState } from '../../configs/enums/currentStates'
-import { eventList } from "../../configs/enums/eventList";
+import { LevellingEntity } from "./base/levellingEntity";
 
-export class Enemy extends MovingEntity {
+export class Enemy extends LevellingEntity {
   animationPreset = {
     spawn: 'waterSpawn',
     explode: 'waterExplode',
@@ -64,8 +64,7 @@ export class Enemy extends MovingEntity {
     this.lifeBar.alpha = 0;
   }
 
-  flush(): void {
-    this.basicFlush();
+  flushLifebar(): void {
     this.lifeBar.clear();
     this.lifeBar.destroy();
   }

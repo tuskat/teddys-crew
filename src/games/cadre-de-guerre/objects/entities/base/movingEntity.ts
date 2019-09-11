@@ -1,20 +1,19 @@
 import { Entity } from "./entity";
 import { CurrentState } from '../../../configs/enums/currentStates'
-import { eventList } from "../../../configs/enums/eventList";
 
 export class MovingEntity extends Entity {
 
   constructor(params) {
     super(params);
   }
-  
+
   protected blockingState(): boolean {
     return (this.state === CurrentState.Dead ||
       this.state === CurrentState.Dashing ||
       this.state === CurrentState.WindingUp);
   }
-  
-    // update methods
+
+  // update methods
   update(): void {
     if (this.blockingState()) {
       this.doNothing();
@@ -77,60 +76,9 @@ export class MovingEntity extends Entity {
     this.previousState = this.state;
   }
 
-  // Respawn
-  protected respawn(): void {
-    if (this.shouldRespawn === false) {
-      return;
-    }
-    this.x = Phaser.Math.RND.integerInRange(100, 700);
-    this.y = Phaser.Math.RND.integerInRange(100, 500);
-    this.isInvicible = true;
-    this.life = this.maxLife;
-    this.createGraphicEffect(this.animationPreset.spawn);
-    this.scene.add.tween({
-      targets: [this],
-      ease: 'Sine.easeInOut',
-      alpha: {
-        getStart: () => 0,
-        getEnd: () => 1
-      },
-      duration: this.delayToAction,
-      onComplete: this.doneRespawning.bind(this)
-    });
-  }
-
-  protected doneRespawning(): void {
-    if (!this.shouldRespawn) {
-      this.alpha = 0;
-      return;
-    }
-    this.isInvicible = false;
-    this.state = CurrentState.Moving;
-    this.redrawLifebar();
-  }
-
-  protected delayedRespawn(): void {
-    this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
-  }
-
-  protected die(sound = true): void {
-    if (!this.isDead()) {
-      if (sound) {
-        this.scene.gameEvent.emit(eventList.Dying, { sound: 'Explosion7' , experience: this.getExperience(), faction: this.faction});
-        this.createGraphicEffect(this.animationPreset.explode);
-        this.scene.gameEvent.emit(eventList.ScoreUpdate);
-        this.setFrame(this.spriteFolder + '/Idle' + '.png');
-      }
-      this.alpha = 0;
-      this.state = CurrentState.Dead;
-      this.hideLifebar();
-      this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
-    }
-  }
-
   //  Only non-player wind-up before dashing
   protected attackSkill(): void {
-   this[this.signatureSkill]();
+    this[this.signatureSkill]();
   }
 
   protected attack(): void {
@@ -192,53 +140,5 @@ export class MovingEntity extends Entity {
       }
     }
     return false;
-  }
-  // status
-  protected isVulnerable(): boolean {
-    if (this.state === CurrentState.Dead ||
-      this.state === CurrentState.Hurting) {
-    return false;
-    }
-    return true;
-  }
-
-  protected isDead(): boolean {
-    if (this.state === CurrentState.Dead) {
-      return true;
-    }
-    return false;
-  }
-
-  public hurt(entity = { power: 1 }): number {
-    if (this.isVulnerable()) {
-      if (this.actionPending) {
-        this.actionPending.remove(false);
-      }
-      this.life = this.life - entity.power;
-      this.createGraphicEffect('hit');
-      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
-      if (this.life < 0) {
-        this.life = 0;
-      }
-      this.redrawLifebar();
-      if (this.life === 0) {
-        this.die();
-      } else if (this.life > 0) {
-        this.state = CurrentState.Hurting;
-        this.isInvicible = true;
-        this.setTint(0xFF6347);
-        this.scene.time.delayedCall(this.invicibleFrame, this.endHurtingCallback, [], this);
-      }
-      return this.life;
-    }
-    return -1;
-  }
-
-  protected endHurtingCallback(): void {
-    this.clearTint();
-    this.isInvicible = false;
-    if (this.state !== CurrentState.Dead) {
-      this.state = CurrentState.Moving;
-    }
   }
 }

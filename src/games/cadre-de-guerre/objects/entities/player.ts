@@ -1,9 +1,9 @@
 import { CurrentState } from '../../configs/enums/currentStates';
-import { MovingEntity } from "./base/movingEntity";
 import { GameScene } from '../../scenes/gameScene';
 import { eventList } from '../../configs/enums/eventList';
+import { LevellingEntity } from './base/levellingEntity';
 
-export class Player extends MovingEntity {
+export class Player extends LevellingEntity {
   inputEvent: Phaser.Events.EventEmitter;
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
