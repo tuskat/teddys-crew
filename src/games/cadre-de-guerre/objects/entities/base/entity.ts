@@ -198,7 +198,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       }
       this.life = this.life - entity.power;
       this.createGraphicEffect('hit');
-      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound });
+      this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound, faction: this.faction });
       if (this.life < 0) {
         this.life = 0;
       }
