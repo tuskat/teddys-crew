@@ -79,8 +79,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
   }
 
-
-
 // Create children
   protected createGraphicEffect(animation = 'explode'): void {
     if (this.graphicEffects.getLength() < 5) {
@@ -111,9 +109,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   // actions
-  protected doNothing(): void {
-
-  }
+  protected doNothing(): void {}
 
   public getBullets(): Phaser.GameObjects.Group {
     return this.rangedSkill;
@@ -223,14 +219,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
       this.state = CurrentState.Moving;
     }
   }
-  // Anim complete
-  // protected animCompleteCallback(anim) {
-  //   if (anim.key === 'explode') {
-  //     this.alpha = 0;
-  //     this.scene.gameEvent.emit('scoreUpdate');
-  //     this.setFrame(this.spriteFolder + '/Idle' + '.png');
-  //   }
-  // }
 
   redrawLifebar(): void {}
 

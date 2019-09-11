@@ -141,4 +141,13 @@ export class MovingEntity extends Entity {
     }
     return false;
   }
+
+  // Anim complete
+  // protected animCompleteCallback(anim) {
+  //   if (anim.key === 'explode') {
+  //     this.alpha = 0;
+  //     this.scene.gameEvent.emit('scoreUpdate');
+  //     this.setFrame(this.spriteFolder + '/Idle' + '.png');
+  //   }
+  // }
 }
