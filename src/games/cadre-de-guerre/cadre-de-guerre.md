@@ -63,3 +63,11 @@ Marked :	For 2.5 Seconds, victim has a higher chance of taking Critical damage f
 Jolted :	Victim's next attack self-inflicts lightning damage that harms itself and nearby foes.	Zeus
 Exposed :	For 5 Seconds, victim takes more damage when struck from behind.	Athena
 Doom	After at least 1 Second, victim takes a burst of damage.	Ares
+
+# Game reference (list for later)
+
+- DRAGON QUEST HEROES: ROCKET SLIME 
+- Children of Mana
+- Final Fantasy Tactics A2 : Grimoire of the Rift
+- Magical Starsign
+- Shining Soul II

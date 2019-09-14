@@ -39,6 +39,17 @@ export class UserInterface {
     this.gameEvent.on(eventList.GameOver, this.gameOver, this);
   }
 
+  public cleanse(): void {
+    this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
+    this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
+    this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);
+    this.gameEvent.off(eventList.Respawn, this.updateLifeBar, this);
+    this.gameEvent.off(eventList.RoundEnded, this.updateRound, this);
+    this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
+    this.gameEvent.off(eventList.LevelUp, this.levelUp, this);
+    this.gameEvent.off(eventList.GameOver, this.gameOver, this);
+  }
+
   private initText(): void {
     this.text['score'] = this.scene.make.text({
       x: this.scene.sys.canvas.width - 50,
@@ -238,16 +249,5 @@ export class UserInterface {
       });
     }
     this.count();
-  }
-
-  public cleanse(): void {
-    this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
-    this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
-    this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);
-    this.gameEvent.off(eventList.Respawn, this.updateLifeBar, this);
-    this.gameEvent.off(eventList.RoundEnded, this.updateRound, this);
-    this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
-    this.gameEvent.off(eventList.LevelUp, this.levelUp, this);
-    this.gameEvent.off(eventList.GameOver, this.gameOver, this);
   }
 }
