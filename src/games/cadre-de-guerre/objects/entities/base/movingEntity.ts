@@ -39,6 +39,7 @@ export class MovingEntity extends Entity {
 
   protected updateFrame(): void {
     let extension = '.png';
+    this.updatShadowPosition();
     if (this.target.x < this.x) {
       this.setFlipX(true);
     } else {

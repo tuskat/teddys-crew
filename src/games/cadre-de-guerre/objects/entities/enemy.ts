@@ -1,5 +1,4 @@
 import { Player } from "./player";
-import { MovingEntity } from "./base/movingEntity";
 import { CurrentState } from '../../configs/enums/currentStates'
 import { LevellingEntity } from "./base/levellingEntity";
 
@@ -38,9 +37,13 @@ export class Enemy extends LevellingEntity {
         this.updatePosition();
       }
     }
+    this.updatLifeBarPosition();
+    this.updateFrame();
+  }
+
+  updatLifeBarPosition(): void {
     this.lifeBar.x = this.x;
     this.lifeBar.y = this.y;
-    this.updateFrame();
   }
 
   redrawLifebar(): void {

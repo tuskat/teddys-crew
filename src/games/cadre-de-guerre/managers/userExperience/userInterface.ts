@@ -195,6 +195,7 @@ export class UserInterface {
         text: "Game Over",
         style: fontStyles.Title
       });
+      this.text[index].setDepth(2);
     }
   }
 
@@ -239,7 +240,7 @@ export class UserInterface {
     this.count();
   }
 
-  public flush(): void {
+  public cleanse(): void {
     this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
     this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
     this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);

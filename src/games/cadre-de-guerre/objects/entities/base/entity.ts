@@ -44,6 +44,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   previousState = null;
   lastShoot: number = 0;
   graphicEffects: Phaser.GameObjects.Group;
+  shadowPatch: Phaser.GameObjects.Graphics = null;
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
@@ -59,6 +60,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
       maxSize: 2,
       runChildUpdate: true
     });
+    this.shadowPatch = this.scene.add.graphics();
+    this.redrawShadow();
+    this.setDepth(1);
   }
   // init methods
   protected initVariables(config): void {
@@ -78,7 +82,22 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
   }
+ 
+  updatShadowPosition(): void {
+    this.shadowPatch.x = this.x;
+    this.shadowPatch.y = this.y;
+    this.shadowPatch.alpha = (this.state === CurrentState.Dead) ? 0 : 0.35;
+  }
 
+  redrawShadow(): void {
+    if (this.shadowPatch.alpha === 0 && this.life > 0) {
+      this.shadowPatch.alpha = 1;
+    }
+    this.shadowPatch.clear();
+    this.shadowPatch.fillStyle(0x000000, 0.35);
+    this.shadowPatch.fillEllipse(0,25,this.width / 2,20);
+    this.shadowPatch.setDepth(0);
+  }
 // Create children
   protected createGraphicEffect(animation = 'explode'): void {
     if (this.graphicEffects.getLength() < 5) {
@@ -228,7 +247,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   flushCustom(): void {}
 
-  flush(): void {
+  cleanse(): void {
     this.flushLifebar();
     this.flushCustom();
     this.setActive(false);

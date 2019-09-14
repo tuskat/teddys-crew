@@ -36,6 +36,11 @@ export class ComboManager {
     this.gameEvent.on(eventList.LifeUpdate, this.missCallback, this);
     this.gameEvent.on(eventList.Damaged, this.hitCallback, this);
   }
+  
+  public cleanse(): void {
+    this.gameEvent.off(eventList.LifeUpdate, this.missCallback, this);
+    this.gameEvent.off(eventList.Damaged, this.hitCallback, this);
+  }
 
   private initText(): void {
     this.text['rush_subtitle'] = this.scene.make.text({
@@ -131,11 +136,6 @@ export class ComboManager {
     this.isBouncing = false;
   }
 
-  private showComboBar(): void {
-    this.comboBar.alpha = 0.75;
-    this.comboBarBg.alpha = 0.75;
-  }
-
   private hideCombo(): void {
     if (this.comboBarBg.alpha !== 0) {
         this.comboBar.alpha = 0;
@@ -143,10 +143,4 @@ export class ComboManager {
     }
   }
 
-  public flush(): void {
-    // this.gameEvent.on(eventList.LifeUpdate, this.missCallback, this);
-    // this.gameEvent.on(eventList.Damaged, this.hitCallback, this);
-    this.gameEvent.off(eventList.LifeUpdate, this.missCallback, this);
-    this.gameEvent.off(eventList.Damaged, this.hitCallback, this);
-  }
 }

@@ -103,17 +103,17 @@ export class GameScene extends Phaser.Scene {
 
   restartGame(): void {
     this.time.delayedCall(4000, () => {
-      this.flush();
+      this.cleanse();
       this.scene.start("MenuScene");
     }, [], this);
   }
 
-  flush(): void {
-    this.player.flush();
-    this.waveManager.flush();
-    this.soundEffectsManager.flush();
-    this.UI.flush();
-    this.comboWidget.flush();
+  cleanse(): void {
+    this.player.cleanse();
+    this.waveManager.cleanse();
+    this.soundEffectsManager.cleanse();
+    this.UI.cleanse();
+    this.comboWidget.cleanse();
     this.time.clearPendingEvents();
     this.time.removeAllEvents();
     this.game.events.removeAllListeners();

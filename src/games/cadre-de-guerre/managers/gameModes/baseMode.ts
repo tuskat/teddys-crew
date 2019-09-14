@@ -58,7 +58,7 @@ export class BaseMode {
     }
 
     protected flushEnemy(enemy): void {
-        enemy.flush();
+        enemy.cleanse();
     }
 
     protected killSilentlyEnemy(enemy): void {
@@ -204,7 +204,7 @@ export class BaseMode {
         this.enemies.forEach(action, this);
     }
 
-    public flush(): void {
+    public cleanse(): void {
         this.toEachEnemy(this.flushEnemy);
         this.enemies = null;
         this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);

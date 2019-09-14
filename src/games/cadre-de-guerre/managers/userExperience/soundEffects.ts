@@ -53,7 +53,7 @@ export class SoundEffects {
         }
     }
 
-    flush() {
+    cleanse() {
         this.eventList.forEach(element => {
             this.scene.gameEvent.off(element, this.playSound, this);
         });
