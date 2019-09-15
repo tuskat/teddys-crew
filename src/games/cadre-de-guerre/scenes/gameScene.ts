@@ -28,6 +28,7 @@ export class GameScene extends Phaser.Scene {
     if (this.gameEvent === null) {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
+
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
@@ -53,7 +54,6 @@ export class GameScene extends Phaser.Scene {
     // Pause when out of foccin focus
     this.assetsLoader.loadAllAnimation();
 
-
     // create background
     this.background = this.add.sprite(0, 0,'game-atlas', "map.png");
     this.background.setOrigin(0, 0);
@@ -74,8 +74,11 @@ export class GameScene extends Phaser.Scene {
     this.waveManager = new SurvivalMode({ scene: this });
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
     this.comboWidget = new ComboManager({scene : this, gameEvent : this.gameEvent});
-    this.soundEffectsManager.initSound();
     this.restartRound();
+
+    if (!this.isLinuxFirefox()) {
+      this.soundEffectsManager.initSound();
+    }
   }
 
   update(time, delta): void {
@@ -123,5 +126,12 @@ export class GameScene extends Phaser.Scene {
   }
   restart(): void {
     this.gameEvent.emit(eventList.StartRound, null);
+  }
+
+  isLinuxFirefox(): boolean {
+    // because it crash in soundManager
+    let is_linux = /Linux/.test(window.navigator.platform);
+    let is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    return (is_firefox && is_linux);
   }
 }

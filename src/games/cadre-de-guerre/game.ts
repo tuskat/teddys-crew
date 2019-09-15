@@ -20,6 +20,12 @@ export class Game extends Phaser.Game {
 }
 
 window.addEventListener("load", () => {
+  if (!AudioContext) {
+    const audioContext = new AudioContext();
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  }
   launch();
 });
 
