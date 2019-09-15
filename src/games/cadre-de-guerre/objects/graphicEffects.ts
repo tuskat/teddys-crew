@@ -10,7 +10,7 @@ export class GraphicEffects extends Phaser.GameObjects.Sprite {
       this.anims.play(this.gfxName);
     }
 
-    private initImage(): void {
+    protected initImage(): void {
       // image
       this.scale = 1;
       this.setOrigin(0.5, 0.5);

@@ -11,7 +11,6 @@ import { SurvivalMode } from '../managers/gameModes/survivalMode';
 import { ComboManager } from '../managers/userExperience/comboManager';
 
 export class GameScene extends Phaser.Scene {
-  private background: Phaser.GameObjects.Image;
   public UI : UserInterface;
   public comboWidget: ComboManager;
   private assetsLoader : AssetsLoader = null;
@@ -35,7 +34,22 @@ export class GameScene extends Phaser.Scene {
     this.mapGenerator = new mapGenerator({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
-    this.gameEvent.on(eventList.GameOver, this.restartGame, this);
+    this.gameEvent.once(eventList.GameOver, this.restartGame, this);
+  }
+
+  cleanse(): void {
+    this.gameEvent.off(eventList.RoundEnded, this.restartRound, this);
+    this.player.cleanse();
+    this.waveManager.cleanse();
+    this.soundEffectsManager.cleanse();
+    this.UI.cleanse();
+    this.comboWidget.cleanse();
+    this.time.clearPendingEvents();
+    this.time.removeAllEvents();
+    this.game.events.removeAllListeners();
+    this.children.getAll().forEach((child) => {
+      child.destroy();
+    });
   }
 
   preload(): void {
@@ -56,10 +70,6 @@ export class GameScene extends Phaser.Scene {
   create(): void {
     // Pause when out of foccin focus
     this.assetsLoader.loadAllAnimation();
-
-    // create background
-    // this.background = this.add.sprite(0, 0,'game-atlas', "map.png");
-    // this.background.setOrigin(0, 0);
     this.mapGenerator.create();
 
     // create objects
@@ -87,7 +97,7 @@ export class GameScene extends Phaser.Scene {
 
   update(time, delta): void {
     // update objects
-    this.player.update();
+    this.player.update(time, delta);
     this.waveManager.update(time, delta);
     this.comboWidget.update(time, delta);
   }
@@ -115,19 +125,6 @@ export class GameScene extends Phaser.Scene {
     }, [], this);
   }
 
-  cleanse(): void {
-    this.player.cleanse();
-    this.waveManager.cleanse();
-    this.soundEffectsManager.cleanse();
-    this.UI.cleanse();
-    this.comboWidget.cleanse();
-    this.time.clearPendingEvents();
-    this.time.removeAllEvents();
-    this.game.events.removeAllListeners();
-    this.children.getAll().forEach((child) => {
-      child.destroy();
-    });
-  }
   restart(): void {
     this.gameEvent.emit(eventList.StartRound, null);
   }

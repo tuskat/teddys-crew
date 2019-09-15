@@ -4,7 +4,6 @@ import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
 
 export class Player extends LevellingEntity {
-  inputEvent: Phaser.Events.EventEmitter;
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
@@ -86,16 +85,18 @@ export class Player extends LevellingEntity {
       this[action]();
     }
   }
+
   protected dashToClick(pointer): void {
-    this.useSkill(pointer, 'dash');
+    var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+    if (distance > 15) { 
+      this.useSkill(pointer, 'dash');
+    } else {
+      this.useSkill(pointer, 'shield');
+    }
   }
 
   protected shootToClick(pointer): void {
     this.useSkill(pointer, 'shoot');
-  }
-
-  protected blockToClick(pointer): void {
-
   }
 
   protected doneRespawning(): void {

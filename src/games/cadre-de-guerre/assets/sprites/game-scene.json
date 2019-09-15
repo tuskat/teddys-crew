@@ -4,74 +4,11 @@
 			"image": "game-scene.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1026,
-				"h": 981
+				"w": 434,
+				"h": 507
 			},
 			"scale": 1,
 			"frames": [
-				{
-					"filename": "map.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 1024,
-						"h": 720
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 1024,
-						"h": 720
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 1024,
-						"h": 720
-					}
-				},
-				{
-					"filename": "Shooter/Attack.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 8,
-						"y": 0,
-						"w": 128,
-						"h": 131
-					},
-					"frame": {
-						"x": 1,
-						"y": 723,
-						"w": 128,
-						"h": 131
-					}
-				},
-				{
-					"filename": "Enemy/Idle.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 7,
-						"w": 135,
-						"h": 124
-					},
-					"frame": {
-						"x": 1,
-						"y": 856,
-						"w": 135,
-						"h": 124
-					}
-				},
 				{
 					"filename": "Hero/Hurt.png",
 					"rotated": false,
@@ -87,52 +24,10 @@
 						"h": 130
 					},
 					"frame": {
-						"x": 131,
-						"y": 723,
+						"x": 1,
+						"y": 1,
 						"w": 154,
 						"h": 130
-					}
-				},
-				{
-					"filename": "Shooter/Idle.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 17,
-						"w": 136,
-						"h": 111
-					},
-					"frame": {
-						"x": 138,
-						"y": 855,
-						"w": 136,
-						"h": 111
-					}
-				},
-				{
-					"filename": "Shooter/Hurt.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 16,
-						"w": 118,
-						"h": 111
-					},
-					"frame": {
-						"x": 276,
-						"y": 855,
-						"w": 118,
-						"h": 111
 					}
 				},
 				{
@@ -150,31 +45,10 @@
 						"h": 130
 					},
 					"frame": {
-						"x": 287,
-						"y": 723,
+						"x": 1,
+						"y": 133,
 						"w": 154,
 						"h": 130
-					}
-				},
-				{
-					"filename": "Shooter/WindingUp.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 18,
-						"w": 136,
-						"h": 110
-					},
-					"frame": {
-						"x": 396,
-						"y": 855,
-						"w": 136,
-						"h": 110
 					}
 				},
 				{
@@ -192,73 +66,10 @@
 						"h": 130
 					},
 					"frame": {
-						"x": 443,
-						"y": 723,
+						"x": 157,
+						"y": 1,
 						"w": 152,
 						"h": 130
-					}
-				},
-				{
-					"filename": "VFX/EnergyBall.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 131,
-						"h": 80
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 131,
-						"h": 80
-					},
-					"frame": {
-						"x": 534,
-						"y": 855,
-						"w": 131,
-						"h": 80
-					}
-				},
-				{
-					"filename": "Enemy/Dash.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 7,
-						"y": 0,
-						"w": 137,
-						"h": 130
-					},
-					"frame": {
-						"x": 597,
-						"y": 723,
-						"w": 137,
-						"h": 130
-					}
-				},
-				{
-					"filename": "Enemy/Hurt.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 15,
-						"y": 2,
-						"w": 122,
-						"h": 129
-					},
-					"frame": {
-						"x": 736,
-						"y": 723,
-						"w": 122,
-						"h": 129
 					}
 				},
 				{
@@ -276,8 +87,8 @@
 						"h": 127
 					},
 					"frame": {
-						"x": 860,
-						"y": 723,
+						"x": 1,
+						"y": 265,
 						"w": 148,
 						"h": 127
 					}
@@ -297,10 +108,157 @@
 						"h": 128
 					},
 					"frame": {
-						"x": 860,
-						"y": 852,
+						"x": 157,
+						"y": 133,
 						"w": 142,
 						"h": 128
+					}
+				},
+				{
+					"filename": "Enemy/Hurt.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 2,
+						"w": 122,
+						"h": 129
+					},
+					"frame": {
+						"x": 311,
+						"y": 1,
+						"w": 122,
+						"h": 129
+					}
+				},
+				{
+					"filename": "Shooter/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 17,
+						"w": 136,
+						"h": 111
+					},
+					"frame": {
+						"x": 1,
+						"y": 394,
+						"w": 136,
+						"h": 111
+					}
+				},
+				{
+					"filename": "Enemy/Dash.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 0,
+						"w": 137,
+						"h": 130
+					},
+					"frame": {
+						"x": 157,
+						"y": 263,
+						"w": 137,
+						"h": 130
+					}
+				},
+				{
+					"filename": "Shooter/WindingUp.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 18,
+						"w": 136,
+						"h": 110
+					},
+					"frame": {
+						"x": 139,
+						"y": 395,
+						"w": 136,
+						"h": 110
+					}
+				},
+				{
+					"filename": "Shooter/Attack.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 0,
+						"w": 128,
+						"h": 131
+					},
+					"frame": {
+						"x": 301,
+						"y": 133,
+						"w": 128,
+						"h": 131
+					}
+				},
+				{
+					"filename": "Enemy/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 7,
+						"w": 135,
+						"h": 124
+					},
+					"frame": {
+						"x": 296,
+						"y": 266,
+						"w": 135,
+						"h": 124
+					}
+				},
+				{
+					"filename": "Shooter/Hurt.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 16,
+						"w": 118,
+						"h": 111
+					},
+					"frame": {
+						"x": 277,
+						"y": 395,
+						"w": 118,
+						"h": 111
 					}
 				}
 			]
@@ -309,6 +267,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:3290b7095ea2cb17a6517e4bbb0a7b50:fdbfd1b209266b0ce54760e501b90e6f:dc7b5edd0e40ba0230d2635193b8305a$"
+		"smartupdate": "$TexturePacker:SmartUpdate:25ab1075f5bebdb64112fae5d2f4330a:e221d2e50996f6e25d6c7c0769054ab6:dc7b5edd0e40ba0230d2635193b8305a$"
 	}
 }

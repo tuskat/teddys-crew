@@ -8,6 +8,7 @@ export class MouseController extends BaseController {
     protected initControls(): void {
         this.pointerEvent = new Phaser.Events.EventEmitter();
         this.scene.input.on('pointerdown', this.emitPointerClick, this);
+        this.scene.input.on('pointerup', this.emitPointerUp, this);
         this.scene.input.on('pointermove', this.emitPointerMoved, this);
     }
 }

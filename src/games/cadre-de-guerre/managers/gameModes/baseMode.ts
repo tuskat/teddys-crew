@@ -104,19 +104,9 @@ export class BaseMode {
     }
 
     protected setBulletCollision(enemy): void {
-        this.scene.physics.add.overlap(
-            this.scene.player.getBullets(),
-            enemy,
-            this.bulletHitEntity,
-            null,
-            this
-          );
-        this.scene.physics.add.overlap(
-            enemy.getBullets(),
-            this.scene.player,
-            this.bulletHitEntity,
-            null
-          );
+        this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy,this.bulletHitEntity,null,this);
+        this.scene.physics.add.overlap(this.scene.player.getMelee(),enemy,this.meleeHitEntity,null,this);
+        this.scene.physics.add.overlap(enemy.getBullets(),this.scene.player,this.bulletHitEntity,null);
     }
     protected levelUpEnemy(enemy): void {
         enemy.levelUp();
@@ -188,6 +178,10 @@ export class BaseMode {
         if (bulletConnected !== -1) {
             bullet.destroy();
         }
+    }
+
+    protected meleeHitEntity(melee, entity): void {
+        entity.hurt();
     }
 
     // Getter

@@ -7,6 +7,7 @@ export class AssetsLoader {
     { prefix: 'Air_14_', name: 'dash', frame : 5, framerate: 16 },
     { prefix: 'Mix_04_', name: 'explode', frame : 22, framerate: 50 },
     { prefix: 'Fire_13_', name: 'fire', frame : 11, framerate: 16, repeat: -1 },
+    { prefix: 'fire_29_new_', name: 'fireShield', frame : 17, framerate: 35, repeat: -1 },
     { prefix: 'sparks_04_', name: 'hit', frame : 4, framerate: 50 },
     { prefix: 'water_05_', name: 'waterSpawn', frame : 8, framerate: 16 },
     { prefix: 'water_03_', name: 'waterBullet', frame : 4, framerate: 32, repeat: -1 },
@@ -15,7 +16,7 @@ export class AssetsLoader {
   ];
 
   constructor(params) {
-    this.assetsFolder = Config.FOLDER + '/sprites';
+    this.assetsFolder = Config.ASSETS + '/sprites';
     this.scene = params.scene;
   }
 

@@ -1,10 +1,30 @@
 import { Entity } from "./entity";
 import { CurrentState } from '../../../configs/enums/currentStates'
+import { Bullet } from "../../bullets";
+import { Skill } from "../../skill";
+import { eventList } from "../../../configs/enums/eventList";
 
 export class MovingEntity extends Entity {
+  inputEvent: Phaser.Events.EventEmitter = null;
+  rangedSkill: any;
+  closedSkill: any;
+  closedSkillCooldownDuration: number = 7000;
+  closedSkillCooldown: number = 0;
 
   constructor(params) {
     super(params);
+
+    this.rangedSkill = this.scene.add.group({
+      classType: Bullet,
+      maxSize: 2,
+      runChildUpdate: true
+    });
+
+    this.closedSkill = this.scene.add.group({
+      classType: Skill,
+      maxSize: 1,
+      runChildUpdate: true
+    });
   }
 
   protected blockingState(): boolean {
@@ -14,7 +34,7 @@ export class MovingEntity extends Entity {
   }
 
   // update methods
-  update(): void {
+  update(time, delta): void {
     if (this.blockingState()) {
       this.doNothing();
     }
@@ -22,6 +42,50 @@ export class MovingEntity extends Entity {
       this.updatePosition();
     }
     this.updateFrame();
+    this.updateCooldown(delta);
+  }
+
+  updateCooldown(delta): void {
+    if (this.closedSkillCooldown > 0) {
+      this.closedSkillCooldown -= delta;
+      if (this.closedSkillCooldown <= 0) {
+        this.scene.gameEvent.emit(eventList.SkillRestored, { sound: 'Sword01', entity: this });
+      }
+    }
+  }
+
+  protected createBullet(rotation): void {
+    this.rangedSkill.add(
+      new Bullet({
+        scene: this.scene,
+        x: this.x,
+        y: this.y,
+        key: "Fire_13_00000",
+        rotation: rotation,
+        gfxName: this.animationPreset.bullet,
+        speed: this.bulletSpeed
+      })
+    );
+  }
+
+  protected createCloseSkill(animation = 'fireShield'): void {
+    this.closedSkill.add(
+      new Skill({
+        scene: this.scene,
+        x: this.x,
+        y: this.y,
+        key: "Fire_13_00000",
+        gfxName: animation
+      })
+    );
+  }
+
+  public getBullets(): Phaser.GameObjects.Group {
+    return this.rangedSkill;
+  }
+
+  public getMelee(): Phaser.GameObjects.Group {
+    return this.closedSkill;
   }
 
   protected updateTargetPosition(newPosition): void {
@@ -79,6 +143,9 @@ export class MovingEntity extends Entity {
 
   //  Only non-player wind-up before dashing
   protected attackSkill(): void {
+    if (this.state === CurrentState.Dead) {
+      return;
+    }
     this[this.signatureSkill]();
   }
 
@@ -91,9 +158,6 @@ export class MovingEntity extends Entity {
   }
 
   protected dash(): void {
-    if (this.state === CurrentState.Dead) {
-      return;
-    }
     this.state = CurrentState.Dashing;
     this.createGraphicEffect('dash');
     this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
@@ -102,10 +166,17 @@ export class MovingEntity extends Entity {
   }
 
   protected shoot(): void {
-    if (this.state === CurrentState.Dead) {
-      return;
-    }
     this.handleShooting();
+  }
+
+  protected shield(): void {
+    if ((this.closedSkill.getLength() < 1) && (this.closedSkillCooldown <= 0)) {
+      this.state = CurrentState.Shooting;
+      this.createCloseSkill('fireShield');
+      this.closedSkillCooldown = this.closedSkillCooldownDuration;
+      this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
+      this.scene.time.delayedCall((this.actionDuration * 3), this.endActionCallback, [], this);
+    }
   }
 
   protected handleShooting(): void {

@@ -17,19 +17,19 @@ export class Bullet extends Phaser.GameObjects.Sprite {
       // variables
       this.lifespan = 1000;
       // image
-      this.scale = 0.5;
+     
       this.flipX = false;
       // physics
-      this.setSize(40,40);
       this.scene.physics.world.enable(this);
       this.scene.physics.velocityFromRotation(
         this.rotation,
         this.bulletSpeed,
         this.body.velocity
       );
-      this.body.setOffset(this.width / 2, this.height / 2);
       this.setOrigin(0.5, 0.5); 
       this.setDepth(2);
+      this.body.setSize(80,80, true);
+      this.scale = 0.5;
     }
 
     update(time, delta): void {

@@ -33,7 +33,7 @@ async function launch(): Promise<void> {
 
   let configJson: any = null;
   try {
-      configJson = await ObjectUtils.loadJson(Config.FOLDER + "/config.json");
+      configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
       ObjectUtils.loadValuesIntoObject(configJson, Config);
   } catch (e) {
       throw e;

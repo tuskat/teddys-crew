@@ -32,7 +32,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
   isInvicible;
   invicibleFrame = 300;
   target: Phaser.Math.Vector2;
-  rangedSkill: any;
   shouldRespawn = true;
   timeToRespawn = 1000;
   actionDuration = 500;
@@ -55,11 +54,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
     this.spriteFolder = params.folder;
     this.scene.add.existing(this);
-    this.rangedSkill = this.scene.add.group({
-      classType: Bullet,
-      maxSize: 2,
-      runChildUpdate: true
-    });
+
     this.shadowPatch = this.scene.add.graphics();
     this.redrawShadow();
     this.setDepth(1);
@@ -113,31 +108,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
   }
 
-  protected createBullet(rotation): void {
-    this.rangedSkill.add(
-      new Bullet({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: "Fire_13_00000",
-        rotation: rotation,
-        gfxName: this.animationPreset.bullet,
-        speed: this.bulletSpeed
-      })
-    );
-  }
-
   // actions
   protected doNothing(): void {}
-
-  public getBullets(): Phaser.GameObjects.Group {
-    return this.rangedSkill;
-  }
 
   public getExperience(): number {
     return (5 * (this.level * this.config.life));
   }
-
 
   // Respawn
   protected respawn(): void {

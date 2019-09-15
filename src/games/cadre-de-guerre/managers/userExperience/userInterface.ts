@@ -32,6 +32,7 @@ export class UserInterface {
     this.gameEvent.on(eventList.ScoreUpdate, this.updateScore, this);
     this.gameEvent.on(eventList.TimeUpdate, this.updateTime, this);
     this.gameEvent.on(eventList.LifeUpdate, this.updateLifeBar, this);
+    this.gameEvent.on(eventList.SkillRestored, this.updateCooldown, this);
     this.gameEvent.on(eventList.Respawn, this.updateLifeBar, this);
     this.gameEvent.on(eventList.RoundEnded, this.updateRound, this);
     this.gameEvent.on(eventList.CountDownStarted, this.startCountDown, this);
@@ -43,6 +44,7 @@ export class UserInterface {
     this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
     this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
     this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);
+    this.gameEvent.off(eventList.SkillRestored, this.updateCooldown, this);
     this.gameEvent.off(eventList.Respawn, this.updateLifeBar, this);
     this.gameEvent.off(eventList.RoundEnded, this.updateRound, this);
     this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
@@ -173,6 +175,30 @@ export class UserInterface {
     });
   }
 
+  private updateCooldown(item): void {
+    var index = 'skillCooldown';
+    if (!this.text[index]) {
+      this.text[index] = this.scene.make.text({
+        x: item.entity.x,
+        y: item.entity.y,
+        text: "Skill Restored!",
+        style: fontStyles.Smallest
+      });
+    } else {
+      this.text[index].setPosition(item.entity.x, item.entity.y);
+    }
+    this.scene.add.tween({
+      targets: [this.text[index]],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 1,
+        getEnd: () => 0
+      },
+      duration: 2000,
+      onComplete: null
+    });
+  }
+
   private playerLevelUp(item): void {
     var index = 'levelUp' + item.entity.faction;
     if (!this.text[index]) {
@@ -197,6 +223,7 @@ export class UserInterface {
       onComplete: null
     });
   }
+
   private gameOver(): void {
     let index = 'gameOver';
     if (!this.text[index]) {

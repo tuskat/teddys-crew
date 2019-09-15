@@ -5,18 +5,20 @@ import { eventList } from "../../configs/enums/eventList";
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SoundEffects {
-    private assetsFolder: string = Config.FOLDER + '/sounds/';
+    private assetsFolder: string = Config.ASSETS + '/sounds/';
     private soundList = [
         'Alarm',
         'Damage01',
         'Damage02',
         'Explosion7',
         'Fire01',
+        'Fire03',
         'Slash01',
         'Slash05',
         'PowerUp01',
         'PowerUp02',
         'PowerUp03',
+        'Sword01',
         'UI04',
         'Misc03'
     ];

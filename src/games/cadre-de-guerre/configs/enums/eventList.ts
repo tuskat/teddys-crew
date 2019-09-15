@@ -3,6 +3,8 @@ export enum eventList {
   Damaged = 'entityDamaged',
   Dashing = 'entityDashing',
   Shooting = 'entityShooting',
+  Shielding = 'entityShielding',
+  SkillRestored = 'skillRestored',
   Dying = 'entityDied',
   CountDown = 'countDown',
   CountDownStarted = 'startCountdown',

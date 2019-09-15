@@ -20,6 +20,13 @@ export class BaseController {
             this.pointerEvent.emit('bbuttonpressed', pointer);
         }
     }
+
+    protected emitPointerUp(pointer): void {
+        if (pointer.leftButtonDown()) {
+            this.pointerEvent.emit('dbuttonup', pointer);
+        }
+    }
+
     public getEmitter() {
         return this.pointerEvent;
     }
