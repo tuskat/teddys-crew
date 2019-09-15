@@ -3,6 +3,7 @@ import * as PlayerConfig from '../configs/player';
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
 import { AssetsLoader } from '../helpers/assetsLoader';
+import { mapGenerator } from '../helpers/mapGenerator';
 import { UserInterface } from '../managers/userExperience/userInterface';
 import { SoundEffects } from '../managers/userExperience/soundEffects';
 import { eventList } from '../configs/enums/eventList';
@@ -14,6 +15,7 @@ export class GameScene extends Phaser.Scene {
   public UI : UserInterface;
   public comboWidget: ComboManager;
   private assetsLoader : AssetsLoader = null;
+  private mapGenerator : mapGenerator = null;
   private soundEffectsManager : SoundEffects = null;
   private waveManager;
   public gameEvent: Phaser.Events.EventEmitter = null;
@@ -30,6 +32,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     this.assetsLoader = new AssetsLoader({ scene: this });
+    this.mapGenerator = new mapGenerator({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.gameEvent.on(eventList.GameOver, this.restartGame, this);
@@ -55,8 +58,9 @@ export class GameScene extends Phaser.Scene {
     this.assetsLoader.loadAllAnimation();
 
     // create background
-    this.background = this.add.sprite(0, 0,'game-atlas', "map.png");
-    this.background.setOrigin(0, 0);
+    // this.background = this.add.sprite(0, 0,'game-atlas', "map.png");
+    // this.background.setOrigin(0, 0);
+    this.mapGenerator.create();
 
     // create objects
     var player1input = new MouseController(this.scene);
