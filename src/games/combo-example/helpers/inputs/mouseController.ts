@@ -1,6 +1,11 @@
+// merged Base and Mouse controller logic. Original inherit from a base class
 export class MouseController {
+    //  All this object does is receive the event when user click and send another event.
+    // This is in case you were to create many controller, you could have several type of inputs
+    // sending the same events to the player, making the input binding less of a pain
     scene: Phaser.Scene;
     pointerEvent: Phaser.Events.EventEmitter;
+
     constructor(params) {
         this.scene = params.scene;
         this.initControls();
