@@ -1,7 +1,7 @@
 import { GameScene } from "../../scenes/gameScene";
 import fontStyles from "../../configs/enums/fontStyles"; // Contains basic font styles used by the game
 
-const BARWIDTH = 100;
+const BARWIDTH = 100; // size of the bar. Used both as BG size and to calculate the size of contained bar
 
 export class ComboManager {
   private text: Phaser.GameObjects.Text[] = [];
@@ -13,7 +13,7 @@ export class ComboManager {
   private isBouncing = false; // allow tweening on hit combo
   private comboBar: Phaser.GameObjects.Graphics; // bar below hit number
   private comboBarBg: Phaser.GameObjects.Graphics; // bg of bar
-  private inputEvent: Phaser.Events.EventEmitter; // event emitter the manager listen to
+  private gameEvent: Phaser.Events.EventEmitter; // event emitter the manager listen to
   private scene: GameScene;
 
   constructor(params) {
@@ -26,16 +26,19 @@ export class ComboManager {
   public initCombo(emitter): void {
     this.initCombobar(); // initialise bar
     this.initText(); // initialise text
-    // events: on left click, increment combo, on right click make combo go back to 0
-    this.inputEvent = emitter;
-    this.inputEvent.on('dbuttonpressed', this.hitCallback, this);
-    this.inputEvent.on('bbuttonpressed', this.missCallback, this);
-
+    // events: upon receiving "YouHitSomeone", the hitCallback is called
+    // Note that as long as the gameEvent is a Phaser.Events.EventEmitter
+    // It doesn't matter which emitter is on the other side :
+    // The controller is directly emitting in this example for the sake of simplicity
+    this.gameEvent = emitter;
+    this.gameEvent.on('YouHitSomeone', this.hitCallback, this);
+    this.gameEvent.on('SomeoneHitYou', this.missCallback, this);
   }
+
   // this method exist in the game because some event weren't correctly cleaned up upon scene change
   public cleanse(): void {
-    this.inputEvent.off('dbuttonpressed', this.hitCallback, this);
-    this.inputEvent.off('bbuttonpressed', this.missCallback, this);
+    this.gameEvent.off('YouHitSomeone', this.hitCallback, this);
+    this.gameEvent.off('SomeoneHitYou', this.missCallback, this);
 
   }
 
@@ -59,6 +62,7 @@ export class ComboManager {
     }
     );
   }
+
   // really basic. Makes a black rectangle of 75% opacity and initialise the real bar with...nothing
   private initCombobar(): void {
     this.comboBarBg = this.scene.add.graphics();
@@ -66,23 +70,27 @@ export class ComboManager {
     this.comboBarBg.fillRect(this.posX, this.posY, BARWIDTH, 30);
     this.comboBar = this.scene.add.graphics();
   }
+
   // update bar according to how much time is left before your combo reset
   private updateComboBar(): void {
     this.comboBar.clear();
     this.comboBar.fillStyle(0xffffff, 1);
     this.comboBar.fillRect(this.posX, this.posY, (this.comboTime / this.timeToClear) * BARWIDTH, 30);
   }
+
   // whenever you hit
   private hitCallback(): void {
     this.rush++;
     this.comboTime = this.timeToClear;
     this.updateCombo();
   }
+
   // whenever you get hit
   private missCallback(): void {
     this.rush = 0;
     this.hideCombo();
   }
+
   // update function for the game loop
   // delta is what helping us to smoothly use time to update the thingy
   public update(time, delta): void {
@@ -97,6 +105,7 @@ export class ComboManager {
       this.hideCombo();
     }
   }
+
   // Update methods
   private updateCombo(): void {
     // value of tweening effect that make text pop upon hit.
@@ -118,6 +127,7 @@ export class ComboManager {
         duration: 5000,
         onComplete: null
     });
+
     // add scaling tweening to both rush and rush_subtitle
     if (this.isBouncing === false) {
         this.scene.add.tween({
@@ -134,11 +144,15 @@ export class ComboManager {
     }
   }
 
+  // reallow Bouncing/Scaling to happen after the tween is done
   private unlockBouncing(): void {
     this.isBouncing = false;
   }
 
   private hideCombo(): void {
+    // no need to do anything if the action is done :0
+    // unsure if necessary, I just don't like when something in update() loop
+    // is needlessly updating values
     if (this.comboBarBg.alpha !== 0) {
         this.comboBar.alpha = 0;
         this.comboBarBg.alpha = 0;

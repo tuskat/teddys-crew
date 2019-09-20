@@ -1,4 +1,4 @@
-// merged Base and Mouse controller logic. Original inherit from a base class
+// Cut down Controller class
 export class MouseController {
     //  All this object does is receive the event when user click and send another event.
     // This is in case you were to create many controller, you could have several type of inputs
@@ -14,25 +14,16 @@ export class MouseController {
     protected initControls(): void {
         this.pointerEvent = new Phaser.Events.EventEmitter();
         this.scene.input.on('pointerdown', this.emitPointerClick, this);
-        this.scene.input.on('pointerup', this.emitPointerUp, this);
-        this.scene.input.on('pointermove', this.emitPointerMoved, this);
-    }
-
-    protected emitPointerMoved(pointer): void {
-        this.pointerEvent.emit('cursormoved', pointer);
     }
 
     protected emitPointerClick(pointer): void {
         if (pointer.leftButtonDown()) {
-            this.pointerEvent.emit('dbuttonpressed', pointer);
+            // for the sake of simplicity we'll send different signal than we'd normally
+            // In a game context it'd be more along these lines :
+            /// emit('hitButton') -> Player happen to hit enemy -> emit('YouHitSomeone')
+            this.pointerEvent.emit('YouHitSomeone', pointer);
         } else {
-            this.pointerEvent.emit('bbuttonpressed', pointer);
-        }
-    }
-
-    protected emitPointerUp(pointer): void {
-        if (pointer.leftButtonDown()) {
-            this.pointerEvent.emit('dbuttonup', pointer);
+            this.pointerEvent.emit('SomeoneHitYou', pointer);
         }
     }
 
