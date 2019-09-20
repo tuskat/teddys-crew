@@ -30,7 +30,7 @@ export class Player extends LevellingEntity {
 
   protected updatePosition(): void {
     if (this.target) {
-      var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+      let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
       if (this.body.speed > 0)
       {
         if (distance < this.distanceToStop)
@@ -55,7 +55,7 @@ export class Player extends LevellingEntity {
 
   protected closeToCurser(): boolean {
     if (this.target) {
-    var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+    let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
       if (distance < this.distanceToStop)
       {
         return true;
@@ -87,8 +87,8 @@ export class Player extends LevellingEntity {
   }
 
   protected dashToClick(pointer): void {
-    var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
-    if (distance > 15) { 
+    let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+    if (distance > 15) {
       this.useSkill(pointer, 'dash');
     } else {
       this.useSkill(pointer, 'shield');

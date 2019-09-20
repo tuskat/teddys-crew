@@ -33,7 +33,7 @@ export class AssetsLoader {
   }
 
   loadAnimation(animConfig) {
-    var frameNames = this.scene.anims.generateFrameNames('game-sfx', {
+    let frameNames = this.scene.anims.generateFrameNames('game-sfx', {
       start: animConfig.start || 0, end: animConfig.frame, zeroPad: 5,
       prefix: animConfig.prefix, suffix: '.png'
     });

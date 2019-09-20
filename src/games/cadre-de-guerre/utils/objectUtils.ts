@@ -4,7 +4,7 @@ export class ObjectUtils {
 
       return new Promise(function (resolve, reject) {
 
-          var request = new XMLHttpRequest();
+          let request = new XMLHttpRequest();
 
           request.open('GET', fileName, true);
           request.responseType = 'json';

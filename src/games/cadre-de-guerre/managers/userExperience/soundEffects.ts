@@ -63,7 +63,7 @@ export class SoundEffects {
     enumToArray(enumList) {
         let stringList: string[] = [];
 
-        for(var n in enumList) {
+        for(let n in enumList) {
             if (typeof enumList[n] === 'string') {
                 stringList.push(enumList[n]);
             }

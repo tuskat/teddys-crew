@@ -73,7 +73,7 @@ export class GameScene extends Phaser.Scene {
     this.mapGenerator.create();
 
     // create objects
-    var player1input = new MouseController(this.scene);
+    let player1input = new MouseController(this.scene);
     this.player = new Player({
       scene: this,
       controller: player1input,

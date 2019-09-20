@@ -150,7 +150,7 @@ export class UserInterface {
       this.enemiesLevelUp(item);
     }
   }
-  
+
   private enemiesLevelUp(item): void {
     let index = 'levelUp' + item.entity.faction;
     if (!this.text[index]) {
@@ -176,7 +176,7 @@ export class UserInterface {
   }
 
   private updateCooldown(item): void {
-    var index = 'skillCooldown';
+    let index = 'skillCooldown';
     if (!this.text[index]) {
       this.text[index] = this.scene.make.text({
         x: item.entity.x,
@@ -200,7 +200,7 @@ export class UserInterface {
   }
 
   private playerLevelUp(item): void {
-    var index = 'levelUp' + item.entity.faction;
+    let index = 'levelUp' + item.entity.faction;
     if (!this.text[index]) {
       this.text[index] = this.scene.make.text({
         x: item.entity.x,

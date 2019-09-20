@@ -16,7 +16,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
-    var player1input = new MouseController(this.scene);
+    let player1input = new MouseController(this.scene);
     this.comboWidget = new ComboManager({scene : this, controller : player1input});
   }
 

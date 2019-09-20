@@ -35,5 +35,5 @@ window.addEventListener("load", () => {
 });
 
 async function launch(): Promise<void> {
-  var game = new Game(config);
+  let game = new Game(config);
 }

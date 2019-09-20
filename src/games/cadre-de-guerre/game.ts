@@ -65,5 +65,5 @@ async function launch(): Promise<void> {
     backgroundColor: "#3A99D9",
     render: { pixelArt: false, antialias: true }
   };
-  var game = new Game(config);
+  let game = new Game(config);
 }

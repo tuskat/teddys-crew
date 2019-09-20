@@ -14,7 +14,7 @@ export class mapGenerator {
         // Creating a blank tilethis.map with the specified dimensions
         this.map = this.scene.make.tilemap({ tileWidth: 16, tileHeight: 16, width: 64, height: 45 });
 
-        var tiles = this.map.addTilesetImage('game-tiles');
+        let tiles = this.map.addTilesetImage('game-tiles');
 
         this.groundLayer = this.map.createBlankDynamicLayer('Ground Layer', tiles);
         // this.objectLayer = this.map.createBlankDynamicLayer('Object Layer', tiles);

@@ -181,7 +181,7 @@ export class MovingEntity extends Entity {
 
   protected handleShooting(): void {
     if (this.scene.time.now > this.lastShoot) {
-      var rotation = Phaser.Math.Angle.Between(
+      let rotation = Phaser.Math.Angle.Between(
         this.x,
         this.y,
         this.target.x,
@@ -206,7 +206,7 @@ export class MovingEntity extends Entity {
 
   protected closeToTarget(): boolean {
     if (this.target) {
-      var distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
+      let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
       if (distance < this.distanceToStop) {
         return true;
       }
