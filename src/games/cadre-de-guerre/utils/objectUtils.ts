@@ -1,4 +1,4 @@
-export class ObjectUtils {
+export class ObjectUtils {    
   // --------------------------------------------------------------------
   public static loadJson(fileName: string): Promise<any> {
 
@@ -36,6 +36,19 @@ export class ObjectUtils {
       }
 
       console.log("------------------------------------------------");
+  }
+
+  public static paletteSwap(scene, color, index) {
+    let entity = scene.add.shader('Palette').setVisible(false);
+    entity.setRenderToTexture('entity_body_'+ index, true);
+    entity.setChannel0('entity_body');
+    let atlas = scene.cache.json.get('entity_body');
+    let texture = scene.textures.list['entity_body_'+ index];
+    Phaser.Textures.Parsers.JSONArray(texture, 0, atlas);
+    entity.getUniform('color').value = color;
+    entity.renderWebGL(entity.renderer, entity);
+
+    entity.renderToTexture = false;
   }
 }
 
