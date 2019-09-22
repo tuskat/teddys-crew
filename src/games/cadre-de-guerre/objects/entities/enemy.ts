@@ -6,7 +6,8 @@ export class Enemy extends LevellingEntity {
   animationPreset = {
     spawn: 'waterSpawn',
     explode: 'waterExplode',
-    bullet: 'waterBullet'
+    bullet: 'waterBullet',
+    levelUp: 'levelUp'
   }
   player: Player;
   private lifeBar: Phaser.GameObjects.Graphics = null;

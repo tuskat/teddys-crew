@@ -1,16 +1,17 @@
 import _ = require('lodash/core');
 import { CurrentState } from '../../../configs/enums/currentStates';
 import { GameScene } from '../../../scenes/gameScene';
-import { Bullet } from '../../../skills/bullets';
 import { GraphicEffects } from '../../graphicEffects';
 import { eventList } from '../../../configs/enums/eventList';
+import { MovingGraphicEffects } from '../../movingGraphicEffects';
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
   animationPreset = {
     spawn: 'waterSpawn',
     explode: 'explode',
-    bullet: 'fire'
+    bullet: 'fire',
+    levelUp: 'levelUp'
   }
   scene: GameScene;
   gameEvent:  Phaser.Events.EventEmitter = null;
@@ -102,19 +103,30 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.shadowPatch.setDepth(0);
   }
 // Create children
-  protected createGraphicEffect(animation = 'explode'): void {
-    if (this.graphicEffects.getLength() < 5) {
-      this.graphicEffects.add(
-        new GraphicEffects({
-          scene: this.scene,
-          x: this.x,
-          y: this.y,
-          key: 'Air_14_00000',
-          gfxName: animation,
-          flipX: this.flipX })
-      );
+  protected createGraphicEffect(animation = 'explode', followParent = false): void {
+  if (this.graphicEffects.getLength() < 5) {
+    let effect = null;
+    if (followParent === true) {
+      effect = new MovingGraphicEffects({
+        scene: this.scene,
+        x: this.x,
+        y: this.y,
+        key: 'Air_14_00000',
+        gfxName: animation,
+        flipX: this.flipX, 
+        parent: this});
+    } else {
+      effect = new GraphicEffects({
+        scene: this.scene,
+        x: this.x,
+        y: this.y,
+        key: 'Air_14_00000',
+        gfxName: animation,
+        flipX: this.flipX }); 
     }
+    this.graphicEffects.add(effect);
   }
+}
 
   // actions
   protected doNothing(): void {}

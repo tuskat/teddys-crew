@@ -1,5 +1,6 @@
 import { eventList } from "../../../configs/enums/eventList";
 import { MovingEntity } from "./movingEntity";
+import { CurrentState } from "../../../configs/enums/currentStates";
 
 export class LevellingEntity extends MovingEntity {
 
@@ -59,6 +60,9 @@ export class LevellingEntity extends MovingEntity {
     // to be decided separately later
     let buff = this.distributeStats();
     this.scene.gameEvent.emit(eventList.LevelUp,  { sound: 'PowerUp03', entity: this, buff: buff });
+    if (this.state !== CurrentState.Dead) {
+      this.createGraphicEffect(this.animationPreset.levelUp, true);
+    }
   }
 
   // make generic

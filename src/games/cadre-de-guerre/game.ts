@@ -43,7 +43,7 @@ async function launch(): Promise<void> {
     title: Config.TITLE,
     version: "0.1",
     disableContextMenu: true,
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL, // shader might crash
     scale: {
       mode: Phaser.Scale.FIT,
       parent: 'game',
