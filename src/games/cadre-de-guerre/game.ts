@@ -19,17 +19,6 @@ export class Game extends Phaser.Game {
   }
 }
 
-window.addEventListener("load", () => {
-  if (!AudioContext) {
-    const audioContext = new AudioContext();
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-  }
-  launch();
-  canvas = document.querySelector("game");
-  window.addEventListener("resize", resizeCallback, false);
-});
 
 async function launch(): Promise<void> {
   let debug = (process.env.NODE_ENV == 'development');
@@ -71,13 +60,18 @@ async function launch(): Promise<void> {
   let game = new Game(config);
 }
 
-let doit;
 let canvas = null;
-
-function resizeCallback() {
-  clearTimeout(doit);
-  doit = setTimeout(resize, 50);
-}
+window.addEventListener("load", () => {
+  if (!AudioContext) {
+    const audioContext = new AudioContext();
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  }
+  launch();
+  canvas = document.querySelector("canvas");
+  window.addEventListener("resize", resize, false);
+});
 
 function resize() {
   let windowWidth = window.innerWidth;
@@ -86,11 +80,11 @@ function resize() {
   let gameRatio = Config.GAME_WIDTH / Config.GAME_HEIGHT;
 
   if(windowRatio < gameRatio){
-      canvas.style.width = windowWidth + "px";
-      canvas.style.height = (windowWidth / gameRatio) + "px";
+    canvas.style.width = windowWidth;
+    canvas.style.height = (windowWidth / gameRatio);
   }
   else {
-      canvas.style.width = (windowHeight * gameRatio) + "px";
-      canvas.style.height = windowHeight + "px";
+    canvas.style.width = (windowHeight * gameRatio);
+    canvas.style.height = windowHeight;
   }
 } 

@@ -5,6 +5,7 @@ body{
     background-color:black;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 body div.container{
     text-align:center;
@@ -12,15 +13,15 @@ body div.container{
 body div.container h1{
     font-family:"Connection",cursive;
     padding:0;
-    font-size:50px
+    font-size:50px;
 }
 body div.container {
     margin: 0 auto;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; */
 }
-canvas {
+.container {
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
