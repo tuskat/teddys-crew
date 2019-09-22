@@ -1,4 +1,4 @@
-import { GraphicEffects } from "./graphicEffects";
+import { GraphicEffects } from "../objects/graphicEffects";
 
 export class Skill extends GraphicEffects {
     private lifespan: number;

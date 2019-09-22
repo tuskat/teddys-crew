@@ -1,7 +1,7 @@
-import { BaseMode } from "./baseMode";
+import { BaseLogic } from "./baseLogic";
 import { eventList } from "../../configs/enums/eventList";
 
-export class SurvivalMode extends BaseMode {
+export class SurvivalMode extends BaseLogic {
     timeToNextBuff: number = 15000;
     playerLives: number = 1;
     timeSurvived: number = 0;

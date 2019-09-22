@@ -5,7 +5,7 @@ import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
 import { eventList } from "../../configs/enums/eventList";
 
-export class BaseMode {
+export class BaseLogic {
     scene: GameScene;
     maxEnemies = 5;
     enemiesLevel = 1;
@@ -21,6 +21,14 @@ export class BaseMode {
         this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true});
         this.scene.gameEvent.on(eventList.StartRound, this.startRound, this);
         this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
+    }
+
+    public cleanse(): void {
+        this.toEachEnemy(this.flushEnemy);
+        this.enemies = null;
+        this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);
+        this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
+        this.timedEvent.remove(false);
     }
 
     create(): void {
@@ -104,8 +112,15 @@ export class BaseMode {
     }
 
     protected setBulletCollision(enemy): void {
+        // player bullets hit enemies
         this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy,this.bulletHitEntity,null,this);
+        // player bullets erase enemies bullets
+        this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy.getBullets(),this.bulletHitBullet,null,this);
+        // player zoning erase enemies bullets
+        this.scene.physics.add.overlap(this.scene.player.getMelee(),enemy.getBullets(),this.bulletHitBullet,null,this);
+        // player zoning hit enemies
         this.scene.physics.add.overlap(this.scene.player.getMelee(),enemy,this.meleeHitEntity,null,this);
+        // enemies bullet hurt player
         this.scene.physics.add.overlap(enemy.getBullets(),this.scene.player,this.bulletHitEntity,null);
     }
     protected levelUpEnemy(enemy): void {
@@ -169,14 +184,14 @@ export class BaseMode {
         bullet.destroy();
     }
 
-    protected bulletHitObstacles(bullet, obstacle): void {
-        bullet.destroy();
+    protected bulletHitBullet(bullet, obstacle): void {
+        obstacle.explode();
     }
 
     protected bulletHitEntity(bullet, entity): void {
         let bulletConnected = entity.hurt();
         if (bulletConnected !== -1) {
-            bullet.destroy();
+            bullet.die();
         }
     }
 
@@ -196,13 +211,5 @@ export class BaseMode {
     // Misc
     toEachEnemy(action): void {
         this.enemies.forEach(action, this);
-    }
-
-    public cleanse(): void {
-        this.toEachEnemy(this.flushEnemy);
-        this.enemies = null;
-        this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);
-        this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
-        this.timedEvent.remove(false);
     }
 }

@@ -34,11 +34,12 @@ export class GameScene extends Phaser.Scene {
     this.mapGenerator = new mapGenerator({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
-    this.gameEvent.once(eventList.GameOver, this.restartGame, this);
+    this.gameEvent.on(eventList.GameOver, this.restartGame, this);
   }
 
   cleanse(): void {
     this.gameEvent.off(eventList.RoundEnded, this.restartRound, this);
+    this.gameEvent.off(eventList.GameOver, this.restartGame, this);
     this.player.cleanse();
     this.waveManager.cleanse();
     this.soundEffectsManager.cleanse();

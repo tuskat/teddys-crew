@@ -11,7 +11,7 @@ export class AssetsLoader {
     { prefix: 'sparks_04_', name: 'hit', frame : 4, framerate: 50 },
     { prefix: 'water_05_', name: 'waterSpawn', frame : 8, framerate: 16 },
     { prefix: 'water_03_', name: 'waterBullet', frame : 4, framerate: 32, repeat: -1 },
-    { prefix: 'water_03_', name: 'waterBulletHit', frame : 11, framerate: 16, start: 5 },
+    { prefix: 'water_03_', name: 'waterBulletHit', frame : 11, framerate: 32, start: 5 },
     { prefix: 'water_09_', name: 'waterExplode', frame : 9, framerate: 25 },
   ];
 

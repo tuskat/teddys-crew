@@ -1,7 +1,7 @@
 import { Entity } from "./entity";
 import { CurrentState } from '../../../configs/enums/currentStates'
-import { Bullet } from "../../bullets";
-import { Skill } from "../../skill";
+import { Bullet } from "../../../skills/bullets";
+import { Skill } from "../../../skills/skill";
 import { eventList } from "../../../configs/enums/eventList";
 
 export class MovingEntity extends Entity {

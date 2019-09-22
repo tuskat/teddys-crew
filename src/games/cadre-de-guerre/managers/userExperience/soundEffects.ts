@@ -49,17 +49,18 @@ export class SoundEffects {
         });
     }
 
+    cleanse() {
+        this.eventList.forEach(element => {
+            this.scene.gameEvent.off(element, this.playSound, this);
+        });
+    }
+
     playSound(obj) {
         if (obj) {
             this.sounds[obj.sound].play();
         }
     }
 
-    cleanse() {
-        this.eventList.forEach(element => {
-            this.scene.gameEvent.off(element, this.playSound, this);
-        });
-    }
     enumToArray(enumList) {
         let stringList: string[] = [];
 

@@ -1,7 +1,7 @@
 import _ = require('lodash/core');
 import { CurrentState } from '../../../configs/enums/currentStates';
 import { GameScene } from '../../../scenes/gameScene';
-import { Bullet } from '../../bullets';
+import { Bullet } from '../../../skills/bullets';
 import { GraphicEffects } from '../../graphicEffects';
 import { eventList } from '../../../configs/enums/eventList';
 
@@ -58,6 +58,14 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.shadowPatch = this.scene.add.graphics();
     this.redrawShadow();
     this.setDepth(1);
+  }
+
+  cleanse(): void {
+    this.flushLifebar();
+    this.flushCustom();
+    this.setActive(false);
+    this.setVisible(false);
+    this.destroy();
   }
   // init methods
   protected initVariables(config): void {
@@ -223,11 +231,4 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   flushCustom(): void {}
 
-  cleanse(): void {
-    this.flushLifebar();
-    this.flushCustom();
-    this.setActive(false);
-    this.setVisible(false);
-    this.destroy();
-  }
 }

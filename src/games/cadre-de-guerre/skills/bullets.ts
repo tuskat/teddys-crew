@@ -1,3 +1,5 @@
+import { GraphicEffects } from "../objects/graphicEffects";
+
 export class Bullet extends Phaser.GameObjects.Sprite {
     private gfxName: string = null;
     private bulletSpeed: number = 1000;
@@ -37,9 +39,25 @@ export class Bullet extends Phaser.GameObjects.Sprite {
 
       if (this.lifespan <= 0)
       {
-          this.setActive(false);
-          this.setVisible(false);
-          this.destroy();
+        this.die();
       }
     }
+
+    explode(effect = 'waterBulletHit') {
+      new GraphicEffects({
+          scene: this.scene,
+          x: this.x,
+          y: this.y,
+          key: 'Air_14_00000',
+          gfxName: effect,
+          flipX: this.flipX });
+      this.die();
+    }
+
+    die() {
+        this.setActive(false);
+        this.setVisible(false);
+        this.destroy();
+    }
+
   }
