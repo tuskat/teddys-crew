@@ -27,9 +27,12 @@ window.addEventListener("load", () => {
     }
   }
   launch();
+  canvas = document.querySelector("game");
+  window.addEventListener("resize", resizeCallback, false);
 });
 
 async function launch(): Promise<void> {
+  let debug = (process.env.NODE_ENV == 'development');
 
   let configJson: any = null;
   try {
@@ -59,7 +62,7 @@ async function launch(): Promise<void> {
       default: "arcade",
       arcade: {
         gravity: { y: 0 },
-        debug: true
+        debug: debug
       }
     },
     backgroundColor: "#3A99D9",
@@ -67,3 +70,27 @@ async function launch(): Promise<void> {
   };
   let game = new Game(config);
 }
+
+let doit;
+let canvas = null;
+
+function resizeCallback() {
+  clearTimeout(doit);
+  doit = setTimeout(resize, 50);
+}
+
+function resize() {
+  let windowWidth = window.innerWidth;
+  let windowHeight = window.innerHeight;
+  let windowRatio = windowWidth / windowHeight;
+  let gameRatio = Config.GAME_WIDTH / Config.GAME_HEIGHT;
+
+  if(windowRatio < gameRatio){
+      canvas.style.width = windowWidth + "px";
+      canvas.style.height = (windowWidth / gameRatio) + "px";
+  }
+  else {
+      canvas.style.width = (windowHeight * gameRatio) + "px";
+      canvas.style.height = windowHeight + "px";
+  }
+} 

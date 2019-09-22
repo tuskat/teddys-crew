@@ -63,3 +63,11 @@ Enemies  are at the beginning divided in 4 types :
 - 1 boss
 - 4 enemies
 - Room manager
+
+## Known Bugs
+
+- Brave : 
+Shader error : disable your adblock (Why? I dunno...);
+
+- Firefox (Linux) :
+No sound. 

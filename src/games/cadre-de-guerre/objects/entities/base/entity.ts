@@ -1,4 +1,3 @@
-import _ = require('lodash/core');
 import { CurrentState } from '../../../configs/enums/currentStates';
 import { GameScene } from '../../../scenes/gameScene';
 import { GraphicEffects } from '../../graphicEffects';
@@ -71,7 +70,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
   // init methods
   protected initVariables(config): void {
     this.target = new Phaser.Math.Vector2(0, 0);
-    _.each(config, (val, key) => this[key] = val);
+
+    for (let key in config){
+      this[key] = config[key] || this[key];
+   }
     this.config = config;
 
     this.graphicEffects = this.scene.add.group({
