@@ -17,10 +17,15 @@
     "Phaser-game",
     "Phaser-framework"
   ],
+  "staticFiles": {
+    "staticPath": "assets",
+    "watcherGlob": "**"
+  },
   "devDependencies": {
     "@types/node": "^10.7.0",
     "dir-obj": "^2.0.1",
     "parcel-bundler": "^1.12.3",
+    "parcel-plugin-static-files-copy": "^2.2.1",
     "typescript": "^3.0.1"
   },
   "dependencies": {
@@ -28,7 +33,7 @@
     "phaser": "^3.19.0"
   },
   "scripts": {
-    "build": "$(npm bin)/parcel build ./src/index.html",
+    "build": "$(npm bin)/parcel build ./src/index.html --public-url ./",
     "start": "./start.sh"
   },
   "author": {

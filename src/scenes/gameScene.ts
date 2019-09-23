@@ -55,7 +55,7 @@ export class GameScene extends Phaser.Scene {
 
   preload(): void {
       this.assetsLoader.preloadAssets();
-      this.soundEffectsManager.preloadSound();
+      // this.soundEffectsManager.preloadSound();
       this.game.events.on('blur',function(){
         this.game.scene.pause('GameScene');
       },this);

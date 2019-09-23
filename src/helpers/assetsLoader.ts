@@ -22,9 +22,12 @@ export class AssetsLoader {
   }
 
   preloadAssets() {
-    this.scene.load.multiatlas('game-atlas', this.assetsFolder + '/game-scene.json', this.assetsFolder);
-    this.scene.load.multiatlas('game-sfx', this.assetsFolder + '/game-sfx.json', this.assetsFolder);
-    this.scene.load.image('game-tiles', this.assetsFolder + '/atlantis-tileset.png');
+    let gameAtlas = 'dist/assets/sprites' + '/game-scene.json';
+    let gameSFX = 'dist/assets/sprites' + '/game-sfx.json';
+
+    this.scene.load.multiatlas('game-atlas', gameAtlas, this.assetsFolder);
+    this.scene.load.multiatlas('game-sfx', gameSFX, this.assetsFolder);
+    this.scene.load.image('game-tiles', 'dist/assets/sprites' + '/atlantis-tileset.png');
   }
 
   loadAllAnimation() {

@@ -23,13 +23,13 @@ export class Game extends Phaser.Game {
 async function launch(): Promise<void> {
   let debug = (process.env.NODE_ENV == 'development');
 
-  let configJson: any = null;
-  try {
-      configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
-      ObjectUtils.loadValuesIntoObject(configJson, Config);
-  } catch (e) {
-      throw e;
-  }
+  // let configJson: any = null;
+  // try {
+  //     configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
+  //     ObjectUtils.loadValuesIntoObject(configJson, Config);
+  // } catch (e) {
+  //     throw e;
+  // }
   // to clean up, eventually...
   const config: Phaser.Types.Core.GameConfig = {
     title: Config.TITLE,

@@ -1,4 +1,4 @@
-export class ObjectUtils {    
+export class ObjectUtils {
   // --------------------------------------------------------------------
   public static loadJson(fileName: string): Promise<any> {
 
@@ -77,24 +77,24 @@ export class ObjectUtils {
             console.warn('Invalid Texture Atlas JSON Array');
             return;
         }
-    
+
         //  Add in a __BASE entry (for the entire atlas)
         var source = texture.source[sourceIndex];
-    
+
         texture.add('__BASE', sourceIndex, 0, 0, source.width, source.height);
-    
+
         //  By this stage frames is a fully parsed array
         var frames = (Array.isArray(json.textures)) ? json.textures[sourceIndex].frames : json.frames;
-    
+
         var newFrame;
-    
+
         for (var i = 0; i < frames.length; i++)
         {
             var src = frames[i];
-    
+
             //  The frame values are the exact coordinates to cut the frame out of the atlas from
             newFrame = texture.add(src.filename, sourceIndex, src.frame.x, src.frame.y, src.frame.w, src.frame.h);
-    
+
             //  These are the original (non-trimmed) sprite values
             if (src.trimmed)
             {
@@ -107,24 +107,24 @@ export class ObjectUtils {
                     src.spriteSourceSize.h
                 );
             }
-    
+
             if (src.rotated)
             {
                 newFrame.rotated = true;
                 newFrame.updateUVsInverted();
             }
-    
+
             if (src.anchor)
             {
                 newFrame.customPivot = true;
                 newFrame.pivotX = src.anchor.x;
                 newFrame.pivotY = src.anchor.y;
             }
-    
+
             //  Copy over any extra data
             newFrame.customData = ObjectUtils.Clone(src);
         }
-    
+
         //  Copy over any additional data that was in the JSON to Texture.customData
         for (var dataKey in json)
         {
@@ -132,7 +132,7 @@ export class ObjectUtils {
             {
                 continue;
             }
-    
+
             if (Array.isArray(json[dataKey]))
             {
                 texture.customData[dataKey] = json[dataKey].slice(0);
@@ -141,7 +141,7 @@ export class ObjectUtils {
             {
                 texture.customData[dataKey] = json[dataKey];
             }
-        }    
+        }
         return texture;
     };
 }
