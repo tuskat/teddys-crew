@@ -3,6 +3,7 @@ import { GameScene } from '../../scenes/gameScene';
 import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
 
+
 export class Player extends LevellingEntity {
   scene: GameScene;
   dashSpeed = this.maxSpeedX;

@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "outDir": "./built",
     "module": "commonjs",
-    "sourceMap": true,
+    "target": "es5",
     "noImplicitAny": false,
-    "strict": false
-  }
+    "sourceMap": false
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

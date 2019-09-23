@@ -1,5 +1,8 @@
+import { Physics } from "phaser";
+
 export class GraphicEffects extends Phaser.GameObjects.Sprite {
-    private gfxName: string = null;
+    protected gfxName: string = null;
+    body: Physics.Arcade.Body;
 
     constructor(params) {
       super(params.scene, params.x, params.y, 'game-sfx', params.key + '.png');

@@ -1,25 +1,21 @@
 import { GraphicEffects } from "../objects/graphicEffects";
 
-export class Bullet extends Phaser.GameObjects.Sprite {
-    private gfxName: string = null;
+export class Bullet extends GraphicEffects {
     private bulletSpeed: number = 1000;
     private lifespan: number;
 
     constructor(params) {
-      super(params.scene, params.x, params.y, 'game-sfx', params.key + '.png');
+      super(params);
       this.gfxName = params.gfxName || 'fire';
       this.bulletSpeed = params.speed;
       this.rotation = params.rotation;
-      this.initImage();
-      this.scene.add.existing(this);
-      this.anims.play(this.gfxName);
     }
 
-    private initImage(): void {
+    protected initImage(): void {
       // variables
       this.lifespan = 1000;
       // image
-     
+
       this.flipX = false;
       // physics
       this.scene.physics.world.enable(this);
@@ -28,7 +24,7 @@ export class Bullet extends Phaser.GameObjects.Sprite {
         this.bulletSpeed,
         this.body.velocity
       );
-      this.setOrigin(0.5, 0.5); 
+      this.setOrigin(0.5, 0.5);
       this.setDepth(2);
       this.body.setSize(80,80, true);
       this.scale = 0.5;
@@ -53,11 +49,4 @@ export class Bullet extends Phaser.GameObjects.Sprite {
           flipX: this.flipX });
       this.die();
     }
-
-    die() {
-        this.setActive(false);
-        this.setVisible(false);
-        this.destroy();
-    }
-
   }

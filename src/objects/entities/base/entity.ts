@@ -3,9 +3,10 @@ import { GameScene } from '../../../scenes/gameScene';
 import { GraphicEffects } from '../../graphicEffects';
 import { eventList } from '../../../configs/enums/eventList';
 import { MovingGraphicEffects } from '../../movingGraphicEffects';
-
+import { Physics } from 'phaser';
 
 export class Entity extends Phaser.GameObjects.Sprite {
+  body: Physics.Arcade.Body;
   animationPreset = {
     spawn: 'waterSpawn',
     explode: 'explode',

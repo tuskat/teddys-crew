@@ -1,7 +1,12 @@
 {
   "name": "teddys-crews",
-  "version": "0.1.0",
-  "description": "Phaser game made in typescript, using Digisensitive Boilerplate",
+  "version": "1.0.0",
+  "description": "Phaser 3 Game written in TypeScript",
+  "main": "electron-main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuskat/Clonk-Project.git"
+  },
   "keywords": [
     "Phaser",
     "Phaser 3",
@@ -13,33 +18,26 @@
     "Phaser-framework"
   ],
   "devDependencies": {
-    "@types/lodash": "^4.14.136",
-    "expose-loader": "0.7.5",
-    "ts-loader": "6.0.4",
-    "typescript": "3.5.2",
-    "webpack": "4.35.2",
-    "webpack-cli": "3.3.5",
-    "webpack-dev-server": "3.7.2"
+    "@types/node": "^10.7.0",
+    "dir-obj": "^2.0.1",
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.0.1"
   },
   "dependencies": {
     "@sentry/browser": "^5.6.1",
     "phaser": "^3.19.0"
   },
   "scripts": {
-    "dev": "webpack --mode development && webpack-dev-server --mode development",
-    "build": "webpack --mode production && webpack-dev-server --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/digitsensitive/phaser3-typescript.git"
+    "build": "$(npm bin)/parcel build ./src/index.html",
+    "start": "./start.sh"
   },
   "author": {
     "name": "tuskat",
     "email": "cedric.marcelling@gmail.com"
   },
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/digitsensitive/phaser3-typescript/issues"
+    "url": "https://github.com/tuskat/Clonk-Project#readme"
   },
-  "homepage": "https://github.com/digitsensitive/phaser3-typescript#readme"
+  "homepage": "https://github.com/tuskat/Clonk-Project#readme"
 }
