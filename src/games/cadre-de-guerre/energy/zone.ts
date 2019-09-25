@@ -1,6 +1,6 @@
-import { GraphicEffects } from "../objects/graphicEffects";
+import { BaseSkill } from "./baseSkill";
 
-export class Skill extends GraphicEffects {
+export class Zone extends BaseSkill {
     private lifespan: number;
 
     constructor(params) {

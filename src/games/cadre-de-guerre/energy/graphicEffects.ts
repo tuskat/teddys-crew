@@ -1,5 +1,5 @@
 export class GraphicEffects extends Phaser.GameObjects.Sprite {
-    private gfxName: string = null;
+    protected gfxName: string = null;
 
     constructor(params) {
       super(params.scene, params.x, params.y, 'game-sfx', params.key + '.png');
@@ -26,5 +26,16 @@ export class GraphicEffects extends Phaser.GameObjects.Sprite {
         this.setActive(false);
         this.setVisible(false);
         this.destroy();
+    }
+
+    explode(effect = 'waterBulletHit'): void {
+      new GraphicEffects({
+        scene: this.scene,
+        x: this.x,
+        y: this.y,
+        key: 'Air_14_00000',
+        gfxName: effect,
+        flipX: this.flipX });
+      this.die();
     }
   }

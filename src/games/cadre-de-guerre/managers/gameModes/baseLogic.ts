@@ -37,7 +37,6 @@ export class BaseLogic {
     update(): void {
         if (this.onGoing) {
             this.toEachEnemy(this.updateEnemy);
-            this.toEachEnemy(this.checkCollision);
         }
     }
 
@@ -113,15 +112,17 @@ export class BaseLogic {
 
     protected setBulletCollision(enemy): void {
         // player bullets hit enemies
-        this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy,this.bulletHitEntity,null,this);
+        this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy,this.singleHitOnEntity,null,this);
         // player bullets erase enemies bullets
         this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy.getBullets(),this.bulletHitBullet,null,this);
         // player zoning erase enemies bullets
         this.scene.physics.add.overlap(this.scene.player.getMelee(),enemy.getBullets(),this.bulletHitBullet,null,this);
         // player zoning hit enemies
-        this.scene.physics.add.overlap(this.scene.player.getMelee(),enemy,this.meleeHitEntity,null,this);
+        this.scene.physics.add.overlap(this.scene.player.getMelee(),enemy,this.multiHitOnEntity,null,this);
         // enemies bullet hurt player
-        this.scene.physics.add.overlap(enemy.getBullets(),this.scene.player,this.bulletHitEntity,null);
+        this.scene.physics.add.overlap(enemy.getBullets(),this.scene.player,this.singleHitOnEntity,null);
+        // enemies zones hurt player
+        this.scene.physics.add.overlap(enemy.getMelee(),this.scene.player,this.singleHitOnEntity,null);
     }
     protected levelUpEnemy(enemy): void {
         enemy.levelUp();
@@ -148,37 +149,6 @@ export class BaseLogic {
         this.scene.gameEvent.emit(eventList.RoundStarted, null);
     }
 
-    // Collision
-    checkCollision(enemy): void {
-        if (this.objectsTouch(this.scene.player, enemy)) {
-            this.objectClashing(enemy);
-        }
-    }
-
-    protected objectsTouch(objectA, objectB): boolean {
-        if (objectA.body && objectB.body) {
-        let rect1 = new Phaser.Geom.Rectangle();
-        let rect2 = new Phaser.Geom.Rectangle();
-        rect1 = objectA.body.getBounds(rect1);
-        rect2 = objectB.body.getBounds(rect2);
-        return Phaser.Geom.Intersects.RectangleToRectangle(
-            rect1,
-            rect2
-        )
-        } else {
-            return false;
-        }
-    }
-
-    protected objectClashing(monster): void {
-        if (monster.state === CurrentState.Dashing) {
-          this.scene.player.hurt(monster);
-        }
-        if (this.scene.player.state === CurrentState.Dashing) {
-          monster.hurt(this.scene.player);
-        }
-    }
-
     // Bullet logic
     protected bulletHitLayer(bullet): void {
         bullet.destroy();
@@ -188,15 +158,15 @@ export class BaseLogic {
         obstacle.explode();
     }
 
-    protected bulletHitEntity(bullet, entity): void {
-        let bulletConnected = entity.hurt();
+    protected singleHitOnEntity(bullet, entity): void {
+        let bulletConnected = entity.hurt(bullet);
         if (bulletConnected !== -1) {
-            bullet.die();
+            bullet.explode();
         }
     }
 
-    protected meleeHitEntity(melee, entity): void {
-        entity.hurt();
+    protected multiHitOnEntity(melee, entity): void {
+        entity.hurt(melee);
     }
 
     // Getter

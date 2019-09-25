@@ -19,11 +19,10 @@ export class Game extends Phaser.Game {
   }
 }
 
-
 async function launch(): Promise<void> {
-  let debug = (process.env.NODE_ENV == 'development');
-
   let configJson: any = null;
+  let debug = process.env.NODE_ENV !== 'production' ? true : false;
+
   try {
       configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
       ObjectUtils.loadValuesIntoObject(configJson, Config);
@@ -40,7 +39,8 @@ async function launch(): Promise<void> {
       mode: Phaser.Scale.FIT,
       parent: 'game',
       width: Config.GAME_WIDTH,
-      height: Config.GAME_HEIGHT
+      height: Config.GAME_HEIGHT,
+      autoRound: true
   },
     parent: "game",
     scene: [BootScene, MenuScene, GameScene],
@@ -55,7 +55,11 @@ async function launch(): Promise<void> {
       }
     },
     backgroundColor: "#3A99D9",
-    render: { pixelArt: false, antialias: true }
+    render: { 
+      pixelArt: false, 
+      antialias: true,
+      clearBeforeRender: false
+    }
   };
   let game = new Game(config);
 }
@@ -79,12 +83,14 @@ function resize() {
   let windowRatio = windowWidth / windowHeight;
   let gameRatio = Config.GAME_WIDTH / Config.GAME_HEIGHT;
 
-  if(windowRatio < gameRatio){
-    canvas.style.width = windowWidth;
-    canvas.style.height = (windowWidth / gameRatio);
-  }
-  else {
-    canvas.style.width = (windowHeight * gameRatio);
-    canvas.style.height = windowHeight;
+  if (canvas) {
+    if(windowRatio < gameRatio){
+      canvas.style.width = windowWidth;
+      canvas.style.height = (windowWidth / gameRatio);
+    }
+    else {
+      canvas.style.width = (windowHeight * gameRatio);
+      canvas.style.height = windowHeight;
+    }
   }
 } 

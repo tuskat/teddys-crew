@@ -8,19 +8,8 @@ export class RoundMode extends BaseLogic {
     enemiesLevel = 1;
     startTime = 15;
 
-
     constructor(params) {
         super(params);
-    }
-
-    create(): void {
-    }
-
-    update(): void {
-        if (this.onGoing) {
-            this.toEachEnemy(this.updateEnemy);
-            this.toEachEnemy(this.checkCollision);
-        }
     }
 
     protected updateClock(): void {

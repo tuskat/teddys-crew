@@ -1,8 +1,8 @@
 import { CurrentState } from '../../../configs/enums/currentStates';
 import { GameScene } from '../../../scenes/gameScene';
-import { GraphicEffects } from '../../graphicEffects';
+import { GraphicEffects } from '../../../energy/graphicEffects';
 import { eventList } from '../../../configs/enums/eventList';
-import { MovingGraphicEffects } from '../../movingGraphicEffects';
+import { MovingGraphicEffects } from '../../../energy/movingGraphicEffects';
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
@@ -206,6 +206,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public hurt(entity = { power: 1 }): number {
     if (this.isVulnerable()) {
+      console.log(entity);
       if (this.actionPending) {
         this.actionPending.remove(false);
       }
@@ -216,13 +217,13 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.life = 0;
       }
       this.redrawLifebar();
-      if (this.life === 0) {
-        this.die();
-      } else if (this.life > 0) {
+      if (this.life > 0) {
         this.state = CurrentState.Hurting;
         this.isInvicible = true;
         this.setTint(0xFF6347);
         this.scene.time.delayedCall(this.invicibleFrame, this.endHurtingCallback, [], this);
+      } else {
+        this.die();
       }
       return this.life;
     }

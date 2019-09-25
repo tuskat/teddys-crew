@@ -2,14 +2,14 @@ import { BaseLogic } from "./baseLogic";
 import { eventList } from "../../configs/enums/eventList";
 
 export class SurvivalMode extends BaseLogic {
-    timeToNextBuff: number = 15000;
+    timeToNextBuff: number = 20000;
     playerLives: number = 1;
     timeSurvived: number = 0;
     buffEvent: Phaser.Time.TimerEvent;
 
     constructor(params) {
         super(params);
-        this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true});
+        this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
     }
 
     protected roundStarted(): void {
@@ -36,7 +36,7 @@ export class SurvivalMode extends BaseLogic {
 
     protected roundEnded(): void {
         this.onGoing = false;
-        this.scene.gameEvent.emit(eventList.GameOver, {sound: 'Misc03'});
+        this.scene.gameEvent.emit(eventList.GameOver, { sound: 'Misc03' });
     }
 
     // Getter
@@ -45,12 +45,15 @@ export class SurvivalMode extends BaseLogic {
     }
 
     protected IntensityUp(): void {
-        this.maxEnemies++;
-        this.enemiesLevel++;
-
-        this.toEachEnemy(this.levelUpEnemy);
-        let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
-        this.enemies.push(this.spawnEnemy(enemyType));
+        let intensityType = Math.random() < 0.5 ? 'Power' : 'Number';
+        if (intensityType === 'Number') {
+            this.maxEnemies++;
+            let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
+            this.enemies.push(this.spawnEnemy(enemyType));
+        } else {
+            this.enemiesLevel++;
+            this.toEachEnemy(this.levelUpEnemy);
+        }
     }
 
     protected playerDied(entity): void {

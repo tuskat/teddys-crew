@@ -1,8 +1,8 @@
 import { eventList } from "../../../configs/enums/eventList";
-import { MovingEntity } from "./movingEntity";
 import { CurrentState } from "../../../configs/enums/currentStates";
+import { AttackingEntity } from "./attackingEntity";
 
-export class LevellingEntity extends MovingEntity {
+export class LevellingEntity extends AttackingEntity {
 
   constructor(params) {
     super(params);
