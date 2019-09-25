@@ -206,7 +206,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public hurt(entity = { power: 1 }): number {
     if (this.isVulnerable()) {
-      console.log(entity);
       if (this.actionPending) {
         this.actionPending.remove(false);
       }
