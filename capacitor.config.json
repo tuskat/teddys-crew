@@ -1,0 +1,7 @@
+{
+  "appId": "com.example.teddyscrews",
+  "appName": "teddys-crews",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "build"
+}

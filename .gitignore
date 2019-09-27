@@ -7,6 +7,8 @@
 #-------------------------------------------------------------------------------
 dist
 builds
+electron
+build
 node_modules
 *.tsx
 yarn.lock
