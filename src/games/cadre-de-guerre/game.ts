@@ -23,12 +23,12 @@ async function launch(): Promise<void> {
   let configJson: any = null;
   let debug = process.env.NODE_ENV !== 'production' ? true : false;
 
-  // try {
-  //     configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
-  //     ObjectUtils.loadValuesIntoObject(configJson, Config);
-  // } catch (e) {
-  //     throw e;
-  // }
+  try {
+      configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
+      ObjectUtils.loadValuesIntoObject(configJson, Config);
+  } catch (e) {
+      throw e;
+  }
   // to clean up, eventually...
   const config: Phaser.Types.Core.GameConfig = {
     title: Config.TITLE,
