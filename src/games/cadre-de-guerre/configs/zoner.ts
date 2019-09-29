@@ -2,13 +2,13 @@ import enemiesEvents from "./enums/enemiesEvents";
 
 const config = {
     faction: 'foes',
-    life : 1,
+    life : 5,
     power: 1,
-    speed : 75,
-    baseXP: 2,
-    signatureSkill : 'shoot',
-    distanceToStop : 300,
-    delayToAction : 750,
+    speed : 175,
+    baseXP: 5,
+    signatureSkill : 'shield',
+    distanceToStop : 100,
+    delayToAction : 300,
     bulletSpeed : 250,
     events : enemiesEvents
 }

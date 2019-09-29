@@ -7,6 +7,8 @@ export class Enemy extends LevellingEntity {
     spawn: 'waterSpawn',
     explode: 'waterExplode',
     bullet: 'waterBullet',
+    bulletExplode: 'waterBulletHit',
+    shield: 'waterShield',
     levelUp: 'levelUp'
   }
   player: Player;
@@ -28,7 +30,7 @@ export class Enemy extends LevellingEntity {
       this.state === CurrentState.WindingUp);
   }
 
-  update(): void {
+  update(time, delta): void {
     if (this.blockingState()) {
       this.doNothing();
     }
@@ -40,11 +42,21 @@ export class Enemy extends LevellingEntity {
     }
     this.updatLifeBarPosition();
     this.updateFrame();
+    this.updateCooldown();
+  }
+
+  
+  updateCooldown(): void {
+    if (this.closedSkillCooldown > 0) {
+      this.closedSkillCooldown = 0;
+    }
   }
 
   updatLifeBarPosition(): void {
-    this.lifeBar.x = this.x;
-    this.lifeBar.y = this.y;
+    if (this.lifeBar) {
+      this.lifeBar.x = this.x;
+      this.lifeBar.y = this.y;
+    }
   }
 
   redrawLifebar(): void {

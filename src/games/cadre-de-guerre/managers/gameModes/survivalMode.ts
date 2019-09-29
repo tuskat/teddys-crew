@@ -2,7 +2,7 @@ import { BaseLogic } from "./baseLogic";
 import { eventList } from "../../configs/enums/eventList";
 
 export class SurvivalMode extends BaseLogic {
-    timeToNextBuff: number = 20000;
+    timeToNextBuff: number = 15000;
     playerLives: number = 1;
     timeSurvived: number = 0;
     buffEvent: Phaser.Time.TimerEvent;
@@ -45,14 +45,17 @@ export class SurvivalMode extends BaseLogic {
     }
 
     protected IntensityUp(): void {
-        let intensityType = Math.random() < 0.5 ? 'Power' : 'Number';
-        if (intensityType === 'Number') {
-            this.maxEnemies++;
-            let enemyType = Math.random() < 0.66 ? 'Dasher' : 'Shooter';
-            this.enemies.push(this.spawnEnemy(enemyType));
-        } else {
-            this.enemiesLevel++;
-            this.toEachEnemy(this.levelUpEnemy);
+        // let intensityType = Math.random() < 0.5 ? 'Power' : 'Number';
+        // if (intensityType === 'Number') {
+        this.maxEnemies++;
+        let enemyType = this.pickEnemy();
+        this.enemies.push(this.spawnEnemy(enemyType));
+        // if (intensityType === 'Number') {
+        this.enemiesLevel++;
+        this.toEachEnemy(this.levelUpEnemy);
+        // }
+        if (this.enemiesLevel % 5 === 0) {
+            this.redistributeEnemies();
         }
     }
 

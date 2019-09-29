@@ -1,15 +1,15 @@
+import enemiesEvents from "./enums/enemiesEvents";
+
 const config = {
     faction: 'foes',
     life: 3,
     power: 1,
     speed: 100,
+    baseXP: 3,
     signatureSkill: 'dash',
     distanceToStop: 100,
-    delayToAction: 500,
-    events: {
-      'hurt': {name: 'entityDamaged', sound: 'Damage01'},
-      'dash': {name: 'entityDashing', sound: 'Slash05'},
-    }
+    delayToAction: 400,
+    events : enemiesEvents
 }
 
 export default config

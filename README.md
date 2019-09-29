@@ -41,7 +41,6 @@ Room manager should be able to first :
 
 - add skill boxes.
 - add skill cooldown.
-- add combo.
 
 ### Enemies
 

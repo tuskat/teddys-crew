@@ -18,6 +18,7 @@ export class Zone extends BaseSkill {
       this.scene.physics.world.enable(this);
       this.body.setSize(80, 80, true);
       this.scale = 2;
+      this.on('animationcomplete', this.die, this);
     }
 
     update(time, delta): void {

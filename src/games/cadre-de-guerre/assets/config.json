@@ -1,6 +1,5 @@
 {
   "TITLE": "TEDDY'S CREW",
   "GAME_WIDTH": 1024,
-  "GAME_HEIGHT": 720,
-  "ASSETS": "/src/games/cadre-de-guerre/assets"
+  "GAME_HEIGHT": 720
 }

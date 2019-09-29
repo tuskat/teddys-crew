@@ -1,9 +1,11 @@
 import { GameScene } from "../../scenes/gameScene";
 import { Enemy } from "../../objects/entities/enemy";
-import { CurrentState } from '../../configs/enums/currentStates';
 import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
+import * as ZonerConfig from '../../configs/zoner';
 import { eventList } from "../../configs/enums/eventList";
+import { ObjectUtils } from "../../utils/objectUtils";
+const { matches } = require('z');
 
 export class BaseLogic {
     scene: GameScene;
@@ -83,31 +85,41 @@ export class BaseLogic {
         enemy.shouldRespawn = true;
     }
 
-    protected spawnEnemy(folder): any {
-        let config = (folder === 'Shooter') ? ShooterConfig : DasherConfig;
+    protected spawnEnemy(enemyClass): any {
+        let config = this.getEnemyClassConfig(enemyClass);
         let enemy = new Enemy({
             scene: this.scene,
             x: Phaser.Math.RND.integerInRange(100, 700),
             y: Phaser.Math.RND.integerInRange(100, 500),
-            key: folder + "/Idle",
+            key: enemyClass + "/Idle",
             player: this.scene.player,
-            config: config.default,
-            folder: folder,
+            config: config,
+            folder: enemyClass,
             level: this.enemiesLevel
         });
         this.setBulletCollision(enemy);
         return enemy;
     }
 
-    protected spawnInitialEnemies(): void {
+    protected redistributeEnemies(): any {
+        this.toEachEnemy(this.killSilentlyEnemy);
+        this.toEachEnemy(this.flushEnemy);
+        this.enemies = [];
+        this.batchSpawn();
+    }
+
+    protected batchSpawn(): void {
+        // divide the weight by the number of enemies  
         for (let i = 0; i != this.maxEnemies; i++) {
-            let enemyType = Math.random() < 0.66 ? 'Dasher' : 'Shooter';
+           let enemyType = this.pickEnemy();
             this.enemies.push(this.spawnEnemy(enemyType));
         }
-
         this.toEachEnemy((enemy: Enemy) => {
             this.setBulletCollision(enemy);
         });
+    }
+    protected spawnInitialEnemies(): void {
+        this.batchSpawn();
     }
 
     protected setBulletCollision(enemy): void {
@@ -181,5 +193,22 @@ export class BaseLogic {
     // Misc
     toEachEnemy(action): void {
         this.enemies.forEach(action, this);
+    }
+    // Todo : One function can do both
+    pickEnemy(): void {
+        let type = (parseInt(ObjectUtils.weightedRandomization({0:0.5, 1:0.3, 2:0.2})) + 1);
+        return matches(type)(
+            (x = 1) => 'Dasher',
+            (x = 2) => 'Shooter',
+            (x = 3) => 'Zoner'
+        );
+    }
+
+    getEnemyClassConfig(type): any {
+        return matches(type)(
+            (x = 'Dasher') => DasherConfig.default,
+            (x = 'Shooter') => ShooterConfig.default,
+            (x = 'Zoner') => ZonerConfig.default
+        );
     }
 }

@@ -60,7 +60,7 @@ export class AttackingEntity extends MovingEntity {
         gfxName: this.animationPreset.bullet,
         speed: this.bulletSpeed,
         power: this.power,
-        onExplode: this.animationPreset.explode
+        onExplode: this.animationPreset.bulletExplode
       })
     );
   }
@@ -123,7 +123,7 @@ export class AttackingEntity extends MovingEntity {
     if (!this.blockingState()) {
       this.body.reset(this.x, this.y);
       this.state = CurrentState.WindingUp;
-      this.actionPending = this.scene.time.delayedCall(this.actionDuration * 1.25, this.attackSkill, [], this);
+      this.actionPending = this.scene.time.delayedCall(this.delayToAction * 1.25, this.attackSkill, [], this);
     }
   }
 
@@ -143,7 +143,7 @@ export class AttackingEntity extends MovingEntity {
   protected shield(): void {
     if ((this.closedSkill.getLength() < 1) && (this.closedSkillCooldown <= 0)) {
       this.state = CurrentState.Shooting;
-      this.createCloseSkill('fireShield');
+      this.createCloseSkill(this.animationPreset.shield);
       this.closedSkillCooldown = this.closedSkillCooldownDuration;
       this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
       this.scene.time.delayedCall((this.actionDuration * 3), this.endActionCallback, [], this);
