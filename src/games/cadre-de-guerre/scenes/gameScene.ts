@@ -9,6 +9,7 @@ import { SoundEffects } from '../managers/userExperience/soundEffects';
 import { eventList } from '../configs/enums/eventList';
 import { SurvivalMode } from '../managers/gameModes/survivalMode';
 import { ComboManager } from '../managers/userExperience/comboManager';
+import { InfoHandler } from '../managers/userExperience/infoHandler';
 
 export class GameScene extends Phaser.Scene {
   public UI : UserInterface;
@@ -16,6 +17,7 @@ export class GameScene extends Phaser.Scene {
   private assetsLoader : AssetsLoader = null;
   private mapGenerator : mapGenerator = null;
   private soundEffectsManager : SoundEffects = null;
+  private infoHandler : InfoHandler = null;
   private waveManager;
   public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number;
@@ -32,6 +34,7 @@ export class GameScene extends Phaser.Scene {
 
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.mapGenerator = new mapGenerator({ scene: this });
+    this.infoHandler = new InfoHandler({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.gameEvent.on(eventList.GameOver, this.restartGame, this);
@@ -45,6 +48,7 @@ export class GameScene extends Phaser.Scene {
     this.soundEffectsManager.cleanse();
     this.UI.cleanse();
     this.comboWidget.cleanse();
+    this.infoHandler.cleanse();
     this.time.clearPendingEvents();
     this.time.removeAllEvents();
     this.game.events.removeAllListeners();
@@ -55,6 +59,7 @@ export class GameScene extends Phaser.Scene {
 
   preload(): void {
       this.assetsLoader.preloadAssets();
+      this.infoHandler.initInfoLog();
       this.soundEffectsManager.preloadSound();
       this.game.events.on('blur',function(){
         this.game.scene.pause('GameScene');
