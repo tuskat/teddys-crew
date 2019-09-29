@@ -101,7 +101,7 @@ export class BaseLogic {
 
     protected spawnInitialEnemies(): void {
         for (let i = 0; i != this.maxEnemies; i++) {
-            let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
+            let enemyType = Math.random() < 0.66 ? 'Dasher' : 'Shooter';
             this.enemies.push(this.spawnEnemy(enemyType));
         }
 

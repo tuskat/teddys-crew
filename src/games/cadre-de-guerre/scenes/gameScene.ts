@@ -80,9 +80,9 @@ export class GameScene extends Phaser.Scene {
       controller: player1input,
       x: this.sys.canvas.width / 2,
       y: this.sys.canvas.height / 2,
-      key: "Hero/Idle",
+      key: "Torb/Idle",
       config: PlayerConfig.default,
-      folder: "Hero"
+      folder: "Torb"
     });
 
     // create texts

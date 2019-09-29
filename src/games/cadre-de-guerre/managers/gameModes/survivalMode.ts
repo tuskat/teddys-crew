@@ -48,7 +48,7 @@ export class SurvivalMode extends BaseLogic {
         let intensityType = Math.random() < 0.5 ? 'Power' : 'Number';
         if (intensityType === 'Number') {
             this.maxEnemies++;
-            let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
+            let enemyType = Math.random() < 0.66 ? 'Dasher' : 'Shooter';
             this.enemies.push(this.spawnEnemy(enemyType));
         } else {
             this.enemiesLevel++;
