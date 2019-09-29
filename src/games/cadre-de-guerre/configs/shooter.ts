@@ -8,7 +8,8 @@ const config = {
     baseXP: 2,
     signatureSkill : 'shoot',
     distanceToStop : 300,
-    delayToAction : 750,
+    delayToAction : 650,
+    actionDuration: 600,
     bulletSpeed : 250,
     events : enemiesEvents
 }

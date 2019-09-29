@@ -6,10 +6,6 @@ import { Config } from "./config";
 import { ObjectUtils } from "./utils/objectUtils";
 import * as Sentry from '@sentry/browser';
 
-if (process.env.NODE_ENV !== 'production') {
-  Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
-}
-
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
@@ -24,12 +20,16 @@ async function launch(): Promise<void> {
   let configJson: any = null;
   let debug = process.env.NODE_ENV !== 'production' ? true : false;
 
-  try {
-      configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
-      ObjectUtils.loadValuesIntoObject(configJson, Config);
-  } catch (e) {
-      throw e;
+  if (!debug) {
+    Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
+      try {
+        configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
+        ObjectUtils.loadValuesIntoObject(configJson, Config);
+    } catch (e) {
+        throw e;
+    }
   }
+
   // to clean up, eventually...
   const config: Phaser.Types.Core.GameConfig = {
     title: Config.TITLE,

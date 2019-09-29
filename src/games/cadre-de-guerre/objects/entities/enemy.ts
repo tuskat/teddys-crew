@@ -66,7 +66,7 @@ export class Enemy extends LevellingEntity {
     this.lifeBar.clear();
     this.lifeBar.fillStyle(0xe66a28, 1);
     this.lifeBar.fillRect(
-      -this.width /4,
+      -this.width / 4,
       this.height / 3,
       (this.width / 2  ) * (this.life / this.maxLife),
       10

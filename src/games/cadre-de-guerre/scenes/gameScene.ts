@@ -1,4 +1,4 @@
-import * as PlayerConfig from '../configs/player';
+import * as PlayerConfig from '../configs/torb';
 
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';

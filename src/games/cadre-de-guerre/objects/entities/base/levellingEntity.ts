@@ -3,6 +3,8 @@ import { CurrentState } from "../../../configs/enums/currentStates";
 import { AttackingEntity } from "./attackingEntity";
 
 export class LevellingEntity extends AttackingEntity {
+  experience = 0;
+  experienceToLevelUp = 20;
 
   constructor(params) {
     super(params);
@@ -56,7 +58,7 @@ export class LevellingEntity extends AttackingEntity {
   protected levelUp(): void {
     this.level++;
     this.experience = this.experience - this.experienceToLevelUp;
-    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * 1.05));
+    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * .75));
     // to be decided separately later
     let buff = this.distributeStats();
     this.scene.gameEvent.emit(eventList.LevelUp,  { sound: 'PowerUp03', entity: this, buff: buff });

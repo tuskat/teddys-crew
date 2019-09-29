@@ -1,8 +1,9 @@
-import { GameScene } from "../../scenes/gameScene";
-import { Enemy } from "../../objects/entities/enemy";
 import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
 import * as ZonerConfig from '../../configs/zoner';
+
+import { GameScene } from "../../scenes/gameScene";
+import { Enemy } from "../../objects/entities/enemy";
 import { eventList } from "../../configs/enums/eventList";
 import { ObjectUtils } from "../../utils/objectUtils";
 const { matches } = require('z');
@@ -196,7 +197,7 @@ export class BaseLogic {
     }
     // Todo : One function can do both
     pickEnemy(): void {
-        let type = (parseInt(ObjectUtils.weightedRandomization({0:0.5, 1:0.3, 2:0.2})) + 1);
+        let type = (parseInt(ObjectUtils.weightedRandomization({0:0.5, 1:0.4, 2:0.1})) + 1);
         return matches(type)(
             (x = 1) => 'Dasher',
             (x = 2) => 'Shooter',

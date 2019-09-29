@@ -55,7 +55,7 @@ export class Player extends LevellingEntity {
 
   protected closeToCurser(): boolean {
     if (this.target) {
-    let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) / 2;
+    let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) * 2;
       if (distance < this.distanceToStop)
       {
         return true;

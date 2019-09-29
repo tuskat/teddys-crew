@@ -13,8 +13,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
   life = 1;
   maxLife = this.life;
   level = 1;
-  experience = 0;
-  experienceToLevelUp = 20;
   power = 1;
   state = CurrentState.Moving;
   speed = 100;
