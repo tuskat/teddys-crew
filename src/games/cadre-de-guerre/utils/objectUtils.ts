@@ -25,6 +25,17 @@ export class ObjectUtils {
       });
   }
 
+  public static randomString() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+  
+  public static weightedRandomization(spec) {
+    var i, sum=0, r=Math.random();
+    for (i in spec) {
+      sum += spec[i];
+      if (r <= sum) return i;
+    }
+  }
   // --------------------------------------------------------------------
   public static loadValuesIntoObject(jsonData: any, targetObject: any) {
 

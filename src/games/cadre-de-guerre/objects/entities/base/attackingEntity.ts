@@ -60,7 +60,7 @@ export class AttackingEntity extends MovingEntity {
         gfxName: this.animationPreset.bullet,
         speed: this.bulletSpeed,
         power: this.power,
-        onExplode: this.animationPreset.explode
+        onExplode: this.animationPreset.bulletExplode
       })
     );
   }

@@ -7,6 +7,7 @@ export class Enemy extends LevellingEntity {
     spawn: 'waterSpawn',
     explode: 'waterExplode',
     bullet: 'waterBullet',
+    bulletExplode: 'waterBulletHit',
     levelUp: 'levelUp'
   }
   player: Player;
@@ -43,8 +44,10 @@ export class Enemy extends LevellingEntity {
   }
 
   updatLifeBarPosition(): void {
-    this.lifeBar.x = this.x;
-    this.lifeBar.y = this.y;
+    if (this.lifeBar) {
+      this.lifeBar.x = this.x;
+      this.lifeBar.y = this.y;
+    }
   }
 
   redrawLifebar(): void {

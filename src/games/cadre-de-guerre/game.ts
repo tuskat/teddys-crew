@@ -4,10 +4,11 @@ import { GameScene } from "./scenes/gameScene";
 import { MenuScene } from "./scenes/menuScene";
 import { Config } from "./config";
 import { ObjectUtils } from "./utils/objectUtils";
-// import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/browser';
 
-// Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
-// Sentry.captureException(new Error("Something broke"));
+if (process.env.NODE_ENV !== 'production') {
+  Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
+}
 
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {

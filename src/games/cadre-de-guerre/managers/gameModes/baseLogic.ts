@@ -1,9 +1,9 @@
 import { GameScene } from "../../scenes/gameScene";
 import { Enemy } from "../../objects/entities/enemy";
-import { CurrentState } from '../../configs/enums/currentStates';
 import * as DasherConfig from '../../configs/dasher';
 import * as ShooterConfig from '../../configs/shooter';
 import { eventList } from "../../configs/enums/eventList";
+import { ObjectUtils } from "../../utils/objectUtils";
 
 export class BaseLogic {
     scene: GameScene;
@@ -99,15 +99,26 @@ export class BaseLogic {
         return enemy;
     }
 
-    protected spawnInitialEnemies(): void {
+    protected redistributeEnemies(): any {
+        this.toEachEnemy(this.killSilentlyEnemy);
+        this.toEachEnemy(this.flushEnemy);
+        this.enemies = [];
+        this.batchSpawn();
+    }
+
+    protected batchSpawn(): void {
+        // divide the weight by the number of enemies  
         for (let i = 0; i != this.maxEnemies; i++) {
-            let enemyType = Math.random() < 0.66 ? 'Enemy' : 'Shooter';
+            let type = ObjectUtils.weightedRandomization({0:0.7, 1:0.3})
+            let enemyType = type < 0.66 ? 'Enemy' : 'Shooter';
             this.enemies.push(this.spawnEnemy(enemyType));
         }
-
         this.toEachEnemy((enemy: Enemy) => {
             this.setBulletCollision(enemy);
         });
+    }
+    protected spawnInitialEnemies(): void {
+        this.batchSpawn();
     }
 
     protected setBulletCollision(enemy): void {
