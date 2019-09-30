@@ -4,11 +4,32 @@
 			"image": "game-scene.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 156,
-				"h": 2005
+				"w": 574,
+				"h": 509
 			},
 			"scale": 1,
 			"frames": [
+				{
+					"filename": "Zoner/Attack.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 154,
+						"h": 131
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 154,
+						"h": 131
+					}
+				},
 				{
 					"filename": "Torb/Hurt.png",
 					"rotated": false,
@@ -25,49 +46,7 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 1,
-						"w": 154,
-						"h": 130
-					}
-				},
-				{
-					"filename": "Torb/Idle.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 154,
-						"h": 130
-					},
-					"frame": {
-						"x": 1,
-						"y": 133,
-						"w": 154,
-						"h": 130
-					}
-				},
-				{
-					"filename": "Zoner/Attack.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 154,
-						"h": 130
-					},
-					"frame": {
-						"x": 1,
-						"y": 265,
+						"y": 134,
 						"w": 154,
 						"h": 130
 					}
@@ -87,8 +66,29 @@
 						"h": 130
 					},
 					"frame": {
+						"x": 157,
+						"y": 1,
+						"w": 152,
+						"h": 130
+					}
+				},
+				{
+					"filename": "Torb/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 152,
+						"h": 130
+					},
+					"frame": {
 						"x": 1,
-						"y": 397,
+						"y": 266,
 						"w": 152,
 						"h": 130
 					}
@@ -108,10 +108,31 @@
 						"h": 127
 					},
 					"frame": {
-						"x": 1,
-						"y": 529,
+						"x": 157,
+						"y": 133,
 						"w": 148,
 						"h": 127
+					}
+				},
+				{
+					"filename": "Zoner/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 0,
+						"w": 141,
+						"h": 131
+					},
+					"frame": {
+						"x": 311,
+						"y": 1,
+						"w": 141,
+						"h": 131
 					}
 				},
 				{
@@ -129,35 +150,35 @@
 						"h": 128
 					},
 					"frame": {
-						"x": 1,
-						"y": 658,
+						"x": 307,
+						"y": 134,
 						"w": 142,
 						"h": 128
 					}
 				},
 				{
-					"filename": "Dasher/Dash.png",
+					"filename": "Zoner/WindingUp.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
 						"w": 154,
-						"h": 131
+						"h": 154
 					},
 					"spriteSourceSize": {
-						"x": 7,
-						"y": 0,
-						"w": 137,
-						"h": 130
+						"x": 0,
+						"y": 39,
+						"w": 154,
+						"h": 109
 					},
 					"frame": {
 						"x": 1,
-						"y": 788,
-						"w": 137,
-						"h": 130
+						"y": 398,
+						"w": 154,
+						"h": 109
 					}
 				},
 				{
-					"filename": "Zoner/Idle.png",
+					"filename": "Zoner/Hurt.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -165,58 +186,16 @@
 						"h": 131
 					},
 					"spriteSourceSize": {
-						"x": 12,
+						"x": 19,
 						"y": 0,
-						"w": 134,
+						"w": 112,
 						"h": 131
 					},
 					"frame": {
-						"x": 1,
-						"y": 920,
-						"w": 134,
+						"x": 454,
+						"y": 1,
+						"w": 112,
 						"h": 131
-					}
-				},
-				{
-					"filename": "Shooter/Attack.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 8,
-						"y": 0,
-						"w": 128,
-						"h": 131
-					},
-					"frame": {
-						"x": 1,
-						"y": 1053,
-						"w": 128,
-						"h": 131
-					}
-				},
-				{
-					"filename": "Dasher/Idle.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 7,
-						"w": 135,
-						"h": 124
-					},
-					"frame": {
-						"x": 1,
-						"y": 1186,
-						"w": 135,
-						"h": 124
 					}
 				},
 				{
@@ -234,10 +213,52 @@
 						"h": 129
 					},
 					"frame": {
-						"x": 1,
-						"y": 1312,
+						"x": 451,
+						"y": 134,
 						"w": 122,
 						"h": 129
+					}
+				},
+				{
+					"filename": "Dasher/Dash.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 0,
+						"w": 137,
+						"h": 130
+					},
+					"frame": {
+						"x": 157,
+						"y": 262,
+						"w": 137,
+						"h": 130
+					}
+				},
+				{
+					"filename": "Dasher/Idle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 7,
+						"w": 135,
+						"h": 124
+					},
+					"frame": {
+						"x": 296,
+						"y": 264,
+						"w": 135,
+						"h": 124
 					}
 				},
 				{
@@ -255,9 +276,51 @@
 						"h": 111
 					},
 					"frame": {
-						"x": 1,
-						"y": 1443,
+						"x": 157,
+						"y": 394,
 						"w": 136,
+						"h": 111
+					}
+				},
+				{
+					"filename": "Shooter/Attack.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 0,
+						"w": 128,
+						"h": 131
+					},
+					"frame": {
+						"x": 433,
+						"y": 265,
+						"w": 128,
+						"h": 131
+					}
+				},
+				{
+					"filename": "Shooter/Hurt.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 154,
+						"h": 131
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 16,
+						"w": 118,
+						"h": 111
+					},
+					"frame": {
+						"x": 296,
+						"y": 390,
+						"w": 118,
 						"h": 111
 					}
 				},
@@ -276,73 +339,10 @@
 						"h": 110
 					},
 					"frame": {
-						"x": 1,
-						"y": 1556,
+						"x": 416,
+						"y": 398,
 						"w": 136,
 						"h": 110
-					}
-				},
-				{
-					"filename": "Zoner/WindingUp.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 25,
-						"w": 153,
-						"h": 99
-					},
-					"frame": {
-						"x": 1,
-						"y": 1668,
-						"w": 153,
-						"h": 99
-					}
-				},
-				{
-					"filename": "Shooter/Hurt.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 16,
-						"w": 118,
-						"h": 111
-					},
-					"frame": {
-						"x": 1,
-						"y": 1769,
-						"w": 118,
-						"h": 111
-					}
-				},
-				{
-					"filename": "Zoner/Hurt.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 154,
-						"h": 131
-					},
-					"spriteSourceSize": {
-						"x": 10,
-						"y": 9,
-						"w": 107,
-						"h": 122
-					},
-					"frame": {
-						"x": 1,
-						"y": 1882,
-						"w": 107,
-						"h": 122
 					}
 				}
 			]
@@ -351,6 +351,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:713b066118937dfe800a14495270ecce:87b4ff4838945cbb4edf83db07ca2695:dc7b5edd0e40ba0230d2635193b8305a$"
+		"smartupdate": "$TexturePacker:SmartUpdate:b356c84899c9d83f4f022ed9b85075a9:a6d435a8f2658c02aa584436e4554bd8:dc7b5edd0e40ba0230d2635193b8305a$"
 	}
 }
