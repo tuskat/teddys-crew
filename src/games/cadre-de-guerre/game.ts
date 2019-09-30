@@ -24,7 +24,9 @@ async function launch(): Promise<void> {
     Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
       try {
         configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
-        ObjectUtils.loadValuesIntoObject(configJson, Config);
+        if (configJson) {
+          ObjectUtils.loadValuesIntoObject(configJson, Config);
+        }
     } catch (e) {
         throw e;
     }

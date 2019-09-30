@@ -24,6 +24,7 @@ const config = {
         explode: 'explode',
         bulletExplode: 'explode',
         bullet: 'fire',
+        dash: 'fireDash',
         shield: 'fireShield',
         levelUp: 'levelUp'
     }

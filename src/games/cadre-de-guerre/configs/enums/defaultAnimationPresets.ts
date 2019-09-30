@@ -3,6 +3,7 @@ const defaultAnimtationPresets = {
     explode: 'explode',
     bulletExplode: 'explode',
     bullet: 'fire',
+    dash: 'fire',
     levelUp: 'levelUp',
     shield: 'fireShield'
 };

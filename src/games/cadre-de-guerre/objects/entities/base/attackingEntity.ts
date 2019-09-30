@@ -79,7 +79,7 @@ export class AttackingEntity extends MovingEntity {
     );
   }
 
-  protected createDashSkill(animation = 'fire', rotation= 0): void {
+  protected createDashSkill(animation = 'fire', rotation = 0): void {
     this.closedSkill.add(
       new MovingZone({
         scene: this.scene,
@@ -130,7 +130,7 @@ export class AttackingEntity extends MovingEntity {
   protected dash(): void {
     this.state = CurrentState.Dashing;
     this.createGraphicEffect('dash');
-    this.createDashSkill(this.animationPreset.bullet, this.getAngle());
+    this.createDashSkill(this.animationPreset.dash, this.getAngle());
     this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
     this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
     this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);

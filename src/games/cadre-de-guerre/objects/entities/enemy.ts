@@ -7,6 +7,7 @@ export class Enemy extends LevellingEntity {
     spawn: 'waterSpawn',
     explode: 'waterExplode',
     bullet: 'waterBullet',
+    dash: 'waterBullet',
     bulletExplode: 'waterBulletHit',
     shield: 'waterShield',
     levelUp: 'levelUp'

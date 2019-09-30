@@ -14,8 +14,9 @@ export class MovingZone extends BaseSkill {
     
     private initZone(): void {
       // image
-      this.flipX = false;
-      this.setDepth(0);
+      this.flipX = true;
+      this.blendMode = Phaser.BlendModes.SCREEN;
+      this.setDepth(2);
       this.body.setSize(80,80, true);
       // physics
     }
