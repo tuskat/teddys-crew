@@ -9,6 +9,7 @@ dist
 builds
 electron
 build
+built
 node_modules
 *.tsx
 yarn.lock
