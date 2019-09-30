@@ -1,10 +1,44 @@
 # Misc Ressources and To-Do
 
-## Character
-Bears with insects masks. Starters will be :
-- Stag Beetle : Offensive slashing dash. 10hp
-- Rhino Beetle : Bumping dash. 15hp?
-- Rosalia Longhorn : Dash leave trail of fire. 7hp?
+## Characters
+
+Bears with Masks :
+
+### Torb
+Yes, Torbjorn for short...The "average/medium/starter/soldier76" of the game
+
+BASE HP: 10;
+BASE POWER: 1;
+BASE SPEED: 200;
+
+
+- Element : fire
+- Dash : hurt once on impact.
+  - Passive : Get bigger as combo get bigger. (30% max)
+- Fireball : hurt once on impact.
+  - Passive : chance to add burn status as combo get bigger. (max % TBD)
+- FireShield : hurt as long as present (3 seconds)
+  - Passive : Heals % on kills according to combo counter (max % TBD)
+
+### Ors
+The thicc boi
+
+BASE HP: 14;
+BASE POWER: 3;
+BASE SPEED: 150;
+
+- Element : rocks
+- Dash : hut and move on impact.
+  - Passive : if enemies touch walls, extra damage to be dealt
+- Pocket Rock : Hurt
+  - Passive : Stagger
+- RockShield : Move with Ors/Hurt as long as present (TBD)
+  - Enemies collide with it (as in are blocked by it)
+
+### Helt
+The windy boi
+
+TBC
 
 ## To do
 
