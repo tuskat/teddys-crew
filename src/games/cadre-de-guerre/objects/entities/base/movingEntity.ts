@@ -2,6 +2,7 @@ import { Entity } from "./entity";
 import { CurrentState } from '../../../configs/enums/currentStates';
 
 export class MovingEntity extends Entity {
+  isBreathing: boolean = false;
 
   constructor(params) {
     super(params);
@@ -67,10 +68,30 @@ export class MovingEntity extends Entity {
       }
       case CurrentState.Moving: {
         this.setFrame(this.spriteFolder + '/Idle' + extension);
+        this.startBreath();
         break;
       }
     }
     this.previousState = this.state;
+  }
+
+  protected startBreath(): void {
+    if (this.isBreathing === false) {
+      this.scene.add.tween({
+          targets: [this],
+          scaleY: 0.475, 
+          duration: 500, 
+          ease: 'Circular.easeInOut',
+          hold: 200, 
+          yoyo: true,
+          loop: -1,
+          onComplete: this.endBreath.bind(this)
+      });
+      this.isBreathing = true;
+    }
+  }
+  protected endBreath(): void {
+    this.isBreathing = false;
   }
 
   protected endActionCallback(): void {

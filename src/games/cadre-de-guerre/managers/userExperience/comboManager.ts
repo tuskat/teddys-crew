@@ -79,7 +79,6 @@ export class ComboManager {
         this.rush++;
         this.comboTime = this.timeToClear;
         this.updateCombo();
-        // this.showComboBar();
     }
   }
 

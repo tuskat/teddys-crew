@@ -169,10 +169,10 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
   }
 
-  protected die(sound = true): void {
+  protected die(sound = true, playerKill = true): void {
     if (!this.isDead()) {
       if (sound) {
-        this.scene.gameEvent.emit(eventList.Dying, { sound: 'Explosion7', experience: this.getExperience(), faction: this.faction });
+        this.scene.gameEvent.emit(eventList.Dying, { sound: 'Explosion7', experience: playerKill ? this.getExperience() : 0, faction: this.faction });
         this.createGraphicEffect(this.animationPreset.explode);
         this.scene.gameEvent.emit(eventList.ScoreUpdate);
         this.setFrame(this.spriteFolder + '/Idle' + '.png');

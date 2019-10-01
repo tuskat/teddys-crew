@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
   public UI : UserInterface;
   public comboWidget: ComboManager;
   private assetsLoader : AssetsLoader = null;
-  private mapGenerator : mapGenerator = null;
+  public mapGenerator : mapGenerator = null;
   private soundEffectsManager : SoundEffects = null;
   private infoHandler : InfoHandler = null;
   private waveManager;
@@ -77,7 +77,6 @@ export class GameScene extends Phaser.Scene {
     // Pause when out of foccin focus
     this.assetsLoader.loadAllAnimation();
     this.mapGenerator.create();
-
     // create objects
     let player1input = new MouseController(this.scene);
     this.player = new Player({
@@ -95,7 +94,6 @@ export class GameScene extends Phaser.Scene {
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
     this.comboWidget = new ComboManager({scene : this, gameEvent : this.gameEvent});
     this.restartRound();
-
     if (!this.isLinuxFirefox()) {
       this.soundEffectsManager.initSound();
     }

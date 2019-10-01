@@ -21,6 +21,8 @@ export class BaseLogic {
 
     constructor(params) {
         this.scene = params.scene;
+        this.setBackgroundCollision(this.scene.player);
+        
         this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true});
         this.scene.gameEvent.on(eventList.StartRound, this.startRound, this);
         this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
@@ -32,9 +34,6 @@ export class BaseLogic {
         this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);
         this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
         this.timedEvent.remove(false);
-    }
-
-    create(): void {
     }
 
     update(): void {
@@ -64,7 +63,7 @@ export class BaseLogic {
     }
 
     protected killEnemy(enemy): void {
-        enemy.die();
+        enemy.die(true, false);
     }
 
     protected flushEnemy(enemy): void {
@@ -98,15 +97,17 @@ export class BaseLogic {
             folder: enemyClass,
             level: this.enemiesLevel
         });
-        this.setBulletCollision(enemy);
+        this.setAllOverlaps(enemy);
+        this.setBackgroundCollision(enemy);
         return enemy;
     }
 
     protected redistributeEnemies(): any {
-        this.toEachEnemy(this.killSilentlyEnemy);
+        this.toEachEnemy(this.killEnemy);
         this.toEachEnemy(this.flushEnemy);
         this.enemies = [];
         this.batchSpawn();
+        this.toEachEnemy(this.killSilentlyEnemy);
     }
 
     protected batchSpawn(): void {
@@ -115,15 +116,12 @@ export class BaseLogic {
            let enemyType = this.pickEnemy();
             this.enemies.push(this.spawnEnemy(enemyType));
         }
-        this.toEachEnemy((enemy: Enemy) => {
-            this.setBulletCollision(enemy);
-        });
     }
     protected spawnInitialEnemies(): void {
         this.batchSpawn();
     }
 
-    protected setBulletCollision(enemy): void {
+    protected setAllOverlaps(enemy): void {
         // player bullets hit enemies
         this.scene.physics.add.overlap(this.scene.player.getBullets(),enemy,this.singleHitOnEntity,null,this);
         // player bullets erase enemies bullets
@@ -136,6 +134,11 @@ export class BaseLogic {
         this.scene.physics.add.overlap(enemy.getBullets(),this.scene.player,this.singleHitOnEntity,null);
         // enemies zones hurt player
         this.scene.physics.add.overlap(enemy.getMelee(),this.scene.player,this.singleHitOnEntity,null);
+    }
+    protected setBackgroundCollision(entity) {
+        this.scene.physics.add.collider(entity, this.scene.mapGenerator.getGroundLayer());
+        // bullet hit background
+        this.scene.physics.add.collider(this.scene.mapGenerator.getGroundLayer(), entity.getBullets());
     }
     protected levelUpEnemy(enemy): void {
         enemy.levelUp();
@@ -164,7 +167,7 @@ export class BaseLogic {
 
     // Bullet logic
     protected bulletHitLayer(bullet): void {
-        bullet.destroy();
+        bullet.explode();
     }
 
     protected bulletHitBullet(bullet, obstacle): void {
