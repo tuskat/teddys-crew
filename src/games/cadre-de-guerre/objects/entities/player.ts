@@ -17,7 +17,7 @@ export class Player extends LevellingEntity {
   protected initBody(): void {
     this.body.maxVelocity.x = this.maxSpeedX;
     this.body.maxVelocity.y = this.maxSpeedY;
-    this.body.setSize(80, 80);
+    this.body.setSize(40, 40, true);
     this.body.setOffset(this.width / 4, this.height / 3);
   }
 

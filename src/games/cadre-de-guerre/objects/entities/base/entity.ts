@@ -41,8 +41,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
-    this.scene.physics.world.enable(this);
-    this.body.setCollideWorldBounds(true);
+
     this.initVariables(params.config);
     this.initImage();
 
@@ -51,6 +50,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
     this.createShadow();
     this.setDepth(1);
+    this.scene.physics.world.enable(this);
+    this.body.setCollideWorldBounds(true);
   }
 
   cleanse(): void {
@@ -81,8 +82,8 @@ export class Entity extends Phaser.GameObjects.Sprite {
   }
 
   protected initImage(): void {
-    this.scale = 0.5;
     this.setOrigin(0.5, 0.5);
+    this.scale = 1;
   }
  
   updatShadowPosition(): void {

@@ -79,7 +79,7 @@ export class MovingEntity extends Entity {
     if (this.isBreathing === false) {
       this.scene.add.tween({
           targets: [this],
-          scaleY: 0.475, 
+          scaleY: 0.975, 
           duration: 500, 
           ease: 'Circular.easeInOut',
           hold: 200, 
