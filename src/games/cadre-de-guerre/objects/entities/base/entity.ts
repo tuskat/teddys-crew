@@ -151,7 +151,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         getStart: () => 0,
         getEnd: () => 1
       },
-      duration: this.delayToAction,
+      duration: 200,
       onComplete: this.doneRespawning.bind(this)
     });
   }

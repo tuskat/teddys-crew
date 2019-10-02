@@ -1,4 +1,7 @@
+import { GameScene } from "../scenes/gameScene";
+
 export class GraphicEffects extends Phaser.GameObjects.Sprite {
+    protected scene: GameScene;
     protected gfxName: string = null;
 
     constructor(params) {

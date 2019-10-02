@@ -8,7 +8,7 @@ const config = {
     baseXP: 3,
     signatureSkill: 'dash',
     distanceToStop: 100,
-    delayToAction: 400,
+    delayToAction: 600,
     events : enemiesEvents
 }
 

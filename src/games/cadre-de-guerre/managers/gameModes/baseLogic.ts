@@ -133,12 +133,10 @@ export class BaseLogic {
         // enemies bullet hurt player
         this.scene.physics.add.overlap(enemy.getBullets(),this.scene.player,this.singleHitOnEntity,null);
         // enemies zones hurt player
-        this.scene.physics.add.overlap(enemy.getMelee(),this.scene.player,this.singleHitOnEntity,null);
+        this.scene.physics.add.overlap(enemy.getMelee(),this.scene.player,this.multiHitOnEntity,null);
     }
     protected setBackgroundCollision(entity) {
         this.scene.physics.add.collider(entity, this.scene.mapGenerator.getGroundLayer());
-        // bullet hit background
-        this.scene.physics.add.collider(this.scene.mapGenerator.getGroundLayer(), entity.getBullets());
     }
     protected levelUpEnemy(enemy): void {
         enemy.levelUp();

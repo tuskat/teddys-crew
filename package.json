@@ -22,11 +22,11 @@
     "typescript": "3.5.2",
     "webpack": "4.35.2",
     "webpack-cli": "3.3.5",
-    "webpack-dev-server": "3.7.2"
+    "webpack-dev-server": "3.7.2",
+    "@capacitor/cli": "^1.2.1",
+    "@capacitor/core": "^1.2.1"
   },
   "dependencies": {
-    "@capacitor/cli": "^1.2.1",
-    "@capacitor/core": "^1.2.1",
     "@sentry/browser": "^5.6.1",
     "phaser": "^3.19.0",
     "z": "^1.0.9"

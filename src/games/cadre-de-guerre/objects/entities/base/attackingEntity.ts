@@ -17,7 +17,7 @@ export class AttackingEntity extends MovingEntity {
 
     this.rangedSkill = this.scene.add.group({
       classType: Projectile,
-      maxSize: 1,
+      maxSize: 2,
       runChildUpdate: true
     });
 
@@ -49,8 +49,8 @@ export class AttackingEntity extends MovingEntity {
     }
   }
 
-  protected createBullet(rotation): void {
-    this.rangedSkill.add(
+  protected createBullet(rotation): Projectile {
+    return this.rangedSkill.add(
       new Projectile({
         scene: this.scene,
         x: this.x,
@@ -65,8 +65,8 @@ export class AttackingEntity extends MovingEntity {
     );
   }
 
-  protected createCloseSkill(animation = 'fireShield'): void {
-    this.closedSkill.add(
+  protected createCloseSkill(animation = 'fireShield'): Zone {
+    return this.closedSkill.add(
       new Zone({
         scene: this.scene,
         x: this.x,
@@ -79,8 +79,8 @@ export class AttackingEntity extends MovingEntity {
     );
   }
 
-  protected createDashSkill(animation = 'fire', rotation = 0): void {
-    this.closedSkill.add(
+  protected createDashSkill(animation = 'fire', rotation = 0): MovingZone {
+    return this.closedSkill.add(
       new MovingZone({
         scene: this.scene,
         x: this.x,
@@ -123,7 +123,7 @@ export class AttackingEntity extends MovingEntity {
     if (!this.blockingState()) {
       this.body.reset(this.x, this.y);
       this.state = CurrentState.WindingUp;
-      this.actionPending = this.scene.time.delayedCall(this.delayToAction * 1.25, this.attackSkill, [], this);
+      this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.attackSkill, [], this);
     }
   }
 
@@ -153,10 +153,10 @@ export class AttackingEntity extends MovingEntity {
   protected handleShooting(): void {
     if (this.scene.time.now > this.lastShoot) {
       if (this.rangedSkill.getLength() < 2) {
-        this.createBullet(this.getAngle());
+        let bullet = this.createBullet(this.getAngle());
         this.lastShoot = this.scene.time.now + 400;
         this.state = CurrentState.Shooting;
-        this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound });
+        this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound, entity: bullet });
         this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
       }
     }

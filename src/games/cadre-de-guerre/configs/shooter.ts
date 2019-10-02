@@ -5,12 +5,12 @@ const config = {
     life : 1,
     power: 1,
     speed : 75,
-    baseXP: 2,
+    baseXP: 4,
     signatureSkill : 'shoot',
-    distanceToStop : 300,
-    delayToAction : 650,
+    distanceToStop : 250,
+    delayToAction : 750,
     actionDuration: 600,
-    bulletSpeed : 250,
+    bulletSpeed : 225,
     events : enemiesEvents
 }
 
