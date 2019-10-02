@@ -2,16 +2,18 @@ import { CurrentState } from '../../configs/enums/currentStates';
 import { GameScene } from '../../scenes/gameScene';
 import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
+import { BaseController } from '../../helpers/inputs/baseController';
 
 export class Player extends LevellingEntity {
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
+  closeSkillsHandler = null;
 
   constructor(params) {
     super(params);
     this.initBody();
-    this.initInput(params.controller.getEmitter());
+    this.initInput(params.controller);
   }
 
   protected initBody(): void {
@@ -21,11 +23,17 @@ export class Player extends LevellingEntity {
     this.body.setOffset(this.width / 4, this.height / 3);
   }
 
-  protected initInput(emitter): void {
-    this.inputEvent = emitter;
-    this.inputEvent.on('dbuttonpressed', this.dashToClick, this);
-    this.inputEvent.on('bbuttonpressed', this.shootToClick, this);
-    this.inputEvent.on('cursormoved', this.handlePointer, this);
+  protected initInput(controller: BaseController): void {
+    this.inputEvent = controller.getEmitter();
+    this.closeSkillsHandler = controller.getDashHandler();
+    if (controller.name === 'MouseController') {
+      this.inputEvent.on('dashButtonPressed', this.meleeClick, this);
+    } else {
+      this.inputEvent.on('dashButtonPressed', this.dashToClick, this);
+      this.inputEvent.on('shieldButtonPressed', this.shieldToClick, this);
+    }
+    this.inputEvent.on('shootButtonPressed', this.shootToClick, this);
+    this.inputEvent.on('cursorMoved', this.handlePointer, this);
   }
 
   protected updatePosition(): void {
@@ -53,7 +61,7 @@ export class Player extends LevellingEntity {
     return true;
   }
 
-  protected closeToCurser(): boolean {
+  protected closeToCursor(): boolean {
     if (this.target) {
     let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) * 2;
       if (distance < this.distanceToStop)
@@ -71,7 +79,7 @@ export class Player extends LevellingEntity {
     this.target.x = pointer.x;
     this.target.y = pointer.y;
       // Move at 200 px/s:
-    if (!this.closeToCurser()) {
+    if (!this.closeToCursor()) {
       this.scene.physics.moveToObject(this, this.target, this.speed);
     } else{
       this.body.reset(this.target.x, this.target.y);
@@ -86,13 +94,16 @@ export class Player extends LevellingEntity {
     }
   }
 
+  protected meleeClick(pointer): void {
+    this.closeSkillsHandler(this, pointer);
+  }
+
   protected dashToClick(pointer): void {
-    let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
-    if (distance > 15) {
       this.useSkill(pointer, 'dash');
-    } else {
-      this.useSkill(pointer, 'shield');
-    }
+  }
+
+  protected shieldToClick(pointer): void {
+    this.useSkill(pointer, 'shield');
   }
 
   protected shootToClick(pointer): void {
