@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "game-tileset.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 352,
+				"h": 352
+			},
+			"scale": 0.5,
+			"frames": [
+				{
+					"filename": "tilesetTest1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 350,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 350,
+						"h": 350
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 350,
+						"h": 350
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:772c434cdd1bfc176a94d8f000b0d2a4:56de43a2821116dadcdaf749f692b1e3:4b270c1c060b718023ff56135ed2eb84$"
+	}
+}

@@ -128,11 +128,13 @@ export class AttackingEntity extends MovingEntity {
   }
 
   protected dash(): void {
+    //  get target position.
+    // if out of bounds -> target in bound
     this.state = CurrentState.Dashing;
     this.createGraphicEffect('dash');
     this.createDashSkill(this.animationPreset.dash, this.getAngle());
     this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
-    this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
+    this.scene.physics.moveToObject(this, this.target, this.speed);
     this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
   }
 
