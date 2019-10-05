@@ -45,7 +45,7 @@ export class Projectile extends BaseSkill {
     bounceOnCollide(bullet, tile) {
       let rad = Phaser.Math.Angle.Between(bullet.x, bullet.y, tile.x, tile.y);
       let bounce = false; 
-      [0, 1, 3, 4, 7, 12, 13, 15].forEach((id) => {
+      [0, 1, 3, 4, 11, 12, 13, 15].forEach((id) => {
         if (tile.index === id) {
           this.rotation = rad;
           bounce = true;
@@ -57,7 +57,7 @@ export class Projectile extends BaseSkill {
     explodeOnCollide(bullet, tile) {
       let bounce = false; 
       if (this.lifespan <= 900) {
-        [0, 1, 3, 4, 7, 12, 13, 15].forEach((id) => {
+        [0, 1, 3, 4, 11, 12, 13, 15].forEach((id) => {
           if (tile.index === id) {
             bullet.explode();
             bounce = true;

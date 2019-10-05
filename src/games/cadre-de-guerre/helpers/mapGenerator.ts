@@ -26,7 +26,7 @@ export class mapGenerator {
         this.groundLayer.fill(1, 0, 0, this.map.width, 1);
         this.groundLayer.fill(13, 0, this.map.height - 1, this.map.width, 1);
         this.groundLayer.fill(4, 0, 0, 1, this.map.height);
-        this.groundLayer.fill(7, this.map.width - 1, 0, 1, this.map.height); // right
+        this.groundLayer.fill(11, this.map.width - 1, 0, 1, this.map.height); // right
         // top left, top right, bottom left, bottom right
         this.groundLayer.putTileAt(0, 0, 0);
         this.groundLayer.putTileAt(3, this.map.width - 1, 0);
@@ -40,7 +40,7 @@ export class mapGenerator {
         // Fill the floor with random ground tiles
         this.groundLayer.weightedRandomize(1, 1, this.map.width - 2, this.map.height - 2, [
             { index: 5, weight: 20 }, // Regular floor tile (4x more likely)
-            { index: 6, weight: 0.5 }, // Tile variation with 1 rock
+            { index: 6, weight: 2 }, // Tile variation with 1 rock
             { index: 9, weight: 5 }, // Tile variation with 1 rock
             { index: 10, weight: 0.5 } // Tile variation with 1 rock
         ]);
@@ -53,7 +53,7 @@ export class mapGenerator {
         //     { index: 125, weight: 0.25 }, // Chest
         //     { index: 124, weight: 0.25 } // Trap door
         // ]);
-        this.groundLayer.setCollision([0, 1, 3, 4, 7, 12, 13, 15]);
+        this.groundLayer.setCollision([0, 1, 3, 4, 11, 12, 13, 15]);
         // this.groundLayer.setCollision([172, 240, 205, 207, 171, 173, 241, 239], true);
         // this.objectLayer.setCollision([124,125], true);
     }

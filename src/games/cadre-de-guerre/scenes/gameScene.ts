@@ -41,8 +41,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   cleanse(): void {
-    this.gameEvent.off(eventList.RoundEnded, this.restartRound, this);
-    this.gameEvent.off(eventList.GameOver, this.restartGame, this);
+    // All events listenings are removed, shouldn't need to gameEvent.off on Scene
     this.player.cleanse();
     this.waveManager.cleanse();
     this.soundEffectsManager.cleanse();
