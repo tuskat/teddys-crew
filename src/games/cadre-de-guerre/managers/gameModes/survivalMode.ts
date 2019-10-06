@@ -28,7 +28,7 @@ export class SurvivalMode extends BaseLogic {
 
     protected roundEnded(): void {
         this.onGoing = false;
-        this.scene.gameEvent.emit(eventList.GameOver, { sound: 'Misc03' });
+        this.scene.gameEvent.emit(eventList.GameOver, { sound: 'Misc03', name: 'GameOver' });
     }
 
     // Getter
