@@ -12,8 +12,6 @@ import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
 
 export class GameScene extends Phaser.Scene {
-  public showUserInterfaceEvent: Event;
-  public hideUserInterfaceEvent: Event;
   public UI : UserInterface;
   public comboWidget: ComboManager;
   private assetsLoader : AssetsLoader = null;
@@ -33,8 +31,7 @@ export class GameScene extends Phaser.Scene {
     if (this.gameEvent === null) {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
-    this.showUserInterfaceEvent = new Event('showUI');
-    this.hideUserInterfaceEvent = new Event('hideUI');
+  
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.mapGenerator = new mapGenerator({ scene: this });
     this.infoHandler = new InfoHandler({ scene: this });
@@ -63,14 +60,23 @@ export class GameScene extends Phaser.Scene {
       this.assetsLoader.preloadAssets();
       this.infoHandler.initInfoLog();
       this.soundEffectsManager.preloadSound();
+      window.addEventListener('resumeGame', this.resumeGame.bind(this));
       this.game.events.on('blur',function(){
-        this.game.scene.pause('GameScene');
-        window.dispatchEvent(this.showUserInterfaceEvent);
+        this.pauseGame();
       },this);
-      this.game.events.on('focus',function(){
-        this.game.scene.resume('GameScene');
-        window.dispatchEvent(this.hideUserInterfaceEvent);
-      },this);
+      // this.game.events.on('focus',function(){
+      //   this.resumeGame();
+      // },this);
+  }
+  
+  pauseGame(): void {
+    this.game.scene.pause('GameScene');
+    window.dispatchEvent(new CustomEvent('showUI', { detail: { isPausing: 'who' }}));
+  }
+
+  resumeGame(): void {
+    this.game.scene.resume('GameScene');
+    window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' }}));
   }
 
   init(): void {
@@ -92,7 +98,13 @@ export class GameScene extends Phaser.Scene {
       config: PlayerConfig.default,
       folder: "Torb"
     });
-
+    this.player.inputEvent.on('pauseButtonPressed', function() {
+      if (this.game.scene.isPaused('gameScene')) {
+        this.resumeGame();
+      } else {
+        this.pauseGame();
+      }
+    }, this)
     // create texts
     this.waveManager = new SurvivalMode({ scene: this });
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
