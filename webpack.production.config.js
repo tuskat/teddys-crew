@@ -1,6 +1,7 @@
 let path = require('path')
 let webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin')
 let CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -17,21 +18,25 @@ let definePlugin = new webpack.DefinePlugin({
 module.exports = {
   entry: {
     app: [
-      './src/games/cadre-de-guerre/game.ts'
+      './src/games/cadre-de-guerre/game.ts', 
+    ],
+    interface: [
+      'vue',
+      './interface/app.js',
     ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: './',
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   plugins: [
     new CleanWebpackPlugin(),
-
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './production.html',
-      chunks: ['vendor', 'app'],
+      chunks: ['interface','vendors', 'app'],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: true,
@@ -53,16 +58,23 @@ module.exports = {
   module: {
     rules: [
       { test: /\.ts$/, loader: 'ts-loader', exclude: '/node_modules/' },
-      { test: /phaser\.js$/, loader: 'expose-loader?Phaser' }
+      { test: /phaser\.js$/, loader: 'expose-loader?Phaser' },
+      { test: /\.vue$/, loader: 'vue-loader' }
     ]
   },
   optimization: {
-    minimize: true
+    minimize: true,
+    splitChunks: {
+      cacheGroups: {
+        commons: { test: /[\\/]node_modules[\\/]/, name: "vendors", chunks: "all" }
+      }
+    }
   },
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      phaser: phaser
+      phaser: phaser,
+      'vue$': 'vue/dist/vue.esm.js' 
     }
   }
 }

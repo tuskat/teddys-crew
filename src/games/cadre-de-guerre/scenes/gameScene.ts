@@ -12,6 +12,8 @@ import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
 
 export class GameScene extends Phaser.Scene {
+  public showUserInterfaceEvent: Event;
+  public hideUserInterfaceEvent: Event;
   public UI : UserInterface;
   public comboWidget: ComboManager;
   private assetsLoader : AssetsLoader = null;
@@ -31,7 +33,8 @@ export class GameScene extends Phaser.Scene {
     if (this.gameEvent === null) {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
-
+    this.showUserInterfaceEvent = new Event('showUI');
+    this.hideUserInterfaceEvent = new Event('hideUI');
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.mapGenerator = new mapGenerator({ scene: this });
     this.infoHandler = new InfoHandler({ scene: this });
@@ -62,9 +65,11 @@ export class GameScene extends Phaser.Scene {
       this.soundEffectsManager.preloadSound();
       this.game.events.on('blur',function(){
         this.game.scene.pause('GameScene');
+        window.dispatchEvent(this.showUserInterfaceEvent);
       },this);
       this.game.events.on('focus',function(){
         this.game.scene.resume('GameScene');
+        window.dispatchEvent(this.hideUserInterfaceEvent);
       },this);
   }
 

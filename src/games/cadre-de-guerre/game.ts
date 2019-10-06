@@ -31,7 +31,6 @@ async function launch(): Promise<void> {
         throw e;
     }
   }
-
   // to clean up, eventually...
   const config: Phaser.Types.Core.GameConfig = {
     title: Config.TITLE,
