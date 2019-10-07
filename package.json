@@ -1,5 +1,6 @@
 {
   "name": "teddys-crews",
+  "sideEffects": false,
   "version": "0.1.0",
   "description": "Phaser game made in typescript, using Digisensitive Boilerplate",
   "keywords": [
@@ -38,7 +39,7 @@
   "scripts": {
     "dev": "webpack --mode development && webpack-dev-server --mode development",
     "build": "webpack --mode production && webpack-dev-server --mode production",
-    "deploy": "webpack  --mode=production --config webpack.production.config.js",
+    "deploy": "webpack --mode=production --config webpack.production.config.js",
     "add-electron": "npx cap add electron",
     "update-electron": "npm run deploy && npx cap copy"
   },

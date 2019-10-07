@@ -14,7 +14,7 @@ let definePlugin = new webpack.DefinePlugin({
   WEBGL_RENDERER: true, // I did this to make webpack work, but I'm not really sure it should always be true
   CANVAS_RENDERER: true // I did this to make webpack work, but I'm not really sure it should always be true
 })
-
+process.env.TARGET = 'electron';
 module.exports = {
   entry: {
     app: [
@@ -36,7 +36,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './production.html',
-      chunks: ['interface','vendors', 'app'],
+      chunks: ['interface','vue', 'app'],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: true,
@@ -66,7 +66,11 @@ module.exports = {
     minimize: true,
     splitChunks: {
       cacheGroups: {
-        commons: { test: /[\\/]node_modules[\\/]/, name: "vendors", chunks: "all" }
+        commons: { 
+          test: /[\\/]node_modules[\\/]vue[\\/]/, 
+          name: "vue", 
+          chunks: "all" 
+        }
       }
     }
   },
