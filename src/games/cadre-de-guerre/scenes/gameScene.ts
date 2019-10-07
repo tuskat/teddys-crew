@@ -39,6 +39,10 @@ export class GameScene extends Phaser.Scene {
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.gameEvent.on(eventList.GameOver, this.restartGame, this);
   }
+  
+  public screenCenter(): any {
+    return ({centerX : this.sys.canvas.width / 2 , centerY : this.sys.canvas.height / 2});
+  }
 
   cleanse(): void {
     // All events listenings are removed, shouldn't need to gameEvent.off on Scene

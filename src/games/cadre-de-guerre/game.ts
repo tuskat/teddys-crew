@@ -13,7 +13,7 @@ export class Game extends Phaser.Game {
 
   preload(): void {
     this.boot;
-  }
+  } 
 }
 
 async function launch(): Promise<void> {
