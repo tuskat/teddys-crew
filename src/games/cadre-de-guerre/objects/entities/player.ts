@@ -27,7 +27,6 @@ export class Player extends LevellingEntity {
     this.inputEvent = controller.getEmitter();
     this.closeSkillsHandler = controller.getDashHandler();
     this.inputEvent.on('dashButtonPressed', this.meleeClick, this);
-    this.inputEvent.on('dashButtonPressed', this.dashToClick, this);
     this.inputEvent.on('shieldButtonPressed', this.shieldToClick, this);
     this.inputEvent.on('shootButtonPressed', this.shootToClick, this);
     this.inputEvent.on('cursorMoved', this.handlePointer, this);
