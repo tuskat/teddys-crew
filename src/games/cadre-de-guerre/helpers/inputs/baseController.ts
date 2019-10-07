@@ -10,24 +10,22 @@ export class BaseController {
     protected initControls(): void {
         this.pointerEvent = new Phaser.Events.EventEmitter();
     }
-    protected emitPointerMoved(pointer): void {
+    protected emitMoved(pointer): void {
         this.pointerEvent.emit('cursorMoved', pointer);
     }
-
-    protected emitPointerClick(pointer): void {
-        if (pointer.leftButtonDown()) {
-            this.pointerEvent.emit('dashButtonPressed', pointer);
-        } else {
-            this.pointerEvent.emit('shootButtonPressed', pointer);
-        }
+    protected emitDash(pointer): void {
+        this.pointerEvent.emit('dashButtonPressed', pointer);
+    }
+    protected emitShield(pointer): void {
+        this.pointerEvent.emit('shieldButtonPressed', pointer);
+    }
+    protected emitShoot(pointer): void {
+        this.pointerEvent.emit('shootButtonPressed', pointer);
     }
 
-    protected emitPointerUp(pointer): void {
-        if (pointer.leftButtonDown()) {
-            this.pointerEvent.emit('dashButtonUp', pointer);
-        }
+    protected emitPause(pointer): void {
+        this.pointerEvent.emit('pauseButtonPressed', pointer);
     }
-
     public getEmitter() {
         return this.pointerEvent;
     }
