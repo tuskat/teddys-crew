@@ -35,7 +35,7 @@ export class BaseController {
     }
 
     protected handleDash(entity, pointer) {
-      entity.useSkill(pointer, 'dash');
+      entity.callSkill(pointer, 'dash');
     }
 
 }

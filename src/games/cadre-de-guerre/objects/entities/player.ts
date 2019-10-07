@@ -82,11 +82,19 @@ export class Player extends LevellingEntity {
     }
   }
 
-  protected useSkill(pointer, action): void {
+  protected callSkill(pointer, action): void {
     if (!this.blockingState()) {
       this.target.x = pointer.x;
       this.target.y = pointer.y;
-      this[action]();
+      this.state = CurrentState.WindingUp;
+      this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.useSkill, [action], this);
+    }
+  }
+
+  protected useSkill(action) {
+    let success = this[action]();
+    if (success === false) {
+      this.state = CurrentState.Moving;
     }
   }
 
@@ -95,15 +103,15 @@ export class Player extends LevellingEntity {
   }
 
   protected dashToClick(pointer): void {
-      this.useSkill(pointer, 'dash');
+      this.callSkill(pointer, 'dash');
   }
 
   protected shieldToClick(pointer): void {
-    this.useSkill(pointer, 'shield');
+    this.callSkill(pointer, 'shield');
   }
 
   protected shootToClick(pointer): void {
-    this.useSkill(pointer, 'shoot');
+    this.callSkill(pointer, 'shoot');
   }
 
   protected doneRespawning(): void {

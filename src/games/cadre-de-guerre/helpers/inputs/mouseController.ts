@@ -29,9 +29,9 @@ export class MouseController extends BaseController {
     public handleDash(entity, pointer): void {
         let distance = Phaser.Math.Distance.Between(entity.x, entity.y, entity.target.x, entity.target.y);
         if (distance > 10) {
-            entity.useSkill(pointer, 'dash');
+            entity.callSkill(pointer, 'dash');
         } else {
-            entity.useSkill(pointer, 'shield');
+            entity.callSkill(pointer, 'shield');
         }
     }
 }
