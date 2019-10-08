@@ -107,7 +107,8 @@ export class Player extends LevellingEntity {
       this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.useSkill, [action], this);
     }
   }
-
+  // quick and dirty. To tidy up once we have more than Torb
+  // Otherwise we hardcode where the cooldown is and that ain't cool :/
   protected useSkill(action) {
     let success = this[action]();
     if (success === true) {
@@ -129,7 +130,7 @@ export class Player extends LevellingEntity {
           targets: [icon],
           ease: 'Bounce.easeInOut',
           alpha: 0.5,
-          duration: 200,
+          duration: this.actionDuration,
           yoyo: true,
         });
       }

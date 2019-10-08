@@ -86,6 +86,7 @@ export class GameScene extends Phaser.Scene {
   create(): void {
     // Pause when out of foccin focus
     this.assetsLoader.loadAllAnimation();
+    this.assetsLoader.loadCursor();
     this.mapGenerator.create();
     // create objects
     let player1input = new MouseController(this.scene);

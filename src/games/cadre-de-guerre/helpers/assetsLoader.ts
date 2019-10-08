@@ -35,6 +35,10 @@ export class AssetsLoader {
     }
   }
 
+  loadCursor() {
+    this.scene.input.setDefaultCursor(`url(${this.assetsFolder}/cursor.png), pointer`);
+  }
+
   loadAnimation(animConfig) {
     let frameNames = this.scene.anims.generateFrameNames('game-sfx', {
       start: animConfig.start || 0, end: animConfig.frame, zeroPad: 5,
