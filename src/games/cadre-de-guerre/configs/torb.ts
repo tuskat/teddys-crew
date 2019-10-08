@@ -1,4 +1,5 @@
 const config = {
+    name: 'Torb',
     faction: 'allies',
     life : 10,
     maxLife : 10,

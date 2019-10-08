@@ -15,6 +15,7 @@ export class AssetsLoader {
   preloadAssets() {
     this.scene.load.multiatlas('game-atlas', this.assetsFolder + '/game-scene.json', this.assetsFolder);
     this.scene.load.multiatlas('game-sfx', this.assetsFolder + '/game-sfx.json', this.assetsFolder);
+    this.scene.load.multiatlas('game-ui', this.assetsFolder + '/game-ui.json', this.assetsFolder);
     this.scene.load.image('game-tiles', this.assetsFolder + '/game-tileset.png');
     this.createShadows();
   }

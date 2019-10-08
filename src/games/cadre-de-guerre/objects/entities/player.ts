@@ -3,17 +3,20 @@ import { GameScene } from '../../scenes/gameScene';
 import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
 import { BaseController } from '../../helpers/inputs/baseController';
+import { GameObjects } from 'phaser';
 
 export class Player extends LevellingEntity {
   scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
   closeSkillsHandler = null;
+  skillIcons: GameObjects.Image[] = [];
 
   constructor(params) {
     super(params);
     this.initBody();
     this.initInput(params.controller);
+    this.initUI();
   }
 
   protected initBody(): void {
@@ -30,6 +33,20 @@ export class Player extends LevellingEntity {
     this.inputEvent.on('shieldButtonPressed', this.shieldToClick, this);
     this.inputEvent.on('shootButtonPressed', this.shootToClick, this);
     this.inputEvent.on('cursorMoved', this.handlePointer, this);
+  }
+
+  protected initUI(): void {
+    let skillNames = [
+      'dash',
+      'shield',
+      'shoot'
+    ];
+    for (let i = 0; i !== skillNames.length; i++) {
+      let frame = `${this.name}/Skill_${(i + 1)}.png`;
+      let icon = this.scene.add.sprite((this.scene.sys.canvas.width - 180)  + (i * 55), this.scene.sys.canvas.height - 64, 'game-ui', frame);
+      icon.scale = 0.75;
+      this.skillIcons[skillNames[i]] = icon;
+    }
   }
 
   protected updatePosition(): void {
@@ -93,7 +110,30 @@ export class Player extends LevellingEntity {
 
   protected useSkill(action) {
     let success = this[action]();
-    if (success === false) {
+    if (success === true) {
+      let icon = this.skillIcons[action];
+      if (action === 'shield') {
+        icon.alpha = 0.15;
+        icon.setTint(0x808080);
+        this.scene.add.tween({
+          targets: [icon],
+          ease: 'Linear.easeIn',
+          alpha: 1,
+          duration: this.closedSkillCooldown,
+          onComplete: function() {
+            icon.clearTint();
+          }.bind(this)
+        });
+      } else {
+        this.scene.add.tween({
+          targets: [icon],
+          ease: 'Bounce.easeInOut',
+          alpha: 0.5,
+          duration: 200,
+          yoyo: true,
+        });
+      }
+    } else {
       this.state = CurrentState.Moving;
     }
   }
