@@ -1,4 +1,4 @@
-import enemiesEvents from "./enums/enemiesEvents";
+import enemiesEvents from "../enums/enemiesEvents";
 
 const config = {
     faction: 'foes',

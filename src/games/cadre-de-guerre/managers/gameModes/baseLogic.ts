@@ -1,6 +1,6 @@
-import * as DasherConfig from '../../configs/dasher';
-import * as ShooterConfig from '../../configs/shooter';
-import * as ZonerConfig from '../../configs/zoner';
+import * as DasherConfig from '../../configs/characters/dasher';
+import * as ShooterConfig from '../../configs/characters/shooter';
+import * as ZonerConfig from '../../configs/characters/zoner';
 
 import { GameScene } from "../../scenes/gameScene";
 import { Enemy } from "../../objects/entities/enemy";

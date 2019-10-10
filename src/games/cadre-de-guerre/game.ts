@@ -5,7 +5,6 @@ import { MenuScene } from "./scenes/menuScene";
 import { Config } from "./config";
 import { ObjectUtils } from "./utils/objectUtils";
 import * as Sentry from '@sentry/browser';
-
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
@@ -23,13 +22,13 @@ async function launch(): Promise<void> {
 
   if (!debug) {
     Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
-      try {
-        if (process.env.TARGET === 'electron') {
-          configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
-          ObjectUtils.loadValuesIntoObject(configJson, Config);
-        }
+    try {
+      if (process.env.TARGET === 'electron') {
+        configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
+        ObjectUtils.loadValuesIntoObject(configJson, Config);
+      }
     } catch (e) {
-        throw e;
+      throw e;
     }
   }
   // to clean up, eventually...
@@ -44,7 +43,7 @@ async function launch(): Promise<void> {
       width: Config.GAME_WIDTH,
       height: Config.GAME_HEIGHT,
       autoRound: true
-  },
+    },
     parent: "game",
     scene: [BootScene, MenuScene, GameScene],
     input: {
@@ -58,8 +57,8 @@ async function launch(): Promise<void> {
       }
     },
     backgroundColor: "#3A99D9",
-    render: { 
-      pixelArt: false, 
+    render: {
+      pixelArt: false,
       antialias: true,
       clearBeforeRender: false
     }
@@ -87,7 +86,7 @@ function resize() {
   let gameRatio = Config.GAME_WIDTH / Config.GAME_HEIGHT;
 
   if (canvas) {
-    if(windowRatio < gameRatio){
+    if (windowRatio < gameRatio) {
       canvas.style.width = windowWidth;
       canvas.style.height = (windowWidth / gameRatio);
     }
@@ -96,4 +95,4 @@ function resize() {
       canvas.style.height = windowHeight;
     }
   }
-} 
+}

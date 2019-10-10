@@ -1,12 +1,16 @@
 <template>
-  <div class='vue-ui' v-if="isActive">
-    <h3>Gira Gira Girassa Ji Van Gogh I</h3>
-    <p v-on:click="resumeGame">resume game</p>
-    <!--
-    Even when routes use the same component, treat them
-    as distinct and create the component again.
-    -->
-  </div>
+  <transition name="slide-fade">
+    <div class='vue-ui' v-show="isActive">
+      <div class='ui-container'>
+        <p>Pause Menu</p>
+        <!-- Options -->
+        <hr/>
+        <p v-on:click="sound = !sound">Sound : {{sound}}</p>
+        <p v-on:click="shake = !shake">Camera-Shake : {{shake}}</p>
+        <button type='button' class='btn-default' tabindex="0" v-on:click="resumeGame" v-on:keyup.enter="resumeGame">resume game</button>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -19,7 +23,9 @@ export default {
   },
   data: function () {
     return {
-      isActive: false
+      isActive: false,
+      sound: true,
+      shake: true
     }
   },
   created() {
@@ -30,7 +36,7 @@ export default {
     window.removeEventListener('showUI', this.showUI);
     window.removeEventListener('hideUI', this.hideUI);
   },
-  
+
   methods: {
     showUI(event) {
       this.isActive = true;
@@ -39,6 +45,7 @@ export default {
       this.isActive = false;
     },
     resumeGame() {
+      console.log('loneliestGurl');
       this.isActive = false;
        window.dispatchEvent(new CustomEvent('resumeGame', { detail: { isPausing: 'who' }}));
     }
@@ -46,8 +53,5 @@ export default {
 }
 </script>
 
-
-<!-- This should generally be the only global CSS in the app. -->
 <style lang="scss">
-
 </style>

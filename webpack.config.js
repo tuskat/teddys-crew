@@ -15,7 +15,17 @@ module.exports = {
     rules: [
       { test: /\.ts$/, loader: 'ts-loader', exclude: '/node_modules/' },
       { test: /phaser\.js$/, loader: 'expose-loader?Phaser' },
-      { test: /\.vue$/, loader: 'vue-loader' }
+      { test: /\.vue$/, loader: 'vue-loader' },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader'
+          },
+        ],
+      }
     ]
   },
   devServer: {
@@ -29,7 +39,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
     alias: {
       phaser: phaser,
-      'vue$': 'vue/dist/vue.esm.js' 
+      'vue$': 'vue/dist/vue.esm.js'
     }
   },
   plugins: [

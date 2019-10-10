@@ -1,4 +1,4 @@
-import * as PlayerConfig from '../configs/torb';
+import * as PlayerConfig from '../configs/characters/torb';
 
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
@@ -12,12 +12,12 @@ import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
 
 export class GameScene extends Phaser.Scene {
-  public UI : UserInterface;
+  public UI: UserInterface;
   public comboWidget: ComboManager;
-  private assetsLoader : AssetsLoader = null;
-  public mapGenerator : mapGenerator = null;
-  private soundEffectsManager : SoundEffects = null;
-  private infoHandler : InfoHandler = null;
+  private assetsLoader: AssetsLoader = null;
+  public mapGenerator: mapGenerator = null;
+  private soundEffectsManager: SoundEffects = null;
+  private infoHandler: InfoHandler = null;
   private waveManager;
   public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number;
@@ -31,7 +31,7 @@ export class GameScene extends Phaser.Scene {
     if (this.gameEvent === null) {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
-  
+
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.mapGenerator = new mapGenerator({ scene: this });
     this.infoHandler = new InfoHandler({ scene: this });
@@ -57,26 +57,26 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload(): void {
-      this.assetsLoader.preloadAssets();
-      this.infoHandler.initInfoLog();
-      this.soundEffectsManager.preloadSound();
-      window.addEventListener('resumeGame', this.resumeGame.bind(this));
-      this.game.events.on('blur',function(){
-        this.pauseGame();
-      },this);
-      // this.game.events.on('focus',function(){
-      //   this.resumeGame();
-      // },this);
+    this.assetsLoader.preloadAssets();
+    this.infoHandler.initInfoLog();
+    this.soundEffectsManager.preloadSound();
+    window.addEventListener('resumeGame', this.resumeGame.bind(this));
+    this.game.events.on('blur', function () {
+      this.pauseGame();
+    }, this);
+    // this.game.events.on('focus',function(){
+    //   this.resumeGame();
+    // },this);
   }
-  
+
   pauseGame(): void {
     this.game.scene.pause('GameScene');
-    window.dispatchEvent(new CustomEvent('showUI', { detail: { isPausing: 'who' }}));
+    window.dispatchEvent(new CustomEvent('showUI', { detail: { isPausing: 'who' } }));
   }
 
   resumeGame(): void {
     this.game.scene.resume('GameScene');
-    window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' }}));
+    window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
   }
 
   init(): void {
@@ -99,7 +99,7 @@ export class GameScene extends Phaser.Scene {
       config: PlayerConfig.default,
       folder: "Torb"
     });
-    this.player.inputEvent.on('pauseButtonPressed', function() {
+    this.player.inputEvent.on('pauseButtonPressed', function () {
       if (this.game.scene.isPaused('gameScene')) {
         this.resumeGame();
       } else {
@@ -108,8 +108,8 @@ export class GameScene extends Phaser.Scene {
     }, this)
     // create texts
     this.waveManager = new SurvivalMode({ scene: this });
-    this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});
-    this.comboWidget = new ComboManager({scene : this, gameEvent : this.gameEvent});
+    this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
+    this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
     this.restartRound();
     if (!this.isLinuxFirefox()) {
       this.soundEffectsManager.initSound();

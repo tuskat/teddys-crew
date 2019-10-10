@@ -70,7 +70,7 @@ export class UserInterface {
   }
 
   private initLifebar(): void {
-    
+
     let playerLifeBarBg = this.scene.add.graphics();
     playerLifeBarBg.fillStyle(0x000000, 0.75);
     playerLifeBarBg.fillRect(this.scene.sys.canvas.width / 2, this.scene.sys.canvas.height / 2, BARWIDTH, 30);
@@ -133,7 +133,7 @@ export class UserInterface {
     if (!this.text['round']) {
       this.text['round'] = this.scene.make.text({
         x: (this.scene.sys.canvas.width / 3 - 60),
-        y: (this.scene.sys.canvas.height / 2) -  75,
+        y: (this.scene.sys.canvas.height / 2) - 75,
         text: "Round Ended!",
         style: fontStyles.Title,
         alpha: 0
@@ -166,7 +166,7 @@ export class UserInterface {
       this.text[index] = this.scene.make.text({
         x: this.scene.sys.canvas.width * 0.12,
         y: this.scene.sys.canvas.height / 2,
-        text:  "Enemies Level Up...\n" + item.buff,
+        text: "Enemies Level Up...\n" + item.buff,
         style: fontStyles.Title
       });
     } else {
@@ -263,7 +263,7 @@ export class UserInterface {
       duration: 1000,
       onComplete: this.countDownCallback.bind(this)
     });
-    this.scene.gameEvent.emit(eventList.CountDown, {sound: 'UI04'});
+    this.scene.gameEvent.emit(eventList.CountDown, { sound: 'UI04' });
   }
 
   private countDownCallback(): void {

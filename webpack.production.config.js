@@ -18,7 +18,7 @@ process.env.TARGET = 'electron';
 module.exports = {
   entry: {
     app: [
-      './src/games/cadre-de-guerre/game.ts', 
+      './src/games/cadre-de-guerre/game.ts',
     ],
     interface: [
       'vue',
@@ -36,7 +36,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './production.html',
-      chunks: ['interface','vue', 'app'],
+      chunks: ['interface', 'vue', 'app'],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: true,
@@ -53,23 +53,33 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/games/cadre-de-guerre/assets', to: 'assets' },
       { from: 'styles', to: 'styles' }
-    ]), 
+    ]),
   ],
   module: {
     rules: [
       { test: /\.ts$/, loader: 'ts-loader', exclude: '/node_modules/' },
       { test: /phaser\.js$/, loader: 'expose-loader?Phaser' },
-      { test: /\.vue$/, loader: 'vue-loader' }
+      { test: /\.vue$/, loader: 'vue-loader' },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader'
+          },
+        ],
+      }
     ]
   },
   optimization: {
     minimize: true,
     splitChunks: {
       cacheGroups: {
-        commons: { 
-          test: /[\\/]node_modules[\\/]vue[\\/]/, 
-          name: "vue", 
-          chunks: "all" 
+        commons: {
+          test: /[\\/]node_modules[\\/]vue[\\/]/,
+          name: "vue",
+          chunks: "all"
         }
       }
     }
@@ -78,7 +88,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
     alias: {
       phaser: phaser,
-      'vue$': 'vue/dist/vue.esm.js' 
+      'vue$': 'vue/dist/vue.esm.js'
     }
   }
 }

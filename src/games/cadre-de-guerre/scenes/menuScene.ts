@@ -5,7 +5,13 @@ export class MenuScene extends Phaser.Scene {
       key: "MenuScene"
     });
   }
-
+  // Change to handle interactive elements
+  // Must contain
+  // Character Selection : check scene argument
+  // Upgrade : you get gold ._.
+  // Gold is used to pay : character passives
+  // Weapons upgrade
+  // You unlock the rest (Characters and Items)
   init(): void {
     this.input.on('pointerdown', this.startGame, this);
   }

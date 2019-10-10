@@ -1,32 +1,31 @@
-import { BaseSkill } from "./baseSkill";
+import { BaseEnergy } from "./baseEnergy";
 
-export class Zone extends BaseSkill {
-    private lifespan: number;
+export class Zone extends BaseEnergy {
+  private lifespan: number;
 
-    constructor(params) {
-      super(params);
-    }
+  constructor(params) {
+    super(params);
+  }
 
-    protected initImage(): void {
-      // image
-      this.lifespan = 3000;
-     
-      this.setOrigin(0.5, 0.5);
-      this.setDepth(0);
+  protected initImage(): void {
+    // image
+    this.lifespan = 3000;
 
-      // physics
-      this.scene.physics.world.enable(this);
-      this.body.setSize(80, 80, true);
-      this.scale = 2;
-      this.on('animationcomplete', this.die, this);
-    }
+    this.setOrigin(0.5, 0.5);
+    this.setDepth(0);
 
-    update(time, delta): void {
-      this.lifespan -= delta;
+    // physics
+    this.scene.physics.world.enable(this);
+    this.body.setSize(80, 80, true);
+    this.scale = 2;
+    this.on('animationcomplete', this.die, this);
+  }
 
-      if (this.lifespan <= 0)
-      {
-        this.die();
-      }
+  update(time, delta): void {
+    this.lifespan -= delta;
+
+    if (this.lifespan <= 0) {
+      this.die();
     }
   }
+}

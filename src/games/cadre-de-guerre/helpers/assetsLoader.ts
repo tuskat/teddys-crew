@@ -22,9 +22,9 @@ export class AssetsLoader {
 
   createShadows() {
     let shape = this.scene.add.graphics();
- 
+
     shape.fillStyle(0x000000, 0.35);
-    shape.fillEllipse(this.scene.sys.canvas.width / 2, (this.scene.sys.canvas.height / 2) + 30, 80,20);
+    shape.fillEllipse(this.scene.sys.canvas.width / 2, (this.scene.sys.canvas.height / 2) + 30, 80, 20);
     shape.generateTexture('shadow');
     shape.destroy();
   }
@@ -44,7 +44,7 @@ export class AssetsLoader {
       start: animConfig.start || 0, end: animConfig.frame, zeroPad: 5,
       prefix: animConfig.prefix, suffix: '.png'
     });
-    this.scene.anims.create({key: animConfig.name, frames: frameNames, frameRate: animConfig.framerate, repeat: animConfig.repeat || 0 })
+    this.scene.anims.create({ key: animConfig.name, frames: frameNames, frameRate: animConfig.framerate, repeat: animConfig.repeat || 0 })
   }
 
   // setTexturesPriority() {
