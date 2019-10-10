@@ -31,7 +31,7 @@ export class GameScene extends Phaser.Scene {
     if (this.gameEvent === null) {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
-
+  
     this.assetsLoader = new AssetsLoader({ scene: this });
     this.mapGenerator = new mapGenerator({ scene: this });
     this.infoHandler = new InfoHandler({ scene: this });
@@ -41,8 +41,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   cleanse(): void {
-    this.gameEvent.off(eventList.RoundEnded, this.restartRound, this);
-    this.gameEvent.off(eventList.GameOver, this.restartGame, this);
+    // All events listenings are removed, shouldn't need to gameEvent.off on Scene
     this.player.cleanse();
     this.waveManager.cleanse();
     this.soundEffectsManager.cleanse();
@@ -61,12 +60,23 @@ export class GameScene extends Phaser.Scene {
       this.assetsLoader.preloadAssets();
       this.infoHandler.initInfoLog();
       this.soundEffectsManager.preloadSound();
+      window.addEventListener('resumeGame', this.resumeGame.bind(this));
       this.game.events.on('blur',function(){
-        this.game.scene.pause('GameScene');
+        this.pauseGame();
       },this);
-      this.game.events.on('focus',function(){
-        this.game.scene.resume('GameScene');
-      },this);
+      // this.game.events.on('focus',function(){
+      //   this.resumeGame();
+      // },this);
+  }
+  
+  pauseGame(): void {
+    this.game.scene.pause('GameScene');
+    window.dispatchEvent(new CustomEvent('showUI', { detail: { isPausing: 'who' }}));
+  }
+
+  resumeGame(): void {
+    this.game.scene.resume('GameScene');
+    window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' }}));
   }
 
   init(): void {
@@ -76,6 +86,7 @@ export class GameScene extends Phaser.Scene {
   create(): void {
     // Pause when out of foccin focus
     this.assetsLoader.loadAllAnimation();
+    this.assetsLoader.loadCursor();
     this.mapGenerator.create();
     // create objects
     let player1input = new MouseController(this.scene);
@@ -88,7 +99,13 @@ export class GameScene extends Phaser.Scene {
       config: PlayerConfig.default,
       folder: "Torb"
     });
-
+    this.player.inputEvent.on('pauseButtonPressed', function() {
+      if (this.game.scene.isPaused('gameScene')) {
+        this.resumeGame();
+      } else {
+        this.pauseGame();
+      }
+    }, this)
     // create texts
     this.waveManager = new SurvivalMode({ scene: this });
     this.UI = new UserInterface({scene : this, gameEvent : this.gameEvent});

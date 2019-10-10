@@ -15,7 +15,8 @@ export class AssetsLoader {
   preloadAssets() {
     this.scene.load.multiatlas('game-atlas', this.assetsFolder + '/game-scene.json', this.assetsFolder);
     this.scene.load.multiatlas('game-sfx', this.assetsFolder + '/game-sfx.json', this.assetsFolder);
-    this.scene.load.image('game-tiles', this.assetsFolder + '/atlantis-tileset.png');
+    this.scene.load.multiatlas('game-ui', this.assetsFolder + '/game-ui.json', this.assetsFolder);
+    this.scene.load.image('game-tiles', this.assetsFolder + '/game-tileset.png');
     this.createShadows();
   }
 
@@ -32,6 +33,10 @@ export class AssetsLoader {
     for (let i = 0; i !== this.effectList.length; i++) {
       this.loadAnimation(this.effectList[i]);
     }
+  }
+
+  loadCursor() {
+    this.scene.input.setDefaultCursor(`url(${this.assetsFolder}/cursor.png), pointer`);
   }
 
   loadAnimation(animConfig) {

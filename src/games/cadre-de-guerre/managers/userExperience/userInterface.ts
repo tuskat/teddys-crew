@@ -8,9 +8,9 @@ export class UserInterface {
   private text: Phaser.GameObjects.Text[] = [];
   private countDown = 0;
   private playerLifeBar: Phaser.GameObjects.Graphics;
-  private playerLifeBarBg: Phaser.GameObjects.Graphics;
+  private playerLifeBarBg: Phaser.GameObjects.Sprite;
   private playerXpBar: Phaser.GameObjects.Graphics;
-  private playerXpBarBg: Phaser.GameObjects.Graphics;
+  private playerXpBarBg: Phaser.GameObjects.Sprite;
   private gameEvent: Phaser.Events.EventEmitter;
   private scene: GameScene;
 
@@ -70,9 +70,14 @@ export class UserInterface {
   }
 
   private initLifebar(): void {
-    this.playerLifeBarBg = this.scene.add.graphics();
-    this.playerLifeBarBg.fillStyle(0x000000, 0.75);
-    this.playerLifeBarBg.fillRect(15, 15, BARWIDTH, 30);
+    
+    let playerLifeBarBg = this.scene.add.graphics();
+    playerLifeBarBg.fillStyle(0x000000, 0.75);
+    playerLifeBarBg.fillRect(this.scene.sys.canvas.width / 2, this.scene.sys.canvas.height / 2, BARWIDTH, 30);
+    playerLifeBarBg.generateTexture('hpBackground');
+    playerLifeBarBg.destroy();
+    this.playerLifeBarBg = new Phaser.GameObjects.Sprite(this.scene, 15, 15, 'hpBackground');
+    this.scene.add.existing(this.playerLifeBarBg);
     this.playerLifeBar = this.scene.add.graphics();
     this.text['life'] = this.scene.add.text(
       50,
@@ -83,9 +88,13 @@ export class UserInterface {
   }
 
   private initXpbar(): void {
-    this.playerXpBarBg = this.scene.add.graphics();
-    this.playerXpBarBg.fillStyle(0x000000, 0.75);
-    this.playerXpBarBg.fillRect(15, 60, BARWIDTH, 10);
+    let xpBackground = this.scene.add.graphics();
+    xpBackground.fillStyle(0x000000, 0.75);
+    xpBackground.fillRect(this.scene.sys.canvas.width / 2, (this.scene.sys.canvas.height / 2), BARWIDTH, 10);
+    xpBackground.generateTexture('xpBackground');
+    xpBackground.destroy();
+    this.playerXpBarBg = new Phaser.GameObjects.Sprite(this.scene, 15, 60, 'xpBackground');
+    this.scene.add.existing(this.playerXpBarBg);
     this.playerXpBar = this.scene.add.graphics();
     this.text['experience'] = this.scene.add.text(
       50,

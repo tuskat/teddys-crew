@@ -60,6 +60,7 @@ export class MovingEntity extends Entity {
       }
       case CurrentState.Dashing: {
         this.setFrame(this.spriteFolder + '/Dash' + extension);
+        this.dashTween();
         break;
       }
       case CurrentState.Shooting: {
@@ -68,18 +69,29 @@ export class MovingEntity extends Entity {
       }
       case CurrentState.Moving: {
         this.setFrame(this.spriteFolder + '/Idle' + extension);
-        this.startBreath();
+        this.breathTween();
         break;
       }
     }
     this.previousState = this.state;
   }
 
-  protected startBreath(): void {
+  protected dashTween(): void {
+    this.scene.add.tween({
+        targets: [this],
+        scaleY: 0.90,
+        scaleX: 1.10, 
+        duration: this.actionDuration, 
+        ease: 'Bounce.easeIn', 
+        yoyo: true,
+    });
+  }
+
+  protected breathTween(): void {
     if (this.isBreathing === false) {
       this.scene.add.tween({
           targets: [this],
-          scaleY: 0.975, 
+          scaleY: 0.97, 
           duration: 500, 
           ease: 'Circular.easeInOut',
           hold: 200, 

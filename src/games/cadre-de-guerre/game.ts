@@ -18,20 +18,20 @@ export class Game extends Phaser.Game {
 
 async function launch(): Promise<void> {
   let configJson: any = null;
+
   let debug = process.env.NODE_ENV !== 'production' ? true : false;
 
   if (!debug) {
     Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
       try {
-        configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
-        if (configJson) {
+        if (process.env.TARGET === 'electron') {
+          configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
           ObjectUtils.loadValuesIntoObject(configJson, Config);
         }
     } catch (e) {
         throw e;
     }
   }
-
   // to clean up, eventually...
   const config: Phaser.Types.Core.GameConfig = {
     title: Config.TITLE,

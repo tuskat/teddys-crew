@@ -127,30 +127,35 @@ export class AttackingEntity extends MovingEntity {
     }
   }
 
-  protected dash(): void {
+  protected dash(): boolean {
+    //  get target position.
+    // if out of bounds -> target in bound
     this.state = CurrentState.Dashing;
     this.createGraphicEffect('dash');
     this.createDashSkill(this.animationPreset.dash, this.getAngle());
     this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
-    this.scene.physics.moveToObject(this, this.target, (this.speed * 5));
+    this.scene.physics.moveToObject(this, this.target, this.speed * 4);
     this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
+    return true;
   }
 
-  protected shoot(): void {
-    this.handleShooting();
+  protected shoot(): boolean {
+    return this.handleShooting();
   }
 
-  protected shield(): void {
+  protected shield(): boolean {
     if ((this.closedSkill.getLength() < 1) && (this.closedSkillCooldown <= 0)) {
       this.state = CurrentState.Shooting;
       this.createCloseSkill(this.animationPreset.shield);
       this.closedSkillCooldown = this.closedSkillCooldownDuration;
       this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
       this.scene.time.delayedCall((this.actionDuration * 3), this.endActionCallback, [], this);
+      return true;
     }
+    return false;
   }
 
-  protected handleShooting(): void {
+  protected handleShooting(): boolean {
     if (this.scene.time.now > this.lastShoot) {
       if (this.rangedSkill.getLength() < 2) {
         let bullet = this.createBullet(this.getAngle());
@@ -158,8 +163,10 @@ export class AttackingEntity extends MovingEntity {
         this.state = CurrentState.Shooting;
         this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound, entity: bullet });
         this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
+        return true;
       }
     }
+    return false;
   }
 
   protected closeToTarget(): boolean {

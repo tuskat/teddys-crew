@@ -12,14 +12,6 @@ export class SurvivalMode extends BaseLogic {
         this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
     }
 
-    protected roundStarted(): void {
-        this.toEachEnemy(this.setRespawn);
-        this.onGoing = true;
-        this.spawnInitialEnemies();
-        this.toEachEnemy(this.killSilentlyEnemy);
-        this.scene.gameEvent.emit(eventList.RoundStarted, null);
-    }
-
     protected updateClock(): void {
         this.timeSurvived++;
         this.scene.gameEvent.emit(eventList.TimeUpdate, null);
@@ -36,7 +28,7 @@ export class SurvivalMode extends BaseLogic {
 
     protected roundEnded(): void {
         this.onGoing = false;
-        this.scene.gameEvent.emit(eventList.GameOver, { sound: 'Misc03' });
+        this.scene.gameEvent.emit(eventList.GameOver, { sound: 'Misc03', name: 'GameOver' });
     }
 
     // Getter

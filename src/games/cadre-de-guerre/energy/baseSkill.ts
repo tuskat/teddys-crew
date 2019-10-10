@@ -16,10 +16,9 @@ export class BaseSkill extends GraphicEffects {
       this.setOrigin(0.5, 0.5);
       this.setDepth(2);
       this.setSize(30,30);
-
-      // physics
-      this.scene.physics.world.enable(this);
       this.on('animationcomplete', this.die, this);
+      // physics
+      this.scene.physics.world.enable(this); 
     }
 
     die(): void {
@@ -29,13 +28,15 @@ export class BaseSkill extends GraphicEffects {
     }
 
     explode(): void {
-      new GraphicEffects({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: 'Air_14_00000',
-        gfxName: this.onExplode,
-        flipX: this.flipX });
-      this.die();
+      if (this.active) {
+        new GraphicEffects({
+          scene: this.scene,
+          x: this.x,
+          y: this.y,
+          key: 'Air_14_00000',
+          gfxName: this.onExplode,
+          flipX: this.flipX });
+        this.die();
+      }
     }
   }

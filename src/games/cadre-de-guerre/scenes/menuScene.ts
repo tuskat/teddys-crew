@@ -1,5 +1,5 @@
 export class MenuScene extends Phaser.Scene {
-
+  background: Phaser.GameObjects.Image;
   constructor() {
     super({
       key: "MenuScene"
@@ -11,6 +11,16 @@ export class MenuScene extends Phaser.Scene {
   }
 
   create(): void {
+    let background = this.add.graphics();
+    background.fillStyle(0x3A99D9, 1);
+    background.fillRect(this.sys.canvas.width / 2, (this.sys.canvas.height / 2), this.game.canvas.width, this.sys.canvas.height);
+    background.generateTexture('MenuBackground');
+    background.destroy();
+    this.background = new Phaser.GameObjects.Image(this, 0 ,0, 'MenuBackground');
+    this.background.setScale(2);
+    this.add.existing(this.background);
+
+
     this.make.text({
       x: this.sys.canvas.width * 0.70 ,
       y: this.sys.canvas.height - 65,

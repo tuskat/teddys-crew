@@ -1,4 +1,5 @@
 const config = {
+    name: 'Torb',
     faction: 'allies',
     life : 10,
     maxLife : 10,
@@ -9,7 +10,7 @@ const config = {
     maxSpeedX : 1500,
     maxSpeedY : 750,
     bulletSpeed : 1000,
-    delayToAction : 100,
+    delayToAction : 50,
     invicibleFrame: 1000,
     timeToRespawn: 1000,
     actionDuration: 300,
