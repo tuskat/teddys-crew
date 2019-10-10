@@ -36,7 +36,7 @@ export class ComboManager {
     this.gameEvent.on(eventList.LifeUpdate, this.missCallback, this);
     this.gameEvent.on(eventList.Damaged, this.hitCallback, this);
   }
-  
+
   public cleanse(): void {
     this.gameEvent.off(eventList.LifeUpdate, this.missCallback, this);
     this.gameEvent.off(eventList.Damaged, this.hitCallback, this);
@@ -44,13 +44,13 @@ export class ComboManager {
 
   private initText(): void {
     this.text['rush_subtitle'] = this.scene.make.text({
-        x: this.posX,
-        y: 100,
-        text: "Rush!!",
-        style: fontStyles.Default,
-        alpha: 0
-      }
-      );
+      x: this.posX,
+      y: 100,
+      text: "Rush!!",
+      style: fontStyles.Default,
+      alpha: 0
+    }
+    );
     this.text['rush'] = this.scene.make.text({
       x: this.posX,
       y: 50,
@@ -76,58 +76,58 @@ export class ComboManager {
 
   private hitCallback(event): void {
     if (event.faction === 'foes') {
-        this.rush++;
-        this.comboTime = this.timeToClear;
-        this.updateCombo();
+      this.rush++;
+      this.comboTime = this.timeToClear;
+      this.updateCombo();
     }
   }
 
   private missCallback(event): void {
     // flimsy logic there
     if (event) {
-        this.rush = 0;
-        this.hideCombo();
+      this.rush = 0;
+      this.hideCombo();
     }
   }
 
   public update(time, delta): void {
     if (this.rush > 0) {
-        this.updateComboBar();
-        this.comboTime-= delta;
-        if (this.comboTime <= 0) {
-            this.rush = 0;
-        }
+      this.updateComboBar();
+      this.comboTime -= delta;
+      if (this.comboTime <= 0) {
+        this.rush = 0;
+      }
     } else {
-        this.hideCombo();
+      this.hideCombo();
     }
   }
   // Update methods
   private updateCombo(): void {
     let scale = 1 * (1 + (this.rush / 100));
     if (scale > 1.25) {
-        scale = 1.25;
+      scale = 1.25;
     }
     this.text['rush'].setText(this.rush);
     this.scene.add.tween({
-        targets: [this.text['rush'], this.text['rush_subtitle'], this.comboBar, this.comboBarBg],
-        ease: 'Sine.easeInOut',
-        alpha: {
-          getStart: () => 1,
-          getEnd: () => 0
-        },
-        duration: 5000,
-        onComplete: null
+      targets: [this.text['rush'], this.text['rush_subtitle'], this.comboBar, this.comboBarBg],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 1,
+        getEnd: () => 0
+      },
+      duration: 5000,
+      onComplete: null
     });
     if (this.isBouncing === false) {
-        this.scene.add.tween({
-            targets: [this.text['rush'], this.text['rush_subtitle']],
-            scale: scale, 
-            duration: 200, 
-            ease: 'Bounce.easeInOut', 
-            yoyo: true,
-            onComplete: this.unlockBouncing.bind(this)
-        });
-        this.isBouncing = true;
+      this.scene.add.tween({
+        targets: [this.text['rush'], this.text['rush_subtitle']],
+        scale: scale,
+        duration: 200,
+        ease: 'Bounce.easeInOut',
+        yoyo: true,
+        onComplete: this.unlockBouncing.bind(this)
+      });
+      this.isBouncing = true;
     }
   }
 
@@ -137,9 +137,12 @@ export class ComboManager {
 
   private hideCombo(): void {
     if (this.comboBarBg.alpha !== 0) {
-        this.comboBar.alpha = 0;
-        this.comboBarBg.alpha = 0;
+      this.comboBar.alpha = 0;
+      this.comboBarBg.alpha = 0;
     }
   }
 
+  public getCurrentCombo(): number {
+    return this.rush;
+  }
 }

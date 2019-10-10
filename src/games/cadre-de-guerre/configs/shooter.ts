@@ -5,7 +5,7 @@ const config = {
     life : 1,
     power: 1,
     speed : 75,
-    baseXP: 4,
+    baseXP: 6,
     signatureSkill : 'shoot',
     distanceToStop : 250,
     delayToAction : 750,

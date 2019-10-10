@@ -5,7 +5,7 @@ const config = {
     life: 3,
     power: 1,
     speed: 100,
-    baseXP: 3,
+    baseXP: 5,
     signatureSkill: 'dash',
     distanceToStop: 100,
     delayToAction: 600,

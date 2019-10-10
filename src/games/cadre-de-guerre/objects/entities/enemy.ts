@@ -46,7 +46,6 @@ export class Enemy extends LevellingEntity {
     this.updateCooldown();
   }
 
-  
   updateCooldown(): void {
     if (this.closedSkillCooldown > 0) {
       this.closedSkillCooldown = 0;

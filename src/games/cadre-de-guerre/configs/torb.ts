@@ -3,7 +3,7 @@ const config = {
     life : 10,
     maxLife : 10,
     power: 1,
-    baseXP: 5,
+    baseXP: 12,
     speed : 200,
     distanceToStop : 4,
     maxSpeedX : 1500,

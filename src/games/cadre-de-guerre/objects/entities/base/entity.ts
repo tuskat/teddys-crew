@@ -9,7 +9,7 @@ import defaultAnimtationPresets from '../../../configs/enums/defaultAnimationPre
 export class Entity extends Phaser.GameObjects.Sprite {
   animationPreset = defaultAnimtationPresets;
   scene: GameScene;
-  gameEvent:  Phaser.Events.EventEmitter = null;
+  gameEvent: Phaser.Events.EventEmitter = null;
   life = 1;
   maxLife = this.life;
   level = 1;
@@ -68,9 +68,9 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected initVariables(config): void {
     this.target = new Phaser.Math.Vector2(0, 0);
 
-    for (let key in config){
+    for (let key in config) {
       this[key] = config[key] || this[key];
-   }
+    }
     this.config = config;
 
     this.graphicEffects = this.scene.add.group({
@@ -85,7 +85,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.setOrigin(0.5, 0.5);
     this.scale = 1;
   }
- 
+
   updatShadowPosition(): void {
     this.shadowPatch.x = this.x;
     this.shadowPatch.y = this.y;
@@ -101,34 +101,36 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.shadowPatch.setDepth(0);
   }
 
-// Create children
+  // Create children
   protected createGraphicEffect(animation = 'explode', followParent = false): void {
-  if (this.graphicEffects.getLength() < 5) {
-    let effect = null;
-    if (followParent === true) {
-      effect = new MovingGraphicEffects({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: 'Air_14_00000',
-        gfxName: animation,
-        flipX: this.flipX, 
-        parent: this});
-    } else {
-      effect = new GraphicEffects({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: 'Air_14_00000',
-        gfxName: animation,
-        flipX: this.flipX }); 
+    if (this.graphicEffects.getLength() < 5) {
+      let effect = null;
+      if (followParent === true) {
+        effect = new MovingGraphicEffects({
+          scene: this.scene,
+          x: this.x,
+          y: this.y,
+          key: 'Air_14_00000',
+          gfxName: animation,
+          flipX: this.flipX,
+          parent: this
+        });
+      } else {
+        effect = new GraphicEffects({
+          scene: this.scene,
+          x: this.x,
+          y: this.y,
+          key: 'Air_14_00000',
+          gfxName: animation,
+          flipX: this.flipX
+        });
+      }
+      this.graphicEffects.add(effect);
     }
-    this.graphicEffects.add(effect);
   }
-}
 
   // actions
-  protected doNothing(): void {}
+  protected doNothing(): void { }
 
   public getExperience(): number {
     return (5 * (this.level * this.config.baseXP));
@@ -234,12 +236,12 @@ export class Entity extends Phaser.GameObjects.Sprite {
     }
   }
 
-  redrawLifebar(): void {}
+  redrawLifebar(): void { }
 
-  hideLifebar(): void {}
+  hideLifebar(): void { }
   // erase stuff
-  flushLifebar(): void {}
+  flushLifebar(): void { }
 
-  flushCustom(): void {}
+  flushCustom(): void { }
 
 }

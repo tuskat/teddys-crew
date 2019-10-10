@@ -154,7 +154,7 @@ export class AttackingEntity extends MovingEntity {
     if (this.scene.time.now > this.lastShoot) {
       if (this.rangedSkill.getLength() < 2) {
         let bullet = this.createBullet(this.getAngle());
-        this.lastShoot = this.scene.time.now + 400;
+        this.lastShoot = this.scene.time.now + this.actionDuration;
         this.state = CurrentState.Shooting;
         this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound, entity: bullet });
         this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
