@@ -24,6 +24,7 @@
     "html-webpack-plugin": "^3.2.0",
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
+    "script-ext-html-webpack-plugin": "^2.1.4",
     "style-loader": "^1.0.0",
     "ts-loader": "6.0.4",
     "typescript": "3.5.2",
@@ -40,12 +41,17 @@
     "vue": "^2.6.10",
     "z": "^1.0.9"
   },
+  "misc": {
+    "about-builds": "You need Xcode for IOS. You need Android Studio or CLI Tools for android"
+  },
   "scripts": {
     "dev": "webpack --mode development && webpack-dev-server --mode development",
-    "build": "webpack --mode production && webpack-dev-server --mode production",
+    "production": "webpack --mode production && webpack-dev-server --mode production",
     "deploy": "webpack --mode=production --config webpack.production.config.js",
-    "add-electron": "npx cap add electron",
-    "update-electron": "npm run deploy && npx cap copy"
+    "add:electron": "npx cap add electron",
+    "add:ios": "npx cap add ios",
+    "add:android": "npx cap add android",
+    "rebuild:packages": "npm run deploy && npx cap copy"
   },
   "repository": {
     "type": "git",
@@ -53,9 +59,8 @@
   },
   "author": {
     "name": "tuskat",
-    "email": "cedric.marcelling@gmail.com"
+    "email": "tuskat.dev@gmail.com"
   },
-  "license": "N/A",
   "bugs": {
     "url": "https://github.com/digitsensitive/phaser3-typescript/issues"
   },

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import gameInterface from './components/gameInterface.vue'
-import '../styles/default.scss';
+// miserably fails, check why. Seems it needs to compile
+import './styles/default.scss';
 
 
 let app = new Vue({

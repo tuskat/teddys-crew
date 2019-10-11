@@ -2,8 +2,9 @@ let path = require('path')
 let webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-let HtmlWebpackPlugin = require('html-webpack-plugin')
-let CopyWebpackPlugin = require('copy-webpack-plugin')
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+let ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 // Phaser webpack config
 let pathToPhaser = path.join(__dirname, '/node_modules/phaser/');
@@ -49,6 +50,11 @@ module.exports = {
         removeEmptyAttributes: true
       },
       hash: true
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      sync: ['vue'],
+      async: ['interface'],
+      defer: ['app']
     }),
     new CopyWebpackPlugin([
       { from: 'src/games/cadre-de-guerre/assets', to: 'assets' },
