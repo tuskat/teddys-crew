@@ -96,5 +96,7 @@ module.exports = {
       phaser: phaser,
       'vue$': 'vue/dist/vue.esm.js'
     }
-  }
+  },
+  // to remove when real prod
+  // devtool: 'source-map'
 }
