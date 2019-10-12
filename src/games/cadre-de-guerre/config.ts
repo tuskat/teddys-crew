@@ -4,6 +4,6 @@ export class Config {
     public static readonly GAME_HEIGHT = 720;
     public static readonly TITLE = '';
     // Double check that, it's wonky
-    public static ASSETS = (process.env.TARGET === 'electron') ? 'assets' : '/src/games/cadre-de-guerre/assets';
+    public static ASSETS = '/src/games/cadre-de-guerre/assets';
 }
 

@@ -5,8 +5,8 @@ import { eventList } from "../../configs/enums/eventList";
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SoundEffects {
-  private assetsFolder: string = Config.ASSETS + '/sounds/';
-  private musicFolder: string = Config.ASSETS + '/musics/';
+  private assetsFolder: string = '/sounds/';
+  private musicFolder: string = '/musics/';
   private musicList = [
     'firmament_loopA',
     'firmament_loopB',
@@ -30,7 +30,7 @@ export class SoundEffects {
   // To Do, Name sounds after events
   private eventList = [];
   private sounds = [];
-  private music = [];
+  private musics = [];
   scene: GameScene;
 
   constructor(params) {
@@ -39,6 +39,10 @@ export class SoundEffects {
   }
 
   preloadSound() {
+    let assetPrefix = TARGET === 'electron' ? 'assets' : '/src/games/cadre-de-guerre/assets';
+    this.assetsFolder = assetPrefix + this.assetsFolder;
+    this.musicFolder = assetPrefix + this.musicFolder;
+
     this.soundList.forEach(element => {
       this.scene.load.audio(element, this.assetsFolder + element + '.mp3', { instances: 1 });
     });
@@ -54,8 +58,9 @@ export class SoundEffects {
     });
 
     this.musicList.forEach(element => {
-      this.music[element] = this.scene.sound.add(element);
-      this.music[element].volume = 0.25;
+      this.musics[element] = this.scene.sound.add(element);
+      this.musics[element].volume = 0.25;
+      this.musics[element].loop = true;
     });
   
     this.eventList.forEach(element => {
@@ -67,6 +72,14 @@ export class SoundEffects {
     this.eventList.forEach(element => {
       this.scene.gameEvent.off(element, this.playSound, this);
     });
+
+    this.soundList.forEach(element => {
+      this.scene.sound.remove(this.sounds[element]);
+    });
+
+    this.musicList.forEach(element => {
+      this.scene.sound.remove(this.musics[element]);
+    });
   }
 
   playSound(obj) {
@@ -76,7 +89,7 @@ export class SoundEffects {
   }
 
   public playMusic(title) {
-    this.music[title].play();
+    this.musics[title].play();
   }
 
   enumToArray(enumList) {

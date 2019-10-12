@@ -1,6 +1,7 @@
 import { eventList } from "../../../configs/enums/eventList";
 import { CurrentState } from "../../../configs/enums/currentStates";
 import { SkilledEntity } from "./skilledEntity";
+const { matches } = require('z');
 
 export class LevellingEntity extends SkilledEntity {
   experience = 0;
@@ -55,10 +56,27 @@ export class LevellingEntity extends SkilledEntity {
     return buff;
   }
 
+  public getExperience(): number {
+    return (7 * (this.level * this.config.baseXP));
+  }
+
+  private getCoefficient(): number {
+    let coefficient = 0;
+    if (this.level <= 5) {
+      coefficient = 0.75;
+    } else if (this.level <= 10) {
+      coefficient = 0.5;
+    } else {
+      coefficient = 0.25
+    }
+    return coefficient;
+  }
+
   protected levelUp(): void {
+    let coefficient = this.getCoefficient();
     this.level++;
     this.experience = this.experience - this.experienceToLevelUp;
-    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * .75));
+    this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * coefficient));
     // to be decided separately later
     let buff = this.distributeStats();
     if (this.experience > this.experienceToLevelUp) {

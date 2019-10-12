@@ -133,7 +133,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected doNothing(): void { }
 
   public getExperience(): number {
-    return (5 * (this.level * this.config.baseXP));
+    return 0;
   }
 
   // Respawn
