@@ -11,7 +11,7 @@ export class Enemy extends LevellingEntity {
     bulletExplode: 'waterBulletHit',
     shield: 'waterShield',
     levelUp: 'levelUp'
-  }
+  };
   player: Player;
   private lifeBar: Phaser.GameObjects.Graphics = null;
 
@@ -47,9 +47,24 @@ export class Enemy extends LevellingEntity {
   }
 
   updateCooldown(): void {
-    if (this.closedSkillCooldown > 0) {
-      this.closedSkillCooldown = 0;
+    if (!this.skillNames) {
+      this.skillNames = ["dash","shield","shoot"];
+      this.cloneSkillInfos();
+      return;
     }
+  
+    this.skillNames.forEach((element) => {
+      let cooldown = this[element + '_info'].cooldown;
+      if (cooldown == this[element + '_info'].cooldownDuration && !this[element + '_info'].onCooldown) {
+        this[element + '_info'].onCooldown = true;
+        this.scene.time.delayedCall(this[element + '_info'].cooldownDuration, this.resetSkill, [`${this[element + '_info'].name}_info`], this);
+      }
+    })
+  }
+
+  resetSkill(skillInfo): void {
+    this[skillInfo].cooldown = 0;
+    this[skillInfo].onCooldown = false;
   }
 
   updatLifeBarPosition(): void {

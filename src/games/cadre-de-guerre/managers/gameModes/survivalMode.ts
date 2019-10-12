@@ -5,11 +5,12 @@ export class SurvivalMode extends BaseLogic {
     timeToNextBuff: number = 15000;
     playerLives: number = 1;
     timeSurvived: number = 0;
+    maxEnemies = 2;
     buffEvent: Phaser.Time.TimerEvent;
 
     constructor(params) {
         super(params);
-        this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
+        // this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
     }
 
     protected updateClock(): void {

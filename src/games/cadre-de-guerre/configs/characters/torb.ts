@@ -29,7 +29,12 @@ const config = {
         dash: 'fireDash',
         shield: 'fireShield',
         levelUp: 'levelUp'
-    }
+    },
+    skillNames : [
+        'dash',
+        'shield',
+        'shoot'
+    ]
 }
 
 export default config

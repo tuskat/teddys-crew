@@ -7,6 +7,7 @@ import defaultAnimtationPresets from '../../../configs/enums/defaultAnimationPre
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
+  skillNames: string[];
   animationPreset = defaultAnimtationPresets;
   scene: GameScene;
   gameEvent: Phaser.Events.EventEmitter = null;
@@ -17,7 +18,6 @@ export class Entity extends Phaser.GameObjects.Sprite {
   state = CurrentState.Moving;
   speed = 100;
   bulletSpeed = 0;
-  skills = [];
   signatureSkill = 'doNothing';
   distanceToStop = 100;
   maxSpeedX;

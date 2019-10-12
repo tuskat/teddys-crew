@@ -1,8 +1,8 @@
 import { eventList } from "../../../configs/enums/eventList";
 import { CurrentState } from "../../../configs/enums/currentStates";
-import { AttackingEntity } from "./attackingEntity";
+import { SkilledEntity } from "./skilledEntity";
 
-export class LevellingEntity extends AttackingEntity {
+export class LevellingEntity extends SkilledEntity {
   experience = 0;
   experienceToLevelUp = 20;
 
