@@ -22,6 +22,8 @@ export class GameScene extends Phaser.Scene {
   public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number;
   public player: Player;
+  //  to make more...you know
+  private defaultMusic = 'firmament_loopA';
 
   constructor() {
     super({
@@ -105,7 +107,8 @@ export class GameScene extends Phaser.Scene {
       } else {
         this.pauseGame();
       }
-    }, this)
+    }, this);
+    // this.cameras.main.startFollow(this.player);
     // create texts
     this.waveManager = new SurvivalMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
@@ -113,6 +116,7 @@ export class GameScene extends Phaser.Scene {
     this.restartRound();
     if (!this.isLinuxFirefox()) {
       this.soundEffectsManager.initSound();
+      this.soundEffectsManager.playMusic(this.defaultMusic);
     }
   }
 

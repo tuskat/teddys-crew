@@ -123,9 +123,13 @@ export class UserInterface {
   }
 
   private updateXPBar(): void {
+    let barwidth = ((this.scene.player.experience / this.scene.player.experienceToLevelUp) * BARWIDTH);
+    if (barwidth > BARWIDTH) {
+      barwidth = BARWIDTH * 0.99;
+    }
     this.playerXpBar.clear();
     this.playerXpBar.fillStyle(0x87BC5E, 0.75);
-    this.playerXpBar.fillRect(15, 60, ((this.scene.player.experience / this.scene.player.experienceToLevelUp) * BARWIDTH), 10);
+    this.playerXpBar.fillRect(15, 60, barwidth, 10);
     this.text['experience'].setText('Level: ' + this.scene.player.level); // Max Life to Set
   }
 

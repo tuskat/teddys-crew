@@ -103,12 +103,12 @@ export class AttackingEntity extends MovingEntity {
   }
 
   protected attackSkill(): void {
-    if (this.state === CurrentState.Dead) {
+    if (this.isNotCapableToMove()) {
       return;
     }
     let success = this[this.signatureSkill]();
     if (!success) {
-      this.state = CurrentState.Moving;
+      // this.state = CurrentState.Moving;
     }
   }
 

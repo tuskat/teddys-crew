@@ -9,6 +9,7 @@ export function Shoot() {
 			name : 'shoot',
 			cooldownDuration: 0,
 			cooldown : 0,
+			hasCooldown: false,
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.shoot = function () {
@@ -32,11 +33,11 @@ export function Shoot() {
  **/
 export function Shield() {
 	return function (target) {
-		console.log(target);
 		let skill = {
 			name: 'shield',
 			cooldownDuration: 7 * 1000,
 			cooldown: 0,
+			hasCooldown: true,
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.shield = function () {
@@ -62,6 +63,7 @@ export function Dash() {
 			name : 'dash',
 			cooldownDuration: 0,
 			cooldown : 0,
+			hasCooldown: false,
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.dash = function () {

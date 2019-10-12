@@ -6,6 +6,11 @@ import { eventList } from "../../configs/enums/eventList";
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SoundEffects {
   private assetsFolder: string = Config.ASSETS + '/sounds/';
+  private musicFolder: string = Config.ASSETS + '/musics/';
+  private musicList = [
+    'firmament_loopA',
+    'firmament_loopB',
+  ]
   private soundList = [
     'Alarm',
     'Damage01',
@@ -24,7 +29,8 @@ export class SoundEffects {
   ];
   // To Do, Name sounds after events
   private eventList = [];
-  private sounds = []
+  private sounds = [];
+  private music = [];
   scene: GameScene;
 
   constructor(params) {
@@ -36,6 +42,9 @@ export class SoundEffects {
     this.soundList.forEach(element => {
       this.scene.load.audio(element, this.assetsFolder + element + '.mp3', { instances: 1 });
     });
+    this.musicList.forEach(element => {
+      this.scene.load.audio(element, this.musicFolder + element + '.ogg', { instances: 1 });
+    });
   }
 
   initSound() {
@@ -44,6 +53,11 @@ export class SoundEffects {
       this.sounds[element].volume = 0.25;
     });
 
+    this.musicList.forEach(element => {
+      this.music[element] = this.scene.sound.add(element);
+      this.music[element].volume = 0.25;
+    });
+  
     this.eventList.forEach(element => {
       this.scene.gameEvent.on(element, this.playSound, this);
     });
@@ -59,6 +73,10 @@ export class SoundEffects {
     if (obj) {
       this.sounds[obj.sound].play();
     }
+  }
+
+  public playMusic(title) {
+    this.music[title].play();
   }
 
   enumToArray(enumList) {

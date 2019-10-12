@@ -45,7 +45,6 @@ export default {
       this.isActive = false;
     },
     resumeGame() {
-      console.log('loneliestGurl');
       this.isActive = false;
        window.dispatchEvent(new CustomEvent('resumeGame', { detail: { isPausing: 'who' }}));
     }

@@ -113,8 +113,7 @@ export class BaseLogic {
   protected batchSpawn(): void {
     // divide the weight by the number of enemies  
     for (let i = 0; i != this.maxEnemies; i++) {
-      // let enemyType = this.pickEnemy();
-      let enemyType = 'Zoner';
+      let enemyType = this.pickEnemy();
       this.enemies.push(this.spawnEnemy(enemyType));
     }
   }

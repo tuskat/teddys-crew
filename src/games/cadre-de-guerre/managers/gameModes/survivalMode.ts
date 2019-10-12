@@ -5,7 +5,7 @@ export class SurvivalMode extends BaseLogic {
     timeToNextBuff: number = 15000;
     playerLives: number = 1;
     timeSurvived: number = 0;
-    maxEnemies = 2;
+    maxEnemies = 5;
     buffEvent: Phaser.Time.TimerEvent;
 
     constructor(params) {
@@ -40,7 +40,9 @@ export class SurvivalMode extends BaseLogic {
     protected IntensityUp(): void {
         // let intensityType = Math.random() < 0.5 ? 'Power' : 'Number';
         // if (intensityType === 'Number') {
-        this.maxEnemies++;
+        if (this.maxEnemies < 30) {
+            this.maxEnemies++;
+        }
         let enemyType = this.pickEnemy();
         this.enemies.push(this.spawnEnemy(enemyType));
         // if (intensityType === 'Number') {

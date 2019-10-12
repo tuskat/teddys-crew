@@ -21,6 +21,11 @@ export class Enemy extends LevellingEntity {
     this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
     this.lifeBar = this.scene.add.graphics();
     this.redrawLifebar();
+    if (!this.skillNames) {
+      this.skillNames = ["dash","shield","shoot"];
+      this.cloneSkillInfos();
+      return;
+    }
   }
 
   protected blockingState(): boolean {
@@ -28,6 +33,7 @@ export class Enemy extends LevellingEntity {
       this.state === CurrentState.Dashing ||
       this.state === CurrentState.Hurting ||
       this.state === CurrentState.Shooting ||
+      this.state === CurrentState.Blocked ||
       this.state === CurrentState.WindingUp);
   }
 
@@ -47,17 +53,17 @@ export class Enemy extends LevellingEntity {
   }
 
   updateCooldown(): void {
-    if (!this.skillNames) {
-      this.skillNames = ["dash","shield","shoot"];
-      this.cloneSkillInfos();
+    if (this.isNotCapableToMove()) {
       return;
     }
-  
     this.skillNames.forEach((element) => {
-      let cooldown = this[element + '_info'].cooldown;
-      if (cooldown == this[element + '_info'].cooldownDuration && !this[element + '_info'].onCooldown) {
-        this[element + '_info'].onCooldown = true;
-        this.scene.time.delayedCall(this[element + '_info'].cooldownDuration, this.resetSkill, [`${this[element + '_info'].name}_info`], this);
+      if (this[element + '_info'].hasCooldown) {
+        let cooldown = this[element + '_info'].cooldown;
+        if (cooldown === this[element + '_info'].cooldownDuration && !this[element + '_info'].onCooldown) {
+          this[element + '_info'].onCooldown = true;
+          this.state = CurrentState.Blocked;
+          this.scene.time.delayedCall(this[element + '_info'].cooldownDuration, this.resetSkill, [`${this[element + '_info'].name}_info`], this);
+        }
       }
     })
   }
@@ -65,6 +71,9 @@ export class Enemy extends LevellingEntity {
   resetSkill(skillInfo): void {
     this[skillInfo].cooldown = 0;
     this[skillInfo].onCooldown = false;
+    if (!this.isDead()) {
+      this.state = CurrentState.Moving;
+    }
   }
 
   updatLifeBarPosition(): void {

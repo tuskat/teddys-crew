@@ -4,7 +4,7 @@ import { SkilledEntity } from "./skilledEntity";
 
 export class LevellingEntity extends SkilledEntity {
   experience = 0;
-  experienceToLevelUp = 20;
+  experienceToLevelUp = 18;
 
   constructor(params) {
     super(params);
@@ -61,6 +61,9 @@ export class LevellingEntity extends SkilledEntity {
     this.experienceToLevelUp = (this.experienceToLevelUp + (this.experienceToLevelUp * .75));
     // to be decided separately later
     let buff = this.distributeStats();
+    if (this.experience > this.experienceToLevelUp) {
+      return this.levelUp();
+    }
     this.scene.gameEvent.emit(eventList.LevelUp,  { sound: 'PowerUp03', entity: this, buff: buff });
     if (this.state !== CurrentState.Dead) {
       this.createGraphicEffect(this.animationPreset.levelUp, true);
