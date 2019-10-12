@@ -32,7 +32,6 @@ export function Shoot() {
  **/
 export function Shield() {
 	return function (target) {
-		console.log(target);
 		let skill = {
 			name: 'shield',
 			cooldownDuration: 7 * 1000,

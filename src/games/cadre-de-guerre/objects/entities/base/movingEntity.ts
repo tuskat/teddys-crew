@@ -3,7 +3,6 @@ import { CurrentState } from '../../../configs/enums/currentStates';
 
 export class MovingEntity extends Entity {
   isBreathing: boolean = false;
-
   constructor(params) {
     super(params);
   }

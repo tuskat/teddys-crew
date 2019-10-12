@@ -7,6 +7,7 @@ import defaultAnimtationPresets from '../../../configs/enums/defaultAnimationPre
 
 
 export class Entity extends Phaser.GameObjects.Sprite {
+  body: Phaser.Physics.Arcade.Body;
   skillNames: string[];
   animationPreset = defaultAnimtationPresets;
   scene: GameScene;

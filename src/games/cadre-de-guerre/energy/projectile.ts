@@ -25,7 +25,7 @@ export class Projectile extends BaseEnergy {
     );
     this.body.setSize(80, 80, true);
     this.body.allowRotation = true;
-    this.body.bounce = { x: 0.5, y: 0.5 };
+    this.body.bounce = new Phaser.Math.Vector2(0.5,0.5);
     this.scale = 0.5;
     // bullet hit background
     this.scene.physics.world.enable(this);
