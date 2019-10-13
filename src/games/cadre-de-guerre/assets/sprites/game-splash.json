@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "game-splash.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1436,
+				"h": 654
+			},
+			"scale": 0.9375,
+			"frames": [
+				{
+					"filename": "OrsPortrait.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 716,
+						"h": 652
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 716,
+						"h": 652
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 716,
+						"h": 652
+					}
+				},
+				{
+					"filename": "TorbPortrait.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 716,
+						"h": 652
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 716,
+						"h": 652
+					},
+					"frame": {
+						"x": 719,
+						"y": 1,
+						"w": 716,
+						"h": 652
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:2f8ba1409d1530311bb941d820763bfc:ac310e3ae8d30b23cf238f93af67c0c8:9f5e056b93ae09a7845dbea2c426a95f$"
+	}
+}
