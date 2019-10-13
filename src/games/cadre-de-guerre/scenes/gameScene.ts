@@ -155,7 +155,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   isLinuxFirefox(): boolean {
-    // because it crash in soundManager
+    // Firefox seems to not support mp3
     let is_linux = /Linux/.test(window.navigator.platform);
     let is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     return (is_firefox && is_linux);

@@ -61,6 +61,10 @@ export class MenuScene extends Phaser.Scene {
     this.music.volume = 0.25;
     this.music.loop = true;
     this.music.play();
+
+    if (TARGET === 'web') {
+      window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
+    }
   }
 
   update(): void {

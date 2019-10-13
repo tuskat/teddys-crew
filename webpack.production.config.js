@@ -2,6 +2,8 @@ let path = require('path');
 let webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 let ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -36,7 +38,7 @@ module.exports = env => {
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './production.html',
-        chunks: ['interface', 'vue', 'app'],
+        chunks: ['interface', 'vue'],
         chunksSortMode: 'manual',
         minify: {
           removeAttributeQuotes: true,
@@ -52,13 +54,16 @@ module.exports = env => {
       }),
       new ScriptExtHtmlWebpackPlugin({
         sync: ['vue'],
-        async: ['interface'],
-        defer: ['app']
+        async: ['interface']
       }),
       new CopyWebpackPlugin([
         { from: 'src/games/cadre-de-guerre/assets', to: 'assets' },
         { from: 'styles', to: 'styles' }
       ]),
+      new MiniCssExtractPlugin({
+        filename: '[name].[hash].css',
+        chunkFilename: '[id].[hash].css'
+      })
     ],
     module: {
       rules: [
@@ -66,31 +71,42 @@ module.exports = env => {
         { test: /phaser\.js$/, loader: 'expose-loader?Phaser' },
         { test: /\.vue$/, loader: 'vue-loader' },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.(sa|sc|c)ss$/,
           use: [
-            'style-loader',
-            'css-loader',
             {
-              loader: 'sass-loader'
+              loader: MiniCssExtractPlugin.loader,
             },
+            'css-loader',
+            'sass-loader'
           ],
         }
       ]
     },
     optimization: {
       minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          extractComments: true,
+        }),
+      ],
       splitChunks: {
         cacheGroups: {
           commons: {
             test: /[\\/]node_modules[\\/]vue[\\/]/,
             name: "vue",
             chunks: "all"
+          },
+            styles: {
+              test: /\.css$/,
+              name: 'styles',
+              chunks: 'all',
+              enforce: true
           }
         }
       }
     },
     resolve: {
-      extensions: ['.ts', '.js'],
+      extensions: ['.ts', '.js', 'scss'],
       alias: {
         phaser: phaser,
         'vue$': 'vue/dist/vue.esm.js'
