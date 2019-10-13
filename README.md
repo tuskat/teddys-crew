@@ -1,5 +1,9 @@
 # Teddy's Crews
 
+## -
+
+It has always been a dream of mine to be able to explore beyond the limits of the human mind. To strip the universe down to its essence and understand everything in and out of it. But what i found shook me to the core of my existence... When one is faced with a darkness so vast, so powerful.. Maybe the only logical solution is to go insane...
+
 ## Synopsis
 
 "Teddy's Crews" is a cute parody of [Redacted], it stars some bears like creatures with insect masks fighting some obscure-like (deep-sea inspired) creatures.
