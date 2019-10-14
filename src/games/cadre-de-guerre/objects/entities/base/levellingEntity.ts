@@ -30,6 +30,8 @@ export class LevellingEntity extends SkilledEntity {
   }
 
   protected distributeStats(): string {
+    //  Stat to be more personal
+    // Torb do not buff the same as enemies and shit
     let buff = '';
     switch (this.level % 3) {
       case 0: {
@@ -57,6 +59,7 @@ export class LevellingEntity extends SkilledEntity {
   }
 
   public getExperience(): number {
+    //  to experiment with
     return (7 * (this.level * this.config.baseXP));
   }
 
