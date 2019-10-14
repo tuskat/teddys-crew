@@ -81,6 +81,7 @@ export class Player extends LevellingEntity {
     return true;
   }
 
+  // move to controller
   protected closeToCursor(): boolean {
     if (this.target) {
       let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) * 2;
@@ -90,7 +91,7 @@ export class Player extends LevellingEntity {
     }
     return false;
   }
-
+  // move to controller
   protected handlePointer(pointer): void {
     if (this.blockingState()) {
       return;
@@ -144,11 +145,11 @@ export class Player extends LevellingEntity {
       this.state = CurrentState.Moving;
     }
   }
-
+  // surprisingly ok
   protected meleeClick(pointer): void {
     this.closeSkillsHandler(this, pointer);
   }
-
+  // refactor : update target somewhere, use dash without pointer
   protected dashToClick(pointer): void {
     this.callSkill(pointer, 'dash');
   }

@@ -18,8 +18,10 @@ export class MouseController extends BaseController {
   protected emitPointerClick(pointer): void {
     if (pointer.leftButtonDown()) {
       this.pointerEvent.emit('dashButtonPressed', pointer);
-    } else {
+    } else if (pointer.rightButtonDown()) {
       this.pointerEvent.emit('shootButtonPressed', pointer);
+    } else if (pointer.middleButtonDown()) {
+      this.pointerEvent.emit('shieldButtonPressed', pointer);
     }
   }
 
