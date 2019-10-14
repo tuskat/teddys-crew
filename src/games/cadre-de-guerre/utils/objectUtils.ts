@@ -30,7 +30,7 @@ export class ObjectUtils {
   }
   
   public static weightedRandomization(spec) {
-    var i, sum=0, r=Math.random();
+    let i, sum=0, r=Math.random();
     for (i in spec) {
       sum += spec[i];
       if (r <= sum) return i;

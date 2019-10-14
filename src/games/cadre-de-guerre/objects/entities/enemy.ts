@@ -18,7 +18,7 @@ export class Enemy extends LevellingEntity {
   constructor(params) {
     super(params);
     this.player = params.player;
-    this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
+    this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 3000);
     this.lifeBar = this.scene.add.graphics();
     this.redrawLifebar();
     if (!this.skillNames) {

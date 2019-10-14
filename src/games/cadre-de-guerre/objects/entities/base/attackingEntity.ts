@@ -5,9 +5,11 @@ import { MovingZone } from "../../../energy/movingZone";
 import { MovingEntity } from "./movingEntity";
 
 export class AttackingEntity extends MovingEntity {
+  comboPower: number = 1;
   inputEvent: Phaser.Events.EventEmitter = null;
   projectiles: any;
   aura: any;
+
 
   constructor(params) {
     super(params);
@@ -41,49 +43,34 @@ export class AttackingEntity extends MovingEntity {
   }
 
   protected createBullet(rotation): Projectile {
+    let config = this.energyConfig();
+    config.gfxName = this.animationPreset.bullet;
+    config.rotation = rotation;
+    config.speed = this.bulletSpeed;
     return this.projectiles.add(
-      new Projectile({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: "Fire_13_00000",
-        rotation: rotation,
-        gfxName: this.animationPreset.bullet,
-        speed: this.bulletSpeed,
-        power: this.power,
-        onExplode: this.animationPreset.bulletExplode
-      })
+      new Projectile(config)
     );
   }
 
   protected createCloseSkill(animation = 'fireShield'): Zone {
+    let config = this.energyConfig();
+    config.gfxName = animation;
     return this.aura.add(
-      new Zone({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: "Fire_13_00000",
-        gfxName: animation,
-        power: this.power,
-        onExplode: this.animationPreset.explode
-      })
+      new Zone(config)
     );
   }
 
   protected createDashSkill(animation = 'fire', rotation = 0): MovingZone {
+    let config = this.energyConfig();
+    config.rotation = rotation;
+    config.gfxName = animation;
     return this.aura.add(
-      new MovingZone({
-        scene: this.scene,
-        x: this.x,
-        y: this.y,
-        key: "Fire_13_00000",
-        gfxName: animation,
-        parent: this,
-        rotation: rotation,
-        power: this.power,
-        onExplode: this.animationPreset.explode
-      })
+      new MovingZone(config)
     );
+  }
+
+  public getCurrentPower(): number {
+    return this.power * this.comboPower;
   }
 
   public getBullets(): Phaser.GameObjects.Group {
@@ -130,4 +117,18 @@ export class AttackingEntity extends MovingEntity {
     return false;
   }
 
+  protected energyConfig(): any {
+    return {
+      scene: this.scene,
+      x: this.x,
+      y: this.y,
+      key: "Fire_13_00000",
+      parent: this,
+      power: this.getCurrentPower(),
+      comboPower: this.comboPower,
+      gfxName: '',
+      rotation: 0,
+      onExplode: this.animationPreset.explode
+    }
+  }
 }

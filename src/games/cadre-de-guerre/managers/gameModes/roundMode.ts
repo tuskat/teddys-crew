@@ -1,8 +1,8 @@
 import { GameScene } from "../../scenes/gameScene";
 import { eventList } from "../../configs/enums/eventList";
-import { BaseLogic } from "./baseLogic";
+import { DistributionLogic } from "./distributionLogic";
 
-export class RoundMode extends BaseLogic {
+export class RoundMode extends DistributionLogic {
     scene: GameScene;
     maxEnemies = 5;
     enemiesLevel = 1;

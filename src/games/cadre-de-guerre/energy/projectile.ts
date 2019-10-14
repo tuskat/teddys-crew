@@ -17,18 +17,17 @@ export class Projectile extends BaseEnergy {
     // image
     this.flipX = false;
     // physics
-
     this.scene.physics.velocityFromRotation(
       this.rotation,
       this.bulletSpeed,
       this.body.velocity
     );
-    this.body.setSize(80, 80, true);
+
     this.body.allowRotation = true;
     this.body.bounce = { x: 0.5, y: 0.5 };
-    this.scale = 0.5;
+    this.body.setSize(80, 80, true);
+    this.setScale(0.5 * (this.comboPower * 0.25));
     // bullet hit background
-    this.scene.physics.world.enable(this);
     this.scene.physics.add.collider(this, this.scene.mapGenerator.getGroundLayer(), undefined, this.explodeOnCollide, this);
   }
 

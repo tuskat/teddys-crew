@@ -18,6 +18,8 @@ export class Player extends LevellingEntity {
     this.initInput(params.controller);
     this.initUI();
     this.cloneSkillInfos();
+    this.scene.gameEvent.on(eventList.ComboPowerUp, this.powerUp, this);
+    this.scene.gameEvent.on(eventList.ComboLoss, this.powerDown, this);
   }
 
   protected initBody(): void {
@@ -166,5 +168,12 @@ export class Player extends LevellingEntity {
     this.scene.gameEvent.emit(eventList.Respawn, { sound: 'PowerUp02' });
     this.state = CurrentState.Moving;
     this.isInvicible = false;
+  }
+
+  protected powerUp(): void {
+    this.comboPower += 1;
+  }
+  protected powerDown(): void {
+    this.comboPower = 1;
   }
 }

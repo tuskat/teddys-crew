@@ -1,7 +1,7 @@
-import { BaseLogic } from "./baseLogic";
 import { eventList } from "../../configs/enums/eventList";
+import { DistributionLogic } from "./distributionLogic";
 
-export class SurvivalMode extends BaseLogic {
+export class SurvivalMode extends DistributionLogic {
   timeToNextBuff: number = 15000;
   playerLives: number = 1;
   timeSurvived: number = 0;
@@ -49,7 +49,7 @@ export class SurvivalMode extends BaseLogic {
     this.enemiesLevel++;
     this.toEachEnemy(this.levelUpEnemy);
     // }
-    if (this.enemiesLevel % 5 === 0) {
+    if (this.enemiesLevel % 10 === 0) {
       this.redistributeEnemies();
     }
   }

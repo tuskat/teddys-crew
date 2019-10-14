@@ -3,22 +3,22 @@ import { GraphicEffects } from "./graphicEffects";
 export class BaseEnergy extends GraphicEffects {
   protected onExplode: string;
   protected power: number;
+  protected defaultScale: number = this.scale;
+  protected comboPower: number;
 
   constructor(params) {
     super(params);
     this.onExplode = params.onExplode || 'waterBulletHit';
-    this.power = params.power || 1;
+    this.power = params.power;
+    this.comboPower = params.comboPower;
+    this.initEnergy();
   }
 
-  protected initImage(): void {
+  protected initEnergy(): void {
     // image
-    this.scale = 1;
-    this.setOrigin(0.5, 0.5);
-    this.setDepth(2);
-    this.setSize(30, 30);
-    this.on('animationcomplete', this.die, this);
-    // physics
     this.scene.physics.world.enable(this);
+    this.body.setSize(128, 128, true);
+    this.setScale(this.defaultScale * this.comboPower);
   }
 
   die(): void {
