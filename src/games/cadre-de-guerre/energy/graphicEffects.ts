@@ -18,10 +18,10 @@ export class GraphicEffects extends Phaser.GameObjects.Sprite {
     this.scale = 1;
     this.setOrigin(0.5, 0.5);
     this.setDepth(2);
-    this.setSize(30, 30);
+    // this.setSize(30, 30);
 
     // physics
-    this.scene.physics.world.enable(this);
+    //
     this.on('animationcomplete', this.die, this);
   }
 

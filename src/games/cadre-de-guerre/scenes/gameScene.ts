@@ -10,6 +10,7 @@ import { eventList } from '../configs/enums/eventList';
 import { SurvivalMode } from '../managers/gameModes/survivalMode';
 import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
+import { DebugMode } from '../managers/gameModes/debugMode';
 
 export class GameScene extends Phaser.Scene {
   public UI: UserInterface;
@@ -110,7 +111,7 @@ export class GameScene extends Phaser.Scene {
     }, this);
     // this.cameras.main.startFollow(this.player);
     // create texts
-    this.waveManager = new SurvivalMode({ scene: this });
+    this.waveManager = new DebugMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
     this.restartRound();

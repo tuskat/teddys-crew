@@ -1,7 +1,9 @@
 import { Player } from "./player";
 import { CurrentState } from '../../configs/enums/currentStates'
 import { LevellingEntity } from "./base/levellingEntity";
+import { Explode } from "../../skills/skills";
 
+@Explode()
 export class Enemy extends LevellingEntity {
   animationPreset = {
     spawn: 'waterSpawn',
@@ -18,11 +20,11 @@ export class Enemy extends LevellingEntity {
   constructor(params) {
     super(params);
     this.player = params.player;
-    this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
+    this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 3000);
     this.lifeBar = this.scene.add.graphics();
     this.redrawLifebar();
     if (!this.skillNames) {
-      this.skillNames = ["dash","shield","shoot"];
+      this.skillNames = ["dash","explode","shoot"];
       this.cloneSkillInfos();
       return;
     }

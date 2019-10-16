@@ -1,16 +1,16 @@
 import { eventList } from "../../configs/enums/eventList";
 import { DistributionLogic } from "./distributionLogic";
 
-export class SurvivalMode extends DistributionLogic {
+export class DebugMode extends DistributionLogic {
   timeToNextBuff: number = 15000;
-  playerLives: number = 1;
+  playerLives: number = 999;
   timeSurvived: number = 0;
   maxEnemies = 5;
   buffEvent: Phaser.Time.TimerEvent;
 
   constructor(params) {
     super(params);
-    this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
+    // this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
   }
 
   protected updateClock(): void {
@@ -59,4 +59,9 @@ export class SurvivalMode extends DistributionLogic {
       this.playerLives--;
     }
   }
+
+  pickEnemy(): string {
+    return 'Zoner';
+  }
+  
 }

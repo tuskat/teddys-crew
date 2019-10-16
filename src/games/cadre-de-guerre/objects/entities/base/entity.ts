@@ -180,6 +180,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.scene.gameEvent.emit(eventList.ScoreUpdate);
         this.setFrame(this.spriteFolder + '/Idle' + '.png');
         this.scene.cameras.main.shake(200, 0.00125);
+        this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
       }
       this.alpha = 0;
       this.state = CurrentState.Dead;

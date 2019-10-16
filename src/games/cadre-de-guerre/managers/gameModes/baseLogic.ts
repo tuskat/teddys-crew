@@ -3,9 +3,7 @@ import * as ShooterConfig from '../../configs/characters/shooter';
 import * as ZonerConfig from '../../configs/characters/zoner';
 
 import { GameScene } from "../../scenes/gameScene";
-import { Enemy } from "../../objects/entities/enemy";
 import { eventList } from "../../configs/enums/eventList";
-import { ObjectUtils } from "../../utils/objectUtils";
 const { matches } = require('z');
 
 export class BaseLogic {
@@ -85,42 +83,18 @@ export class BaseLogic {
     enemy.shouldRespawn = true;
   }
 
-  protected spawnEnemy(enemyClass): any {
-    let config = this.getEnemyClassConfig(enemyClass);
-    let enemy = new Enemy({
-      scene: this.scene,
-      x: Phaser.Math.RND.integerInRange(100, 700),
-      y: Phaser.Math.RND.integerInRange(100, 500),
-      key: enemyClass + "/Idle",
-      player: this.scene.player,
-      config: config,
-      folder: enemyClass,
-      level: this.enemiesLevel
-    });
-    this.setAllOverlaps(enemy);
-    this.setBackgroundCollision(enemy);
-    return enemy;
-  }
-
-  protected redistributeEnemies(): any {
-    this.toEachEnemy(this.killEnemy);
-    this.toEachEnemy(this.flushEnemy);
-    this.enemies = [];
-    this.batchSpawn();
-    this.toEachEnemy(this.killSilentlyEnemy);
-  }
-
-  protected batchSpawn(): void {
-    // divide the weight by the number of enemies  
-    for (let i = 0; i != this.maxEnemies; i++) {
-      let enemyType = this.pickEnemy();
-      this.enemies.push(this.spawnEnemy(enemyType));
+  protected startRound(): void {
+    this.timeLeft = this.startTime;
+    this.toEachEnemy(this.setRespawn);
+    this.onGoing = true;
+    if (this.round === 0) {
+      this.toEachEnemy(this.killSilentlyEnemy);
+    } else {
+      this.toEachEnemy(this.respawnEnemy);
     }
+    this.scene.gameEvent.emit(eventList.RoundStarted, null);
   }
-  protected spawnInitialEnemies(): void {
-    this.batchSpawn();
-  }
-
+  
   protected setAllOverlaps(enemy): void {
     // player bullets hit enemies
     this.scene.physics.add.overlap(this.scene.player.getBullets(), enemy, this.singleHitOnEntity, null, this);
@@ -150,18 +124,7 @@ export class BaseLogic {
     this.scene.gameEvent.emit(eventList.RoundEnded, { sound: 'PowerUp01' });
   }
 
-  protected startRound(): void {
-    this.timeLeft = this.startTime;
-    this.toEachEnemy(this.setRespawn);
-    this.onGoing = true;
-    if (this.round === 0) {
-      this.spawnInitialEnemies();
-      this.toEachEnemy(this.killSilentlyEnemy);
-    } else {
-      this.toEachEnemy(this.respawnEnemy);
-    }
-    this.scene.gameEvent.emit(eventList.RoundStarted, null);
-  }
+
 
   // Bullet logic
   protected bulletHitLayer(bullet): void {
@@ -197,15 +160,6 @@ export class BaseLogic {
     this.enemies.forEach(action, this);
   }
   // Todo : One function can do both
-  pickEnemy(): void {
-    let type = (parseInt(ObjectUtils.weightedRandomization({ 0: 0.5, 1: 0.4, 2: 0.1 })) + 1);
-    return matches(type)(
-      (x = 1) => 'Dasher',
-      (x = 2) => 'Shooter',
-      (x = 3) => 'Zoner'
-    );
-  }
-
   getEnemyClassConfig(type): any {
     return matches(type)(
       (x = 'Dasher') => DasherConfig.default,

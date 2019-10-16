@@ -8,6 +8,7 @@ export class MovingZone extends BaseEnergy {
     super(params);
     this.rotation = params.rotation;
     this.parent = params.parent;
+    this.power = params.power;
     this.lifespan = this.parent.actionDuration;
     this.initZone();
   }
@@ -17,7 +18,7 @@ export class MovingZone extends BaseEnergy {
     this.flipX = true;
     this.blendMode = Phaser.BlendModes.SCREEN;
     this.setDepth(2);
-    this.body.setSize(80, 80, true);
+    // this.body.setSize(80, 80, true);
     // physics
   }
 
