@@ -30,7 +30,7 @@ export class DistributionLogic extends BaseLogic {
     this.batchSpawn();
   }
 
-  pickEnemy(): void {
+  pickEnemy(): string {
     let type = (parseInt(this.enemySequence()) + 1);
     return matches(type)(
       (x = 1) => 'Dasher',

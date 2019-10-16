@@ -26,7 +26,7 @@ export class Projectile extends BaseEnergy {
     this.body.allowRotation = true;
     this.body.bounce = { x: 0.5, y: 0.5 };
     this.body.setSize(80, 80, true);
-    this.setScale(0.5 * (this.comboPower * 0.25));
+    this.setScale(0.5 + (this.comboPower * 0.25));
     // bullet hit background
     this.scene.physics.add.collider(this, this.scene.mapGenerator.getGroundLayer(), undefined, this.explodeOnCollide, this);
   }

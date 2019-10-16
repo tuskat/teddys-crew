@@ -18,7 +18,7 @@ export class BaseEnergy extends GraphicEffects {
     // image
     this.scene.physics.world.enable(this);
     this.body.setSize(128, 128, true);
-    this.setScale(this.defaultScale * this.comboPower);
+    this.setScale(this.defaultScale + (this.comboPower / 10));
   }
 
   die(): void {

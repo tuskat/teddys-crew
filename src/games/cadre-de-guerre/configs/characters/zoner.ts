@@ -6,9 +6,9 @@ const config = {
     power: 1,
     speed : 175,
     baseXP: 15,
-    signatureSkill : 'shield',
+    signatureSkill : 'explode',
     distanceToStop : 100,
-    delayToAction : 350,
+    delayToAction : 600,
     actionDuration: 550,
     bulletSpeed : 250,
     events : enemiesEvents

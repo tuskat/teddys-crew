@@ -60,6 +60,15 @@ export class AttackingEntity extends MovingEntity {
     );
   }
 
+  protected createGrowingSkill(animation = 'fireShield'): Zone {
+    let config = this.energyConfig();
+    config.gfxName = animation;
+    config.growing = true;
+    return this.aura.add(
+      new Zone(config)
+    );
+  }
+
   protected createDashSkill(animation = 'fire', rotation = 0): MovingZone {
     let config = this.energyConfig();
     config.rotation = rotation;
