@@ -5,6 +5,7 @@ import { eventList } from "../../configs/enums/eventList";
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SoundEffects {
+  private shouldPlaySound: boolean = false;
   private assetsFolder: string = '/sounds/';
   private musicFolder: string = '/musics/';
   private musicList = [
@@ -27,6 +28,7 @@ export class SoundEffects {
     'UI04',
     'Misc03'
   ];
+  private currentMusic = null;
   // To Do, Name sounds after events
   private eventList = [];
   private sounds = [];
@@ -83,13 +85,23 @@ export class SoundEffects {
   }
 
   playSound(obj) {
-    if (obj) {
+    if (obj && this.shouldPlaySound) {
       this.sounds[obj.sound].play();
     }
   }
 
   public playMusic(title) {
     this.musics[title].play();
+    this.currentMusic = this.musics[title];
+  }
+
+  setSound(sound){
+    if (sound === true) {
+      this.currentMusic.resume();
+    } else {
+      this.currentMusic.pause();
+    }
+    this.shouldPlaySound = sound;
   }
 
   enumToArray(enumList) {

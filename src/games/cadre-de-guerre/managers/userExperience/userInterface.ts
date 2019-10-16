@@ -13,6 +13,7 @@ export class UserInterface {
   private playerXpBarBg: Phaser.GameObjects.Sprite;
   private gameEvent: Phaser.Events.EventEmitter;
   private scene: GameScene;
+  private shouldShake: boolean = true;
 
   constructor(params) {
     this.scene = params.scene;
@@ -38,6 +39,7 @@ export class UserInterface {
     this.gameEvent.on(eventList.CountDownStarted, this.startCountDown, this);
     this.gameEvent.on(eventList.LevelUp, this.levelUp, this);
     this.gameEvent.on(eventList.GameOver, this.gameOver, this);
+    this.gameEvent.on(eventList.Dying, this.shake, this);
   }
 
   public cleanse(): void {
@@ -50,6 +52,7 @@ export class UserInterface {
     this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
     this.gameEvent.off(eventList.LevelUp, this.levelUp, this);
     this.gameEvent.off(eventList.GameOver, this.gameOver, this);
+    this.gameEvent.off(eventList.Dying, this.shake, this);
   }
 
   private initText(): void {
@@ -289,5 +292,15 @@ export class UserInterface {
       });
     }
     this.count();
+  }
+
+  private shake(): void {
+    if (this.shouldShake) {
+      this.scene.cameras.main.shake(200, 0.00125);
+    }
+  }
+
+  public setShake(shake): void {
+    this.shouldShake = shake;
   }
 }

@@ -40,7 +40,7 @@ body div.container {
 
 hr {
   border-width: 1px;
-  border-color: white;
+  border-color: rgba(0, 0, 0, 0.75);
   border-style: solid;
 }
 p {
@@ -53,7 +53,7 @@ p {
   font-family: "Connection";
   text-decoration: none;
   outline: none;
-  border: 2px solid white;
+  border-radius: 4px;
   color: white;
   background: transparent;
   font-size: 2em;
