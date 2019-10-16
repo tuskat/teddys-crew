@@ -27,3 +27,11 @@
   -> Think about a different bonus combo should give.
 
 -> Higher the combo the more often the ultimate is available
+
+# Emphasis matches importance
+# Friends information
+- closely contextually related
+- enemies (opposite) proximity violation
+- sharp corner are naturally important
+
+What are the most important *pixels* on screens
