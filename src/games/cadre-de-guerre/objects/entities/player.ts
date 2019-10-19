@@ -18,6 +18,8 @@ export class Player extends LevellingEntity {
     this.initInput(params.controller);
     this.initUI();
     this.cloneSkillInfos();
+    this.scene.gameEvent.on(eventList.ComboPowerUp, this.powerUp, this);
+    this.scene.gameEvent.on(eventList.ComboLoss, this.powerDown, this);
   }
 
   protected initBody(): void {
@@ -81,6 +83,7 @@ export class Player extends LevellingEntity {
     return true;
   }
 
+  // move to controller
   protected closeToCursor(): boolean {
     if (this.target) {
       let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) * 2;
@@ -90,7 +93,7 @@ export class Player extends LevellingEntity {
     }
     return false;
   }
-
+  // move to controller
   protected handlePointer(pointer): void {
     if (this.blockingState()) {
       return;
@@ -144,11 +147,11 @@ export class Player extends LevellingEntity {
       this.state = CurrentState.Moving;
     }
   }
-
+  // surprisingly ok
   protected meleeClick(pointer): void {
     this.closeSkillsHandler(this, pointer);
   }
-
+  // refactor : update target somewhere, use dash without pointer
   protected dashToClick(pointer): void {
     this.callSkill(pointer, 'dash');
   }
@@ -165,5 +168,12 @@ export class Player extends LevellingEntity {
     this.scene.gameEvent.emit(eventList.Respawn, { sound: 'PowerUp02' });
     this.state = CurrentState.Moving;
     this.isInvicible = false;
+  }
+
+  protected powerUp(): void {
+    this.comboPower += 1;
+  }
+  protected powerDown(): void {
+    this.comboPower = 1;
   }
 }

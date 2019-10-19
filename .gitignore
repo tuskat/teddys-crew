@@ -4,6 +4,8 @@
 
 
 #General
+# Style in scss, compile in style
+styles
 #-------------------------------------------------------------------------------
 dist
 builds

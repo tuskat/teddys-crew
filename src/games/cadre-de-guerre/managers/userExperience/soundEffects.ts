@@ -5,7 +5,13 @@ import { eventList } from "../../configs/enums/eventList";
 // Usage :
 // this.scene.gameEvent.emit(signalName, Object with {sound: signalSOund});
 export class SoundEffects {
-  private assetsFolder: string = Config.ASSETS + '/sounds/';
+  private shouldPlaySound: boolean = false;
+  private assetsFolder: string = '/sounds/';
+  private musicFolder: string = '/musics/';
+  private musicList = [
+    'firmament_loopA',
+    'firmament_loopB',
+  ]
   private soundList = [
     'Alarm',
     'Damage01',
@@ -22,9 +28,11 @@ export class SoundEffects {
     'UI04',
     'Misc03'
   ];
+  private currentMusic = null;
   // To Do, Name sounds after events
   private eventList = [];
-  private sounds = []
+  private sounds = [];
+  private musics = [];
   scene: GameScene;
 
   constructor(params) {
@@ -33,8 +41,15 @@ export class SoundEffects {
   }
 
   preloadSound() {
+    let assetPrefix = TARGET === 'electron' ? 'assets' : '/src/games/cadre-de-guerre/assets';
+    this.assetsFolder = assetPrefix + this.assetsFolder;
+    this.musicFolder = assetPrefix + this.musicFolder;
+
     this.soundList.forEach(element => {
       this.scene.load.audio(element, this.assetsFolder + element + '.mp3', { instances: 1 });
+    });
+    this.musicList.forEach(element => {
+      this.scene.load.audio(element, this.musicFolder + element + '.ogg', { instances: 1 });
     });
   }
 
@@ -44,6 +59,12 @@ export class SoundEffects {
       this.sounds[element].volume = 0.25;
     });
 
+    this.musicList.forEach(element => {
+      this.musics[element] = this.scene.sound.add(element);
+      this.musics[element].volume = 0.25;
+      this.musics[element].loop = true;
+    });
+  
     this.eventList.forEach(element => {
       this.scene.gameEvent.on(element, this.playSound, this);
     });
@@ -53,12 +74,34 @@ export class SoundEffects {
     this.eventList.forEach(element => {
       this.scene.gameEvent.off(element, this.playSound, this);
     });
+
+    this.soundList.forEach(element => {
+      this.scene.sound.remove(this.sounds[element]);
+    });
+
+    this.musicList.forEach(element => {
+      this.scene.sound.remove(this.musics[element]);
+    });
   }
 
   playSound(obj) {
-    if (obj) {
+    if (obj && this.shouldPlaySound) {
       this.sounds[obj.sound].play();
     }
+  }
+
+  public playMusic(title) {
+    this.musics[title].play();
+    this.currentMusic = this.musics[title];
+  }
+
+  setSound(sound){
+    if (sound === true) {
+      this.currentMusic.resume();
+    } else {
+      this.currentMusic.pause();
+    }
+    this.shouldPlaySound = sound;
   }
 
   enumToArray(enumList) {

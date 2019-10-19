@@ -1,4 +1,4 @@
-import * as PlayerConfig from '../configs/characters/torb';
+import * as Torb from '../configs/characters/torb';
 
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
@@ -10,6 +10,7 @@ import { eventList } from '../configs/enums/eventList';
 import { SurvivalMode } from '../managers/gameModes/survivalMode';
 import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
+import { DebugMode } from '../managers/gameModes/debugMode';
 
 export class GameScene extends Phaser.Scene {
   public UI: UserInterface;
@@ -22,6 +23,9 @@ export class GameScene extends Phaser.Scene {
   public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number;
   public player: Player;
+  protected selectedCharacter = Torb.default;
+  //  to make more...you know
+  private defaultMusic = 'firmament_loopA';
 
   constructor() {
     super({
@@ -71,16 +75,21 @@ export class GameScene extends Phaser.Scene {
 
   pauseGame(): void {
     this.game.scene.pause('GameScene');
-    window.dispatchEvent(new CustomEvent('showUI', { detail: { isPausing: 'who' } }));
+    window.dispatchEvent(new CustomEvent('showUI'));
   }
 
-  resumeGame(): void {
+  resumeGame(data): void {
     this.game.scene.resume('GameScene');
-    window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
+    this.soundEffectsManager.setSound(data.detail.sound);
+    this.UI.setShake(data.detail.shake);
+    window.dispatchEvent(new CustomEvent('hideUI'));
   }
 
-  init(): void {
+  init(data?): void {
     this.kills = 0;
+    if (data) {
+      this.selectedCharacter = data.character || this.selectedCharacter;
+    }
   }
 
   create(): void {
@@ -89,30 +98,23 @@ export class GameScene extends Phaser.Scene {
     this.assetsLoader.loadCursor();
     this.mapGenerator.create();
     // create objects
-    let player1input = new MouseController(this.scene);
-    this.player = new Player({
-      scene: this,
-      controller: player1input,
-      x: this.sys.canvas.width / 2,
-      y: this.sys.canvas.height / 2,
-      key: `${PlayerConfig.default.name}/Idle`,
-      config: PlayerConfig.default,
-      folder: PlayerConfig.default.name
-    });
+    this.player = this.createPlayer(MouseController, this.selectedCharacter);
     this.player.inputEvent.on('pauseButtonPressed', function () {
       if (this.game.scene.isPaused('gameScene')) {
         this.resumeGame();
       } else {
         this.pauseGame();
       }
-    }, this)
+    }, this);
+    // this.cameras.main.startFollow(this.player);
     // create texts
-    this.waveManager = new SurvivalMode({ scene: this });
+    this.waveManager = new DebugMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
     this.restartRound();
     if (!this.isLinuxFirefox()) {
       this.soundEffectsManager.initSound();
+      this.soundEffectsManager.playMusic(this.defaultMusic);
     }
   }
 
@@ -151,9 +153,23 @@ export class GameScene extends Phaser.Scene {
   }
 
   isLinuxFirefox(): boolean {
-    // because it crash in soundManager
+    // Firefox seems to not support mp3
     let is_linux = /Linux/.test(window.navigator.platform);
     let is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     return (is_firefox && is_linux);
+  }
+
+  createPlayer(controller, character): any {
+    let player1input = new controller(this.scene);
+    let playerConfig = {
+      scene: this,
+      x: this.sys.canvas.width / 2,
+      y: this.sys.canvas.height / 2,
+      controller: player1input,
+      key: `${character.name}/Idle`,
+      config: character,
+      folder: character.name 
+    }
+    return new Player(playerConfig);
   }
 }

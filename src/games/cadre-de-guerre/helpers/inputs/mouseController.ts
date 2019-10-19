@@ -18,20 +18,10 @@ export class MouseController extends BaseController {
   protected emitPointerClick(pointer): void {
     if (pointer.leftButtonDown()) {
       this.pointerEvent.emit('dashButtonPressed', pointer);
-    } else {
+    } else if (pointer.rightButtonDown()) {
       this.pointerEvent.emit('shootButtonPressed', pointer);
-    }
-  }
-
-  // Classes that inherit from controller send this function
-  // to character to handle 2 choices 1 input situation
-  // Mouse might be the only one in that situation we'll see
-  public handleDash(entity, pointer): void {
-    let distance = Phaser.Math.Distance.Between(entity.x, entity.y, entity.target.x, entity.target.y);
-    if (distance > 10) {
-      entity.callSkill(pointer, 'dash');
-    } else {
-      entity.callSkill(pointer, 'shield');
+    } else if (pointer.middleButtonDown()) {
+      this.pointerEvent.emit('shieldButtonPressed', pointer);
     }
   }
 }

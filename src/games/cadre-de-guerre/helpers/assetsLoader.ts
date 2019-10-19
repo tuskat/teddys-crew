@@ -1,14 +1,14 @@
-import { Config } from "../config";
 import effectList from "../configs/enums/effectList";
 
 export class AssetsLoader {
-  private assetsFolder: string;
+  private assetsFolder: string = '/sprites/';
   private scene: Phaser.Scene;
   private assetKeys = ['game-atlas', 'shadows', 'game-sfx', 'game-tiles'];
   private effectList = effectList;
 
   constructor(params) {
-    this.assetsFolder = Config.ASSETS + '/sprites';
+    let assetPrefix = TARGET === 'electron' ? 'assets' : '/src/games/cadre-de-guerre/assets'; 
+    this.assetsFolder = assetPrefix + this.assetsFolder;
     this.scene = params.scene;
   }
 

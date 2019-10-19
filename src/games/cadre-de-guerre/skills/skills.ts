@@ -9,6 +9,7 @@ export function Shoot() {
 			name : 'shoot',
 			cooldownDuration: 0,
 			cooldown : 0,
+			hasCooldown: false,
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.shoot = function () {
@@ -36,6 +37,7 @@ export function Shield() {
 			name: 'shield',
 			cooldownDuration: 7 * 1000,
 			cooldown: 0,
+			hasCooldown: true,
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.shield = function () {
@@ -53,6 +55,33 @@ export function Shield() {
 }
 
 /**
+ * @name Explode
+ **/
+export function Explode() {
+	return function (target) {
+		let skill = {
+			name: 'explode',
+			cooldownDuration: 0,
+			cooldown: 0,
+			hasCooldown: false,
+		}
+		target.prototype[skill.name+'_info'] = skill;
+		target.prototype.explode = function () {
+			if ((this.aura.getLength() < 1) && (this[skill.name+'_info'].cooldown <= 0)) {
+				this.state = CurrentState.Shooting;
+				this.createGrowingSkill(this.animationPreset.shield);
+				this[skill.name+'_info'].cooldown = this[skill.name+'_info'].cooldownDuration;
+				this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
+				this.die(true, false);
+				return true;
+			}
+			return false;
+		};
+	}
+}
+
+
+/**
  * @name Dash
  **/
 export function Dash() {
@@ -61,6 +90,7 @@ export function Dash() {
 			name : 'dash',
 			cooldownDuration: 0,
 			cooldown : 0,
+			hasCooldown: false,
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.dash = function () {

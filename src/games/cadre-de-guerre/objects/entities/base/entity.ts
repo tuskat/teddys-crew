@@ -134,7 +134,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   protected doNothing(): void { }
 
   public getExperience(): number {
-    return (5 * (this.level * this.config.baseXP));
+    return 0;
   }
 
   // Respawn
@@ -180,6 +180,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.createGraphicEffect(this.animationPreset.explode);
         this.scene.gameEvent.emit(eventList.ScoreUpdate);
         this.setFrame(this.spriteFolder + '/Idle' + '.png');
+        this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
       }
       this.alpha = 0;
       this.state = CurrentState.Dead;

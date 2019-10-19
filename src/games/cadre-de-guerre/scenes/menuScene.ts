@@ -1,10 +1,14 @@
 export class MenuScene extends Phaser.Scene {
   background: Phaser.GameObjects.Image;
+  splash: Phaser.GameObjects.Image;
+  music = null;
+
   constructor() {
     super({
       key: "MenuScene"
     });
   }
+
   // Change to handle interactive elements
   // Must contain
   // Character Selection : check scene argument
@@ -15,21 +19,38 @@ export class MenuScene extends Phaser.Scene {
   init(): void {
     this.input.on('pointerdown', this.startGame, this);
   }
-
+  preload(): void {
+    let assetPrefix = TARGET === 'electron' ? 'assets' : '/src/games/cadre-de-guerre/assets';
+    this.load.multiatlas('game-splash', assetPrefix + '/sprites/game-splash.json', assetPrefix + '/sprites/');
+    this.load.audio('firmament_loopB', assetPrefix + '/musics/' + 'firmament_loopB' + '.ogg', { instances: 1 });
+  }
   create(): void {
     let background = this.add.graphics();
-    background.fillStyle(0x3A99D9, 1);
-    background.fillRect(this.sys.canvas.width / 2, (this.sys.canvas.height / 2), this.game.canvas.width, this.sys.canvas.height);
+    let canvas = this.sys.canvas;
+
+
+    background.fillStyle(0xFFFFFF, 1);
+    background.fillRect(canvas.width / 2, (canvas.height / 2), canvas.width, canvas.height);
     background.generateTexture('MenuBackground');
     background.destroy();
+
     this.background = new Phaser.GameObjects.Image(this, 0 ,0, 'MenuBackground');
     this.background.setScale(2);
     this.add.existing(this.background);
 
+    let graphics = this.add.graphics();
+    graphics.fillGradientStyle(0x990A11,0x990A11, 0xF15533, 0xF15533, 0.75);
+    graphics.fillRect(0, 0, (canvas.width / 2) - 60, canvas.height);
 
-    this.make.text({
-      x: this.sys.canvas.width * 0.70 ,
-      y: this.sys.canvas.height - 65,
+    let splashW = new Phaser.GameObjects.Image(this, 128, canvas.height / 1.75, 'game-splash', 'TorbPortraitW.png');
+    splashW.setScale(1.5);
+    splashW.setFlipX(true);
+    splashW.alpha = 0.25;
+    this.add.existing(splashW);
+
+    let instructions = this.make.text({
+      x: canvas.width - 325,
+      y: canvas.height - 75,
       text: 'Click to Start',
       style:  {
         fontFamily: "Connection",
@@ -39,9 +60,9 @@ export class MenuScene extends Phaser.Scene {
         fill: "#FFF"
       }
     });
-    this.make.text({
-      x: this.sys.canvas.width * 0.40 ,
-      y: this.sys.canvas.height - 150,
+    let title = this.make.text({
+      x: canvas.width / 2 ,
+      y: canvas.height - 175,
       text: 'Teddy\'s Crews',
       style:  {
         fontFamily: "Connection",
@@ -51,12 +72,34 @@ export class MenuScene extends Phaser.Scene {
         fill: "#FFF"
       }
     });
+
+    this.add.tween({
+      targets: [instructions],
+      ease: 'Sine.easeInOut',
+      alpha: {
+        getStart: () => 0,
+        getEnd: () => 1
+      },
+      duration: 2000,
+      yoyo: true,
+      loop: -1
+    });
+
+    this.music = this.sound.add('firmament_loopB');
+    this.music.volume = 0.10;
+    this.music.loop = true;
+    this.music.play();
+
+    if (TARGET === 'web') {
+      window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
+    }
   }
 
   update(): void {
   }
 
   startGame(): void {
+    this.sound.remove(this.music);
     let children = this.children.getAll();
     children.forEach((child) => {
       child.destroy();

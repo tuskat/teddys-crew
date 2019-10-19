@@ -79,13 +79,14 @@ export class ComboManager {
       this.rush++;
       this.comboTime = this.timeToClear;
       this.updateCombo();
+     
     }
   }
 
   private missCallback(event): void {
     // flimsy logic there
     if (event) {
-      this.rush = 0;
+      this.loseCombo();
       this.hideCombo();
     }
   }
@@ -95,11 +96,16 @@ export class ComboManager {
       this.updateComboBar();
       this.comboTime -= delta;
       if (this.comboTime <= 0) {
-        this.rush = 0;
+        this.loseCombo();
       }
     } else {
       this.hideCombo();
     }
+  }
+
+  private loseCombo(): void {
+    this.rush = 0;
+    this.scene.gameEvent.emit(eventList.ComboLoss, null);
   }
   // Update methods
   private updateCombo(): void {
@@ -129,8 +135,15 @@ export class ComboManager {
       });
       this.isBouncing = true;
     }
+   this.comboPowerUp();
   }
 
+  private comboPowerUp(): void {
+    if (this.rush > 0 && (this.rush % 50 === 0)) {
+      console.log(this.rush);
+      this.scene.gameEvent.emit(eventList.ComboPowerUp, null);
+    }
+  }
   private unlockBouncing(): void {
     this.isBouncing = false;
   }

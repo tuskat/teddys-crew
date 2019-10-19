@@ -5,6 +5,7 @@ import { MenuScene } from "./scenes/menuScene";
 import { Config } from "./config";
 import { ObjectUtils } from "./utils/objectUtils";
 import * as Sentry from '@sentry/browser';
+
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
@@ -23,8 +24,8 @@ async function launch(): Promise<void> {
   if (!debug) {
     Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
     try {
-      if (process.env.TARGET === 'electron') {
-        configJson = await ObjectUtils.loadJson(Config.ASSETS + "/config.json");
+      if (TARGET === 'electron') {
+        configJson = await ObjectUtils.loadJson("./assets/config.json");
         ObjectUtils.loadValuesIntoObject(configJson, Config);
       }
     } catch (e) {

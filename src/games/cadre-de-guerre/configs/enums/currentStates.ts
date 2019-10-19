@@ -2,7 +2,7 @@ export enum CurrentState {
     Moving = 1,
     Dashing,
     Shooting,
-    Blocking,
+    Blocked,
     Hurting,
     WindingUp,
     Dead

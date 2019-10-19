@@ -2,30 +2,42 @@ import { BaseEnergy } from "./baseEnergy";
 
 export class Zone extends BaseEnergy {
   private lifespan: number;
+  protected growing: boolean;
+  protected defaultScale: number = 2;
 
   constructor(params) {
     super(params);
+    this.growing = params.growing ? params.growing : false;
+    this.initZone();
   }
 
-  protected initImage(): void {
+  protected initZone(): void {
     // image
     this.lifespan = 3000;
 
     this.setOrigin(0.5, 0.5);
     this.setDepth(0);
+    this.body.setCircle(64);
 
+    if (this.growing) {
+      this.scale = 0;
+      this.scene.add.tween({
+        targets: [this],
+        ease: 'Sine.easeOut',
+        scale: 1.5,
+        duration: 400,
+      });
+    } else {
+      this.setScale(this.defaultScale + (this.comboPower * 0.25));
+    }
     // physics
-    this.scene.physics.world.enable(this);
-    this.body.setSize(80, 80, true);
-    this.scale = 2;
-    this.on('animationcomplete', this.die, this);
   }
 
   update(time, delta): void {
     this.lifespan -= delta;
 
     if (this.lifespan <= 0) {
-      this.die();
+      this.explode();
     }
   }
 }

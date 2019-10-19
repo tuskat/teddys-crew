@@ -13,6 +13,12 @@ export class MovingEntity extends Entity {
       this.state === CurrentState.WindingUp);
   }
 
+  protected isNotCapableToMove(): boolean {
+    return (this.state === CurrentState.Dead ||
+      this.state === CurrentState.Hurting ||
+      this.state === CurrentState.Blocked);
+  }
+
   // update methods
   update(time, delta): void {
     if (this.blockingState()) {
@@ -66,6 +72,11 @@ export class MovingEntity extends Entity {
         this.setFrame(this.spriteFolder + '/Attack' + extension);
         break;
       }
+      case CurrentState.Blocked: {
+        this.setFrame(this.spriteFolder + '/Idle' + extension);
+        this.breathTween();
+        break;
+      }
       case CurrentState.Moving: {
         this.setFrame(this.spriteFolder + '/Idle' + extension);
         this.breathTween();
@@ -106,7 +117,7 @@ export class MovingEntity extends Entity {
   }
 
   protected endActionCallback(): void {
-    if (!this.isDead()) {
+    if (!this.isNotCapableToMove()) {
       this.body.reset(this.x, this.y);
       this.state = CurrentState.Moving;
     }
