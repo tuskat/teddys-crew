@@ -65,12 +65,10 @@ export class GameScene extends Phaser.Scene {
     this.infoHandler.initInfoLog();
     this.soundEffectsManager.preloadSound();
     window.addEventListener('resumeGame', this.resumeGame.bind(this));
+    window.addEventListener('pauseGame', this.pauseGame.bind(this));
     this.game.events.on('blur', function () {
       this.pauseGame();
     }, this);
-    // this.game.events.on('focus',function(){
-    //   this.resumeGame();
-    // },this);
   }
 
   pauseGame(): void {
@@ -78,10 +76,8 @@ export class GameScene extends Phaser.Scene {
     window.dispatchEvent(new CustomEvent('showUI'));
   }
 
-  resumeGame(data): void {
+  resumeGame(): void {
     this.game.scene.resume('GameScene');
-    this.soundEffectsManager.setSound(data.detail.sound);
-    this.UI.setShake(data.detail.shake);
     window.dispatchEvent(new CustomEvent('hideUI'));
   }
 

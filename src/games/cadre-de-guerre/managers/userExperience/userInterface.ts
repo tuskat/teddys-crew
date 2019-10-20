@@ -30,6 +30,7 @@ export class UserInterface {
     this.initLifebar();
     this.initXpbar();
     // events
+    window.addEventListener('shakeChanged', this.onShakeEvent.bind(this));
     this.gameEvent.on(eventList.ScoreUpdate, this.updateScore, this);
     this.gameEvent.on(eventList.TimeUpdate, this.updateTime, this);
     this.gameEvent.on(eventList.LifeUpdate, this.updateLifeBar, this);
@@ -298,6 +299,10 @@ export class UserInterface {
     if (this.shouldShake) {
       this.scene.cameras.main.shake(200, 0.00125);
     }
+  }
+
+  onShakeEvent(data) {
+    this.setShake(data.detail.shake);
   }
 
   public setShake(shake): void {

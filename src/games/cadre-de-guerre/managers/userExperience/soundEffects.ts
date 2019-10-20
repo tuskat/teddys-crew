@@ -38,6 +38,7 @@ export class SoundEffects {
   constructor(params) {
     this.scene = params.scene;
     this.eventList = this.enumToArray(eventList);
+    window.addEventListener('soundChanged', this.onSoundEvent.bind(this));
   }
 
   preloadSound() {
@@ -93,6 +94,10 @@ export class SoundEffects {
   public playMusic(title) {
     this.musics[title].play();
     this.currentMusic = this.musics[title];
+  }
+
+  onSoundEvent(data) {
+    this.setSound(data.detail.sound);
   }
 
   setSound(sound){

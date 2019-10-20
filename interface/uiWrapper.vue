@@ -1,14 +1,18 @@
 <template>
-  <transition name="slide-fade">
-    <div class='vue-ui' v-show="isActive">
+  <div v-bind:class="wrapperClasses">
+    <pause-overlay></pause-overlay>
+    <transition name="slide-fade">
+      <div class='menu' v-show="isActive">
         <loading v-show="isLoading"></loading>
         <interface v-show="isPausing"></interface>
-    </div>
-  </transition>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
+import PauseOverlay from './components/pauseOverlay.vue'
 import Loading from './components/loading.vue'
 import Interface from './components/interface.vue'
 
@@ -16,18 +20,26 @@ export default {
   name: 'uiWrapper',
   components: {
       Loading,
-      Interface
+      Interface,
+      PauseOverlay
   },
-  data: function () {
-    return {
-      isActive: true,
-      isPausing: false,
-      isLoading: true,
-      sound: true,
-      shake: true
-    }
+  computed: {
+    isLoading() {
+      return this.$store.state.loading;
+    },
+    isActive() {
+      return this.$store.state.loading || this.$store.state.pause;
+    },
+    isPausing() {
+      return this.$store.state.pause;
+    },
+    wrapperClasses() {
+      return {
+        'vue-ui': true,
+        maximized: this.isActive
+      }
+  }
   },
-
   created() {
     if (TARGET === 'electron') {
       this.loadScript('./app.bundle.js', this.hideUI);
@@ -43,17 +55,13 @@ export default {
 
   methods: {
     showLoading(event) {
-      this.isActive = true;
-      this.isLoading = true;
+      this.$store.dispatch('showLoading');
     },
     showUI(event) {
-      this.isActive = true;
-      this.isPausing = true;
+      this.$store.dispatch('showUI');
     },
     hideUI(event) {
-      this.isActive = false;
-      this.isPausing = false;
-      this.isLoading = false;
+      this.$store.dispatch('hideUI');
     },
     loadScript(url, callback) {
       // Adding the script tag to the head as suggested before
@@ -69,7 +77,7 @@ export default {
 
       // Fire the loading
       head.appendChild(script);
-      this.isLoading = false;
+      this.$store.dispatch('hideLoading');
     }
   }
 }

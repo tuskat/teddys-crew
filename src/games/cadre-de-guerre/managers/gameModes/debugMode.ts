@@ -13,6 +13,10 @@ export class DebugMode extends DistributionLogic {
     // this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
   }
 
+  protected spawnInitialEnemies(): void {
+    // this.batchSpawn();
+  }
+
   protected updateClock(): void {
     this.timeSurvived++;
     this.scene.gameEvent.emit(eventList.TimeUpdate, null);
@@ -60,8 +64,6 @@ export class DebugMode extends DistributionLogic {
     }
   }
 
-  pickEnemy(): string {
-    return 'Zoner';
-  }
+ 
   
 }

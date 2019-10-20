@@ -1,7 +1,5 @@
 <template>
-  <div class='ui-container'>
-    <p>Loading...</p>
-  </div>
+  <p>Loading...</p>
 </template>
 
 <script>
@@ -11,24 +9,6 @@ export default {
   components: {
     // HelloWorld
   },
-  data: function () {
-    return {
-      isActive: true,
-    }
-  },
-
-  methods: {
-    showUI(event) {
-      this.isActive = true;
-    },
-    hideUI(event) {
-      this.isActive = false;
-    },
-    startGame() {
-      this.isActive = false;
-       window.dispatchEvent(new CustomEvent('startGame', { detail: { isPausing: 'who' }}));
-    }
-  }
 }
 </script>
 

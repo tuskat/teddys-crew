@@ -77,13 +77,18 @@ p {
   font-family: 'Connection', cursive;
   color: white;
   position: absolute;
-  width: 100vw;
-  height: 100vh;
+
   background: rgba(0, 0, 0, 0.75);
   top: 0;
   left: 0;
-  transition: 200ms all ease-out;
+  width: 0;
+  height: 0;
+  transition: 200ms all cubic-bezier(0.77, 0, 0.175, 1);
   overflow: hidden;
+  &.maximized {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 .slide-fade-enter, .slide-fade-leave-to {
