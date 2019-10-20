@@ -24,7 +24,7 @@ export class Projectile extends BaseEnergy {
     );
 
     this.body.allowRotation = true;
-    this.body.bounce = { x: 0.5, y: 0.5 };
+    this.body.bounce = new Phaser.Math.Vector2(0.5,0.5);
     this.body.setSize(80, 80, true);
     this.setScale(0.5 + (this.comboPower * 0.25));
     // bullet hit background

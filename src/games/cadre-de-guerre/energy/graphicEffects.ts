@@ -1,6 +1,7 @@
 import { GameScene } from "../scenes/gameScene";
 
 export class GraphicEffects extends Phaser.GameObjects.Sprite {
+  body: Phaser.Physics.Arcade.Body;
   protected scene: GameScene;
   protected gfxName: string = null;
 

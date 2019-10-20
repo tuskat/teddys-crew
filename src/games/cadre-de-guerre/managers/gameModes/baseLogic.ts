@@ -110,7 +110,9 @@ export class BaseLogic {
     this.scene.physics.add.overlap(enemy.getMelee(), this.scene.player, this.multiHitOnEntity, null);
   }
   protected setBackgroundCollision(entity) {
-    this.scene.physics.add.collider(entity, this.scene.mapGenerator.getGroundLayer());
+    if (entity) {
+      this.scene.physics.add.collider(entity, this.scene.mapGenerator.getGroundLayer());
+    }
   }
   protected levelUpEnemy(enemy): void {
     enemy.levelUp();
