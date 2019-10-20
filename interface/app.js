@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     shake: true,
     pause: false,
     loading: false,
+    scene: 'menu',
   },
   mutations: {
     toggleSound (state) {
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
     setPause (state, pause) {
       state.pause = pause;
     },
+    setScene (state, scene) {
+      state.scene = scene;
+    }
   },
   actions: {
     showLoading(context) {
@@ -53,6 +57,17 @@ const store = new Vuex.Store({
     toggleShake(context) {
       context.commit('toggleShake');
       window.dispatchEvent(new CustomEvent('shakeChanged', {detail: { shake: this.state.shake}}));
+    },
+    setScene(context, scene) {
+      context.commit('setScene', scene);
+    }
+  },
+  getters: {
+    menuIsActive: state => {
+      return state.pause || state.loading;
+    },
+    showPauseIcon: state => {
+      return state.scene === 'game';
     }
   }
 })

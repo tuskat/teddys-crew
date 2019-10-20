@@ -1,5 +1,7 @@
 <template>
   <div class='ui-container'>
+    <button class='btn-close' v-on:click="resumeGame">X</button>
+
     <p>Pause Menu</p>
     <!-- Options -->
     <hr/>
@@ -24,7 +26,8 @@ export default {
       this.$store.dispatch('toggleShake');
     },
     resumeGame() {
-       window.dispatchEvent(new CustomEvent('resumeGame'));
+      this.$store.dispatch('hideUI');
+      window.dispatchEvent(new CustomEvent('resumeGame'));
     }
   }
 }

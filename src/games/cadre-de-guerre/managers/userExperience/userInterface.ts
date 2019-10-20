@@ -63,14 +63,14 @@ export class UserInterface {
       text: this.scene.kills + "",
       style: fontStyles.Default
     }
-    );
+    ).setScrollFactor(0);
     this.text['time'] = this.scene.make.text({
       x: this.scene.sys.canvas.width / 2,
       y: 10,
       text: this.scene.getTimeLeft() + "",
       style: fontStyles.Default
     }
-    );
+    ).setScrollFactor(0);
   }
 
   private initLifebar(): void {
@@ -81,14 +81,16 @@ export class UserInterface {
     playerLifeBarBg.generateTexture('hpBackground');
     playerLifeBarBg.destroy();
     this.playerLifeBarBg = new Phaser.GameObjects.Sprite(this.scene, 15, 15, 'hpBackground');
+    this.playerLifeBarBg.setScrollFactor(0);
     this.scene.add.existing(this.playerLifeBarBg);
     this.playerLifeBar = this.scene.add.graphics();
+    this.playerLifeBar.setScrollFactor(0);
     this.text['life'] = this.scene.add.text(
       50,
       4,
       '',
       fontStyles.Smaller
-    );
+    ).setScrollFactor(0);
   }
 
   private initXpbar(): void {
@@ -98,14 +100,16 @@ export class UserInterface {
     xpBackground.generateTexture('xpBackground');
     xpBackground.destroy();
     this.playerXpBarBg = new Phaser.GameObjects.Sprite(this.scene, 15, 60, 'xpBackground');
+    this.playerXpBarBg.setScrollFactor(0);
     this.scene.add.existing(this.playerXpBarBg);
     this.playerXpBar = this.scene.add.graphics();
+    this.playerXpBar.setScrollFactor(0);
     this.text['experience'] = this.scene.add.text(
       50,
       45,
       '',
       fontStyles.Smallest
-    );
+    ).setScrollFactor(0);
   }
 
   // Update methods
@@ -249,7 +253,7 @@ export class UserInterface {
         y: this.scene.sys.canvas.height / 2,
         text: "Game Over",
         style: fontStyles.Title
-      });
+      }).setScrollFactor(0);
       this.text[index].setDepth(2);
     }
   }

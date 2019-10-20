@@ -28,7 +28,7 @@ export default {
       return this.$store.state.loading;
     },
     isActive() {
-      return this.$store.state.loading || this.$store.state.pause;
+      return this.$store.getters.menuIsActive;
     },
     isPausing() {
       return this.$store.state.pause;
@@ -46,11 +46,13 @@ export default {
     }
     window.addEventListener('showUI', this.showUI);
     window.addEventListener('hideUI', this.hideUI);
+    window.addEventListener('scene', this.setCurrentScene);
   },
 
   destroyed() {
     window.removeEventListener('showUI', this.showUI);
     window.removeEventListener('hideUI', this.hideUI);
+    window.removeEventListener('scene', this.setCurrentScene);
   },
 
   methods: {
@@ -62,6 +64,9 @@ export default {
     },
     hideUI(event) {
       this.$store.dispatch('hideUI');
+    },
+    setCurrentScene(event) {
+      this.$store.dispatch('setScene', event.detail.scene);
     },
     loadScript(url, callback) {
       // Adding the script tag to the head as suggested before

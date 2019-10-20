@@ -1,6 +1,6 @@
 <template>
-    <div class='nav'>
-      <button class='btn-default' v-on:click="toggleUI">X</button>
+    <div class='nav' v-show="showPauseIcon">
+      <button v-bind:class="buttonClasses" v-on:click="toggleUI"></button>
     </div>
 </template>
 
@@ -15,13 +15,32 @@ export default {
   methods: {
     toggleUI() {
       let signal = 'resumeGame';
-      if (this.$store.state.isActive) {
+      if (!this.$store.getters.menuIsActive) {
         signal = 'pauseGame';
         this.$store.dispatch('showUI');
       } else {
         this.$store.dispatch('hideUI');
       }
        window.dispatchEvent(new CustomEvent(signal));
+    }
+  },
+
+  computed: {
+    buttonClasses() {
+      return {
+        'btn-nav' : true,
+        'pause' : !this.$store.getters.menuIsActive,
+        'play' : this.$store.getters.menuIsActive
+      }
+    },
+    showPauseIcon() {
+      return this.$store.getters.showPauseIcon;
+    }
+  },
+
+  watch: {
+    showPauseIcon (newCount, oldCount) {
+      console.log(newCount);
     }
   }
 }
