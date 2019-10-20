@@ -92,7 +92,7 @@ module.exports = env => {
       splitChunks: {
         cacheGroups: {
           commons: {
-            test: /[\\/]node_modules[\\/]vue[\\/]/,
+            test: /[\\/]node_modules[\\/](vue|vuex)[\\/]/,
             name: "vue",
             chunks: "all"
           },

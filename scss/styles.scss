@@ -1,6 +1,14 @@
 @font-face {
   font-family: "Connection";
-  src: url("../../assets/font/Connection.ttf") format("truetype")
+  src: url("../../assets/font/Connection.ttf") format("truetype");
+}
+
+div, h1, h2, h3, h4, h5, p, span, button {
+  font-family: "Connection", cursive;
+}
+
+button, button:hover {
+  outline: none;
 }
 
 body {
@@ -9,7 +17,6 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: "Connection", cursive;
   font-size: 16px;
 }
 
@@ -18,7 +25,6 @@ body div.container {
 }
 
 h1 {
-  font-family: "Connection", cursive;
   padding: 0;
   font-size: 0;
   line-height: 0;
@@ -46,52 +52,110 @@ hr {
 p {
   font-size: 2em;
   text-shadow: #000000 2px 0 2px;
+  margin-bottom:0.5em;
+}
+
+.ui-container {
+  position: relative;
+  margin: 3em;
+  padding: 3em;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.vue-ui {
+  color: white;
+  position: absolute;
+  background: transparent;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms all ease-in-out;
+  &.maximized {
+    height: 100vh;
+  }
+}
+
+.nav {
+  position: fixed;
+  right: 80px;
+  top: 10px;
+}
+
+.btn-nav,
+.btn-nav:before {
+  box-sizing: border-box;
+  height: 40px;
+  background: transparent;
+  border-color: transparent transparent transparent #ffffff;
+  transition: 100ms all ease;
+  will-change: border-width;
+  cursor: pointer;
+}
+.btn-nav::before {
+  content:' ';
+  height: 45px;
+  border-color: transparent transparent transparent #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.btn-nav {
+  &.play, &.play::before {
+    // play state
+    border-style: solid;
+    border-width: 20px 0 20px 30px;
+  }
+  // paused state
+  &.pause, &.pause::before {
+    border-style: double;
+    border-width: 0px 0 0px 30px;
+  }
 }
 
 .btn-default {
   margin-top: 1em;
-  font-family: "Connection";
+  border: 0px solid transparent;
   text-decoration: none;
   outline: none;
-  border-radius: 4px;
+  border-radius: 10px;
   color: white;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.5);
   font-size: 2em;
   padding: 0.5em 1em;
   transition: 200ms all ease-in-out;
-  box-shadow: inset 0 0 0.5em rgba(255,255,255,0.25);
   text-shadow: #000000 2px 0 2px;
   &:hover {
     background: black;
   }
 }
 
-.ui-container {
-  margin: 3em;
-  padding: 3em;
-  border: 2px solid white;
-  box-shadow: inset 0 0 0.5em rgba(255,255,255,0.25);
-}
-
-.vue-ui {
-  font-family: 'Connection', cursive;
-  color: white;
+.btn-close {
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 2em;
+  border: none;
   position: absolute;
-
-  background: rgba(0, 0, 0, 0.75);
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  transition: 200ms all cubic-bezier(0.77, 0, 0.175, 1);
-  overflow: hidden;
-  &.maximized {
-    width: 100vw;
-    height: 100vh;
+  right: 10px;
+  top: 10px;
+  color: #980a10;
+  padding: 0.1em 0.3em;
+  transition: 200ms all ease-in-out;
+  &:hover {
+    background: #980a10;
+    color: white;
   }
 }
 
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter,
+.slide-fade-leave-to {
   transform: translateY(-10px);
   opacity: 0;
 }

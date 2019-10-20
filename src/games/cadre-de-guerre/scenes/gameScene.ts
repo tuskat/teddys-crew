@@ -78,7 +78,6 @@ export class GameScene extends Phaser.Scene {
 
   resumeGame(): void {
     this.game.scene.resume('GameScene');
-    window.dispatchEvent(new CustomEvent('hideUI'));
   }
 
   init(data?): void {
@@ -90,6 +89,7 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     // Pause when out of foccin focus
+    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'game'}}));
     this.assetsLoader.loadAllAnimation();
     this.assetsLoader.loadCursor();
     this.mapGenerator.create();
@@ -102,8 +102,9 @@ export class GameScene extends Phaser.Scene {
         this.pauseGame();
       }
     }, this);
-    // this.cameras.main.startFollow(this.player);
-    // create texts
+    // this.cameras.main.setBounds(0, 0, 1280, 900);
+    // this.physics.world.setBounds(-1024, -1024, 1024 * 2, 1024 * 2);
+    // this.cameras.main.startFollow(this.player, true);
     this.waveManager = new DebugMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });

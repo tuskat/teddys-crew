@@ -93,6 +93,7 @@ export class MenuScene extends Phaser.Scene {
     if (TARGET === 'web') {
       window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
     }
+    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'menu'}}));
   }
 
   update(): void {
