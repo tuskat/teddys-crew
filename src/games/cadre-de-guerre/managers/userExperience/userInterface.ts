@@ -114,6 +114,7 @@ export class UserInterface {
 
   // Update methods
   private updateScore(): void {
+    this.scene.earnGold(10);
     this.scene.kills++;
     this.text['score'].setText(this.scene.kills + "");
     this.updateXPBar();

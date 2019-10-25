@@ -60,4 +60,8 @@ export class InfoHandler {
     }
     return stringList;
   }
+
+  public getInfo() {
+    return this.infoObject;
+  }
 }

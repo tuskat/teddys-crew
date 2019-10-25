@@ -28,7 +28,7 @@ export class Zone extends BaseEnergy {
         duration: 400,
       });
     } else {
-      this.setScale(this.defaultScale + (this.comboPower * 0.25));
+      this.setScale(this.defaultScale + (this.comboPower * 0.125));
     }
     // physics
   }

@@ -72,13 +72,13 @@ export class DistributionLogic extends BaseLogic {
   enemySequence(): any {
     switch (this.enemiesLevel % 11) {
       case 0: {
-        return ObjectUtils.weightedRandomization({ 0: 0.2, 1: 0.2, 2: 0.6 });
+        return ObjectUtils.weightedRandomization({ 0: 0, 1: 0.1, 2: 0.9 });
       }
       case 5: {
-        return ObjectUtils.weightedRandomization({ 0: 0.3, 1: 0.65, 2: 0.05 });
+        return ObjectUtils.weightedRandomization({ 0: 0.25, 1: 0.7, 2: 0.05 });
       }
       default: {
-        return ObjectUtils.weightedRandomization({ 0: 0.3, 1: 0.65, 2: 0.05 });
+        return ObjectUtils.weightedRandomization({ 0: 0.9, 1: 0.1, 2: 0 });
       }
     }
   }

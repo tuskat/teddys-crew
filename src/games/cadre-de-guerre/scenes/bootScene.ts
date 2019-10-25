@@ -1,6 +1,11 @@
+import { AssetsLoader } from '../helpers/assetsLoader';
+import { SoundEffects } from '../managers/userExperience/soundEffects';
+
 export class BootScene extends Phaser.Scene {
   private loadingBar: Phaser.GameObjects.Graphics;
   private progressBar: Phaser.GameObjects.Graphics;
+  private assetsLoader: AssetsLoader = null;
+  private soundLoader: SoundEffects = null;
 
   constructor() {
     super({
@@ -10,6 +15,13 @@ export class BootScene extends Phaser.Scene {
 
   preload(): void {
     // set the background, create the loading and progress bar
+    let assetPrefix = TARGET === 'electron' ? 'assets' : '/src/games/cadre-de-guerre/assets';
+    this.load.multiatlas('game-splash', assetPrefix + '/sprites/game-splash.json', assetPrefix + '/sprites/');
+    // Game assets
+    this.assetsLoader = new AssetsLoader({ scene: this });
+    this.soundLoader = new SoundEffects({ scene: this });
+    this.assetsLoader.preloadAssets();
+    this.soundLoader.preloadSound();
     this.cameras.main.setBackgroundColor(0x000000);
     this.createLoadingGraphics();
 
@@ -42,6 +54,8 @@ export class BootScene extends Phaser.Scene {
   }
 
   update(): void {
+    this.assetsLoader.loadAllAnimation();
+    this.assetsLoader.loadCursor();
     this.scene.start("MenuScene");
   }
 

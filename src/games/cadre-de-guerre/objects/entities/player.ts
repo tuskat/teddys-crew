@@ -53,7 +53,7 @@ export class Player extends LevellingEntity {
       let distance = Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y);
       if (this.body.speed > 0) {
         if (distance < this.distanceToStop) {
-          this.body.reset(this.target.x, this.target.y);
+          this.body.setVelocity(0);
         }
       }
     }
@@ -104,7 +104,7 @@ export class Player extends LevellingEntity {
     if (!this.closeToCursor()) {
       this.scene.physics.moveToObject(this, this.target, this.speed);
     } else {
-      this.body.reset(this.target.x, this.target.y);
+      this.body.setVelocity(0);
     }
   }
 

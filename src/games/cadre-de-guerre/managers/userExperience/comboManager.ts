@@ -140,7 +140,6 @@ export class ComboManager {
 
   private comboPowerUp(): void {
     if (this.rush > 0 && (this.rush % 50 === 0)) {
-      console.log(this.rush);
       this.scene.gameEvent.emit(eventList.ComboPowerUp, null);
     }
   }

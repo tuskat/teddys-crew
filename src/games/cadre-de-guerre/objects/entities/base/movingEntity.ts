@@ -118,7 +118,7 @@ export class MovingEntity extends Entity {
 
   protected endActionCallback(): void {
     if (!this.isNotCapableToMove()) {
-      this.body.reset(this.x, this.y);
+      this.body.setVelocity(0);
       this.state = CurrentState.Moving;
     }
   }

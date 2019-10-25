@@ -2,12 +2,25 @@
   font-family: "Connection";
   src: url("../../assets/font/Connection.ttf") format("truetype");
 }
-
-div, h1, h2, h3, h4, h5, p, span, button {
-  font-family: "Connection", cursive;
+@font-face {
+  font-family: "Qontra";
+  src: url("../../assets/font/Qontra.otf") format("truetype");
 }
 
-button, button:hover {
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+button {
+  font-family: "Qontra", cursive;
+}
+
+button,
+button:hover {
   outline: none;
 }
 
@@ -52,7 +65,7 @@ hr {
 p {
   font-size: 2em;
   text-shadow: #000000 2px 0 2px;
-  margin-bottom:0.5em;
+  margin-bottom: 0.5em;
 }
 
 .ui-container {
@@ -98,7 +111,7 @@ p {
   cursor: pointer;
 }
 .btn-nav::before {
-  content:' ';
+  content: " ";
   height: 45px;
   border-color: transparent transparent transparent #000000;
   position: absolute;
@@ -108,13 +121,15 @@ p {
 }
 
 .btn-nav {
-  &.play, &.play::before {
+  &.play,
+  &.play::before {
     // play state
     border-style: solid;
     border-width: 20px 0 20px 30px;
   }
   // paused state
-  &.pause, &.pause::before {
+  &.pause,
+  &.pause::before {
     border-style: double;
     border-width: 0px 0 0px 30px;
   }

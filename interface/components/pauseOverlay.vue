@@ -36,12 +36,6 @@ export default {
     showPauseIcon() {
       return this.$store.getters.showPauseIcon;
     }
-  },
-
-  watch: {
-    showPauseIcon (newCount, oldCount) {
-      console.log(newCount);
-    }
   }
 }
 </script>

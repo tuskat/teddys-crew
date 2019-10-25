@@ -79,7 +79,11 @@ export class AttackingEntity extends MovingEntity {
   }
 
   public getCurrentPower(): number {
-    return this.power * this.comboPower;
+    if (this.comboPower > 1) {
+      return this.power + (this.comboPower * 0.25);
+    } else {
+      return this.power;
+    }
   }
 
   public getBullets(): Phaser.GameObjects.Group {
@@ -110,7 +114,7 @@ export class AttackingEntity extends MovingEntity {
 
   protected attack(): void {
     if (!this.blockingState()) {
-      this.body.reset(this.x, this.y);
+      this.body.setVelocity(0);
       this.state = CurrentState.WindingUp;
       this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.attackSkill, [], this);
     }

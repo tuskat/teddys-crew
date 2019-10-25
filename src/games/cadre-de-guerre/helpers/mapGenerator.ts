@@ -11,7 +11,7 @@ export class mapGenerator {
 
   create() {
     // Creating a blank tilethis.map with the specified dimensions
-    this.map = this.scene.make.tilemap({ tileWidth: 87, tileHeight: 87, width: 14, height: 8 });
+    this.map = this.scene.make.tilemap({ tileWidth: 64, tileHeight: 64, width: 20, height: 12 });
 
     let tiles = this.map.addTilesetImage('game-tiles');
 
@@ -24,14 +24,14 @@ export class mapGenerator {
     // Walls & corners of the room
     // Top, Bottom, Left, Right
     this.groundLayer.fill(1, 0, 0, this.map.width, 1);
-    this.groundLayer.fill(13, 0, this.map.height - 1, this.map.width, 1);
-    this.groundLayer.fill(4, 0, 0, 1, this.map.height);
+    this.groundLayer.fill(25, 0, this.map.height - 1, this.map.width, 1);
+    this.groundLayer.fill(8, 0, 0, 1, this.map.height);
     this.groundLayer.fill(11, this.map.width - 1, 0, 1, this.map.height); // right
     // top left, top right, bottom left, bottom right
     this.groundLayer.putTileAt(0, 0, 0);
     this.groundLayer.putTileAt(3, this.map.width - 1, 0);
-    this.groundLayer.putTileAt(12, 0, this.map.height - 1);
-    this.groundLayer.putTileAt(15, this.map.width - 1, this.map.height - 1);
+    this.groundLayer.putTileAt(24, 0, this.map.height - 1);
+    this.groundLayer.putTileAt(27, this.map.width - 1, this.map.height - 1);
 
     this.randomizeRoom(); // Initial randomization
   }
@@ -39,9 +39,9 @@ export class mapGenerator {
   randomizeRoom() {
     // Fill the floor with random ground tiles
     this.groundLayer.weightedRandomize(1, 1, this.map.width - 2, this.map.height - 2, [
-      { index: 5, weight: 20 }, // Regular floor tile (4x more likely)
-      { index: 6, weight: 2 }, // Tile variation with 1 rock
-      { index: 9, weight: 5 }, // Tile variation with 1 rock
+      { index: 9, weight: 20 }, // Regular floor tile (4x more likely)
+      { index: 17, weight: 2 }, // Tile variation with 1 rock
+      { index: 18, weight: 5 }, // Tile variation with 1 rock
       { index: 10, weight: 0.5 } // Tile variation with 1 rock
     ]);
 
@@ -53,7 +53,7 @@ export class mapGenerator {
     //     { index: 125, weight: 0.25 }, // Chest
     //     { index: 124, weight: 0.25 } // Trap door
     // ]);
-    this.groundLayer.setCollision([0, 1, 3, 4, 11, 12, 13, 15]);
+    this.groundLayer.setCollision([0, 1, 3, 8, 11, 24, 25, 27]);
     // this.groundLayer.setCollision([172, 240, 205, 207, 171, 173, 241, 239], true);
     // this.objectLayer.setCollision([124,125], true);
   }

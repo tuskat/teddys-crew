@@ -2,6 +2,7 @@ import "phaser";
 import { BootScene } from "./scenes/bootScene";
 import { GameScene } from "./scenes/gameScene";
 import { MenuScene } from "./scenes/menuScene";
+import { ScoreScene } from "./scenes/scoreScene";
 import { Config } from "./config";
 import { ObjectUtils } from "./utils/objectUtils";
 import * as Sentry from '@sentry/browser';
@@ -46,7 +47,7 @@ async function launch(): Promise<void> {
       autoRound: true
     },
     parent: "game",
-    scene: [BootScene, MenuScene, GameScene],
+    scene: [BootScene, MenuScene, GameScene, ScoreScene],
     input: {
       mouse: true
     },

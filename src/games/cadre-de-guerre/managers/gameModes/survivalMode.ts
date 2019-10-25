@@ -49,9 +49,9 @@ export class SurvivalMode extends DistributionLogic {
     this.enemiesLevel++;
     this.toEachEnemy(this.levelUpEnemy);
     // }
-    if (this.enemiesLevel % 10 === 0) {
-      this.redistributeEnemies();
-    }
+    // if (this.enemiesLevel % 10 === 0) {
+    //   this.redistributeEnemies();
+    // }
   }
 
   protected playerDied(entity): void {

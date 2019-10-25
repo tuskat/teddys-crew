@@ -20,9 +20,7 @@ export class MenuScene extends Phaser.Scene {
     this.input.on('pointerdown', this.startGame, this);
   }
   preload(): void {
-    let assetPrefix = TARGET === 'electron' ? 'assets' : '/src/games/cadre-de-guerre/assets';
-    this.load.multiatlas('game-splash', assetPrefix + '/sprites/game-splash.json', assetPrefix + '/sprites/');
-    this.load.audio('firmament_loopB', assetPrefix + '/musics/' + 'firmament_loopB' + '.ogg', { instances: 1 });
+  
   }
   create(): void {
     let background = this.add.graphics();

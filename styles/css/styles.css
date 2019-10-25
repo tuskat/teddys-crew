@@ -1,9 +1,11 @@
 @font-face {
   font-family: "Connection";
   src: url("../../assets/font/Connection.ttf") format("truetype"); }
-
+@font-face {
+  font-family: "Qontra";
+  src: url("../../assets/font/Qontra.otf") format("truetype"); }
 div, h1, h2, h3, h4, h5, p, span, button {
-  font-family: "Connection", cursive; }
+  font-family: "Qontra", cursive; }
 
 button, button:hover {
   outline: none; }

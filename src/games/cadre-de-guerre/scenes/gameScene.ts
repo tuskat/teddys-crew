@@ -2,7 +2,7 @@ import * as Torb from '../configs/characters/torb';
 
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
-import { AssetsLoader } from '../helpers/assetsLoader';
+
 import { mapGenerator } from '../helpers/mapGenerator';
 import { UserInterface } from '../managers/userExperience/userInterface';
 import { SoundEffects } from '../managers/userExperience/soundEffects';
@@ -15,13 +15,14 @@ import { DebugMode } from '../managers/gameModes/debugMode';
 export class GameScene extends Phaser.Scene {
   public UI: UserInterface;
   public comboWidget: ComboManager;
-  private assetsLoader: AssetsLoader = null;
+
   public mapGenerator: mapGenerator = null;
   private soundEffectsManager: SoundEffects = null;
   private infoHandler: InfoHandler = null;
   private waveManager;
   public gameEvent: Phaser.Events.EventEmitter = null;
-  public kills: number;
+  public kills: number = 0;
+  private gold: number;
   public player: Player;
   protected selectedCharacter = Torb.default;
   //  to make more...you know
@@ -36,7 +37,6 @@ export class GameScene extends Phaser.Scene {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
 
-    this.assetsLoader = new AssetsLoader({ scene: this });
     this.mapGenerator = new mapGenerator({ scene: this });
     this.infoHandler = new InfoHandler({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
@@ -61,9 +61,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.assetsLoader.preloadAssets();
+
     this.infoHandler.initInfoLog();
-    this.soundEffectsManager.preloadSound();
     window.addEventListener('resumeGame', this.resumeGame.bind(this));
     window.addEventListener('pauseGame', this.pauseGame.bind(this));
     this.game.events.on('blur', function () {
@@ -81,17 +80,20 @@ export class GameScene extends Phaser.Scene {
   }
 
   init(data?): void {
-    this.kills = 0;
+    this.gold = 0;
     if (data) {
       this.selectedCharacter = data.character || this.selectedCharacter;
     }
   }
 
+  earnGold(gold): void {
+    this.gold += gold;
+  }
+
   create(): void {
     // Pause when out of foccin focus
     window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'game'}}));
-    this.assetsLoader.loadAllAnimation();
-    this.assetsLoader.loadCursor();
+
     this.mapGenerator.create();
     // create objects
     this.player = this.createPlayer(MouseController, this.selectedCharacter);
@@ -105,7 +107,7 @@ export class GameScene extends Phaser.Scene {
     // this.cameras.main.setBounds(0, 0, 1280, 900);
     // this.physics.world.setBounds(-1024, -1024, 1024 * 2, 1024 * 2);
     // this.cameras.main.startFollow(this.player, true);
-    this.waveManager = new DebugMode({ scene: this });
+    this.waveManager = new SurvivalMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
     this.restartRound();
@@ -141,7 +143,7 @@ export class GameScene extends Phaser.Scene {
   restartGame(): void {
     this.time.delayedCall(4000, () => {
       this.cleanse();
-      this.scene.start("MenuScene");
+      this.scene.start("ScoreScene", { gold: this.gold } );
     }, [], this);
   }
 
