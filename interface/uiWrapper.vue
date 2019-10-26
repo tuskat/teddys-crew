@@ -4,7 +4,8 @@
     <transition name="slide-fade">
       <div class='menu' v-show="isActive">
         <loading v-show="isLoading"></loading>
-        <interface v-show="isPausing"></interface>
+        <pause-interface v-show="isPausing"></pause-interface>
+        <start-interface></start-interface>
       </div>
     </transition>
   </div>
@@ -14,14 +15,16 @@
 import axios from 'axios'
 import PauseOverlay from './components/pauseOverlay.vue'
 import Loading from './components/loading.vue'
-import Interface from './components/interface.vue'
+import PauseInterface from './components/pauseInterface.vue'
+import StartInterface from './components/startInterface.vue'
 
 export default {
   name: 'uiWrapper',
   components: {
       Loading,
-      Interface,
-      PauseOverlay
+      PauseInterface,
+      PauseOverlay,
+      StartInterface
   },
   computed: {
     isLoading() {
@@ -46,6 +49,7 @@ export default {
     }
     window.addEventListener('showUI', this.showUI);
     window.addEventListener('hideUI', this.hideUI);
+    window.addEventListener('loadingComplete', this.hideLoading);
     window.addEventListener('scene', this.setCurrentScene);
   },
 
@@ -64,6 +68,9 @@ export default {
     },
     hideUI(event) {
       this.$store.dispatch('hideUI');
+    },
+    hideLoading(event) {
+      this.$store.dispatch('hideLoading');
     },
     setCurrentScene(event) {
       this.$store.dispatch('setScene', event.detail.scene);

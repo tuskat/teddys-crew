@@ -34,13 +34,12 @@ export class Player extends LevellingEntity {
     this.closeSkillsHandler = controller.getDashHandler();
     this.inputEvent.on('dashButtonPressed', this.meleeClick, this);
     this.inputEvent.on('shieldButtonPressed', this.shieldToClick, this);
-    this.inputEvent.on('shootButtonPressed', this.shootToClick, this);
     this.inputEvent.on('cursorMoved', this.handlePointer, this);
   }
 
   protected initUI(): void {
     // first 3 skills are attac...for lazyness purpose
-    for (let i = 0; i !== 3; i++) {
+    for (let i = 0; i !== this.skillNames.length; i++) {
       let frame = `${this.name}/Skill_${(i + 1)}.png`;
       let icon = this.scene.add.sprite((this.scene.sys.canvas.width - 180) + (i * 55), this.scene.sys.canvas.height - 64, 'game-ui', frame);
       icon.scale = 0.75;
@@ -153,15 +152,11 @@ export class Player extends LevellingEntity {
   }
   // refactor : update target somewhere, use dash without pointer
   protected dashToClick(pointer): void {
-    this.callSkill(pointer, 'dash');
+    this.callSkill(pointer, this.skillNames[0]);
   }
 
   protected shieldToClick(pointer): void {
-    this.callSkill(pointer, 'shield');
-  }
-
-  protected shootToClick(pointer): void {
-    this.callSkill(pointer, 'shoot');
+    this.callSkill(pointer, this.skillNames[1]);
   }
 
   protected doneRespawning(): void {

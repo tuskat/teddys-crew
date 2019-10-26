@@ -18,7 +18,6 @@ const config = {
     events : {
         'hurt': {name: 'lifeUpdate', sound: 'Damage02'},
         'dash': {name: 'entityDashing', sound: 'Slash01'},
-        'shoot': {name: 'entityShooting', sound: 'Fire01'},
         'shield': {name: 'entityShielding', sound: 'Fire03'},
     },
     animationPreset : {
@@ -30,10 +29,9 @@ const config = {
         shield: 'fireShield',
         levelUp: 'levelUp'
     },
-    skillNames : [
+    skillNames: [
         'dash',
-        'shield',
-        'shoot'
+        'shield'
     ]
 }
 

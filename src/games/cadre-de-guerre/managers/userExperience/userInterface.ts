@@ -307,7 +307,7 @@ export class UserInterface {
   }
 
   onShakeEvent(data) {
-    this.setShake(data.detail.shake);
+    this.setShake(data.detail.newValue);
   }
 
   public setShake(shake): void {

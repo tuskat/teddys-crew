@@ -1,6 +1,10 @@
 export class MenuScene extends Phaser.Scene {
   background: Phaser.GameObjects.Image;
   splash: Phaser.GameObjects.Image;
+  settings = {
+    character: 'Torb',
+    gameMode: 'Survival'
+  };
   music = null;
 
   constructor() {
@@ -16,9 +20,7 @@ export class MenuScene extends Phaser.Scene {
   // Gold is used to pay : character passives
   // Weapons upgrade
   // You unlock the rest (Characters and Items)
-  init(): void {
-    this.input.on('pointerdown', this.startGame, this);
-  }
+
   preload(): void {
   
   }
@@ -88,21 +90,27 @@ export class MenuScene extends Phaser.Scene {
     this.music.loop = true;
     this.music.play();
 
-    if (TARGET === 'web') {
-      window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
-    }
     window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'menu'}}));
+    window.addEventListener('characterChanged', this.onCharacterChanged.bind(this));
+    window.addEventListener('gameModeChanged', this.onGameModeChanged.bind(this));
+    window.addEventListener('startGame', this.startGame.bind(this));
   }
 
   update(): void {
   }
 
+  onCharacterChanged(data): void {
+    this.settings.character = data.detail.newValue;
+  }
+  onGameModeChanged(data): void {
+    this.settings.gameMode = data.detail.newValue;
+  }
   startGame(): void {
     this.sound.remove(this.music);
     let children = this.children.getAll();
     children.forEach((child) => {
       child.destroy();
     });
-    this.scene.start("GameScene");
+    this.scene.start("GameScene", this.settings);
   }
 }

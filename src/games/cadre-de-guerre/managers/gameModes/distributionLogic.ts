@@ -20,6 +20,7 @@ export class DistributionLogic extends BaseLogic {
 
   protected batchSpawn(): void {
     // divide the weight by the number of enemies  
+    
     for (let i = 0; i != this.maxEnemies; i++) {
       let enemyType = this.pickEnemy();
       this.enemies.push(this.spawnEnemy(enemyType));
@@ -70,15 +71,18 @@ export class DistributionLogic extends BaseLogic {
   }
 
   enemySequence(): any {
-    switch (this.enemiesLevel % 11) {
+    switch (this.enemiesLevel % 5) {
       case 0: {
         return ObjectUtils.weightedRandomization({ 0: 0, 1: 0.1, 2: 0.9 });
       }
-      case 5: {
+      case 2: {
+        return ObjectUtils.weightedRandomization({ 0: 0.2, 1: 0.75, 2: 0.05 });
+      }
+      case 4: {
         return ObjectUtils.weightedRandomization({ 0: 0.25, 1: 0.7, 2: 0.05 });
       }
       default: {
-        return ObjectUtils.weightedRandomization({ 0: 0.9, 1: 0.1, 2: 0 });
+        return ObjectUtils.weightedRandomization({ 0: 0.75, 1: 0.2, 2: 0.05 });
       }
     }
   }

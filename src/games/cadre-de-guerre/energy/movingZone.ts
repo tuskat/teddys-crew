@@ -16,7 +16,7 @@ export class MovingZone extends BaseEnergy {
   private initZone(): void {
     // image
     this.flipX = true;
-    this.blendMode = Phaser.BlendModes.SCREEN;
+    this.alpha = 0.75;
     this.setDepth(2);
     // this.body.setSize(80, 80, true);
     // physics

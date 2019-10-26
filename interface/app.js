@@ -11,7 +11,10 @@ const store = new Vuex.Store({
     sound: true,
     shake: true,
     pause: false,
-    loading: false,
+    menu: true,
+    loading: true,
+    gameMode: 'Survival',
+    character: 'Torb',
     scene: 'menu',
   },
   mutations: {
@@ -27,14 +30,20 @@ const store = new Vuex.Store({
     toggleLoading (state) {
       state.loading = !state.loading;
     },
-    setLoading (state, loading) {
-      state.loading = loading;
+    setLoading (state, newValue) {
+      state.loading = newValue;
     },
-    setPause (state, pause) {
-      state.pause = pause;
+    setPause (state, newValue) {
+      state.pause = newValue;
     },
-    setScene (state, scene) {
-      state.scene = scene;
+    setScene (state, newValue) {
+      state.scene = newValue;
+    },
+    setCharacter (state, newValue) {
+      state.character = newValue;
+    },
+    setGameMode (state, newValue) {
+      state.gameMode = newValue;
     }
   },
   actions: {
@@ -52,22 +61,39 @@ const store = new Vuex.Store({
     },
     toggleSound(context) {
       context.commit('toggleSound');
-      window.dispatchEvent(new CustomEvent('soundChanged', {detail: { sound: this.state.sound}}));
+      window.dispatchEvent(new CustomEvent('soundChanged', {detail: { newValue: this.state.sound}}));
     },
     toggleShake(context) {
       context.commit('toggleShake');
-      window.dispatchEvent(new CustomEvent('shakeChanged', {detail: { shake: this.state.shake}}));
+      window.dispatchEvent(new CustomEvent('shakeChanged', {detail: { newValue: this.state.shake}}));
     },
-    setScene(context, scene) {
-      context.commit('setScene', scene);
+    toggleCharacter(context, newValue) {
+      context.commit('setCharacter', newValue);
+      window.dispatchEvent(new CustomEvent('characterChanged', {detail: { newValue: this.state.character}}));
+    },
+    toggleMode(context, newValue) {
+      context.commit('setGameMode', newValue);
+      window.dispatchEvent(new CustomEvent('gameModeChanged', {detail: { newValue: this.state.gameMode}}));
+    },
+    setScene(context, newValue) {
+      context.commit('setScene', newValue);
     }
   },
   getters: {
-    menuIsActive: state => {
-      return state.pause || state.loading;
+    menuIsActive: (state, getters) => {
+      if (state.loading) {
+        return false;
+      }
+      return getters.showPauseMenu || getters.showStartMenu;
     },
     showPauseIcon: state => {
       return state.scene === 'game';
+    },
+    showPauseMenu: state => {
+      return state.pause === true;
+    },
+    showStartMenu: state => {
+      return state.scene === 'menu';
     }
   }
 })

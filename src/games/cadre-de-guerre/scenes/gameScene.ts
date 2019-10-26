@@ -1,4 +1,5 @@
 import * as Torb from '../configs/characters/torb';
+import * as Ors from '../configs/characters/ors';
 
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
@@ -25,6 +26,7 @@ export class GameScene extends Phaser.Scene {
   private gold: number;
   public player: Player;
   protected selectedCharacter = Torb.default;
+  protected selectedMode: any = SurvivalMode;
   //  to make more...you know
   private defaultMusic = 'firmament_loopA';
 
@@ -82,7 +84,37 @@ export class GameScene extends Phaser.Scene {
   init(data?): void {
     this.gold = 0;
     if (data) {
-      this.selectedCharacter = data.character || this.selectedCharacter;
+      console.log(data);
+      this.selectedCharacter = this.getCharacterConfig(data.character) || this.selectedCharacter;
+      this.selectedMode = this.getGameMode(data.gameMode) || this.selectedMode;
+    }
+  }
+
+  getCharacterConfig(character) {
+    switch (character) {
+      case 'Torb': {
+        return Torb.default;
+      }
+      case 'Ors': {
+        return Ors.default;
+      }
+      default: {
+        return Torb.default;
+      }
+    }
+  }
+
+  getGameMode(gameMode) {
+    switch (gameMode) {
+      case 'Survival': {
+        return SurvivalMode;
+      }
+      case 'Debug': {
+        return DebugMode;
+      }
+      default: {
+        return SurvivalMode;
+      }
     }
   }
 
@@ -107,7 +139,7 @@ export class GameScene extends Phaser.Scene {
     // this.cameras.main.setBounds(0, 0, 1280, 900);
     // this.physics.world.setBounds(-1024, -1024, 1024 * 2, 1024 * 2);
     // this.cameras.main.startFollow(this.player, true);
-    this.waveManager = new SurvivalMode({ scene: this });
+    this.waveManager = new this.selectedMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
     this.restartRound();

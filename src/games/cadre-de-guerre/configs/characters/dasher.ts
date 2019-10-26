@@ -4,10 +4,10 @@ const config = {
     faction: 'foes',
     life: 3,
     power: 1,
-    speed: 100,
+    speed: 115,
     baseXP: 5,
     signatureSkill: 'dash',
-    distanceToStop: 100,
+    distanceToStop: 150,
     delayToAction: 600,
     events : enemiesEvents
 }

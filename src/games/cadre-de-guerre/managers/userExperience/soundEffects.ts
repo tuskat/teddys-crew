@@ -97,7 +97,7 @@ export class SoundEffects {
   }
 
   onSoundEvent(data) {
-    this.setSound(data.detail.sound);
+    this.setSound(data.detail.newValue);
   }
 
   setSound(sound){

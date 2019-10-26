@@ -45,6 +45,7 @@ export class BootScene extends Phaser.Scene {
     this.load.on(
       "complete",
       function() {
+        window.dispatchEvent(new CustomEvent('loadingComplete'));
         this.progressBar.destroy();
         this.loadingBar.destroy();
       },

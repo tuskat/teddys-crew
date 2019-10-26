@@ -74,6 +74,7 @@ p {
   padding: 3em;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
 }
 
 .vue-ui {

@@ -5,12 +5,6 @@ import { Shoot, Shield, Dash } from "../../../skills/skills";
 @Shield()
 @Dash()
 export class SkilledEntity extends AttackingEntity {
-  skillNames = [
-    'dash',
-    'shield',
-    'shoot'
-  ];
-
   constructor(params) {
     super(params);
   }

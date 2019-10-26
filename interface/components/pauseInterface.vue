@@ -14,7 +14,7 @@
 <script>
 
 export default {
-  name: 'interface',
+  name: 'pauseInterface',
   components: {
   },
 

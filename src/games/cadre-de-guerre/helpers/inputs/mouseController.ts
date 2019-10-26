@@ -11,7 +11,6 @@ export class MouseController extends BaseController {
     this.pointerEvent = new Phaser.Events.EventEmitter();
     this.scene.input.on('pointerdown', this.emitPointerClick, this);
     this.scene.input.on('pointermove', this.emitMoved, this);
-    this.scene.input.on('wheel', this.emitShield, this);
     this.scene.input.keyboard.on('keydown-' + 'ESC', this.emitPause, this);
   }
 
@@ -19,8 +18,6 @@ export class MouseController extends BaseController {
     if (pointer.leftButtonDown()) {
       this.pointerEvent.emit('dashButtonPressed', pointer);
     } else if (pointer.rightButtonDown()) {
-      this.pointerEvent.emit('shootButtonPressed', pointer);
-    } else if (pointer.middleButtonDown()) {
       this.pointerEvent.emit('shieldButtonPressed', pointer);
     }
   }

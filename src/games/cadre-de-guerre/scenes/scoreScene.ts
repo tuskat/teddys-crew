@@ -51,22 +51,10 @@ export class ScoreScene extends Phaser.Scene {
         fill: "#FFF"
       }
     });
-    let result = this.make.text({
-      x: canvas.width / 2,
-      y: canvas.height * 0.5,
-      text: 'Score :' + this.gold,
-      style:  {
-        fontFamily: "Connection",
-        fontSize: 35,
-        stroke: "#000",
-        strokeThickness: 10,
-        fill: "#FFF"
-      }
-    });
     let title = this.make.text({
       x: canvas.width / 2 ,
       y: canvas.height * 0.25,
-      text: this.gold,
+      text: 'Score :' + this.gold,
       style:  {
         fontFamily: "Connection",
         fontSize: 75,
@@ -92,7 +80,7 @@ export class ScoreScene extends Phaser.Scene {
     if (TARGET === 'web') {
       window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
     }
-    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'menu'}}));
+    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'score'}}));
   }
 
   update(): void {
