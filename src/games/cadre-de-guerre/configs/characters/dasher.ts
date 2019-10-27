@@ -1,6 +1,7 @@
 import enemiesEvents from "../enums/enemiesEvents";
 
 const config = {
+    name: 'Dasher',
     faction: 'foes',
     life: 3,
     power: 1,

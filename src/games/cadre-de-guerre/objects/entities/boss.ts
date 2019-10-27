@@ -8,6 +8,7 @@ export class Boss extends Enemy {
     this.redrawLifebar();
   }
 
+  //  new lifeBar
   updatLifeBarPosition(): void {
     return;
   }

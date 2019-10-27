@@ -1,6 +1,7 @@
 import enemiesEvents from "../enums/enemiesEvents";
 
 const config = {
+    name: 'Zoner',
     faction: 'foes',
     life : 5,
     power: 1,

@@ -1,3 +1,4 @@
+import { Config } from "../config";
 
 export class mapGenerator {
   private scene: Phaser.Scene;
@@ -11,7 +12,7 @@ export class mapGenerator {
 
   create() {
     // Creating a blank tilethis.map with the specified dimensions
-    this.map = this.scene.make.tilemap({ tileWidth: 64, tileHeight: 64, width: 20, height: 12 });
+    this.map = this.scene.make.tilemap({ tileWidth: 64, tileHeight: 64, width: Math.floor(Config.GAME_WIDTH / 64), height: Math.floor(Config.GAME_HEIGHT / 64) });
 
     let tiles = this.map.addTilesetImage('game-tiles');
 
