@@ -73,8 +73,14 @@ p {
   margin: 3em;
   padding: 3em;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.start-menu {
+  position: absolute;
+  width: 30%;
+  top: 20px;
+  right: 5%;
 }
 
 .vue-ui {
@@ -89,9 +95,11 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 200ms all ease-in-out;
   &.maximized {
     height: 100vh;
+    backdrop-filter: blur(5px);
+    transition: all 0;
+    transition-delay: 200ms;
   }
 }
 
@@ -168,6 +176,11 @@ p {
     background: #980a10;
     color: white;
   }
+}
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+  transition-delay: 200ms;
 }
 
 .slide-fade-enter,

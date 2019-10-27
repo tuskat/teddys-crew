@@ -14,6 +14,7 @@ export class DebugMode extends DistributionLogic {
   }
 
   protected spawnInitialEnemies(): void {
+    this.enemies.push(this.spawnBoss('Angler'));
     // this.batchSpawn();
   }
 

@@ -15,7 +15,7 @@ export class Enemy extends LevellingEntity {
     levelUp: 'levelUp'
   };
   player: Player;
-  private lifeBar: Phaser.GameObjects.Graphics = null;
+  protected lifeBar: Phaser.GameObjects.Graphics = null;
 
   constructor(params) {
     super(params);

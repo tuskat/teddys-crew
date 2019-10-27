@@ -1,13 +1,24 @@
 @font-face {
   font-family: "Connection";
   src: url("../../assets/font/Connection.ttf") format("truetype"); }
+
 @font-face {
   font-family: "Qontra";
   src: url("../../assets/font/Qontra.otf") format("truetype"); }
-div, h1, h2, h3, h4, h5, p, span, button {
+
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+button {
   font-family: "Qontra", cursive; }
 
-button, button:hover {
+button,
+button:hover {
   outline: none; }
 
 body {
@@ -53,7 +64,13 @@ p {
   margin: 3em;
   padding: 3em;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.75); }
+  background: rgba(0, 0, 0, 0.5); }
+
+.start-menu {
+  position: absolute;
+  width: 30%;
+  top: 20px;
+  right: 5%; }
 
 .vue-ui {
   color: white;
@@ -66,10 +83,12 @@ p {
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
-  transition: 200ms all ease-in-out; }
+  align-items: center; }
   .vue-ui.maximized {
-    height: 100vh; }
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    transition: all 0;
+    transition-delay: 200ms; }
 
 .nav {
   position: fixed;
@@ -87,7 +106,7 @@ p {
   cursor: pointer; }
 
 .btn-nav::before {
-  content: ' ';
+  content: " ";
   height: 45px;
   border-color: transparent transparent transparent #000000;
   position: absolute;
@@ -132,6 +151,10 @@ p {
   .btn-close:hover {
     background: #980a10;
     color: white; }
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+  transition-delay: 200ms; }
 
 .slide-fade-enter,
 .slide-fade-leave-to {

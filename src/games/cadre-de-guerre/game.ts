@@ -70,12 +70,6 @@ async function launch(): Promise<void> {
 
 let canvas = null;
 window.addEventListener("load", () => {
-  if (!AudioContext) {
-    const audioContext = new AudioContext();
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-  }
   launch();
   canvas = document.querySelector("canvas");
   window.addEventListener("resize", resize, false);

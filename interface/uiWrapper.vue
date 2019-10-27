@@ -1,30 +1,30 @@
 <template>
-  <div v-bind:class="wrapperClasses">
+  <div v-bind:class='wrapperClasses'>
     <pause-overlay></pause-overlay>
-    <transition name="slide-fade">
-      <div class='menu' v-show="isActive">
-        <loading v-show="isLoading"></loading>
-        <pause-interface v-show="isPausing"></pause-interface>
-        <start-interface></start-interface>
-      </div>
-    </transition>
+    <div class='menu' v-show='isActive'>
+      <loading v-show='isLoading'></loading>
+      <start-interface></start-interface>
+      <transition name='slide-fade'>
+        <pause-interface v-show='isPausing'></pause-interface>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import PauseOverlay from './components/pauseOverlay.vue'
-import Loading from './components/loading.vue'
-import PauseInterface from './components/pauseInterface.vue'
-import StartInterface from './components/startInterface.vue'
+import axios from 'axios';
+import PauseOverlay from './components/pauseOverlay.vue';
+import Loading from './components/loading.vue';
+import PauseInterface from './components/pauseInterface.vue';
+import StartInterface from './components/startInterface.vue';
 
 export default {
   name: 'uiWrapper',
   components: {
-      Loading,
-      PauseInterface,
-      PauseOverlay,
-      StartInterface
+    Loading,
+    PauseInterface,
+    PauseOverlay,
+    StartInterface
   },
   computed: {
     isLoading() {
@@ -40,8 +40,8 @@ export default {
       return {
         'vue-ui': true,
         maximized: this.isActive
-      }
-  }
+      };
+    }
   },
   created() {
     if (TARGET === 'electron') {
@@ -92,5 +92,5 @@ export default {
       this.$store.dispatch('hideLoading');
     }
   }
-}
+};
 </script>

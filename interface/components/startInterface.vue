@@ -1,8 +1,7 @@
 <template>
-  <div class="ui-container" v-if="show">
+  <div class="start-menu ui-container" v-if="show">
     <p>Menu</p>
     <!-- Options -->
-    <hr />
     <p v-on:click="toggleCharacter">Character : {{$store.state.character}}</p>
     <p v-on:click="toggleMode">Mode : {{$store.state.gameMode}}</p>
     <button

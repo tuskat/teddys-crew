@@ -29,7 +29,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
   maxSpeedY;
   delayToAction;
   isInvicible;
-  invicibleFrame = 300;
+  invicibleFrame = 150;
   target: Phaser.Math.Vector2;
   shouldRespawn = true;
   timeToRespawn = 1000;

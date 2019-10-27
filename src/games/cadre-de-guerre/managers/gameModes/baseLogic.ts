@@ -1,3 +1,4 @@
+import * as AnglerConfig from '../../configs/characters/angler';
 import * as DasherConfig from '../../configs/characters/dasher';
 import * as ShooterConfig from '../../configs/characters/shooter';
 import * as ZonerConfig from '../../configs/characters/zoner';
@@ -126,8 +127,6 @@ export class BaseLogic {
     this.scene.gameEvent.emit(eventList.RoundEnded, { sound: 'PowerUp01' });
   }
 
-
-
   // Bullet logic
   protected bulletHitLayer(bullet): void {
     bullet.explode();
@@ -164,6 +163,7 @@ export class BaseLogic {
   // Todo : One function can do both
   getEnemyClassConfig(type): any {
     return matches(type)(
+      (x = 'Angler') => AnglerConfig.default,
       (x = 'Dasher') => DasherConfig.default,
       (x = 'Shooter') => ShooterConfig.default,
       (x = 'Zoner') => ZonerConfig.default

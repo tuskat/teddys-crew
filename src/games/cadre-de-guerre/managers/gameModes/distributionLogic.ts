@@ -2,6 +2,7 @@ import { ObjectUtils } from "../../utils/objectUtils";
 import { BaseLogic } from './baseLogic';
 import { Enemy } from "../../objects/entities/enemy";
 import { eventList } from "../../configs/enums/eventList";
+import { Boss } from "../../objects/entities/boss";
 const { matches } = require('z');
 
 export class DistributionLogic extends BaseLogic {
@@ -59,6 +60,23 @@ export class DistributionLogic extends BaseLogic {
       scene: this.scene,
       x: Phaser.Math.RND.integerInRange(100, 700),
       y: Phaser.Math.RND.integerInRange(100, 500),
+      key: enemyClass + "/Idle",
+      player: this.scene.player,
+      config: config,
+      folder: enemyClass,
+      level: this.enemiesLevel
+    });
+    this.setAllOverlaps(enemy);
+    this.setBackgroundCollision(enemy);
+    return enemy;
+  }
+
+  protected spawnBoss(enemyClass): any {
+    let config = this.getEnemyClassConfig(enemyClass);
+    let enemy = new Boss({
+      scene: this.scene,
+      x: Phaser.Math.RND.integerInRange(100, 700),
+      y: this.scene.sys.canvas.height / 2,
       key: enemyClass + "/Idle",
       player: this.scene.player,
       config: config,

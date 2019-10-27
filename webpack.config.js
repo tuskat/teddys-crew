@@ -5,7 +5,6 @@ let phaser = path.join(pathToPhaser, 'dist/phaser.js');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = env => {
-  // entry: './src/games/combo-example/game.ts',
   return {
     entry: ['./src/games/cadre-de-guerre/game.ts', './interface/app.js'],
     output: {

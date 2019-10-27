@@ -12,7 +12,7 @@ const config = {
     maxSpeedY : 750,
     bulletSpeed : 1000,
     delayToAction : 50,
-    invicibleFrame: 1000,
+    invicibleFrame: 500,
     timeToRespawn: 1000,
     actionDuration: 400,
     events : {
