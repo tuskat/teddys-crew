@@ -58,6 +58,7 @@ module.exports = env => {
       }),
       new CopyWebpackPlugin([
         { from: 'src/games/cadre-de-guerre/assets', to: 'assets' },
+        { from: 'assets', to: 'assets' },
         { from: 'styles', to: 'styles' }
       ]),
       new MiniCssExtractPlugin({
