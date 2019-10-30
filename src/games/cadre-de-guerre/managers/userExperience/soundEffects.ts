@@ -38,7 +38,6 @@ export class SoundEffects {
   constructor(params) {
     this.scene = params.scene;
     this.eventList = this.enumToArray(eventList);
-    window.addEventListener('soundChanged', this.onSoundEvent.bind(this));
   }
 
   preloadSound() {
@@ -55,6 +54,7 @@ export class SoundEffects {
   }
 
   initSound() {
+    window.addEventListener('soundChanged', this.onSoundEvent.bind(this));
     this.soundList.forEach(element => {
       this.sounds[element] = this.scene.sound.add(element);
       this.sounds[element].volume = 0.25;

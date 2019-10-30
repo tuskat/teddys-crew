@@ -26,7 +26,7 @@ export class Boss extends Enemy {
 
   protected updatePosition(): void {
     if (this.closeToTarget()) {
-      this.useAttack('dash');
+      this.useAttack('ram');
     } else {
       this.scene.physics.moveToObject(this, this.target, this.speed);
     }

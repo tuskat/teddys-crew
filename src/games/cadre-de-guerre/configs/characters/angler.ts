@@ -10,6 +10,7 @@ const config = {
     signatureSkill: 'dash',
     distanceToStop: 300,
     delayToAction: 600,
+    actionDuration: 1000,
     events : enemiesEvents
 }
 

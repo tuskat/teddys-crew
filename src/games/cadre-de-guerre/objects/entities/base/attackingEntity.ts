@@ -69,10 +69,11 @@ export class AttackingEntity extends MovingEntity {
     );
   }
 
-  protected createDashSkill(animation = 'fire', rotation = 0): MovingZone {
+  protected createDashSkill(animation = 'fire', rotation = 0, alpha = 0.75): MovingZone {
     let config = this.energyConfig();
     config.rotation = rotation;
     config.gfxName = animation;
+    config.alpha = alpha;
     return this.aura.add(
       new MovingZone(config)
     );

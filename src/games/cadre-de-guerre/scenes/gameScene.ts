@@ -84,7 +84,6 @@ export class GameScene extends Phaser.Scene {
   init(data?): void {
     this.gold = 0;
     if (data) {
-      console.log(data);
       this.selectedCharacter = this.getCharacterConfig(data.character) || this.selectedCharacter;
       this.selectedMode = this.getGameMode(data.gameMode) || this.selectedMode;
     }
