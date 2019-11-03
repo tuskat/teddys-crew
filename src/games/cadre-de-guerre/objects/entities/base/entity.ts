@@ -211,17 +211,17 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   public hurt(entity = { power: 1 }): number {
     if (this.isVulnerable()) {
-      if (this.actionPending) {
-        this.actionPending.remove(false);
-      }
       this.life = this.life - entity.power;
       this.createGraphicEffect('hit');
       this.scene.gameEvent.emit(this.events['hurt'].name, { sound: this.events['hurt'].sound, faction: this.faction });
+      if (this.actionPending) {
+        this.actionPending.remove(false);
+      }
       if (this.life < 0) {
         this.life = 0;
       }
-      this.redrawLifebar();
       if (this.life > 0) {
+        this.redrawLifebar();
         this.state = CurrentState.Hurting;
         this.isInvicible = true;
         this.setTint(0xFF6347);

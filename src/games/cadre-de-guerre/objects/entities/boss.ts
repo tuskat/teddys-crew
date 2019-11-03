@@ -52,4 +52,14 @@ export class Boss extends Enemy {
     this.lifeBar.strokeRect(this.scene.sys.canvas.width * 0.1, this.scene.sys.canvas.height - 120, this.scene.sys.canvas.width * 0.8, 20);
     this.lifeBar.setDepth(1);
   }
+
+  protected isVulnerable(): boolean {
+    if (this.state === CurrentState.Dead ||
+      this.state === CurrentState.WindingUp ||
+      this.state === CurrentState.Hurting) {
+      return false;
+    }
+    return true;
+  }
+
 }
