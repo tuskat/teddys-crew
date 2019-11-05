@@ -1,6 +1,6 @@
 import { Config } from "../config";
 
-export class mapGenerator {
+export class MapGenerator {
   private scene: Phaser.Scene;
   private groundLayer;
   private objectLayer;

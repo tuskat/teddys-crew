@@ -92,7 +92,7 @@ export class SoundEffects {
   }
 
   public playMusic(title) {
-    this.musics[title].play();
+    // this.musics[title].play();
     this.currentMusic = this.musics[title];
   }
 
