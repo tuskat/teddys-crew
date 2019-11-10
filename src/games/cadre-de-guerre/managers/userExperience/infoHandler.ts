@@ -39,9 +39,9 @@ export class InfoHandler {
     if (obj) {
       this.infoObject[this.infoLogged] = obj;
     }
-    if (this.infoLogged % 100 === 0) {
-      console.log(this.infoObject);
-    }
+    // if (this.infoLogged % 100 === 0) {
+    //   console.log(this.infoObject);
+    // }
     // if (obj && obj.name) {
     //     if (obj.name === 'GameOver') {
     //         console.log(this.infoObject);

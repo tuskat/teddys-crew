@@ -10,14 +10,18 @@ export class MovingZone extends BaseEnergy {
     this.parent = params.parent;
     this.power = params.power;
     this.lifespan = this.parent.actionDuration;
+    this.alpha = params.alpha;
     this.initZone();
   }
 
   private initZone(): void {
     // image
+    let ratio = (this.parent.width / this.width);
     this.flipX = true;
-    this.alpha = 0.75;
     this.setDepth(2);
+    if (this.width <= this.parent.width) {
+      this.setScale(ratio * 1.65);
+    }
     // this.body.setSize(80, 80, true);
     // physics
   }

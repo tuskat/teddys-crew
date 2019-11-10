@@ -93,12 +93,36 @@ export function Dash() {
 			hasCooldown: false,
 		}
 		target.prototype[skill.name+'_info'] = skill;
-		target.prototype.dash = function () {
+		target.prototype.dash = function (alpha = 0.75) {
 			this.state = CurrentState.Dashing;
 			this.createGraphicEffect('dash');
-			this.createDashSkill(this.animationPreset.dash, this.getAngle());
+			this.createDashSkill(this.animationPreset.dash, this.getAngle(), alpha);
 			this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
 			this.scene.physics.moveToObject(this, this.target, this.speed * 4);
+			this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
+			return true;
+		};
+	}
+}
+
+/**
+ * @name Ram
+ **/
+export function Ram() {
+	return function (target) {
+		let skill = {
+			name : 'ram',
+			cooldownDuration: 0,
+			cooldown : 0,
+			hasCooldown: false,
+		}
+		target.prototype[skill.name+'_info'] = skill;
+		target.prototype.ram = function () {
+			this.state = CurrentState.Dashing;
+			this.createGraphicEffect('dash');
+			this.createDashSkill(this.animationPreset.dash, this.getAngle(), 0.1);
+			this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
+			this.scene.physics.moveToObject(this, this.target, this.speed * 3);
 			this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
 			return true;
 		};

@@ -1,9 +1,10 @@
 import { Player } from "./player";
 import { CurrentState } from '../../configs/enums/currentStates'
 import { LevellingEntity } from "./base/levellingEntity";
-import { Explode } from "../../skills/skills";
+import { Explode, Ram } from "../../skills/skills";
 
 @Explode()
+@Ram()
 export class Enemy extends LevellingEntity {
   animationPreset = {
     spawn: 'waterSpawn',

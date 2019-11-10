@@ -1,4 +1,5 @@
 import { Enemy } from "./enemy";
+import { CurrentState } from "../../configs/enums/currentStates";
 
 export class Boss extends Enemy {
 
@@ -8,6 +9,30 @@ export class Boss extends Enemy {
     this.redrawLifebar();
   }
 
+  protected specificAttackSkill(chosenAttack): void {
+    if (this.isNotCapableToMove()) {
+      return;
+    }
+    this[chosenAttack]();
+  }
+
+  protected useAttack(chosenAttack): void {
+    if (!this.blockingState()) {
+      this.body.setVelocity(0);
+      this.state = CurrentState.WindingUp;
+      this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.specificAttackSkill, [chosenAttack], this);
+    }
+  }
+
+  protected updatePosition(): void {
+    if (this.closeToTarget()) {
+      this.useAttack('ram');
+    } else {
+      this.scene.physics.moveToObject(this, this.target, this.speed);
+    }
+  }
+
+  //  new lifeBar
   updatLifeBarPosition(): void {
     return;
   }
@@ -27,4 +52,14 @@ export class Boss extends Enemy {
     this.lifeBar.strokeRect(this.scene.sys.canvas.width * 0.1, this.scene.sys.canvas.height - 120, this.scene.sys.canvas.width * 0.8, 20);
     this.lifeBar.setDepth(1);
   }
+
+  protected isVulnerable(): boolean {
+    if (this.state === CurrentState.Dead ||
+      this.state === CurrentState.WindingUp ||
+      this.state === CurrentState.Hurting) {
+      return false;
+    }
+    return true;
+  }
+
 }

@@ -4,7 +4,7 @@ import * as Ors from '../configs/characters/ors';
 import { Player } from "../objects/entities/player";
 import { MouseController } from '../helpers/inputs/mouseController';
 
-import { mapGenerator } from '../helpers/mapGenerator';
+import { MapGenerator } from '../helpers/mapGenerator';
 import { UserInterface } from '../managers/userExperience/userInterface';
 import { SoundEffects } from '../managers/userExperience/soundEffects';
 import { eventList } from '../configs/enums/eventList';
@@ -17,7 +17,7 @@ export class GameScene extends Phaser.Scene {
   public UI: UserInterface;
   public comboWidget: ComboManager;
 
-  public mapGenerator: mapGenerator = null;
+  public mapGenerator: MapGenerator = null;
   private soundEffectsManager: SoundEffects = null;
   private infoHandler: InfoHandler = null;
   private waveManager;
@@ -39,7 +39,7 @@ export class GameScene extends Phaser.Scene {
       this.gameEvent = new Phaser.Events.EventEmitter();
     }
 
-    this.mapGenerator = new mapGenerator({ scene: this });
+    this.mapGenerator = new MapGenerator({ scene: this });
     this.infoHandler = new InfoHandler({ scene: this });
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
@@ -84,7 +84,6 @@ export class GameScene extends Phaser.Scene {
   init(data?): void {
     this.gold = 0;
     if (data) {
-      console.log(data);
       this.selectedCharacter = this.getCharacterConfig(data.character) || this.selectedCharacter;
       this.selectedMode = this.getGameMode(data.gameMode) || this.selectedMode;
     }
