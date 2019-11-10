@@ -55,6 +55,20 @@ export class Enemy extends LevellingEntity {
     this.updateCooldown();
   }
 
+  protected updatePosition(): void {
+    if (this.closeToTarget()) {
+      this.attack();
+    } else {
+      this.move();
+    }
+  }
+
+  protected move(): void {
+    let newLocation = this.target;
+    this.scene.physics.moveToObject(this, newLocation, this.speed);
+  }
+
+  
   updateCooldown(): void {
     if (this.isNotCapableToMove()) {
       return;

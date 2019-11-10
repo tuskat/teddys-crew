@@ -1,7 +1,7 @@
 import { eventList } from "../../configs/enums/eventList";
-import { DistributionLogic } from "./distributionLogic";
+import { BaseDistribution } from "./baseDistribution";
 
-export class DebugMode extends DistributionLogic {
+export class DebugMode extends BaseDistribution {
   timeToNextBuff: number = 15000;
   playerLives: number = 999;
   timeSurvived: number = 0;
@@ -64,7 +64,4 @@ export class DebugMode extends DistributionLogic {
       this.playerLives--;
     }
   }
-
- 
-  
 }

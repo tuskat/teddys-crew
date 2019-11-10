@@ -95,14 +95,6 @@ export class AttackingEntity extends MovingEntity {
     return this.aura;
   }
 
-  protected updatePosition(): void {
-    if (this.closeToTarget()) {
-      this.attack();
-    } else {
-      this.scene.physics.moveToObject(this, this.target, this.speed);
-    }
-  }
-
   protected attackSkill(): void {
     if (this.isNotCapableToMove()) {
       return;

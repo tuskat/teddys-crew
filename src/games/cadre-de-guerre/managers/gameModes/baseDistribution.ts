@@ -5,7 +5,7 @@ import { eventList } from "../../configs/enums/eventList";
 import { Boss } from "../../objects/entities/boss";
 const { matches } = require('z');
 
-export class DistributionLogic extends BaseLogic {
+export class BaseDistribution extends BaseLogic {
 
   constructor(params) {
     super(params);

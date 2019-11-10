@@ -63,7 +63,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload(): void {
-
     this.infoHandler.initInfoLog();
     window.addEventListener('resumeGame', this.resumeGame.bind(this));
     window.addEventListener('pauseGame', this.pauseGame.bind(this));

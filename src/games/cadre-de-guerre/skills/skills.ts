@@ -72,7 +72,7 @@ export function Explode() {
 				this.createGrowingSkill(this.animationPreset.shield);
 				this[skill.name+'_info'].cooldown = this[skill.name+'_info'].cooldownDuration;
 				this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
-				this.die(true, false);
+				this.scene.time.delayedCall(this.actionDuration / 2, this.die, [true, false], this);
 				return true;
 			}
 			return false;
