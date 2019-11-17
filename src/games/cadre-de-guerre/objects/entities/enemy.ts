@@ -78,7 +78,7 @@ export class Enemy extends LevellingEntity {
         let cooldown = this[element + '_info'].cooldown;
         if (cooldown === this[element + '_info'].cooldownDuration && !this[element + '_info'].onCooldown) {
           this[element + '_info'].onCooldown = true;
-          this.state = CurrentState.Blocked;
+          this.resolveState(CurrentState.Blocked);
           this.scene.time.delayedCall(this[element + '_info'].cooldownDuration, this.resetSkill, [`${this[element + '_info'].name}_info`], this);
         }
       }
@@ -89,7 +89,7 @@ export class Enemy extends LevellingEntity {
     this[skillInfo].cooldown = 0;
     this[skillInfo].onCooldown = false;
     if (!this.isDead()) {
-      this.state = CurrentState.Moving;
+      this.resolveState(CurrentState.Moving);
     }
   }
 

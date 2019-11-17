@@ -105,7 +105,7 @@ export class AttackingEntity extends MovingEntity {
   protected attack(): void {
     if (!this.blockingState()) {
       this.body.setVelocity(0);
-      this.state = CurrentState.WindingUp;
+      this.resolveState(CurrentState.WindingUp);
       this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.attackSkill, [], this);
     }
   }

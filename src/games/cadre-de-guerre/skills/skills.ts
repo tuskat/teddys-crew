@@ -17,7 +17,7 @@ export function Shoot() {
 				if (this.projectiles.getLength() < 2) {
 					let bullet = this.createBullet(this.getAngle());
 					this.lastShoot = this.scene.time.now + this.actionDuration;
-					this.state = CurrentState.Shooting;
+					this.resolveState(CurrentState.Shooting);
 					this.scene.gameEvent.emit(this.events['shoot'].name, { sound: this.events['shoot'].sound, entity: bullet });
 					this.scene.time.delayedCall(this.actionDuration, this.endActionCallback, [], this);
 					return true;
@@ -42,7 +42,7 @@ export function Shield() {
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.shield = function () {
 			if ((this.aura.getLength() < 1) && (this[skill.name+'_info'].cooldown <= 0)) {
-				this.state = CurrentState.Shooting;
+				this.resolveState(CurrentState.Shooting);
 				this.createCloseSkill(this.animationPreset.shield);
 				this[skill.name+'_info'].cooldown = this[skill.name+'_info'].cooldownDuration;
 				this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
@@ -68,7 +68,7 @@ export function Explode() {
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.explode = function () {
 			if ((this.aura.getLength() < 1) && (this[skill.name+'_info'].cooldown <= 0)) {
-				this.state = CurrentState.Shooting;
+				this.resolveState(CurrentState.Shooting);
 				this.createGrowingSkill(this.animationPreset.shield);
 				this[skill.name+'_info'].cooldown = this[skill.name+'_info'].cooldownDuration;
 				this.scene.gameEvent.emit(this.events['shield'].name, { sound: this.events['shield'].sound });
@@ -94,7 +94,7 @@ export function Dash() {
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.dash = function (alpha = 0.75) {
-			this.state = CurrentState.Dashing;
+			this.resolveState(CurrentState.Dashing);
 			this.createGraphicEffect('dash');
 			this.createDashSkill(this.animationPreset.dash, this.getAngle(), alpha);
 			this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });
@@ -118,7 +118,7 @@ export function Ram() {
 		}
 		target.prototype[skill.name+'_info'] = skill;
 		target.prototype.ram = function () {
-			this.state = CurrentState.Dashing;
+			this.resolveState(CurrentState.Dashing);
 			this.createGraphicEffect('dash');
 			this.createDashSkill(this.animationPreset.dash, this.getAngle(), 0.1);
 			this.scene.gameEvent.emit(this.events['dash'].name, { sound: this.events['dash'].sound });

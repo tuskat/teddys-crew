@@ -2,18 +2,18 @@
 //  * Lib
 //  */
 // let player, enemyBullet, now;
-// const resolve = (fn) => (mapping) => (context) => {
-//   const val = fn(context);
-//   const next = mapping[val];
+const resolve = (fn) => (mapping) => (context) => {
+  const val = fn(context);
+  const next = mapping[val];
 
-//   if (typeof next === 'function') {
-//     return next(context);
-//   } else if (next) {
-//     return next;
-//   } else {
-//     throw new Error(`Unmatched state ${val} in ${Object.keys(mapping)}`);
-//   }
-// };
+  if (typeof next === 'function') {
+    return next(context);
+  } else if (next) {
+    return next;
+  } else {
+    throw new Error(`Unmatched state ${val} in ${Object.keys(mapping)}`);
+  }
+};
 
 // /**
 //  * SPRITES
