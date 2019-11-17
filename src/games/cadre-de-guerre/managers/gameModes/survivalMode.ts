@@ -21,6 +21,7 @@ export class SurvivalMode extends BaseDistribution {
       if (this.onGoing) {
         this.timedEvent.destroy();
         this.buffEvent.destroy();
+        this.buffEvent.remove(false);
         this.roundEnded();
       }
       return;

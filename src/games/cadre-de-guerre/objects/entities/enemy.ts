@@ -64,50 +64,51 @@ export class Enemy extends LevellingEntity {
   }
 
   protected move(): void {
-    let newLocation = this.target;
-    this.getNewLocation();
-    this.scene.physics.moveToObject(this, newLocation, this.speed);
+    let newVelocity = this.computeVelocity();
+
+    this.body.setVelocity((newVelocity.x) * this.speed, (newVelocity.y) * this.speed)
+    // this.scene.physics.moveToObject(this, newVelocity, this.speed);
   }
 
-  protected getNewLocation() {
-    let intention = 0.0;
-    let position = {x: 0, y: 0};
-    let entities = this.scene.getEntities();
+  protected computeVelocity() {
+    let intention = new Phaser.Math.Vector2(0, 0);
 
+    let entities = this.scene.getEntities();
+  
     if (entities.player) {
-      let direction = Phaser.Math.Angle.BetweenPoints(this, entities.player);
+      let direction = new Phaser.Math.Vector2(
+        entities.player.x - this.x,
+        entities.player.y - this.y
+      ).normalize(); // The direction vector e.g -1,0.5)
+  
       let distance = Phaser.Math.Distance.Between(this.x, this.y, entities.player.x, entities.player.y);
       let targetDistance = 1.0;      
       let springStrength = distance - targetDistance;
-
-      intention += direction * springStrength;
-      console.log(`
-      Player
-      distance : ${distance}\n 
-      direction : ${direction}\n
-      springStrength : ${springStrength}\n
-      intention : ${intention}\n
-      ________________________
-      `);
+  
+      intention.add(
+        direction.scale(springStrength)
+      ).normalize();
     }
-
+  
     for(let enemy of entities.enemies) {
-      let direction = Phaser.Math.Angle.BetweenPoints(this, enemy);
+      if (enemy === this) continue;
+      let direction = new Phaser.Math.Vector2(
+        enemy.x - this.x,
+        enemy.y - this.y
+      ).normalize(); // The direction vector e.g -1,0.5
+      
       let distance = Phaser.Math.Distance.Between(this.x, this.y, enemy.x, enemy.y);
-      let springStrength = 1.0 / (1.0 + distance * distance * distance);
-
-      console.log(`
-      Player
-      distance : ${distance}\n 
-      direction : ${direction}\n
-      springStrength : ${springStrength}\n
-      ________________________
-      `);
-      intention -= direction * springStrength;
+      let springStrength = 1.0 / (distance / 20);
+      intention.subtract(
+        direction.multiply(new Phaser.Math.Vector2(springStrength, springStrength))
+      )
     }
-    console.log(intention);
-    return position;
+    if (intention.length() < 0.5) {
+      return new Phaser.Math.Vector2(0,0);
+    }
+    return intention.normalize();
   }  
+
   updateCooldown(): void {
     if (this.isNotCapableToMove()) {
       return;

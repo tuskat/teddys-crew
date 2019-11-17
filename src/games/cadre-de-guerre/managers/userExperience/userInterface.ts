@@ -5,7 +5,7 @@ import fontStyles from "../../configs/enums/fontStyles";
 const BARWIDTH = 200;
 
 export class UserInterface {
-  private text: Phaser.GameObjects.Text[] = [];
+  private text: Phaser.GameObjects.Text[] = null;
   private countDown = 0;
   private playerLifeBar: Phaser.GameObjects.Graphics;
   private playerLifeBarBg: Phaser.GameObjects.Sprite;
@@ -57,6 +57,7 @@ export class UserInterface {
   }
 
   private initText(): void {
+    this.text = [];
     this.text['score'] = this.scene.make.text({
       x: this.scene.sys.canvas.width - 50,
       y: 10,
@@ -288,7 +289,7 @@ export class UserInterface {
   }
 
   private startCountDown(): void {
-    this.countDown = 5;
+    this.countDown = 1;
     if (!this.text['countdown']) {
       this.text['countdown'] = this.scene.make.text({
         x: this.scene.sys.canvas.width / 3,

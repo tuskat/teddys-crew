@@ -164,11 +164,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   restartRound(): void {
-    this.time.delayedCall(1000, () => {
+    let timeToWait = 1000;
+    this.time.delayedCall(timeToWait, () => {
       this.gameEvent.emit(eventList.CountDownStarted, null);
     }, [], this);
 
-    this.time.delayedCall(5000, this.restart, [], this);
+    this.time.delayedCall(timeToWait + 50, this.restart, [], this);
   }
 
   restartGame(): void {
