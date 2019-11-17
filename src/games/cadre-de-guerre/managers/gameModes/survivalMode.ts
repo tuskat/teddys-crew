@@ -6,11 +6,10 @@ export class SurvivalMode extends BaseDistribution {
   playerLives: number = 1;
   timeSurvived: number = 0;
   maxEnemies = 5;
-  buffEvent: Phaser.Time.TimerEvent;
+  buffEvent: Phaser.Time.TimerEvent = null;
 
   constructor(params) {
     super(params);
-    this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
   }
 
   protected updateClock(): void {
@@ -20,8 +19,6 @@ export class SurvivalMode extends BaseDistribution {
       this.scene.player.shouldRespawn = false;
       if (this.onGoing) {
         this.timedEvent.destroy();
-        this.buffEvent.destroy();
-        this.buffEvent.remove(false);
         this.roundEnded();
       }
       return;

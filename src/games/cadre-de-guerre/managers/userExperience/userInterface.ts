@@ -72,6 +72,7 @@ export class UserInterface {
       style: fontStyles.Default
     }
     ).setScrollFactor(0);
+    console.log(this.text['time']);
   }
 
   private initLifebar(): void {
@@ -289,7 +290,7 @@ export class UserInterface {
   }
 
   private startCountDown(): void {
-    this.countDown = 1;
+    this.countDown = 3;
     if (!this.text['countdown']) {
       this.text['countdown'] = this.scene.make.text({
         x: this.scene.sys.canvas.width / 3,

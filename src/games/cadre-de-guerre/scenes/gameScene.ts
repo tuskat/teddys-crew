@@ -15,7 +15,7 @@ import { DebugMode } from '../managers/gameModes/debugMode';
 import enemiesEvents from '../configs/enums/enemiesEvents';
 
 export class GameScene extends Phaser.Scene {
-  public UI: UserInterface;
+  public UI: UserInterface = null;
   public comboWidget: ComboManager;
 
   public mapGenerator: MapGenerator = null;
@@ -135,9 +135,7 @@ export class GameScene extends Phaser.Scene {
         this.pauseGame();
       }
     }, this);
-    // this.cameras.main.setBounds(0, 0, 1280, 900);
-    // this.physics.world.setBounds(-1024, -1024, 1024 * 2, 1024 * 2);
-    // this.cameras.main.startFollow(this.player, true);
+  
     this.waveManager = new this.selectedMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
@@ -164,18 +162,19 @@ export class GameScene extends Phaser.Scene {
   }
 
   restartRound(): void {
-    let timeToWait = 1000;
-    this.time.delayedCall(timeToWait, () => {
+    let timeToWait = 3000;
+    this.time.delayedCall(1000, () => {
       this.gameEvent.emit(eventList.CountDownStarted, null);
     }, [], this);
 
-    this.time.delayedCall(timeToWait + 50, this.restart, [], this);
+    this.time.delayedCall(timeToWait, this.restart, [], this);
   }
 
   restartGame(): void {
     this.time.delayedCall(4000, () => {
       this.cleanse();
       this.scene.start("ScoreScene", { gold: this.gold } );
+      this.scene.stop("GameScene");
     }, [], this);
   }
 

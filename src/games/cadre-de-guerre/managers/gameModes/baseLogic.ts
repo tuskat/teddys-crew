@@ -22,7 +22,6 @@ export class BaseLogic {
     this.scene = params.scene;
     this.setBackgroundCollision(this.scene.player);
 
-    this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true });
     this.scene.gameEvent.on(eventList.StartRound, this.startRound, this);
     this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
   }
@@ -85,15 +84,6 @@ export class BaseLogic {
   }
 
   protected startRound(): void {
-    this.timeLeft = this.startTime;
-    this.toEachEnemy(this.setRespawn);
-    this.onGoing = true;
-    if (this.round === 0) {
-      this.toEachEnemy(this.killSilentlyEnemy);
-    } else {
-      this.toEachEnemy(this.respawnEnemy);
-    }
-    this.scene.gameEvent.emit(eventList.RoundStarted, null);
   }
   
   protected setAllOverlaps(enemy): void {
