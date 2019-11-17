@@ -12,6 +12,7 @@ import { SurvivalMode } from '../managers/gameModes/survivalMode';
 import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
 import { DebugMode } from '../managers/gameModes/debugMode';
+import enemiesEvents from '../configs/enums/enemiesEvents';
 
 export class GameScene extends Phaser.Scene {
   public UI: UserInterface;
@@ -200,5 +201,13 @@ export class GameScene extends Phaser.Scene {
       folder: character.name 
     }
     return new Player(playerConfig);
+  }
+
+  public getEntities() {
+    let entities = { 
+      player: this.player,
+      enemies : this.waveManager.getEnemyGroup() 
+    };
+    return entities;
   }
 }

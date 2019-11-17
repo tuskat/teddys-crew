@@ -65,10 +65,49 @@ export class Enemy extends LevellingEntity {
 
   protected move(): void {
     let newLocation = this.target;
+    this.getNewLocation();
     this.scene.physics.moveToObject(this, newLocation, this.speed);
   }
 
-  
+  protected getNewLocation() {
+    let intention = 0.0;
+    let position = {x: 0, y: 0};
+    let entities = this.scene.getEntities();
+
+    if (entities.player) {
+      let direction = Phaser.Math.Angle.BetweenPoints(this, entities.player);
+      let distance = Phaser.Math.Distance.Between(this.x, this.y, entities.player.x, entities.player.y);
+      let targetDistance = 1.0;      
+      let springStrength = distance - targetDistance;
+
+      intention += direction * springStrength;
+      console.log(`
+      Player
+      distance : ${distance}\n 
+      direction : ${direction}\n
+      springStrength : ${springStrength}\n
+      intention : ${intention}\n
+      ________________________
+      `);
+    }
+
+    for(let enemy of entities.enemies) {
+      let direction = Phaser.Math.Angle.BetweenPoints(this, enemy);
+      let distance = Phaser.Math.Distance.Between(this.x, this.y, enemy.x, enemy.y);
+      let springStrength = 1.0 / (1.0 + distance * distance * distance);
+
+      console.log(`
+      Player
+      distance : ${distance}\n 
+      direction : ${direction}\n
+      springStrength : ${springStrength}\n
+      ________________________
+      `);
+      intention -= direction * springStrength;
+    }
+    console.log(intention);
+    return position;
+  }  
   updateCooldown(): void {
     if (this.isNotCapableToMove()) {
       return;
