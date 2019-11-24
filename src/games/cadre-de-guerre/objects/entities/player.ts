@@ -1,12 +1,10 @@
 import { CurrentState } from '../../configs/enums/currentStates';
-import { GameScene } from '../../scenes/gameScene';
 import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
 import { BaseController } from '../../helpers/inputs/baseController';
 import { GameObjects } from 'phaser';
 
 export class Player extends LevellingEntity {
-  scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
   closeSkillsHandler = null;

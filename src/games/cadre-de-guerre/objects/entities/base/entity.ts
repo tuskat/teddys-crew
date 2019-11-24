@@ -14,7 +14,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     'shoot'
   ];
   animationPreset = defaultAnimtationPresets;
-  scene: GameScene;
+  scene: GameScene = null;
   gameEvent: Phaser.Events.EventEmitter = null;
   life = 1;
   maxLife = this.life;
@@ -46,7 +46,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
-
+    this.scene = params.scene;
     this.initVariables(params.config);
     this.initImage();
 

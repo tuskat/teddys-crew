@@ -102,6 +102,6 @@ export class LevellingEntity extends SkilledEntity {
   }
 
   flushCustom(): void {
-    this.gameEvent.off(eventList.Dying, this.experienceGained, this);
+    // this.gameEvent.off(eventList.Dying, this.experienceGained, this);
   }
 }

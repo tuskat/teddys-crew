@@ -12,7 +12,6 @@ export class ScoreScene extends Phaser.Scene {
 
   init(data): void {
     this.gold = data.gold;
-    this.input.on('pointerdown', this.showMenu, this);
   }
   
   create(): void {
@@ -81,12 +80,16 @@ export class ScoreScene extends Phaser.Scene {
       window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
     }
     window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'score'}}));
+    this.input.on('pointerdown', this.showMenu, this);
   }
 
   update(): void {
   }
 
   showMenu(): void {
+    this.input.removeAllListeners();
+    console.log(this.input);
+
     this.sound.remove(this.music);
     let children = this.children.getAll();
     children.forEach((child) => {

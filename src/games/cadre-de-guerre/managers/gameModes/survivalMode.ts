@@ -10,19 +10,19 @@ export class SurvivalMode extends BaseDistribution {
 
   constructor(params) {
     super(params);
+    this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true });
   }
 
   protected updateClock(): void {
-    this.timeSurvived++;
-    this.scene.gameEvent.emit(eventList.TimeUpdate, null);
     if (this.playerLives <= 0) {
       this.scene.player.shouldRespawn = false;
       if (this.onGoing) {
-        this.timedEvent.destroy();
         this.roundEnded();
       }
       return;
     }
+    this.timeSurvived++;
+    this.scene.gameEvent.emit(eventList.TimeUpdate, null);
   }
 
   protected roundEnded(): void {

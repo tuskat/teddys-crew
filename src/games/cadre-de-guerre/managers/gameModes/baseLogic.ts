@@ -16,9 +16,10 @@ export class BaseLogic {
   round = 0;
   enemies = [];
   timeLeft = 0;
-  timedEvent: Phaser.Time.TimerEvent;
+  timedEvent: Phaser.Time.TimerEvent = null;
 
   constructor(params) {
+    this.cleanse();
     this.scene = params.scene;
     this.setBackgroundCollision(this.scene.player);
 
@@ -27,10 +28,11 @@ export class BaseLogic {
   }
 
   public cleanse(): void {
+    if (!this.scene) {
+      return;
+    }
     this.toEachEnemy(this.flushEnemy);
     this.enemies = null;
-    this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);
-    this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
     this.timedEvent.remove(false);
   }
 

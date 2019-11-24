@@ -16,6 +16,7 @@ export class UserInterface {
   private shouldShake: boolean = true;
 
   constructor(params) {
+    this.cleanse();
     this.scene = params.scene;
     this.gameEvent = params.gameEvent;
     this.initGUI();
@@ -44,20 +45,11 @@ export class UserInterface {
   }
 
   public cleanse(): void {
-    this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
-    this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
-    this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);
-    this.gameEvent.off(eventList.SkillRestored, this.updateCooldown, this);
-    this.gameEvent.off(eventList.Respawn, this.updateLifeBar, this);
-    this.gameEvent.off(eventList.RoundEnded, this.updateRound, this);
-    this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
-    this.gameEvent.off(eventList.LevelUp, this.levelUp, this);
-    this.gameEvent.off(eventList.GameOver, this.gameOver, this);
-    this.gameEvent.off(eventList.Dying, this.shake, this);
+    window.removeEventListener('shakeChanged', this.onShakeEvent.bind(this));
+    this.text = [];
   }
 
   private initText(): void {
-    this.text = [];
     this.text['score'] = this.scene.make.text({
       x: this.scene.sys.canvas.width - 50,
       y: 10,
@@ -72,7 +64,6 @@ export class UserInterface {
       style: fontStyles.Default
     }
     ).setScrollFactor(0);
-    console.log(this.text['time']);
   }
 
   private initLifebar(): void {

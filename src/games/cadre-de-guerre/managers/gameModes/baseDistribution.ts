@@ -51,7 +51,6 @@ export class BaseDistribution extends BaseLogic {
     } else {
       this.toEachEnemy(this.respawnEnemy);
     }
-    this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true });
     this.scene.gameEvent.emit(eventList.RoundStarted, null);
   }
 

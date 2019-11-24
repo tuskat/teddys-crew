@@ -19,6 +19,7 @@ export class ComboManager {
   private scene: GameScene;
 
   constructor(params) {
+
     this.scene = params.scene;
     this.posX = this.scene.sys.canvas.width - 200;
     this.gameEvent = params.gameEvent;
@@ -35,11 +36,6 @@ export class ComboManager {
     // events
     this.gameEvent.on(eventList.LifeUpdate, this.missCallback, this);
     this.gameEvent.on(eventList.Damaged, this.hitCallback, this);
-  }
-
-  public cleanse(): void {
-    this.gameEvent.off(eventList.LifeUpdate, this.missCallback, this);
-    this.gameEvent.off(eventList.Damaged, this.hitCallback, this);
   }
 
   private initText(): void {

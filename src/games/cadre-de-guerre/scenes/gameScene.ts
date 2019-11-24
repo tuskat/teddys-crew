@@ -12,20 +12,18 @@ import { SurvivalMode } from '../managers/gameModes/survivalMode';
 import { ComboManager } from '../managers/userExperience/comboManager';
 import { InfoHandler } from '../managers/userExperience/infoHandler';
 import { DebugMode } from '../managers/gameModes/debugMode';
-import enemiesEvents from '../configs/enums/enemiesEvents';
 
 export class GameScene extends Phaser.Scene {
   public UI: UserInterface = null;
   public comboWidget: ComboManager;
-
   public mapGenerator: MapGenerator = null;
   private soundEffectsManager: SoundEffects = null;
   private infoHandler: InfoHandler = null;
-  private waveManager;
+  private waveManager: any = null;
   public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number = 0;
-  private gold: number;
-  public player: Player;
+  private gold: number = 0;
+  public player: Player = null;
   protected selectedCharacter = Torb.default;
   protected selectedMode: any = SurvivalMode;
   //  to make more...you know
@@ -35,50 +33,40 @@ export class GameScene extends Phaser.Scene {
     super({
       key: "GameScene"
     });
-
-    if (this.gameEvent === null) {
-      this.gameEvent = new Phaser.Events.EventEmitter();
-    }
-
-    this.mapGenerator = new MapGenerator({ scene: this });
-    this.infoHandler = new InfoHandler({ scene: this });
-    this.soundEffectsManager = new SoundEffects({ scene: this });
-    this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
-    this.gameEvent.on(eventList.GameOver, this.restartGame, this);
+    this.handleSceneEvents();
+  }
+  handleSceneEvents() {
+    this.cleanse();
+    window.addEventListener('resumeGame', this.resumeGame.bind(this));
+    window.addEventListener('pauseGame', this.pauseGame.bind(this));
   }
 
   cleanse(): void {
-    // All events listenings are removed, shouldn't need to gameEvent.off on Scene
-    this.player.cleanse();
-    this.waveManager.cleanse();
-    this.soundEffectsManager.cleanse();
-    this.UI.cleanse();
-    this.comboWidget.cleanse();
-    this.infoHandler.cleanse();
+    if (!this.events) {
+      return;
+    }
+    window.removeEventListener('resumeGame', this.resumeGame.bind(this));
+    window.removeEventListener('pauseGame', this.pauseGame.bind(this));
     this.time.clearPendingEvents();
     this.time.removeAllEvents();
-    this.game.events.removeAllListeners();
-    this.children.getAll().forEach((child) => {
-      child.destroy();
-    });
+    this.events.removeAllListeners();
+    this.gameEvent.removeAllListeners();
   }
 
   preload(): void {
-    this.infoHandler.initInfoLog();
-    window.addEventListener('resumeGame', this.resumeGame.bind(this));
-    window.addEventListener('pauseGame', this.pauseGame.bind(this));
+
     this.game.events.on('blur', function () {
       this.pauseGame();
     }, this);
   }
 
   pauseGame(): void {
-    this.game.scene.pause('GameScene');
+    this.scene.pause();
     window.dispatchEvent(new CustomEvent('showUI'));
   }
 
   resumeGame(): void {
-    this.game.scene.resume('GameScene');
+    this.scene.resume();
   }
 
   init(data?): void {
@@ -123,8 +111,14 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     // Pause when out of foccin focus
+    this.gameEvent = new Phaser.Events.EventEmitter();
+    this.mapGenerator = new MapGenerator({ scene: this });
+    this.infoHandler = new InfoHandler({ scene: this });
+    this.soundEffectsManager = new SoundEffects({ scene: this });
+    this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
+    this.gameEvent.on(eventList.GameOver, this.restartGame, this);
     window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'game'}}));
-
+    this.infoHandler.initInfoLog();
     this.mapGenerator.create();
     // create objects
     this.player = this.createPlayer(MouseController, this.selectedCharacter);
@@ -135,7 +129,6 @@ export class GameScene extends Phaser.Scene {
         this.pauseGame();
       }
     }, this);
-  
     this.waveManager = new this.selectedMode({ scene: this });
     this.UI = new UserInterface({ scene: this, gameEvent: this.gameEvent });
     this.comboWidget = new ComboManager({ scene: this, gameEvent: this.gameEvent });
@@ -172,9 +165,7 @@ export class GameScene extends Phaser.Scene {
 
   restartGame(): void {
     this.time.delayedCall(4000, () => {
-      this.cleanse();
       this.scene.start("ScoreScene", { gold: this.gold } );
-      this.scene.stop("GameScene");
     }, [], this);
   }
 
