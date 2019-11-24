@@ -88,8 +88,6 @@ export class ScoreScene extends Phaser.Scene {
 
   showMenu(): void {
     this.input.removeAllListeners();
-    console.log(this.input);
-
     this.sound.remove(this.music);
     let children = this.children.getAll();
     children.forEach((child) => {

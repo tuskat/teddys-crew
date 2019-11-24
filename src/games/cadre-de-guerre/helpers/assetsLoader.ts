@@ -24,7 +24,7 @@ export class AssetsLoader {
     let shape = this.scene.add.graphics();
 
     shape.fillStyle(0x000000, 0.35);
-    shape.fillEllipse(this.scene.sys.canvas.width / 2, (this.scene.sys.canvas.height / 2) + 30, 80, 20);
+    shape.fillEllipse(this.scene.sys.canvas.width / 2, (this.scene.sys.canvas.height / 2), 80, 20);
     shape.generateTexture('shadow');
     shape.destroy();
   }

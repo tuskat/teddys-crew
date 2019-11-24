@@ -42,27 +42,31 @@ export class GameScene extends Phaser.Scene {
   }
 
   cleanse(): void {
-    if (!this.events) {
-      return;
-    }
     window.removeEventListener('resumeGame', this.resumeGame.bind(this));
     window.removeEventListener('pauseGame', this.pauseGame.bind(this));
-    this.time.clearPendingEvents();
-    this.time.removeAllEvents();
-    this.events.removeAllListeners();
-    this.gameEvent.removeAllListeners();
+    
+    if (this.time) {
+      this.time.clearPendingEvents();
+      this.time.removeAllEvents();
+    }
+
+    if (this.gameEvent) {
+      this.game.events.removeAllListeners();
+      this.gameEvent.removeAllListeners();
+    }
   }
 
   preload(): void {
-
     this.game.events.on('blur', function () {
       this.pauseGame();
     }, this);
   }
 
   pauseGame(): void {
-    this.scene.pause();
-    window.dispatchEvent(new CustomEvent('showUI'));
+    if (this.scene.isActive()) {
+      this.scene.pause();
+      window.dispatchEvent(new CustomEvent('showUI'));
+    }
   }
 
   resumeGame(): void {

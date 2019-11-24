@@ -2,6 +2,8 @@ const effectList = [
     { prefix: 'Air_14_', name: 'dash', frame : 5, framerate: 16 },
     { prefix: 'energy_28_new_', name: 'levelUp', frame : 12, framerate: 25 },
     { prefix: 'Mix_04_', name: 'explode', frame : 22, framerate: 50 },
+    { prefix: 'Earth_10_', name: 'rockDash', frame : 6, framerate: 15 },
+    { prefix: 'Earth_11_', name: 'rockShield', frame : 14, framerate: 15 },
     { prefix: 'fire_01_', name: 'fireDash', frame : 10, framerate: 15 },
     { prefix: 'Fire_13_', name: 'fire', frame : 11, framerate: 16, repeat: -1 },
     { prefix: 'fire_29_new_', name: 'fireShield', frame : 17, framerate: 35, repeat: -1 },
