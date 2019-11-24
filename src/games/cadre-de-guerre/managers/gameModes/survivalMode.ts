@@ -1,30 +1,28 @@
 import { eventList } from "../../configs/enums/eventList";
-import { DistributionLogic } from "./distributionLogic";
+import { BaseDistribution } from "./baseDistribution";
 
-export class SurvivalMode extends DistributionLogic {
+export class SurvivalMode extends BaseDistribution {
   timeToNextBuff: number = 15000;
   playerLives: number = 1;
   timeSurvived: number = 0;
   maxEnemies = 5;
-  buffEvent: Phaser.Time.TimerEvent;
+  buffEvent: Phaser.Time.TimerEvent = null;
 
   constructor(params) {
     super(params);
-    this.buffEvent = this.scene.time.addEvent({ delay: this.timeToNextBuff, callback: this.IntensityUp, callbackScope: this, loop: true });
+    this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true });
   }
 
   protected updateClock(): void {
-    this.timeSurvived++;
-    this.scene.gameEvent.emit(eventList.TimeUpdate, null);
     if (this.playerLives <= 0) {
       this.scene.player.shouldRespawn = false;
       if (this.onGoing) {
-        this.timedEvent.destroy();
-        this.buffEvent.destroy();
         this.roundEnded();
       }
       return;
     }
+    this.timeSurvived++;
+    this.scene.gameEvent.emit(eventList.TimeUpdate, null);
   }
 
   protected roundEnded(): void {

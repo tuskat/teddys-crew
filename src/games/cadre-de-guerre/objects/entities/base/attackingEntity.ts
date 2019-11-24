@@ -95,14 +95,6 @@ export class AttackingEntity extends MovingEntity {
     return this.aura;
   }
 
-  protected updatePosition(): void {
-    if (this.closeToTarget()) {
-      this.attack();
-    } else {
-      this.scene.physics.moveToObject(this, this.target, this.speed);
-    }
-  }
-
   protected attackSkill(): void {
     if (this.isNotCapableToMove()) {
       return;
@@ -113,7 +105,7 @@ export class AttackingEntity extends MovingEntity {
   protected attack(): void {
     if (!this.blockingState()) {
       this.body.setVelocity(0);
-      this.state = CurrentState.WindingUp;
+      this.resolveState(CurrentState.WindingUp);
       this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.attackSkill, [], this);
     }
   }

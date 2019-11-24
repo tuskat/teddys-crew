@@ -1,12 +1,10 @@
 import { CurrentState } from '../../configs/enums/currentStates';
-import { GameScene } from '../../scenes/gameScene';
 import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
 import { BaseController } from '../../helpers/inputs/baseController';
 import { GameObjects } from 'phaser';
 
 export class Player extends LevellingEntity {
-  scene: GameScene;
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
   closeSkillsHandler = null;
@@ -111,7 +109,7 @@ export class Player extends LevellingEntity {
     if (!this.blockingState()) {
       this.target.x = pointer.x;
       this.target.y = pointer.y;
-      this.state = CurrentState.WindingUp;
+      this.resolveState(CurrentState.WindingUp);
       this.actionPending = this.scene.time.delayedCall(this.delayToAction, this.useSkill, [action], this);
     }
   }
@@ -143,7 +141,7 @@ export class Player extends LevellingEntity {
         });
       }
     } else {
-      this.state = CurrentState.Moving;
+      this.resolveState(CurrentState.Moving);
     }
   }
   // surprisingly ok
@@ -161,7 +159,7 @@ export class Player extends LevellingEntity {
 
   protected doneRespawning(): void {
     this.scene.gameEvent.emit(eventList.Respawn, { sound: 'PowerUp02' });
-    this.state = CurrentState.Moving;
+    this.resolveState(CurrentState.Moving);
     this.isInvicible = false;
   }
 

@@ -16,22 +16,23 @@ export class BaseLogic {
   round = 0;
   enemies = [];
   timeLeft = 0;
-  timedEvent: Phaser.Time.TimerEvent;
+  timedEvent: Phaser.Time.TimerEvent = null;
 
   constructor(params) {
+    this.cleanse();
     this.scene = params.scene;
     this.setBackgroundCollision(this.scene.player);
 
-    this.timedEvent = this.scene.time.addEvent({ delay: 1000, callback: this.updateClock, callbackScope: this, loop: true });
     this.scene.gameEvent.on(eventList.StartRound, this.startRound, this);
     this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
   }
 
   public cleanse(): void {
+    if (!this.scene) {
+      return;
+    }
     this.toEachEnemy(this.flushEnemy);
     this.enemies = null;
-    this.scene.gameEvent.off(eventList.StartRound, this.startRound, this);
-    this.scene.gameEvent.off(eventList.Dying, this.playerDied, this);
     this.timedEvent.remove(false);
   }
 
@@ -85,15 +86,6 @@ export class BaseLogic {
   }
 
   protected startRound(): void {
-    this.timeLeft = this.startTime;
-    this.toEachEnemy(this.setRespawn);
-    this.onGoing = true;
-    if (this.round === 0) {
-      this.toEachEnemy(this.killSilentlyEnemy);
-    } else {
-      this.toEachEnemy(this.respawnEnemy);
-    }
-    this.scene.gameEvent.emit(eventList.RoundStarted, null);
   }
   
   protected setAllOverlaps(enemy): void {

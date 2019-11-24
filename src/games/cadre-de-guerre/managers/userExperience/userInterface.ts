@@ -5,7 +5,7 @@ import fontStyles from "../../configs/enums/fontStyles";
 const BARWIDTH = 200;
 
 export class UserInterface {
-  private text: Phaser.GameObjects.Text[] = [];
+  private text: Phaser.GameObjects.Text[] = null;
   private countDown = 0;
   private playerLifeBar: Phaser.GameObjects.Graphics;
   private playerLifeBarBg: Phaser.GameObjects.Sprite;
@@ -16,6 +16,7 @@ export class UserInterface {
   private shouldShake: boolean = true;
 
   constructor(params) {
+    this.cleanse();
     this.scene = params.scene;
     this.gameEvent = params.gameEvent;
     this.initGUI();
@@ -44,16 +45,8 @@ export class UserInterface {
   }
 
   public cleanse(): void {
-    this.gameEvent.off(eventList.ScoreUpdate, this.updateScore, this);
-    this.gameEvent.off(eventList.TimeUpdate, this.updateTime, this);
-    this.gameEvent.off(eventList.LifeUpdate, this.updateLifeBar, this);
-    this.gameEvent.off(eventList.SkillRestored, this.updateCooldown, this);
-    this.gameEvent.off(eventList.Respawn, this.updateLifeBar, this);
-    this.gameEvent.off(eventList.RoundEnded, this.updateRound, this);
-    this.gameEvent.off(eventList.CountDownStarted, this.startCountDown, this);
-    this.gameEvent.off(eventList.LevelUp, this.levelUp, this);
-    this.gameEvent.off(eventList.GameOver, this.gameOver, this);
-    this.gameEvent.off(eventList.Dying, this.shake, this);
+    window.removeEventListener('shakeChanged', this.onShakeEvent.bind(this));
+    this.text = [];
   }
 
   private initText(): void {
@@ -288,7 +281,7 @@ export class UserInterface {
   }
 
   private startCountDown(): void {
-    this.countDown = 5;
+    this.countDown = 3;
     if (!this.text['countdown']) {
       this.text['countdown'] = this.scene.make.text({
         x: this.scene.sys.canvas.width / 3,

@@ -14,7 +14,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     'shoot'
   ];
   animationPreset = defaultAnimtationPresets;
-  scene: GameScene;
+  scene: GameScene = null;
   gameEvent: Phaser.Events.EventEmitter = null;
   life = 1;
   maxLife = this.life;
@@ -46,7 +46,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   constructor(params) {
     super(params.scene, params.x, params.y, 'game-atlas', params.key + '.png');
-
+    this.scene = params.scene;
     this.initVariables(params.config);
     this.initImage();
 
@@ -169,7 +169,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isInvicible = false;
-    this.state = CurrentState.Moving;
+    this.resolveState(CurrentState.Moving);
     this.redrawLifebar();
   }
 
@@ -187,7 +187,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
         this.timeToRespawn = Phaser.Math.RND.integerInRange(1000, 5000);
       }
       this.alpha = 0;
-      this.state = CurrentState.Dead;
+      this.resolveState(CurrentState.Dead);
       this.hideLifebar();
       this.scene.time.delayedCall(this.timeToRespawn, this.respawn, [], this);
     }
@@ -222,7 +222,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
       }
       if (this.life > 0) {
         this.redrawLifebar();
-        this.state = CurrentState.Hurting;
+        this.resolveState(CurrentState.Hurting);
         this.isInvicible = true;
         this.setTint(0xFF6347);
         this.scene.time.delayedCall(this.invicibleFrame, this.endHurtingCallback, [], this);
@@ -238,7 +238,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.clearTint();
     this.isInvicible = false;
     if (this.state !== CurrentState.Dead) {
-      this.state = CurrentState.Moving;
+      this.resolveState(CurrentState.Moving);
     }
   }
 
@@ -250,4 +250,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   flushCustom(): void { }
 
+  resolveState(state): void {
+    if (this.life <= 0) {
+      this.state = CurrentState.Dead;
+    } else {
+      this.state = state;
+    }
+  }
 }

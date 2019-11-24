@@ -55,6 +55,60 @@ export class Enemy extends LevellingEntity {
     this.updateCooldown();
   }
 
+  protected updatePosition(): void {
+    if (this.closeToTarget()) {
+      this.attack();
+    } else {
+      this.move();
+    }
+  }
+
+  protected move(): void {
+    let newVelocity = this.computeVelocity();
+
+    this.body.setVelocity((newVelocity.x) * this.speed, (newVelocity.y) * this.speed)
+    // this.scene.physics.moveToObject(this, newVelocity, this.speed);
+  }
+
+  protected computeVelocity() {
+    let intention = new Phaser.Math.Vector2(0, 0);
+
+    let entities = this.scene.getEntities();
+  
+    if (entities.player) {
+      let direction = new Phaser.Math.Vector2(
+        entities.player.x - this.x,
+        entities.player.y - this.y
+      ).normalize(); // The direction vector e.g -1,0.5)
+  
+      let distance = Phaser.Math.Distance.Between(this.x, this.y, entities.player.x, entities.player.y);
+      let targetDistance = 1.0;      
+      let springStrength = distance - targetDistance;
+  
+      intention.add(
+        direction.scale(springStrength)
+      ).normalize();
+    }
+  
+    for(let enemy of entities.enemies) {
+      if (enemy === this) continue;
+      let direction = new Phaser.Math.Vector2(
+        enemy.x - this.x,
+        enemy.y - this.y
+      ).normalize(); // The direction vector e.g -1,0.5
+      
+      let distance = Phaser.Math.Distance.Between(this.x, this.y, enemy.x, enemy.y);
+      let springStrength = 1.0 / (distance / 20);
+      intention.subtract(
+        direction.multiply(new Phaser.Math.Vector2(springStrength, springStrength))
+      )
+    }
+    if (intention.length() < 0.5) {
+      return new Phaser.Math.Vector2(0,0);
+    }
+    return intention.normalize();
+  }  
+
   updateCooldown(): void {
     if (this.isNotCapableToMove()) {
       return;
@@ -64,7 +118,7 @@ export class Enemy extends LevellingEntity {
         let cooldown = this[element + '_info'].cooldown;
         if (cooldown === this[element + '_info'].cooldownDuration && !this[element + '_info'].onCooldown) {
           this[element + '_info'].onCooldown = true;
-          this.state = CurrentState.Blocked;
+          this.resolveState(CurrentState.Blocked);
           this.scene.time.delayedCall(this[element + '_info'].cooldownDuration, this.resetSkill, [`${this[element + '_info'].name}_info`], this);
         }
       }
@@ -75,7 +129,7 @@ export class Enemy extends LevellingEntity {
     this[skillInfo].cooldown = 0;
     this[skillInfo].onCooldown = false;
     if (!this.isDead()) {
-      this.state = CurrentState.Moving;
+      this.resolveState(CurrentState.Moving);
     }
   }
 

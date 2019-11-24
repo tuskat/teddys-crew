@@ -11,8 +11,17 @@ export class MenuScene extends Phaser.Scene {
     super({
       key: "MenuScene"
     });
+    this.handleSceneEvents();
   }
+  handleSceneEvents() {
+    window.removeEventListener('characterChanged', this.onCharacterChanged.bind(this));
+    window.removeEventListener('gameModeChanged', this.onGameModeChanged.bind(this));
+    window.removeEventListener('startGame', this.startGame.bind(this));
 
+    window.addEventListener('characterChanged', this.onCharacterChanged.bind(this));
+    window.addEventListener('gameModeChanged', this.onGameModeChanged.bind(this));
+    window.addEventListener('startGame', this.startGame.bind(this));
+  }
   // Change to handle interactive elements
   // Must contain
   // Character Selection : check scene argument
@@ -91,9 +100,6 @@ export class MenuScene extends Phaser.Scene {
     this.music.play();
 
     window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'menu'}}));
-    window.addEventListener('characterChanged', this.onCharacterChanged.bind(this));
-    window.addEventListener('gameModeChanged', this.onGameModeChanged.bind(this));
-    window.addEventListener('startGame', this.startGame.bind(this));
   }
 
   update(): void {
@@ -107,10 +113,7 @@ export class MenuScene extends Phaser.Scene {
   }
   startGame(): void {
     this.sound.remove(this.music);
-    let children = this.children.getAll();
-    children.forEach((child) => {
-      child.destroy();
-    });
+    this.events.removeAllListeners();
     this.scene.start("GameScene", this.settings);
   }
 }
