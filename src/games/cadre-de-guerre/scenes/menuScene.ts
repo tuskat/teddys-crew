@@ -94,7 +94,7 @@ export class MenuScene extends Phaser.Scene {
     this.music.loop = true;
     this.music.play();
 
-    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'menu'}}));
+    window.dispatchEvent(new CustomEvent('sceneChanged', { detail: { scene: 'menu'}}));
   }
 
   update(): void {

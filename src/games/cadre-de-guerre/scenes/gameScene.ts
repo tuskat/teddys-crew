@@ -121,7 +121,7 @@ export class GameScene extends Phaser.Scene {
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.gameEvent.on(eventList.GameOver, this.restartGame, this);
-    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'game'}}));
+    window.dispatchEvent(new CustomEvent('sceneChanged', { detail: { scene: 'game'}}));
     this.infoHandler.initInfoLog();
     this.mapGenerator.create();
     // create objects

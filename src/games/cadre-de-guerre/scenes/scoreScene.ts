@@ -79,7 +79,7 @@ export class ScoreScene extends Phaser.Scene {
     if (TARGET === 'web') {
       window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));
     }
-    window.dispatchEvent(new CustomEvent('scene', { detail: { scene: 'score'}}));
+    window.dispatchEvent(new CustomEvent('sceneChanged', { detail: { scene: 'score'}}));
     this.input.on('pointerdown', this.showMenu, this);
   }
 

@@ -50,13 +50,13 @@ export default {
     window.addEventListener('showUI', this.showUI);
     window.addEventListener('hideUI', this.hideUI);
     window.addEventListener('loadingComplete', this.hideLoading);
-    window.addEventListener('scene', this.setCurrentScene);
+    window.addEventListener('sceneChanged', this.setCurrentScene);
   },
 
   destroyed() {
     window.removeEventListener('showUI', this.showUI);
     window.removeEventListener('hideUI', this.hideUI);
-    window.removeEventListener('scene', this.setCurrentScene);
+    window.removeEventListener('sceneChanged', this.setCurrentScene);
   },
 
   methods: {
@@ -82,8 +82,6 @@ export default {
       script.type = 'text/javascript';
       script.src = url;
 
-      // Then bind the event to the callback function.
-      // There are several events for cross browser compatibility.
       script.onreadystatechange = callback;
       script.onload = callback;
 
