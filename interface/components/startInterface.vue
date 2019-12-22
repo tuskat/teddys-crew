@@ -56,7 +56,7 @@ export default {
 
     startGame() {
       this.$store.dispatch('hideUI');
-      window.dispatchEvent(new CustomEvent("startGame"));
+      window.dispatchEvent(new CustomEvent("startGame", { detail: { character: this.$store.state.character, gameMode: this.$store.state.gameMode}}));
     }
   }
 };

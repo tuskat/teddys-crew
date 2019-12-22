@@ -13,8 +13,8 @@ const store = new Vuex.Store({
     pause: false,
     menu: true,
     loading: true,
-    gameMode: 'Survival',
-    character: 'Torb',
+    gameMode: 'Debug',
+    character: 'Ors',
     scene: 'menu',
   },
   mutations: {
@@ -69,11 +69,9 @@ const store = new Vuex.Store({
     },
     toggleCharacter(context, newValue) {
       context.commit('setCharacter', newValue);
-      window.dispatchEvent(new CustomEvent('characterChanged', {detail: { newValue: this.state.character}}));
     },
     toggleMode(context, newValue) {
       context.commit('setGameMode', newValue);
-      window.dispatchEvent(new CustomEvent('gameModeChanged', {detail: { newValue: this.state.gameMode}}));
     },
     setScene(context, newValue) {
       context.commit('setScene', newValue);
