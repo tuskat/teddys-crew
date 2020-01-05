@@ -10,6 +10,12 @@ export class InfoHandler {
   private infoObject = [];
   protected infoLogged: number = 0;
   scene: GameScene;
+  private score = {
+    timeSurvived: 0,
+    attackNumber: 0,
+    killCount: 0,
+    maxLevel: 0
+  }
 
   constructor(params) {
     this.scene = params.scene;
