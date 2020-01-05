@@ -14,8 +14,7 @@ export class MenuScene extends Phaser.Scene {
     // this.handleSceneEvents();
   }
 
-  init(): void {	
-    console.log('heeeeeeeeiiiiiiaaaaa :U')
+  init(): void {
     this.input.on('pointerdown', this.startGame, this);	
   }
 

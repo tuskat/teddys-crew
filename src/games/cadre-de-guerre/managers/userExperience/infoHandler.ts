@@ -21,17 +21,17 @@ export class InfoHandler {
     //     baseURL: 'http://localhost:8000/',
     //     timeout: 1000
     //   });
-    this.eventList.forEach(element => {
-      this.scene.gameEvent.on(element, this.logInfo, this);
+    this.eventList.forEach(ev => {
+      this.scene.gameEvent.on(ev, this.logInfo.bind(this, ev), this);
     });
 
     // const { data } = await this.db_instance.get('top10');
   }
 
-  logInfo(obj) {
-    this.infoLogged++;
+  logInfo(eventName, obj) {
     if (obj) {
       this.infoObject[this.infoLogged] = obj;
+      this.infoLogged++;
     }
     if (this.infoLogged % 100 === 0) {
       console.log(this.infoObject);
