@@ -11,8 +11,14 @@ export class MenuScene extends Phaser.Scene {
     super({
       key: "MenuScene"
     });
-    this.handleSceneEvents();
+    // this.handleSceneEvents();
   }
+
+  init(): void {	
+    console.log('heeeeeeeeiiiiiiaaaaa :U')
+    this.input.on('pointerdown', this.startGame, this);	
+  }
+
   handleSceneEvents() {
     window.removeEventListener('startGame', this.startGame.bind(this));
     window.addEventListener('startGame', this.startGame.bind(this));
@@ -101,8 +107,8 @@ export class MenuScene extends Phaser.Scene {
   }
 
   startGame(data): void {
-    this.settings.character = data.detail.character;
-    this.settings.gameMode = data.detail.gameMode;
+    // this.settings.character = data.detail.character;
+    // this.settings.gameMode = data.detail.gameMode;
 
     this.sound.remove(this.music);
     this.events.removeAllListeners();

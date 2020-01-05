@@ -12,7 +12,7 @@ export default new Vuex.Store({
       pause: false,
       menu: true,
       loading: true,
-      gameMode: 'Debug',
+      gameMode: 'Survival',
       character: 'Ors',
       scene: 'menu',
     },
@@ -81,7 +81,8 @@ export default new Vuex.Store({
         if (state.loading) {
           return false;
         }
-        return getters.showPauseMenu || getters.showStartMenu;
+        return getters.showPauseMenu;
+        // return getters.showPauseMenu || getters.showStartMenu;
       },
       showPauseIcon: state => {
         return state.scene === 'game';
