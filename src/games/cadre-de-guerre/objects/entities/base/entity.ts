@@ -53,10 +53,11 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.spriteFolder = params.folder;
     this.scene.add.existing(this);
 
-    this.createShadow();
+
     this.setDepth(1);
     this.scene.physics.world.enable(this);
     this.body.setCollideWorldBounds(true);
+    this.createShadow();
   }
 
   cleanse(): void {
@@ -93,16 +94,19 @@ export class Entity extends Phaser.GameObjects.Sprite {
 
   updatShadowPosition(): void {
     this.shadowPatch.x = this.x;
-    this.shadowPatch.y = this.y;
+    this.shadowPatch.y = this.y + (this.displayHeight * 0.4);
     this.shadowPatch.alpha = (this.state === CurrentState.Dead) ? 0 : 0.35;
   }
 
   createShadow(): void {
+    let scale = (this.height * 0.25) / 20;
 
     this.shadowPatch = new Phaser.GameObjects.Sprite(this.scene, this.x, this.y, 'shadow');
     this.shadowPatch.setOrigin(0.5, 0.5);
     // this.shadowPatch.setSize(30,30);
     this.scene.add.existing(this.shadowPatch);
+    this.shadowPatch.scaleX = this.width / 80;
+    this.shadowPatch.scaleY = scale;
     this.shadowPatch.setDepth(0);
   }
 

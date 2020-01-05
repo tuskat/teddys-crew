@@ -25,8 +25,8 @@ const config = {
         explode: 'explode',
         bulletExplode: 'explode',
         bullet: 'fire',
-        dash: 'fireDash',
-        shield: 'fireShield',
+        dash: 'rockDash',
+        shield: 'rockShield',
         levelUp: 'levelUp'
     },
     skillNames: [

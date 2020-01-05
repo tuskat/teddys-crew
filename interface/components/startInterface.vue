@@ -3,7 +3,7 @@
     <p>Menu</p>
     <!-- Options -->
     <p v-on:click="toggleCharacter">Character : {{$store.state.character}}</p>
-    <p v-on:click="toggleMode">Mode : {{$store.state.gameMode}}</p>
+    <!-- <p v-on:click="toggleMode">Mode : {{$store.state.gameMode}}</p> -->
     <button
       type="button"
       class="btn-default"
@@ -56,7 +56,7 @@ export default {
 
     startGame() {
       this.$store.dispatch('hideUI');
-      window.dispatchEvent(new CustomEvent("startGame"));
+      window.dispatchEvent(new CustomEvent("startGame", { detail: { character: this.$store.state.character, gameMode: this.$store.state.gameMode}}));
     }
   }
 };
