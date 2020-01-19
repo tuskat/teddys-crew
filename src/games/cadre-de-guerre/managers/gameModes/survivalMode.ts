@@ -45,10 +45,4 @@ export class SurvivalMode extends BaseDistribution {
     this.enemiesLevel++;
     this.toEachEnemy(this.levelUpEnemy);
   }
-
-  protected playerDied(entity): void {
-    if (entity.faction === 'allies') {
-      this.playerLives--;
-    }
-  }
 }

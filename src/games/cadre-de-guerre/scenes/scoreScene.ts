@@ -3,7 +3,10 @@ export class ScoreScene extends Phaser.Scene {
   splash: Phaser.GameObjects.Image;
   music = null;
   gold = 0;
-  stats = null;
+  timeSurvived = 0;
+  enemiesKilled = 0;
+  maxCombo = 0;
+
   constructor() {
     super({
       key: "ScoreScene"
@@ -12,12 +15,21 @@ export class ScoreScene extends Phaser.Scene {
 
   init(data): void {
     this.gold = data.gold;
+    this.timeSurvived = data.timeSurvived;
+    this.enemiesKilled = data.enemiesKilled;
+    this.maxCombo = data.maxCombo;
   }
   
   create(): void {
     let background = this.add.graphics();
     let canvas = this.sys.canvas;
-
+    let scoreStyle = {
+      fontFamily: "Connection",
+      fontSize: 75,
+      stroke: "#000",
+      strokeThickness: 10,
+      fill: "#FFF"
+    };
 
     background.fillStyle(0xFFFFFF, 1);
     background.fillRect(canvas.width / 2, (canvas.height / 2), canvas.width, canvas.height);
@@ -50,17 +62,29 @@ export class ScoreScene extends Phaser.Scene {
         fill: "#FFF"
       }
     });
-    let title = this.make.text({
+    let totalScoreText = this.make.text({
       x: canvas.width / 2 ,
-      y: canvas.height * 0.25,
-      text: 'Score :' + this.gold,
-      style:  {
-        fontFamily: "Connection",
-        fontSize: 75,
-        stroke: "#000",
-        strokeThickness: 10,
-        fill: "#FFF"
-      }
+      y: canvas.height * 0.1,
+      text: 'Total Score :' + this.gold,
+      style: scoreStyle 
+    });
+    let timeSurvivedText = this.make.text({
+      x: canvas.width / 2 ,
+      y: canvas.height * 0.3,
+      text: 'Time Survived :' + this.timeSurvived,
+      style: scoreStyle 
+    });
+    let killCountText = this.make.text({
+      x: canvas.width / 2 ,
+      y: canvas.height * 0.5,
+      text: 'Kill Count :' + this.enemiesKilled,
+      style: scoreStyle 
+    });
+    let MaxComboText = this.make.text({
+      x: canvas.width / 2 ,
+      y: canvas.height * 0.7,
+      text: 'Max Combo :' + this.maxCombo,
+      style: scoreStyle 
     });
 
     this.add.tween({
@@ -74,7 +98,6 @@ export class ScoreScene extends Phaser.Scene {
       yoyo: true,
       loop: -1
     });
-
 
     if (TARGET === 'web') {
       window.dispatchEvent(new CustomEvent('hideUI', { detail: { isPausing: 'wha' } }));

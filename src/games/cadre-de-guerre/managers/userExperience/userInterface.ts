@@ -40,7 +40,7 @@ export class UserInterface {
     this.gameEvent.on(eventList.RoundEnded, this.updateRound, this);
     this.gameEvent.on(eventList.CountDownStarted, this.startCountDown, this);
     this.gameEvent.on(eventList.LevelUp, this.levelUp, this);
-    this.gameEvent.on(eventList.GameOver, this.gameOver, this);
+    this.gameEvent.on(eventList.GameOver, this.showGameOver, this);
     this.gameEvent.on(eventList.Dying, this.shake, this);
   }
 
@@ -239,12 +239,12 @@ export class UserInterface {
     });
   }
 
-  private gameOver(): void {
+  private showGameOver(): void {
     let index = 'gameOver';
     if (!this.text[index]) {
       this.text[index] = this.scene.make.text({
-        x: this.scene.sys.canvas.width / 3,
-        y: this.scene.sys.canvas.height / 2,
+        x: this.scene.sys.canvas.width / 2,
+        y: this.scene.sys.canvas.height / 3,
         text: "Game Over",
         style: fontStyles.Title
       }).setScrollFactor(0);
