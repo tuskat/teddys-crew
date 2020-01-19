@@ -12,10 +12,12 @@ export class BaseLogic {
   maxEnemies = 1;
   enemiesLevel = 1;
   startTime = 15;
+  playerLives: number = 1;
   onGoing = false;
   round = 0;
   enemies = [];
   timeLeft = 0;
+  enemiesKilled = 0;
   timedEvent: Phaser.Time.TimerEvent = null;
 
   constructor(params) {
@@ -24,7 +26,7 @@ export class BaseLogic {
     this.setBackgroundCollision(this.scene.player);
 
     this.scene.gameEvent.on(eventList.StartRound, this.startRound, this);
-    this.scene.gameEvent.on(eventList.Dying, this.playerDied, this);
+    this.scene.gameEvent.on(eventList.Dying, this.entityDied, this);
   }
 
   public cleanse(): void {
@@ -59,7 +61,12 @@ export class BaseLogic {
   }
 
   // Spawn/Kill
-  protected playerDied(entity): void {
+  protected entityDied(entity): void {
+    if (entity.faction === 'foes') {
+      this.enemiesKilled++;
+    } else if (entity.faction === 'allies') {
+      this.playerLives--;
+    }
   }
 
   protected killEnemy(enemy): void {
@@ -142,6 +149,10 @@ export class BaseLogic {
   // Getter
   public getTimeLeft(): number {
     return this.timeLeft;
+  }
+
+  public getEnemiesKilled(): number {
+    return this.enemiesKilled;
   }
 
   public getEnemyGroup(): Array<any> {

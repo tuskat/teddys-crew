@@ -23,6 +23,7 @@ export class GameScene extends Phaser.Scene {
   public gameEvent: Phaser.Events.EventEmitter = null;
   public kills: number = 0;
   private gold: number = 0;
+  private maxCombo: number = 0;
   public player: Player = null;
   protected selectedCharacter = Torb.default;
   protected selectedMode: any = SurvivalMode;
@@ -121,6 +122,7 @@ export class GameScene extends Phaser.Scene {
     this.soundEffectsManager = new SoundEffects({ scene: this });
     this.gameEvent.on(eventList.RoundEnded, this.restartRound, this);
     this.gameEvent.on(eventList.GameOver, this.restartGame, this);
+    this.gameEvent.on(eventList.ComboLoss, this.comboLossHandler, this);
     window.dispatchEvent(new CustomEvent('sceneChanged', { detail: { scene: 'game'}}));
     this.infoHandler.initInfoLog();
     this.mapGenerator.create();
@@ -154,6 +156,14 @@ export class GameScene extends Phaser.Scene {
     return this.waveManager.getTimeLeft() || 0;
   }
 
+  getEnemiesKilled(): number {
+    return this.waveManager.getEnemiesKilled() || 0;
+  }
+
+  getMaxCombo(): number {
+    return this.maxCombo;
+  }
+
   getGameEvent(): Phaser.Events.EventEmitter {
     return this.gameEvent;
   }
@@ -168,8 +178,14 @@ export class GameScene extends Phaser.Scene {
   }
 
   restartGame(): void {
+    let scoreStats = {
+      gold: this.gold,
+      timeSurvived: this.getTimeLeft(),
+      enemiesKilled: this.getEnemiesKilled(),
+      maxCombo: this.getMaxCombo()
+    }
     this.time.delayedCall(4000, () => {
-      this.scene.start("ScoreScene", { gold: this.gold } );
+      this.scene.start("ScoreScene", scoreStats );
     }, [], this);
   }
 
@@ -182,6 +198,11 @@ export class GameScene extends Phaser.Scene {
     let is_linux = /Linux/.test(window.navigator.platform);
     let is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     return (is_firefox && is_linux);
+  }
+  comboLossHandler(obj) {
+    if (obj.maxCombo > this.maxCombo) {
+      this.maxCombo = obj.maxCombo
+    }
   }
 
   createPlayer(controller, character): any {

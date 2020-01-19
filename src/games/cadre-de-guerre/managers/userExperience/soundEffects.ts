@@ -88,9 +88,13 @@ export class SoundEffects {
   }
 
   playSound(obj) {
-    if (obj && this.shouldPlaySound) {
+    if (this.isValidSoundEvent(obj) && this.shouldPlaySound) {
       this.sounds[obj.sound].play();
     }
+  }
+
+  isValidSoundEvent(obj) {
+    return obj && obj.sound;
   }
 
   public playMusic(title) {

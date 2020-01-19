@@ -7,7 +7,8 @@ const BARWIDTH = 100;
 
 export class ComboManager {
   private text: Phaser.GameObjects.Text[] = [];
-  private rush = 0;
+  private combo = 0;
+  private maxCombo = 0;
   private posX = 0;
   private posY = 125;
   private timeToClear = 3000;
@@ -39,18 +40,18 @@ export class ComboManager {
   }
 
   private initText(): void {
-    this.text['rush_subtitle'] = this.scene.make.text({
+    this.text['combo_subtitle'] = this.scene.make.text({
       x: this.posX,
       y: 100,
-      text: "Rush!!",
+      text: "combo!!",
       style: fontStyles.Default,
       alpha: 0
     }
     );
-    this.text['rush'] = this.scene.make.text({
+    this.text['combo'] = this.scene.make.text({
       x: this.posX,
       y: 50,
-      text: this.rush + '',
+      text: this.combo + '',
       style: fontStyles.Title,
       alpha: 0
     }
@@ -72,7 +73,7 @@ export class ComboManager {
 
   private hitCallback(event): void {
     if (event.faction === 'foes') {
-      this.rush++;
+      this.combo++;
       this.comboTime = this.timeToClear;
       this.updateCombo();
      
@@ -88,7 +89,7 @@ export class ComboManager {
   }
 
   public update(time, delta): void {
-    if (this.rush > 0) {
+    if (this.combo > 0) {
       this.updateComboBar();
       this.comboTime -= delta;
       if (this.comboTime <= 0) {
@@ -100,18 +101,21 @@ export class ComboManager {
   }
 
   private loseCombo(): void {
-    this.rush = 0;
-    this.scene.gameEvent.emit(eventList.ComboLoss, null);
+    if (this.combo > this.maxCombo) {
+      this.maxCombo = this.combo;
+    }
+    this.combo = 0;
+    this.scene.gameEvent.emit(eventList.ComboLoss, { maxCombo: this.maxCombo});
   }
   // Update methods
   private updateCombo(): void {
-    let scale = 1 * (1 + (this.rush / 100));
+    let scale = 1 * (1 + (this.combo / 100));
     if (scale > 1.25) {
       scale = 1.25;
     }
-    this.text['rush'].setText(this.rush);
+    this.text['combo'].setText(this.combo);
     this.scene.add.tween({
-      targets: [this.text['rush'], this.text['rush_subtitle'], this.comboBar, this.comboBarBg],
+      targets: [this.text['combo'], this.text['combo_subtitle'], this.comboBar, this.comboBarBg],
       ease: 'Sine.easeInOut',
       alpha: {
         getStart: () => 1,
@@ -122,7 +126,7 @@ export class ComboManager {
     });
     if (this.isBouncing === false) {
       this.scene.add.tween({
-        targets: [this.text['rush'], this.text['rush_subtitle']],
+        targets: [this.text['combo'], this.text['combo_subtitle']],
         scale: scale,
         duration: 200,
         ease: 'Bounce.easeInOut',
@@ -135,7 +139,7 @@ export class ComboManager {
   }
 
   private comboPowerUp(): void {
-    if (this.rush > 0 && (this.rush % 50 === 0)) {
+    if (this.combo > 0 && (this.combo % 50 === 0)) {
       this.scene.gameEvent.emit(eventList.ComboPowerUp, null);
     }
   }
@@ -151,6 +155,6 @@ export class ComboManager {
   }
 
   public getCurrentCombo(): number {
-    return this.rush;
+    return this.combo;
   }
 }

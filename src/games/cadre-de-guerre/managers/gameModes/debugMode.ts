@@ -58,10 +58,4 @@ export class DebugMode extends BaseDistribution {
       this.redistributeEnemies();
     }
   }
-
-  protected playerDied(entity): void {
-    if (entity.faction === 'allies') {
-      this.playerLives--;
-    }
-  }
 }
