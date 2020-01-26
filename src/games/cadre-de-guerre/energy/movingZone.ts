@@ -22,7 +22,7 @@ export class MovingZone extends BaseEnergy {
     if (this.width <= this.parent.width) {
       this.setScale(ratio * 1.65);
     } else {
-      this.setScale(0.5);
+      this.setScale(0.75);
     }
     // this.body.setSize(80, 80, true);
     // physics
