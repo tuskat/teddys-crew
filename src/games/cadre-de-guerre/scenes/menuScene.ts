@@ -110,7 +110,7 @@ export class MenuScene extends Phaser.Scene {
     // this.settings.gameMode = data.detail.gameMode;
 
     this.sound.remove(this.music);
-    this.events.removeAllListeners();
+    this.input.removeAllListeners();
     this.scene.start("GameScene", this.settings);
   }
 }

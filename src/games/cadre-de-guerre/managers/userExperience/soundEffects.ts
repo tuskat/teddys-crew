@@ -36,16 +36,13 @@ export class SoundEffects {
   scene: GameScene;
 
   constructor(params) {
-    this.cleanse();
     this.scene = params.scene;
+    this.cleanse();
     this.eventList = this.enumToArray(eventList);
   }
 
   cleanse() {
     window.removeEventListener('soundChanged', this.onSoundEvent.bind(this));
-    if (!this.scene) {
-      return;
-    }
 
     this.soundList.forEach(element => {
       this.scene.sound.remove(this.sounds[element]);
@@ -54,6 +51,11 @@ export class SoundEffects {
     this.musicList.forEach(element => {
       this.scene.sound.remove(this.musics[element]);
     });
+
+    if (this.currentMusic) {
+      this.currentMusic.stop();
+      this.scene.sound.remove(this.currentMusic);
+    }
   }
 
   preloadSound() {
