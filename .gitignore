@@ -9,10 +9,10 @@ styles
 #-------------------------------------------------------------------------------
 dist
 builds
-electron
+electron/*
+!electron/package.json
 build
 built
 node_modules
 *.tsx
-yarn.lock
-package-lock.json
+
