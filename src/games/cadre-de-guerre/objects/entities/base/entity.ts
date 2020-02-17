@@ -92,7 +92,7 @@ export class Entity extends Phaser.GameObjects.Sprite {
     this.scale = 1;
   }
 
-  updatShadowPosition(): void {
+  updateShadowPosition(): void {
     this.shadowPatch.x = this.x;
     this.shadowPatch.y = this.y + (this.displayHeight * 0.4);
     this.shadowPatch.alpha = (this.state === CurrentState.Dead) ? 0 : 0.35;

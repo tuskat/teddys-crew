@@ -1,8 +1,6 @@
 import { GameScene } from "../../scenes/gameScene";
-import { Config } from "../../config";
 import { eventList } from "../../configs/enums/eventList";
 // import Axios from "axios";
-import { emit } from "cluster";
 
 export class InfoHandler {
   private db_instance;
@@ -38,9 +36,6 @@ export class InfoHandler {
     if (obj) {
       this.infoObject[this.infoLogged] = obj;
       this.infoLogged++;
-    }
-    if (this.infoLogged % 100 === 0) {
-      console.log(this.infoObject);
     }
     // if (obj && obj.name) {
     //     if (obj.name === 'GameOver') {

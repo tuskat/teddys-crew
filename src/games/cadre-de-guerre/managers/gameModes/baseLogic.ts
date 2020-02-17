@@ -5,7 +5,6 @@ import * as ZonerConfig from '../../configs/characters/zoner';
 
 import { GameScene } from "../../scenes/gameScene";
 import { eventList } from "../../configs/enums/eventList";
-const { matches } = require('z');
 
 export class BaseLogic {
   scene: GameScene;
@@ -165,11 +164,17 @@ export class BaseLogic {
   }
   // Todo : One function can do both
   getEnemyClassConfig(type): any {
-    return matches(type)(
-      (x = 'Angler') => AnglerConfig.default,
-      (x = 'Dasher') => DasherConfig.default,
-      (x = 'Shooter') => ShooterConfig.default,
-      (x = 'Zoner') => ZonerConfig.default
-    );
+    switch(type) {
+      case 'Angler':
+        return  AnglerConfig.default;
+      case 'Dasher':
+        return DasherConfig.default;
+      case 'Shooter':
+        return ShooterConfig.default;
+      case 'Zoner':
+        return ZonerConfig.default
+      default:
+        return false;
+    }
   }
 }

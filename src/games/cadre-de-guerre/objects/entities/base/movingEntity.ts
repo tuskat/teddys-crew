@@ -39,9 +39,13 @@ export class MovingEntity extends Entity {
     this.scene.physics.moveToObject(this, this.target, this.speed);
   }
 
+  protected updateText(): void {
+  }
+
   protected updateFrame(): void {
     let extension = '.png';
-    this.updatShadowPosition();
+    this.updateShadowPosition();
+    this.updateText();
     if (this.target.x < this.x) {
       this.setFlipX(true);
     } else {

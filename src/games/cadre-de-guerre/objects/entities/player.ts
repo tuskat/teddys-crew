@@ -3,11 +3,13 @@ import { eventList } from '../../configs/enums/eventList';
 import { LevellingEntity } from './base/levellingEntity';
 import { BaseController } from '../../helpers/inputs/baseController';
 import { GameObjects } from 'phaser';
+import fontStyles from '../../configs/enums/fontStyles';
 
 export class Player extends LevellingEntity {
   dashSpeed = this.maxSpeedX;
   state = CurrentState.Moving;
   closeSkillsHandler = null;
+  playerText: Phaser.GameObjects.Text = null;
   skillIcons: GameObjects.Image[] = [];
 
   constructor(params) {
@@ -38,9 +40,16 @@ export class Player extends LevellingEntity {
 
   protected initUI(): void {
     // first 3 skills are attac...for lazyness purpose
+    this.playerText = this.scene.make.text({
+      x: this.x - 10,
+      y: this.y + 30,
+      text: "Player 1",
+      style: fontStyles.Smallest
+    }
+    ).setScrollFactor(0);
     for (let i = 0; i !== this.skillNames.length; i++) {
       let frame = `${this.name}/Skill_${(i + 1)}.png`;
-      let icon = this.scene.add.sprite((this.scene.sys.canvas.width - 180) + (i * 55), this.scene.sys.canvas.height - 64, 'game-ui', frame);
+      let icon = this.scene.add.sprite(40 + (i * 55), 108, 'game-ui', frame);
       icon.scale = 0.75;
       this.skillIcons[this.skillNames[i]] = icon;
     }
@@ -55,6 +64,12 @@ export class Player extends LevellingEntity {
         }
       }
     }
+  }
+
+  updateText(): void {
+    let x = this.x - 32;
+    let y = this.y + 30;
+    this.playerText.setPosition(x, y);
   }
 
   updateCooldown(delta): void {

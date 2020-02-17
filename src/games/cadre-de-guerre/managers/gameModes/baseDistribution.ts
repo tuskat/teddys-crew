@@ -3,7 +3,6 @@ import { BaseLogic } from './baseLogic';
 import { Enemy } from "../../objects/entities/enemy";
 import { eventList } from "../../configs/enums/eventList";
 import { Boss } from "../../objects/entities/boss";
-const { matches } = require('z');
 
 export class BaseDistribution extends BaseLogic {
 
@@ -34,11 +33,17 @@ export class BaseDistribution extends BaseLogic {
 
   pickEnemy(): string {
     let type = (parseInt(this.enemySequence()) + 1);
-    return matches(type)(
-      (x = 1) => 'Dasher',
-      (x = 2) => 'Shooter',
-      (x = 3) => 'Zoner'
-    );
+
+    switch(type) {
+      case 1:
+        return 'Dasher';
+      case 2:
+        return'Shooter';
+      case 3:
+        return 'Zoner';
+      default:
+        return 'Dasher';
+    }
   }
   
   protected startRound(): void {
