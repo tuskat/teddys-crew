@@ -1,36 +1,27 @@
 # Teddy's Crews
 
-## -
-
-It has always been a dream of mine to be able to explore beyond the limits of the human mind. To strip the universe down to its essence and understand everything in and out of it. But what i found shook me to the core of my existence... When one is faced with a darkness so vast, so powerful.. Maybe the only logical solution is to go insane...
 
 ## Synopsis
 
 "Teddy's Crews" is a cute parody of [Redacted], it stars some bears like creatures with insect masks fighting some obscure-like (deep-sea inspired) creatures.
-The goal is to fight off waves of enemies. It is a reversed dungeon : each wave will completely change the room.
-You will have a say on which room you raid (at a later date)
+The goal is to fight off waves of enemies. 
 
 ## Controls
 
 - Click somewhere to dash. Dash is an attack
-- Click on character to use zoning skill (To Do)
-- Right click to use long range skill
+- Click on character to use zoning skill
 
 ## Genre
 
 Alpha :
 Action Survival :
 - you have to live and level up as long as possible.
-- Die 5 times and it's game over.
-- Every minute enemies level up.
-- An enemy can level up by killing you. (fix that)
-- Enemies wind up time and projectiles speed are affected by level.
+- Die once times and it's game over.
+- Every 15 seconds enemies level up.
 
 ## To do
 
 - Separate controls from player logic to allow coop (coop does not have to exist yet)
-- character zoning skill : hurt a lot, big cooldown.
-- replace bullet shoot by character skill. short cooldown.
 - passives skills by picking up item (see Hades section)
 - room manager
 - Basic Boss entity
