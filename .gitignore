@@ -15,4 +15,4 @@ build
 built
 node_modules
 *.tsx
-
+sentry_key.ts

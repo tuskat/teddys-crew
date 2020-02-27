@@ -6,7 +6,7 @@ import { ScoreScene } from "./scenes/scoreScene";
 import { Config } from "./config";
 import { ObjectUtils } from "./utils/objectUtils";
 import * as Sentry from '@sentry/browser';
-
+import { sentry_key } from './sentry_key';
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
@@ -23,7 +23,7 @@ async function launch(): Promise<void> {
   let debug = process.env.NODE_ENV !== 'production' ? true : false;
 
   if (!debug) {
-    Sentry.init({ dsn: 'https://62328e69a6ab42c7b2af12cbf867e69b@sentry.io/1527013' });
+    Sentry.init({ dsn: sentry_key });
     try {
       if (TARGET === 'electron') {
         configJson = await ObjectUtils.loadJson("./assets/config.json");
