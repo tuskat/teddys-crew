@@ -1,5 +1,5 @@
-# Teddy's Crews
-
+# Teddy's Crews (Packages outdated)
+Note that the project was built with now deprecated technologies and will not work on modern stacks.
 
 ## Synopsis
 
